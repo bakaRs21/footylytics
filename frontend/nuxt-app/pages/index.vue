@@ -1,6 +1,7 @@
 <script setup>
 const config = useRuntimeConfig()
-const { data, error } = await useFetch(`${config.public.apiBase}/hello`)
+const base = config.public.apiBase
+const { data, error } = await useFetch(`${base}/api/hello`)
 </script>
 
 <template>
