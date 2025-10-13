@@ -1,0 +1,128 @@
+age,currentClub,dateOfBirth,foot,height,id,joinedOn,marketValue,name,nationality,played_for,position,season,signedFrom
+34,Retired,"May 17, 1978",right,"1,85m",13524,"Jul 1, 2010",€1.00m,Paddy Kenny,"['Ireland', 'England']",Queens-Park-Rangers,Goalkeeper,2011-2012,Sheffield United
+38,Retired,"Feb 18, 1974",right,"1,87m",21010,"Jul 1, 2008",€500k,Radek Cerny,['Czech Republic'],Queens-Park-Rangers,Goalkeeper,2011-2012,Tottenham Hotspur
+29,Retired,"May 7, 1983",right,"1,85m",4190,"Jul 1, 2011",€500k,Brian Murphy,['Ireland'],Queens-Park-Rangers,Goalkeeper,2011-2012,Ipswich Town
+21,Great Yarmouth Town FC,"Jun 12, 1991",right,"1,88m",120713,"Jul 1, 2009",€50k,Elvijs Putnins,['Latvia'],Queens-Park-Rangers,Goalkeeper,2011-2012,Queens Park Rangers U18
+25,Retired,"Nov 12, 1986",right,"1,83m",28810,"Jan 1, 2012",€4.00m,Nedum Onuoha,"['England', 'Nigeria']",Queens-Park-Rangers,Centre-Back,2011-2012,: Ablöse €4.70m
+27,Retired,"Feb 18, 1985",right,"1,85m",3698,"Aug 31, 2011",€3.50m,Anton Ferdinand,"['England', 'St. Lucia']",Queens-Park-Rangers,Centre-Back,2011-2012,Sunderland AFC
+24,Retired,"Sep 24, 1987",right,"1,88m",34559,"Jan 2, 2008",€1.50m,Matthew Connolly,['England'],Queens-Park-Rangers,Centre-Back,2011-2012,Arsenal FC Reserves
+30,Retired,"Nov 6, 1981",left,"1,91m",30379,"Jul 1, 2008",€1.00m,Kaspars Gorkss,['Latvia'],Queens-Park-Rangers,Centre-Back,2011-2012,Blackpool FC
+33,Retired,"Oct 19, 1978",left,"1,83m",13583,"Jul 1, 2010",€750k,Clint Hill,['England'],Queens-Park-Rangers,Centre-Back,2011-2012,: Ablöse free transfer
+31,Retired,"Dec 20, 1980",right,"1,93m",6580,"Jan 4, 2008",€750k,Fitz Hall,['England'],Queens-Park-Rangers,Centre-Back,2011-2012,Wigan Athletic
+28,Retired,"Nov 22, 1983",right,"1,85m",28801,"Jul 1, 2008",€750k,Peter Ramage,"['England', 'Scotland']",Queens-Park-Rangers,Centre-Back,2011-2012,Newcastle United
+31,Retired,"Sep 2, 1980",right,"1,91m",13736,"Jan 27, 2011",€750k,Danny Shittu,['Nigeria'],Queens-Park-Rangers,Centre-Back,2011-2012,: Ablöse free transfer
+32,Retired,"Aug 8, 1979",right,"1,78m",12709,"Jul 25, 2011",€500k,Danny Gabbidon,"['Wales', 'Jamaica']",Queens-Park-Rangers,Centre-Back,2011-2012,: Ablöse free transfer
+24,CP San Cristóbal,"Jul 6, 1987",right,"1,91m",67996,"Aug 1, 2011",€250k,Bruno Perone,"['Brazil', 'Italy']",Queens-Park-Rangers,Centre-Back,2011-2012,Tombense Futebol Clube (MG)
+19,AFC Rushden & Diamonds,"Oct 23, 1992",right,"1,71m",155233,"Jul 1, 2011",,Michael Harriman,"['Ireland', 'England']",Queens-Park-Rangers,Centre-Back,2011-2012,Queens Park Rangers U18
+27,Retired,"Apr 16, 1985",left,"1,82m",28922,"Jan 24, 2012",€6.50m,Taye Taiwo,['Nigeria'],Queens-Park-Rangers,Left-Back,2011-2012,AC Milan
+22,Retired,"Oct 8, 1989",left,"1,84m",33783,"Aug 1, 2011",€2.50m,Armand Traoré,"['Senegal', 'France']",Queens-Park-Rangers,Left-Back,2011-2012,: Ablöse €1.35m
+29,Retired,"Nov 1, 1982",right,"1,82m",16091,"Jul 26, 2010",€1.50m,Bradley Orr,['England'],Queens-Park-Rangers,Right-Back,2011-2012,: Ablöse ?
+32,Retired,"Jul 19, 1979",right,"1,83m",3271,"Aug 27, 2011",€1.50m,Luke Young,['England'],Queens-Park-Rangers,Right-Back,2011-2012,: Ablöse €1.13m
+18,Chesham United,"Nov 18, 1993",,"1,79m",198122,,,Jordan Gibbons,['England'],Queens-Park-Rangers,Right-Back,2011-2012,
+23,Retired,"Jan 24, 1989",right,"1,86m",136589,"Jul 1, 2012",€4.50m,Samba Diakité,"['Mali', 'France']",Queens-Park-Rangers,Defensive Midfield,2011-2012,: Ablöse €4.00m
+34,Retired,"Dec 6, 1977",right,"1,77m",14007,"Jul 1, 2010",€500k,Shaun Derry,['England'],Queens-Park-Rangers,Defensive Midfield,2011-2012,: Ablöse free transfer
+23,Al-Nasr SC (UAE),"May 24, 1989",right,"1,85m",45287,"Aug 5, 2010",€7.50m,Adel Taarabt,"['Morocco', 'France']",Queens-Park-Rangers,Central Midfield,2011-2012,Tottenham Hotspur
+29,Retired,"Sep 2, 1982",right,"1,80m",3292,"Aug 26, 2011",€5.00m,Joey Barton,['England'],Queens-Park-Rangers,Central Midfield,2011-2012,Newcastle United
+25,Retired,"Aug 9, 1986",left,"1,85m",88067,"Jul 1, 2009",€4.50m,Alejandro Faurlín,"['Argentina', 'Italy']",Queens-Park-Rangers,Central Midfield,2011-2012,Instituto ACC
+30,Retired,"May 7, 1982",right,"1,80m",13878,"Oct 30, 2007",€1.00m,Ákos Buzsáky,['Hungary'],Queens-Park-Rangers,Central Midfield,2011-2012,Plymouth Argyle
+33,Retired,"Feb 8, 1979",both,"1,75m",13734,"Jul 1, 2003",€750k,Martin Rowlands,"['Ireland', 'England']",Queens-Park-Rangers,Central Midfield,2011-2012,: Ablöse free transfer
+26,Kissos Kissonergas,"Jun 18, 1986",left,"1,73m",47995,"Aug 31, 2011",€750k,Jason Puncheon,"['England', 'Jamaica']",Queens-Park-Rangers,Central Midfield,2011-2012,Southampton FC
+33,Retired,"Dec 29, 1978",right,"1,70m",3118,"Jul 13, 2011",€500k,Kieron Dyer,"['England', 'Antigua and Barbuda']",Queens-Park-Rangers,Right Midfield,2011-2012,: Ablöse free transfer
+24,Retired,"Mar 31, 1988",left,"1,75m",31883,"Jan 2, 2008",€500k,Hogan Ephraim,['England'],Queens-Park-Rangers,Left Midfield,2011-2012,: Ablöse €375k
+18,Kettering Town,"Oct 2, 1993",right,"1,75m",169633,"Jul 1, 2011",,Bruno Andrade,"['Portugal', 'Cape Verde']",Queens-Park-Rangers,Left Midfield,2011-2012,Queens Park Rangers U18
+28,Retired,"Feb 5, 1984",left,"1,81m",26422,"Jan 1, 2011",€950k,Petter Vaagan Moen,['Norway'],Queens-Park-Rangers,Attacking Midfield,2011-2012,SK Brann
+21,Hornchurch FC,"Jul 1, 1990",left,"1,79m",43696,"Jan 16, 2008",€125k,Ángelo Balanta,"['Colombia', 'England']",Queens-Park-Rangers,Attacking Midfield,2011-2012,Queens Park Rangers U18
+29,Retired,"Aug 3, 1982",left,"1,77m",13783,"Aug 4, 2008",€500k,Lee Cook,['England'],Queens-Park-Rangers,Left Winger,2011-2012,Fulham FC
+30,Retired,"Oct 25, 1981",right,"1,66m",3467,"Aug 1, 2011",€3.50m,Shaun Wright-Phillips,"['England', 'Grenada']",Queens-Park-Rangers,Right Winger,2011-2012,: Ablöse €4.50m
+30,Retired,"Aug 12, 1981",right,"1,82m",3966,"Jan 31, 2012",€6.00m,Djibril Cissé,"['France', ""Cote d'Ivoire""]",Queens-Park-Rangers,Centre-Forward,2011-2012,: Ablöse €5.00m
+31,Retired,"Jan 16, 1981",left,"1,84m",4205,"Jan 31, 2012",€5.00m,Bobby Zamora,"['England', 'Trinidad and Tobago']",Queens-Park-Rangers,Centre-Forward,2011-2012,Fulham FC
+26,Retired,"Sep 22, 1985",right,"1,82m",15929,"Jul 1, 2015",€3.50m,Jamie Mackie,"['Scotland', 'England']",Queens-Park-Rangers,Centre-Forward,2011-2012,: Ablöse free transfer
+20,Asteras Aktor,"Aug 22, 1991",right,"1,85m",61887,"Jan 2, 2012",€2.50m,Federico Macheda,['Italy'],Queens-Park-Rangers,Centre-Forward,2011-2012,Manchester United
+30,Retired,"Nov 12, 1981",right,"1,78m",37896,"Jul 1, 2011",€1.50m,DJ Campbell,['England'],Queens-Park-Rangers,Centre-Forward,2011-2012,Blackpool FC
+30,Retired,"May 7, 1982",left,"1,90m",8188,"Jul 1, 2011",€1.50m,Jay Bothroyd,"['England', 'Guyana']",Queens-Park-Rangers,Centre-Forward,2011-2012,: Ablöse free transfer
+32,Retired,"May 22, 1980",right,"1,78m",12401,"Sep 8, 2010",€750k,Tommy Smith,['England'],Queens-Park-Rangers,Centre-Forward,2011-2012,: Ablöse €1.88m
+29,Southall United,"Sep 21, 1982",right,"1,85m",7930,"Oct 1, 2007",€500k,Rowan Vine,['England'],Queens-Park-Rangers,Centre-Forward,2011-2012,: Ablöse €1.50m
+31,Retired,"Sep 29, 1980",right,"1,85m",13982,"Jan 3, 2008",€500k,Patrick Agyemang,"['Ghana', 'England']",Queens-Park-Rangers,Centre-Forward,2011-2012,: Ablöse €525k
+32,Retired,"Oct 25, 1979",right,"1,85m",9980,"Aug 31, 2010",€500k,Rob Hulse,['England'],Queens-Park-Rangers,Centre-Forward,2011-2012,: Ablöse €975k
+34,Retired,"Aug 22, 1977",both,"1,78m",9886,"Nov 20, 2008",€500k,Heidar Helguson,['Iceland'],Queens-Park-Rangers,Centre-Forward,2011-2012,: Ablöse €450k
+20,Without Club,"Dec 26, 1991",left,"1,87m",105500,"Jul 1, 2009",€250k,Antonio German,"['Grenada', 'England']",Queens-Park-Rangers,Centre-Forward,2011-2012,Queens Park Rangers U18
+22,Retired,"Feb 10, 1990",right,"1,83m",197884,"Feb 23, 2011",,Troy Hewitt,['England'],Queens-Park-Rangers,Centre-Forward,2011-2012,Harrow Borough FC
+33,Retired,"Sep 3, 1979",left,"1,86m",22412,"Aug 29, 2012",€4.00m,Júlio César,['Brazil'],Queens-Park-Rangers,Goalkeeper,2012-2013,: Ablöse free transfer
+33,Retired,"Jan 18, 1980",right,"1,91m",11680,"Jul 1, 2012",€2.00m,Rob Green,['England'],Queens-Park-Rangers,Goalkeeper,2012-2013,: Ablöse free transfer
+39,Retired,"Feb 18, 1974",right,"1,87m",21010,"Jul 1, 2008",€500k,Radek Cerny,['Czech Republic'],Queens-Park-Rangers,Goalkeeper,2012-2013,Tottenham Hotspur
+30,Retired,"May 7, 1983",right,"1,85m",4190,"Jul 1, 2011",€500k,Brian Murphy,['Ireland'],Queens-Park-Rangers,Goalkeeper,2012-2013,Ipswich Town
+29,Retired,"Mar 28, 1984",,,29016,"Jan 31, 2013",€15.00m,Christopher Samba,"['Congo', 'France']",Queens-Park-Rangers,Centre-Back,2012-2013,Anzhi Makhachkala ( -2022)
+26,Retired,"Nov 12, 1986",right,"1,83m",28810,"Jan 1, 2012",€3.00m,Nedum Onuoha,"['England', 'Nigeria']",Queens-Park-Rangers,Centre-Back,2012-2013,: Ablöse €4.70m
+28,Retired,"Feb 18, 1985",right,"1,85m",3698,"Aug 31, 2011",€2.00m,Anton Ferdinand,"['England', 'St. Lucia']",Queens-Park-Rangers,Centre-Back,2012-2013,Sunderland AFC
+31,Retired,"Mar 31, 1982",right,"1,83m",20714,"Jan 4, 2013",€1.00m,Tal Ben Haim,['Israel'],Queens-Park-Rangers,Centre-Back,2012-2013,Without Club
+34,Retired,"Oct 19, 1978",left,"1,83m",13583,"Jul 1, 2010",€750k,Clint Hill,['England'],Queens-Park-Rangers,Centre-Back,2012-2013,: Ablöse free transfer
+35,Retired,"Oct 18, 1977",right,"1,85m",28878,"Jul 1, 2012",,Ryan Nelsen,['New Zealand'],Queens-Park-Rangers,Centre-Back,2012-2013,Tottenham Hotspur
+21,Gillingham FC,"Feb 3, 1992",right,"1,88m",158718,"Jul 1, 2009",,Max Ehmer,['Germany'],Queens-Park-Rangers,Centre-Back,2012-2013,Queens Park Rangers U18
+20,AFC Rushden & Diamonds,"Oct 23, 1992",right,"1,71m",155233,"Jul 1, 2011",,Michael Harriman,"['Ireland', 'England']",Queens-Park-Rangers,Centre-Back,2012-2013,Queens Park Rangers U18
+23,Retired,"Oct 8, 1989",left,"1,84m",33783,"Aug 1, 2011",€3.50m,Armand Traoré,"['Senegal', 'France']",Queens-Park-Rangers,Left-Back,2012-2013,: Ablöse €1.35m
+23,Gangwon FC,"Feb 13, 1990",left,"1,83m",126643,"Jan 30, 2013",€750k,Seok-yeong Yun,"['Korea, South']",Queens-Park-Rangers,Left-Back,2012-2013,: Ablöse ?
+22,Grêmio Foot-Ball Porto Alegrense,"Jul 9, 1990",right,"1,72m",61891,"Jul 1, 2012",€7.00m,Fábio,"['Brazil', 'Portugal']",Queens-Park-Rangers,Right-Back,2012-2013,Manchester United
+30,Retired,"Aug 24, 1982",right,"1,83m",9813,"Aug 17, 2012",€3.00m,Bosingwa,"['Portugal', 'DR Congo']",Queens-Park-Rangers,Right-Back,2012-2013,Chelsea FC
+33,Retired,"Jul 19, 1979",right,"1,83m",3271,"Aug 27, 2011",€1.00m,Luke Young,['England'],Queens-Park-Rangers,Right-Back,2012-2013,: Ablöse €1.13m
+27,Without Club,"May 20, 1986",right,"1,89m",27470,"Aug 31, 2012",€10.00m,Stéphane Mbia,"['Cameroon', 'France']",Queens-Park-Rangers,Defensive Midfield,2012-2013,Olympique Marseille
+24,Retired,"Jan 24, 1989",right,"1,86m",136589,"Jul 1, 2012",€3.00m,Samba Diakité,"['Mali', 'France']",Queens-Park-Rangers,Defensive Midfield,2012-2013,: Ablöse €4.00m
+35,Retired,"Dec 6, 1977",right,"1,77m",14007,"Jul 1, 2010",€500k,Shaun Derry,['England'],Queens-Park-Rangers,Defensive Midfield,2012-2013,: Ablöse free transfer
+24,Al-Nasr SC (UAE),"May 24, 1989",right,"1,85m",45287,"Aug 5, 2010",€10.00m,Adel Taarabt,"['Morocco', 'France']",Queens-Park-Rangers,Central Midfield,2012-2013,Tottenham Hotspur
+25,Retired,"Jul 2, 1987",right,"1,80m",44065,"Aug 30, 2012",€7.50m,Esteban Granero,['Spain'],Queens-Park-Rangers,Central Midfield,2012-2013,Real Madrid
+30,Retired,"Feb 18, 1983",right,"1,81m",3461,"Jan 31, 2013",€3.50m,Jermaine Jenas,['England'],Queens-Park-Rangers,Central Midfield,2012-2013,Tottenham Hotspur
+26,Retired,"Aug 9, 1986",left,"1,85m",88067,"Jul 1, 2009",€3.30m,Alejandro Faurlín,"['Argentina', 'Italy']",Queens-Park-Rangers,Central Midfield,2012-2013,Instituto ACC
+34,Retired,"Dec 29, 1978",right,"1,70m",3118,"Jul 13, 2011",€500k,Kieron Dyer,"['England', 'Antigua and Barbuda']",Queens-Park-Rangers,Right Midfield,2012-2013,: Ablöse free transfer
+25,Retired,"Mar 31, 1988",left,"1,75m",31883,"Jan 2, 2008",€500k,Hogan Ephraim,['England'],Queens-Park-Rangers,Left Midfield,2012-2013,: Ablöse €375k
+32,Retired,"Feb 25, 1981",both,"1,78m",4592,"Jul 9, 2012",€3.50m,Ji-sung Park,"['Korea, South']",Queens-Park-Rangers,Attacking Midfield,2012-2013,Manchester United
+23,Hibernian FC,"Jun 5, 1990",right,"1,74m",58993,"Jul 27, 2012",€7.00m,Junior Hoilett,"['Canada', 'Jamaica']",Queens-Park-Rangers,Left Winger,2012-2013,Blackburn Rovers
+31,Retired,"Oct 25, 1981",right,"1,66m",3467,"Aug 1, 2011",€2.50m,Shaun Wright-Phillips,"['England', 'Grenada']",Queens-Park-Rangers,Right Winger,2012-2013,: Ablöse €4.50m
+21,Antalyaspor,"Jul 16, 1991",left,"1,81m",61842,"Jan 31, 2013",€500k,Andros Townsend,['England'],Queens-Park-Rangers,Right Winger,2012-2013,Tottenham Hotspur
+26,Retired,"Jan 2, 1987",right,"1,85m",45121,"Jan 16, 2013",€10.00m,Loïc Rémy,"['France', 'Martinique']",Queens-Park-Rangers,Centre-Forward,2012-2013,Olympique Marseille
+27,Retired,"Sep 22, 1985",right,"1,82m",15929,"Jul 1, 2015",€3.50m,Jamie Mackie,"['Scotland', 'England']",Queens-Park-Rangers,Centre-Forward,2012-2013,: Ablöse free transfer
+32,Retired,"Jan 16, 1981",left,"1,84m",4205,"Jan 31, 2012",€3.50m,Bobby Zamora,"['England', 'Trinidad and Tobago']",Queens-Park-Rangers,Centre-Forward,2012-2013,Fulham FC
+31,Retired,"Aug 12, 1981",right,"1,82m",3966,"Jan 31, 2012",€2.50m,Djibril Cissé,"['France', ""Cote d'Ivoire""]",Queens-Park-Rangers,Centre-Forward,2012-2013,: Ablöse €5.00m
+32,Retired,"Feb 10, 1981",right,"1,72m",14031,"Jul 1, 2012",€1.50m,Andy Johnson,['England'],Queens-Park-Rangers,Centre-Forward,2012-2013,Fulham FC
+31,Retired,"Nov 12, 1981",right,"1,78m",37896,"Jul 1, 2011",€1.50m,DJ Campbell,['England'],Queens-Park-Rangers,Centre-Forward,2012-2013,Blackpool FC
+31,Retired,"May 7, 1982",left,"1,90m",8188,"Jul 1, 2011",€1.00m,Jay Bothroyd,"['England', 'Guyana']",Queens-Park-Rangers,Centre-Forward,2012-2013,: Ablöse free transfer
+33,Retired,"Oct 25, 1979",right,"1,85m",9980,"Aug 31, 2010",€250k,Rob Hulse,['England'],Queens-Park-Rangers,Centre-Forward,2012-2013,: Ablöse €975k
+25,Southampton FC,"Dec 3, 1989",right,"1,93m",95976,"Aug 29, 2014",€2.50m,Alex McCarthy,['England'],Queens-Park-Rangers,Goalkeeper,2014-2015,Reading FC
+35,Retired,"Jan 18, 1980",right,"1,91m",11680,"Jul 1, 2012",€1.00m,Rob Green,['England'],Queens-Park-Rangers,Goalkeeper,2014-2015,: Ablöse free transfer
+32,Retired,"May 7, 1983",right,"1,85m",4190,"Jul 1, 2011",€500k,Brian Murphy,['Ireland'],Queens-Park-Rangers,Goalkeeper,2014-2015,Ipswich Town
+23,Ankara Keciörengücü,"Dec 29, 1991",right,"1,91m",121280,"Jul 22, 2014",€7.50m,Steven Caulker,"['Sierra Leone', 'England']",Queens-Park-Rangers,Centre-Back,2014-2015,: Ablöse €10.75m
+28,Retired,"Nov 12, 1986",right,"1,83m",28810,"Jan 1, 2012",€2.00m,Nedum Onuoha,"['England', 'Nigeria']",Queens-Park-Rangers,Centre-Back,2014-2015,: Ablöse €4.70m
+21,Sheffield United,"Sep 1, 1993",left,"1,80m",128909,"Aug 28, 2014",€1.00m,Jack Robinson,['England'],Queens-Park-Rangers,Centre-Back,2014-2015,: Ablöse €1.25m
+36,Retired,"Nov 7, 1978",right,"1,89m",3235,"Jul 17, 2014",€1.00m,Rio Ferdinand,['England'],Queens-Park-Rangers,Centre-Back,2014-2015,Manchester United
+36,Retired,"Oct 19, 1978",left,"1,83m",13583,"Jul 1, 2010",€500k,Clint Hill,['England'],Queens-Park-Rangers,Centre-Back,2014-2015,: Ablöse free transfer
+35,Retired,"Sep 21, 1979",right,"1,88m",3807,"Jul 15, 2013",€500k,Richard Dunne,['Ireland'],Queens-Park-Rangers,Centre-Back,2014-2015,: Ablöse free transfer
+22,AFC Rushden & Diamonds,"Oct 23, 1992",right,"1,71m",155233,"Jul 1, 2011",€100k,Michael Harriman,"['Ireland', 'England']",Queens-Park-Rangers,Centre-Back,2014-2015,Queens Park Rangers U18
+23,Gillingham FC,"Feb 3, 1992",right,"1,88m",158718,"Jul 1, 2009",€100k,Max Ehmer,['Germany'],Queens-Park-Rangers,Centre-Back,2014-2015,Queens Park Rangers U18
+19,Oxford City,"May 20, 1996",left,"1,91m",347895,"Jul 1, 2014",,Cole Kpekawa,"['England', 'Ghana']",Queens-Park-Rangers,Centre-Back,2014-2015,Queens Park Rangers U18
+25,Retired,"Oct 8, 1989",left,"1,84m",33783,"Aug 1, 2011",€2.00m,Armand Traoré,"['Senegal', 'France']",Queens-Park-Rangers,Left-Back,2014-2015,: Ablöse €1.35m
+25,Gangwon FC,"Feb 13, 1990",left,"1,83m",126643,"Jan 30, 2013",€1.50m,Seok-yeong Yun,"['Korea, South']",Queens-Park-Rangers,Left-Back,2014-2015,: Ablöse ?
+27,CSD Colo-Colo,"Jun 12, 1988",right,"1,76m",43722,"Aug 6, 2014",€9.00m,Mauricio Isla,['Chile'],Queens-Park-Rangers,Right-Back,2014-2015,: Ablöse €1.20m
+28,Retired,"Jan 4, 1987",right,"1,76m",37442,"Jul 1, 2013",€2.00m,Danny Simpson,"['England', 'Jamaica']",Queens-Park-Rangers,Right-Back,2014-2015,Newcastle United
+19,West Bromwich Albion,"Oct 31, 1995",right,"1,83m",351755,"Jan 1, 2015",,Darnell Furlong,"['England', 'Montserrat']",Queens-Park-Rangers,Right-Back,2014-2015,Queens Park Rangers U21
+25,Al-Nasr SC (UAE),"Jan 5, 1990",right,"1,88m",63342,"Aug 20, 2014",€8.50m,Leroy Fer,"['Netherlands', 'Curacao']",Queens-Park-Rangers,Defensive Midfield,2014-2015,: Ablöse €10.00m
+26,Retired,"Jan 24, 1989",right,"1,86m",136589,"Jul 1, 2012",€2.50m,Samba Diakité,"['Mali', 'France']",Queens-Park-Rangers,Defensive Midfield,2014-2015,: Ablöse €4.00m
+32,Retired,"Nov 26, 1982",right,"1,84m",13582,"Jul 23, 2013",€1.50m,Karl Henry,"['England', 'Jamaica']",Queens-Park-Rangers,Defensive Midfield,2014-2015,Wolverhampton Wanderers
+19,Walsall FC,"Nov 18, 1995",right,"1,80m",362809,"Mar 28, 2014",,Brandon Comley,"['Montserrat', 'England']",Queens-Park-Rangers,Defensive Midfield,2014-2015,Queens Park Rangers U18
+26,Harborough Town,"Mar 15, 1989",right,"1,88m",74590,"Sep 1, 2014",€9.00m,Sandro,"['Brazil', 'Portugal']",Queens-Park-Rangers,Central Midfield,2014-2015,Tottenham Hotspur
+23,Gold Coast Knights,"Dec 2, 1991",right,"1,84m",57207,"Aug 5, 2014",€6.00m,Jordon Mutch,['England'],Queens-Park-Rangers,Central Midfield,2014-2015,: Ablöse €7.57m
+26,Al-Nasr SC (UAE),"May 24, 1989",right,"1,85m",45287,"Aug 5, 2010",€6.00m,Adel Taarabt,"['Morocco', 'France']",Queens-Park-Rangers,Central Midfield,2014-2015,Tottenham Hotspur
+32,Retired,"Sep 2, 1982",right,"1,80m",3292,"Aug 26, 2011",€2.50m,Joey Barton,['England'],Queens-Park-Rangers,Central Midfield,2014-2015,Newcastle United
+28,Retired,"Aug 9, 1986",left,"1,85m",88067,"Jul 1, 2009",€2.50m,Alejandro Faurlín,"['Argentina', 'Italy']",Queens-Park-Rangers,Central Midfield,2014-2015,Instituto ACC
+22,Retired,"Nov 20, 1992",left,"1,85m",173832,"Jul 1, 2010",€50k,Michael Doughty,"['Wales', 'England']",Queens-Park-Rangers,Central Midfield,2014-2015,Queens Park Rangers U18
+19,Without Club,"Apr 14, 1996",,,369085,,,Aaron Mitchell,['England'],Queens-Park-Rangers,Central Midfield,2014-2015,
+21,Retired,"Dec 6, 1993",,"1,77m",148911,"Jul 1, 2012",,Frankie Sutherland,"['Ireland', 'England']",Queens-Park-Rangers,Right Midfield,2014-2015,Queens Park Rangers U18
+19,Without Club,"Jul 9, 1995",right,"1,68m",189039,"Jul 1, 2013",,Michael Petrasso,"['Canada', 'Italy']",Queens-Park-Rangers,Right Midfield,2014-2015,Queens Park Rangers U18
+18,Dagenham & Redbridge FC,"Nov 12, 1996",right,"1,78m",264199,"Jul 1, 2015",,Reece Grego-Cox,"['Ireland', 'England']",Queens-Park-Rangers,Right Midfield,2014-2015,Queens Park Rangers U18
+21,Kettering Town,"Oct 2, 1993",right,"1,75m",169633,"Jul 1, 2011",,Bruno Andrade,"['Portugal', 'Cape Verde']",Queens-Park-Rangers,Left Midfield,2014-2015,Queens Park Rangers U18
+30,Retired,"Aug 13, 1984",both,"1,86m",16746,"Sep 1, 2014",€2.50m,Niko Kranjcar,['Croatia'],Queens-Park-Rangers,Attacking Midfield,2014-2015,Dynamo Kyiv
+25,Hibernian FC,"Jun 5, 1990",right,"1,74m",58993,"Jul 27, 2012",€5.00m,Junior Hoilett,"['Canada', 'Jamaica']",Queens-Park-Rangers,Left Winger,2014-2015,Blackburn Rovers
+24,Oxford United,"Mar 13, 1991",right,"1,83m",77274,"Aug 23, 2013",€3.00m,Matt Phillips,"['Scotland', 'England']",Queens-Park-Rangers,Right Winger,2014-2015,Blackpool FC
+33,Retired,"Oct 25, 1981",right,"1,66m",3467,"Aug 1, 2011",€500k,Shaun Wright-Phillips,"['England', 'Grenada']",Queens-Park-Rangers,Right Winger,2014-2015,: Ablöse €4.50m
+28,Retired,"Jan 2, 1987",right,"1,85m",45121,"Jan 16, 2013",€12.00m,Loïc Rémy,"['France', 'Martinique']",Queens-Park-Rangers,Centre-Forward,2014-2015,Olympique Marseille
+25,AFC Totton,"Jul 5, 1989",right,"1,88m",129627,"Jul 1, 2021",€9.00m,Charlie Austin,['England'],Queens-Park-Rangers,Centre-Forward,2014-2015,West Bromwich Albion
+25,Clube Atlético Mineiro,"Nov 20, 1989",right,"1,74m",89718,"Aug 21, 2014",€6.00m,Eduardo Vargas,['Chile'],Queens-Park-Rangers,Centre-Forward,2014-2015,: Ablöse €1.40m
+28,Without Club,"Mar 18, 1987",right,"1,75m",26456,"Jan 6, 2015",€3.50m,Mauro Zárate,"['Argentina', 'Chile']",Queens-Park-Rangers,Centre-Forward,2014-2015,: Ablöse free transfer
+34,Retired,"Jan 16, 1981",left,"1,84m",4205,"Jan 31, 2012",€1.00m,Bobby Zamora,"['England', 'Trinidad and Tobago']",Queens-Park-Rangers,Centre-Forward,2014-2015,Fulham FC

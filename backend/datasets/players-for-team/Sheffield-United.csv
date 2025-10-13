@@ -1,0 +1,44 @@
+age,currentClub,dateOfBirth,foot,height,id,joinedOn,marketValue,name,nationality,played_for,position,season,signedFrom
+29,Retired,"May 17, 1978",right,"1,85m",13524,"Apr 1, 2010",€1.25m,Paddy Kenny,"['Ireland', 'England']",Sheffield-United,Goalkeeper,2006-2007,Disqualification
+34,Retired,"Jan 22, 1973",left,"1,88m",3584,"Sep 27, 2006",€1.06m,Paul Gerrard,['England'],Sheffield-United,Goalkeeper,2006-2007,Without Club
+35,Retired,"Oct 10, 1971",,"1,83m",3299,"Jul 1, 2006",€740k,Ian Bennett,['England'],Sheffield-United,Goalkeeper,2006-2007,Leeds United
+19,Retired,"Jun 21, 1988",,"1,88m",44509,"Jul 1, 2006",€50k,Jamie Annerson,['England'],Sheffield-United,Goalkeeper,2006-2007,Sheffield United U18
+24,Retired,"Aug 17, 1982",right,"1,80m",13520,"Jul 4, 2019",€2.75m,Phil Jagielka,"['England', 'Poland']",Sheffield-United,Centre-Back,2006-2007,Everton FC
+32,Retired,"Aug 10, 1974",right,"1,79m",3803,"Jul 1, 2006",€1.79m,David Sommeil,"['Guadeloupe', 'France']",Sheffield-United,Centre-Back,2006-2007,: Ablöse free transfer
+27,Retired,"Aug 23, 1979",left,"1,92m",5724,"Jan 1, 2007",€1.50m,Mamadou Seck,['Senegal'],Sheffield-United,Centre-Back,2006-2007,: Ablöse free transfer
+29,Retired,"Nov 9, 1977",,,13533,"Jul 1, 2003",€950k,Chris Morgan,['England'],Sheffield-United,Centre-Back,2006-2007,Barnsley FC
+28,Retired,"Mar 6, 1979",right,"1,91m",14006,"Jul 1, 2006",€770k,Claude Davis,['Jamaica'],Sheffield-United,Centre-Back,2006-2007,: Ablöse €3.50m
+35,Retired,"Sep 28, 1971",right,"1,83m",14045,"Mar 1, 2006",€250k,Chris Lucketti,"['England', 'Italy']",Sheffield-United,Centre-Back,2006-2007,: Ablöse €450k
+39,Retired,"Jun 25, 1968",both,"1,85m",3821,"Jul 1, 2005",€220k,Craig Short,['England'],Sheffield-United,Centre-Back,2006-2007,Blackburn Rovers
+23,Retired,"Jan 8, 1984",,"1,85m",4095,"Jan 1, 2007",€100k,Matthew Kilgallon,['England'],Sheffield-United,Centre-Back,2006-2007,Leeds United
+33,Retired,"Oct 16, 1973",left,"1,87m",3272,"Jul 1, 2005",€2.50m,David Unsworth,['England'],Sheffield-United,Left-Back,2006-2007,: Ablöse free transfer
+35,Retired,"Sep 28, 1971",left,"1,63m",3331,"Nov 1, 2003",€1.00m,Alan Wright,['England'],Sheffield-United,Left-Back,2006-2007,: Ablöse free transfer
+24,Retired,"Aug 5, 1982",left,"1,75m",13506,"Jul 1, 2003",€800k,Chris Armstrong,"['Scotland', 'England']",Sheffield-United,Left-Back,2006-2007,: Ablöse €140k
+21,Retired,"Mar 10, 1986",left,"1,83m",59842,"Jul 1, 2004",,Evan Horwood,['England'],Sheffield-United,Left-Back,2006-2007,Sheffield United U18
+27,Retired,"Jun 2, 1980",right,"1,83m",13400,"Jan 1, 2009",€760k,Leigh Bromby,['England'],Sheffield-United,Right-Back,2006-2007,Watford FC
+27,Retired,"Jun 19, 1980",right,"1,68m",13408,"Oct 1, 2004",€670k,Derek Geary,['Ireland'],Sheffield-United,Right-Back,2006-2007,: Ablöse €40k
+29,Retired,"Aug 5, 1977",right,"1,73m",13525,"Jul 12, 2010",€480k,Rob Kozluk,"['England', 'Poland']",Sheffield-United,Right-Back,2006-2007,Barnsley FC
+20,Retired,"Jan 7, 1987",right,"1,76m",38210,"Jul 1, 2005",€150k,Ben Starosta,"['Poland', 'England']",Sheffield-United,Right-Back,2006-2007,Sheffield United U18
+22,Retired,"Nov 10, 1984",right,"1,75m",38168,"Jan 24, 2007",,Ahmed Fathi,['Egypt'],Sheffield-United,Right-Back,2006-2007,: Ablöse €1.05m
+24,Retired,"Nov 12, 1982",both,"1,88m",14041,"Jul 1, 2006",€1.20m,Mikele Leigertwood,"['Antigua and Barbuda', 'England']",Sheffield-United,Defensive Midfield,2006-2007,: Ablöse €750k
+25,Retired,"Oct 28, 1981",right,"1,75m",13532,"Jul 1, 2000",€850k,Nick Montgomery,"['Scotland', 'England']",Sheffield-United,Defensive Midfield,2006-2007,Sheffield United U18
+30,Retired,"May 18, 1977",right,"1,83m",3590,"Jul 1, 2006",€850k,Tie Li,['China'],Sheffield-United,Defensive Midfield,2006-2007,: Ablöse free transfer
+28,Retired,"Jun 13, 1979",left,"1,75m",15561,"Jul 1, 2004",€850k,Alan Quinn,['Ireland'],Sheffield-United,Central Midfield,2006-2007,: Ablöse free transfer
+24,Retired,"Apr 7, 1983",left,"1,83m",13544,"Jul 1, 2001",€800k,Michael Tonge,['England'],Sheffield-United,Central Midfield,2006-2007,Sheffield United U18
+21,Mansfield Town,"Apr 1, 1986",left,"1,68m",43266,"Jul 1, 2005",€500k,Stephen Quinn,['Ireland'],Sheffield-United,Central Midfield,2006-2007,St. Patrick's Athletic U19
+21,Retired,"Jan 13, 1986",right,"1,78m",13540,,€50k,Ian Ross,['England'],Sheffield-United,Central Midfield,2006-2007,
+32,FC Mindwell,"Feb 18, 1975",right,"1,77m",3827,"Jul 1, 2005",€2.25m,Keith Gillespie,['Northern Ireland'],Sheffield-United,Right Midfield,2006-2007,: Ablöse free transfer
+21,Retired,"Aug 27, 1985",right,"1,78m",13518,"Jul 1, 2003",€50k,Kevan Hurst,['England'],Sheffield-United,Right Midfield,2006-2007,Sheffield United U18
+19,Retired,"Mar 29, 1988",right,"1,78m",43265,"Jul 1, 2006",€100k,Nicky Law,['England'],Sheffield-United,Attacking Midfield,2006-2007,Sheffield United U18
+21,---,"Nov 11, 1985",left,"1,83m",38768,"Jan 1, 2007",€2.70m,Luton Shelton,['Jamaica'],Sheffield-United,Left Winger,2006-2007,Helsingborgs IF
+27,Retired,"Oct 20, 1979",right,"1,80m",13586,"Jul 1, 2005",€1.50m,Paul Ifill,"['Barbados', 'England']",Sheffield-United,Right Winger,2006-2007,: Ablöse €1.20m
+27,Retired,"Oct 25, 1979",right,"1,85m",9980,"Jul 1, 2006",€3.75m,Rob Hulse,['England'],Sheffield-United,Centre-Forward,2006-2007,Leeds United
+32,Retired,"Oct 10, 1974",right,"1,85m",4037,"Jan 26, 2006",€2.75m,Ade Akinbiyi,"['Nigeria', 'England']",Sheffield-United,Centre-Forward,2006-2007,: Ablöse €2.63m
+24,Retired,"Apr 7, 1983",right,"1,91m",16107,"Jan 11, 2007",€2.30m,Jon Stead,['England'],Sheffield-United,Centre-Forward,2006-2007,Sunderland AFC
+25,Retired,"Dec 28, 1981",right,"1,78m",3551,"Jul 1, 2005",€1.45m,Danny Webber,['England'],Sheffield-United,Centre-Forward,2006-2007,Watford FC
+33,Retired,"Nov 1, 1973",right,"1,83m",3792,"Jul 1, 2005",€1.25m,Geoff Horsfield,['England'],Sheffield-United,Centre-Forward,2006-2007,: Ablöse €1.80m
+26,Retired,"Mar 7, 1981",right,"1,78m",13522,"Nov 15, 2002",€750k,Steve Kabba,"['England', 'Sierra Leone']",Sheffield-United,Centre-Forward,2006-2007,: Ablöse €375k
+20,Without Club,"Aug 26, 1986",right,"1,87m",36802,"Aug 31, 2006",€750k,Colin Kazım-Richards,"['Türkiye', 'England']",Sheffield-United,Centre-Forward,2006-2007,: Ablöse €1.50m
+22,Petershill FC,"Sep 18, 1984",right,"1,86m",33926,"Jul 1, 2006",€700k,Christian Nadé,"['France', ""Cote d'Ivoire""]",Sheffield-United,Centre-Forward,2006-2007,: Ablöse free transfer
+21,Retford United FC,"Sep 23, 1985",right,"1,87m",32525,"Jul 1, 2005",€100k,Colin Marrison,['England'],Sheffield-United,Centre-Forward,2006-2007,: Ablöse free transfer
+20,Shirebrook Town FC,"Jul 25, 1986",,"1,83m",39505,"Jan 31, 2013",€75k,Jonathan Forte,"['Barbados', 'England']",Sheffield-United,Centre-Forward,2006-2007,Southampton FC

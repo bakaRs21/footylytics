@@ -1,0 +1,215 @@
+age,currentClub,dateOfBirth,foot,height,id,joinedOn,marketValue,name,nationality,played_for,position,season,signedFrom
+36,Retired,"May 18, 1971",right,"1,91m",3476,"Nov 3, 2000",€2.50m,Brad Friedel,"['United States', 'England']",Blackburn-Rovers,Goalkeeper,2006-2007,: Ablöse free transfer
+30,Retired,"Mar 10, 1977",right,"1,88m",3719,"Jan 1, 2004",€1.25m,Peter Enckelman,['Finland'],Blackburn-Rovers,Goalkeeper,2006-2007,: Ablöse €215k
+25,Retired,"May 18, 1982",,,15916,"Jul 1, 2006",€300k,Jason Brown,['Wales'],Blackburn-Rovers,Goalkeeper,2006-2007,Gillingham FC
+29,Retired,"Mar 9, 1978",right,"1,85m",3826,"Sep 7, 2001",€3.60m,Lucas Neill,"['Australia', 'Northern Ireland']",Blackburn-Rovers,Centre-Back,2006-2007,: Ablöse €1.50m
+32,Retired,"Sep 7, 1974",right,"1,85m",3210,"Sep 9, 2006",€3.40m,Stéphane Henchoz,"['Switzerland', 'Germany']",Blackburn-Rovers,Centre-Back,2006-2007,Without Club
+32,Retired,"Jul 11, 1974",right,"1,87m",4345,"Aug 1, 2006",€3.00m,André Ooijer,['Netherlands'],Blackburn-Rovers,Centre-Back,2006-2007,: Ablöse €3.00m
+25,Retired,"Oct 6, 1981",right,"1,86m",9621,"Jul 1, 2006",€2.50m,Zurab Khizanishvili,['Georgia'],Blackburn-Rovers,Centre-Back,2006-2007,: Ablöse €750k
+29,Retired,"Oct 18, 1977",right,"1,85m",28878,"Jan 6, 2005",€2.00m,Ryan Nelsen,['New Zealand'],Blackburn-Rovers,Centre-Back,2006-2007,: Ablöse free transfer
+32,Retired,"Sep 21, 1974",right,"1,78m",3103,"Jul 1, 2002",€1.80m,Andy Todd,['England'],Blackburn-Rovers,Centre-Back,2006-2007,Charlton Athletic
+26,Retired,"Nov 25, 1980",right,"1,85m",4756,"Jan 1, 2005",€1.75m,Aaron Mokoena,['South Africa'],Blackburn-Rovers,Centre-Back,2006-2007,: Ablöse €900k
+22,Retired,"Feb 11, 1985",left,"1,86m",3825,"Jul 1, 2002",€750k,Jay McEveley,"['Scotland', 'England']",Blackburn-Rovers,Centre-Back,2006-2007,Blackburn Rovers U18
+23,Retired,"Mar 28, 1984",,,29016,"Jan 25, 2007",€500k,Christopher Samba,"['Congo', 'France']",Blackburn-Rovers,Centre-Back,2006-2007,: Ablöse €500k
+18,Retired,"Aug 5, 1988",right,"1,83m",47601,"Jul 1, 2006",,Eddie Nolan,['Ireland'],Blackburn-Rovers,Centre-Back,2006-2007,Blackburn Rovers U18
+25,Retired,"Dec 12, 1981",left,"1,78m",3308,"Jan 22, 2007",€1.80m,Stephen Warnock,['England'],Blackburn-Rovers,Left-Back,2006-2007,: Ablöse €2.25m
+32,Retired,"Aug 3, 1974",left,"1,70m",4128,"Jan 27, 2004",€1.50m,Michael Gray,['England'],Blackburn-Rovers,Left-Back,2006-2007,Sunderland AFC
+29,Retired,"Nov 21, 1977",left,"1,85m",1589,"Jan 1, 2007",€450k,Bruno Berner,['Switzerland'],Blackburn-Rovers,Left-Back,2006-2007,: Ablöse €500k
+26,Retired,"Mar 10, 1981",right,"1,85m",7330,"Jul 1, 2003",€3.80m,Steven Reid,"['Ireland', 'England']",Blackburn-Rovers,Right-Back,2006-2007,: Ablöse €3.60m
+32,Retired,"Oct 18, 1974",both,"1,83m",3797,"Jan 1, 2005",€4.00m,Robbie Savage,['Wales'],Blackburn-Rovers,Defensive Midfield,2006-2007,: Ablöse €4.50m
+36,Retired,"Aug 24, 1970",right,"1,76m",3703,"Jul 1, 2001",€1.30m,Tugay Kerimoğlu,['Türkiye'],Blackburn-Rovers,Defensive Midfield,2006-2007,: Ablöse €1.95m
+25,Retired,"Sep 8, 1981",left,"1,83m",22741,"Aug 27, 2004",€6.20m,Morten Gamst Pedersen,['Norway'],Blackburn-Rovers,Central Midfield,2006-2007,Tromsø IL
+22,Retired,"Sep 8, 1984",right,"1,85m",10501,"Jul 1, 2003",€1.25m,Paul Gallagher,['Scotland'],Blackburn-Rovers,Central Midfield,2006-2007,Blackburn Rovers U18
+28,Retired,"Feb 22, 1979",right,"1,85m",4367,"Jul 10, 2003",€4.50m,Brett Emerton,['Australia'],Blackburn-Rovers,Right Midfield,2006-2007,: Ablöse €3.00m
+22,Retired,"Aug 27, 1984",right,"1,78m",3205,"Feb 15, 2013",€4.40m,David Bentley,['England'],Blackburn-Rovers,Right Midfield,2006-2007,Tottenham Hotspur
+20,Retired,"Oct 12, 1986",,,29341,"Jul 1, 2005",€500k,Sergio Peter,['Germany'],Blackburn-Rovers,Left Midfield,2006-2007,Blackburn Rovers Reserves
+27,Retired,"Dec 27, 1979",right,"1,78m",4243,"Jan 17, 2007",€5.50m,David Dunn,['England'],Blackburn-Rovers,Attacking Midfield,2006-2007,: Ablöse €3.20m
+29,Retired,"Nov 12, 1977",right,"1,84m",3091,"Jul 1, 2006",€6.00m,Benni McCarthy,['South Africa'],Blackburn-Rovers,Centre-Forward,2006-2007,FC Porto
+30,Retired,"Mar 6, 1977",right,"1,82m",3499,"Aug 1, 2006",€4.00m,Shabani Nonda,"['DR Congo', 'France']",Blackburn-Rovers,Centre-Forward,2006-2007,: Ablöse ?
+29,Retired,"Jan 25, 1978",right,"1,85m",3666,"Jul 3, 2006",€3.85m,Jason Roberts,"['Grenada', 'England']",Blackburn-Rovers,Centre-Forward,2006-2007,Wigan Athletic
+30,Retired,"Nov 10, 1976",right,"1,88m",12398,"Jul 1, 2005",€3.70m,Shefki Kuqi,"['Finland', 'Kosovo']",Blackburn-Rovers,Centre-Forward,2006-2007,Ipswich Town
+26,Retired,"Jan 25, 1981",right,"1,78m",3186,"Jul 3, 2006",€2.60m,Francis Jeffers,['England'],Blackburn-Rovers,Centre-Forward,2006-2007,Charlton Athletic
+21,Retired,"Apr 14, 1986",right,"1,80m",15175,"Jul 1, 2006",€200k,Matt Derbyshire,['England'],Blackburn-Rovers,Centre-Forward,2006-2007,Blackburn Rovers Reserves
+37,Retired,"May 18, 1971",right,"1,91m",3476,"Nov 3, 2000",€3.50m,Brad Friedel,"['United States', 'England']",Blackburn-Rovers,Goalkeeper,2007-2008,: Ablöse free transfer
+31,Retired,"Mar 10, 1977",right,"1,88m",3719,"Jan 1, 2004",€900k,Peter Enckelman,['Finland'],Blackburn-Rovers,Goalkeeper,2007-2008,: Ablöse €215k
+26,Retired,"May 18, 1982",,,15916,"Jul 1, 2006",€600k,Jason Brown,['Wales'],Blackburn-Rovers,Goalkeeper,2007-2008,Gillingham FC
+21,Without Club,"Oct 7, 1986",right,"1,91m",23086,"Jul 2, 2007",€400k,Gunnar Nielsen,['Faroe Islands'],Blackburn-Rovers,Goalkeeper,2007-2008,BK Frem
+20,Stoke City,"Apr 4, 1988",right,"1,85m",57070,"Jul 1, 2007",€300k,Frank Fielding,['England'],Blackburn-Rovers,Goalkeeper,2007-2008,Blackburn Rovers U18
+24,Retired,"Mar 28, 1984",,,29016,"Jan 25, 2007",€5.00m,Christopher Samba,"['Congo', 'France']",Blackburn-Rovers,Centre-Back,2007-2008,: Ablöse €500k
+30,Retired,"Oct 18, 1977",right,"1,85m",28878,"Jan 6, 2005",€3.50m,Ryan Nelsen,['New Zealand'],Blackburn-Rovers,Centre-Back,2007-2008,: Ablöse free transfer
+33,Retired,"Jul 11, 1974",right,"1,87m",4345,"Aug 1, 2006",€3.00m,André Ooijer,['Netherlands'],Blackburn-Rovers,Centre-Back,2007-2008,: Ablöse €3.00m
+27,Retired,"Nov 25, 1980",right,"1,85m",4756,"Jan 1, 2005",€3.00m,Aaron Mokoena,['South Africa'],Blackburn-Rovers,Centre-Back,2007-2008,: Ablöse €900k
+26,Retired,"Oct 6, 1981",right,"1,86m",9621,"Jul 1, 2006",€1.75m,Zurab Khizanishvili,['Georgia'],Blackburn-Rovers,Centre-Back,2007-2008,: Ablöse €750k
+33,Retired,"Sep 7, 1974",right,"1,85m",3210,"Sep 9, 2006",€800k,Stéphane Henchoz,"['Switzerland', 'Germany']",Blackburn-Rovers,Centre-Back,2007-2008,Without Club
+20,Balcatta FC,"Mar 10, 1988",right,"1,87m",67715,"Jul 1, 2007",€150k,Rostyn Griffiths,"['Australia', 'England']",Blackburn-Rovers,Centre-Back,2007-2008,Blackburn Rovers U18
+19,Retired,"Aug 5, 1988",right,"1,83m",47601,"Jul 1, 2006",€100k,Eddie Nolan,['Ireland'],Blackburn-Rovers,Centre-Back,2007-2008,Blackburn Rovers U18
+18,Retired,"Aug 20, 1989",right,"1,75m",71282,,€50k,Dean Winnard,['England'],Blackburn-Rovers,Centre-Back,2007-2008,
+26,Retired,"Dec 12, 1981",left,"1,78m",3308,"Jan 22, 2007",€4.00m,Stephen Warnock,['England'],Blackburn-Rovers,Left-Back,2007-2008,: Ablöse €2.25m
+30,Retired,"Nov 21, 1977",left,"1,85m",1589,"Jan 1, 2007",€500k,Bruno Berner,['Switzerland'],Blackburn-Rovers,Left-Back,2007-2008,: Ablöse €500k
+20,Malmö FF,"May 17, 1988",left,"1,78m",38073,"Jul 1, 2007",€300k,Martin Olsson,['Sweden'],Blackburn-Rovers,Left-Back,2007-2008,Blackburn Rovers U18
+27,Retired,"Mar 10, 1981",right,"1,85m",7330,"Jul 1, 2003",€3.50m,Steven Reid,"['Ireland', 'England']",Blackburn-Rovers,Right-Back,2007-2008,: Ablöse €3.60m
+20,Retired,"Aug 29, 1987",both,"1,83m",46762,"Jul 1, 2006",€300k,Tony Kane,['Northern Ireland'],Blackburn-Rovers,Right-Back,2007-2008,Blackburn Rovers U18
+33,Retired,"Oct 18, 1974",both,"1,83m",3797,"Jan 1, 2005",€2.25m,Robbie Savage,['Wales'],Blackburn-Rovers,Defensive Midfield,2007-2008,: Ablöse €4.50m
+31,Retired,"Mar 8, 1977",both,"1,77m",4352,"Mar 1, 2008",€1.50m,Johann Vogel,['Switzerland'],Blackburn-Rovers,Defensive Midfield,2007-2008,Without Club
+37,Retired,"Aug 24, 1970",right,"1,76m",3703,"Jul 1, 2001",€1.00m,Tugay Kerimoğlu,['Türkiye'],Blackburn-Rovers,Defensive Midfield,2007-2008,: Ablöse €1.95m
+26,Retired,"Sep 8, 1981",left,"1,83m",22741,"Aug 27, 2004",€8.25m,Morten Gamst Pedersen,['Norway'],Blackburn-Rovers,Central Midfield,2007-2008,Tromsø IL
+23,Retired,"Sep 8, 1984",right,"1,85m",10501,"Jul 1, 2003",€1.25m,Paul Gallagher,['Scotland'],Blackburn-Rovers,Central Midfield,2007-2008,Blackburn Rovers U18
+20,Retired,"Sep 23, 1987",left,"1,78m",48106,"Jul 1, 2006",€50k,Bryan Hodge,['Scotland'],Blackburn-Rovers,Central Midfield,2007-2008,Blackburn Rovers U18
+23,Retired,"Aug 27, 1984",right,"1,78m",3205,"Feb 15, 2013",€9.00m,David Bentley,['England'],Blackburn-Rovers,Right Midfield,2007-2008,Tottenham Hotspur
+29,Retired,"Feb 22, 1979",right,"1,85m",4367,"Jul 10, 2003",€5.25m,Brett Emerton,['Australia'],Blackburn-Rovers,Right Midfield,2007-2008,: Ablöse €3.00m
+21,Retired,"Oct 12, 1986",,,29341,"Jul 1, 2005",€700k,Sergio Peter,['Germany'],Blackburn-Rovers,Left Midfield,2007-2008,Blackburn Rovers Reserves
+19,Retired,"Sep 13, 1988",left,"1,83m",57064,"Jul 1, 2007",€300k,Keith Treacy,['Ireland'],Blackburn-Rovers,Left Midfield,2007-2008,Blackburn Rovers U18
+28,Retired,"Dec 27, 1979",right,"1,78m",4243,"Jan 17, 2007",€5.25m,David Dunn,['England'],Blackburn-Rovers,Attacking Midfield,2007-2008,: Ablöse €3.20m
+20,Città di Anagni Calcio,"Sep 23, 1987",right,"1,80m",71226,,€50k,Raffaele De Vita,['Italy'],Blackburn-Rovers,Left Winger,2007-2008,
+19,Retired,"Dec 22, 1988",right,"1,91m",71259,,€50k,Josh O'Keefe,"['Ireland', 'England']",Blackburn-Rovers,Right Winger,2007-2008,
+30,Retired,"Nov 12, 1977",right,"1,84m",3091,"Jul 1, 2006",€10.00m,Benni McCarthy,['South Africa'],Blackburn-Rovers,Centre-Forward,2007-2008,FC Porto
+26,Club Libertad Asunción,"Aug 16, 1981",right,"1,93m",215,"Jan 14, 2011",€8.00m,Roque Santa Cruz,"['Paraguay', 'Spain']",Blackburn-Rovers,Centre-Forward,2007-2008,: Ablöse free transfer
+22,Retired,"Apr 14, 1986",right,"1,80m",15175,"Jul 1, 2006",€3.00m,Matt Derbyshire,['England'],Blackburn-Rovers,Centre-Forward,2007-2008,Blackburn Rovers Reserves
+30,Retired,"Jan 25, 1978",right,"1,85m",3666,"Jul 3, 2006",€2.00m,Jason Roberts,"['Grenada', 'England']",Blackburn-Rovers,Centre-Forward,2007-2008,Wigan Athletic
+24,Retired,"Jan 22, 1984",right,"1,79m",27701,"Jul 1, 2007",€1.25m,Maceo Rigters,"['Netherlands', 'Suriname']",Blackburn-Rovers,Centre-Forward,2007-2008,: Ablöse €1.20m
+19,Retired,"Sep 11, 1988",right,"1,78m",71222,"Jul 1, 2007",€50k,Jamie Clarke,['England'],Blackburn-Rovers,Centre-Forward,2007-2008,Blackburn Rovers U18
+29,Retired,"Oct 15, 1979",right,"1,93m",3630,"Jul 1, 2008",€4.60m,Paul Robinson,['England'],Blackburn-Rovers,Goalkeeper,2008-2009,Tottenham Hotspur
+27,Retired,"May 18, 1982",,,15916,"Jul 1, 2006",€600k,Jason Brown,['Wales'],Blackburn-Rovers,Goalkeeper,2008-2009,Gillingham FC
+24,Retired,"Nov 16, 1984",right,"1,83m",49319,"Aug 1, 2008",€150k,Mark Bunn,"['England', 'Ireland']",Blackburn-Rovers,Goalkeeper,2008-2009,: Ablöse €150k
+25,Retired,"Mar 28, 1984",,,29016,"Jan 25, 2007",€5.50m,Christopher Samba,"['Congo', 'France']",Blackburn-Rovers,Centre-Back,2008-2009,: Ablöse €500k
+31,Retired,"Oct 18, 1977",right,"1,85m",28878,"Jan 6, 2005",€3.30m,Ryan Nelsen,['New Zealand'],Blackburn-Rovers,Centre-Back,2008-2009,: Ablöse free transfer
+27,Retired,"Oct 9, 1981",left,"1,81m",5286,"Jul 1, 2009",€2.70m,Gaël Givet,['France'],Blackburn-Rovers,Centre-Back,2008-2009,Olympique Marseille
+34,Retired,"Jul 11, 1974",right,"1,87m",4345,"Aug 1, 2006",€2.30m,André Ooijer,['Netherlands'],Blackburn-Rovers,Centre-Back,2008-2009,: Ablöse €3.00m
+28,Retired,"Nov 25, 1980",right,"1,85m",4756,"Jan 1, 2005",€1.80m,Aaron Mokoena,['South Africa'],Blackburn-Rovers,Centre-Back,2008-2009,: Ablöse €900k
+27,Retired,"Oct 6, 1981",right,"1,86m",9621,"Jul 1, 2006",€1.30m,Zurab Khizanishvili,['Georgia'],Blackburn-Rovers,Centre-Back,2008-2009,: Ablöse €750k
+18,Retired,"Jan 26, 1991",left,"1,87m",38083,"Jul 1, 2009",,Gavin Gunning,['Ireland'],Blackburn-Rovers,Centre-Back,2008-2009,Blackburn Rovers U18
+27,Retired,"Dec 12, 1981",left,"1,78m",3308,"Jan 22, 2007",€5.10m,Stephen Warnock,['England'],Blackburn-Rovers,Left-Back,2008-2009,: Ablöse €2.25m
+21,Malmö FF,"May 17, 1988",left,"1,78m",38073,"Jul 1, 2007",€800k,Martin Olsson,['Sweden'],Blackburn-Rovers,Left-Back,2008-2009,Blackburn Rovers U18
+28,Retired,"Mar 10, 1981",right,"1,85m",7330,"Jul 1, 2003",€3.50m,Steven Reid,"['Ireland', 'England']",Blackburn-Rovers,Right-Back,2008-2009,: Ablöse €3.60m
+22,Retired,"Jan 4, 1987",right,"1,76m",37442,"Aug 4, 2008",€1.10m,Danny Simpson,"['England', 'Jamaica']",Blackburn-Rovers,Right-Back,2008-2009,Manchester United
+21,Retired,"Aug 29, 1987",both,"1,83m",46762,"Jul 1, 2006",,Tony Kane,['Northern Ireland'],Blackburn-Rovers,Right-Back,2008-2009,Blackburn Rovers U18
+32,Retired,"Mar 8, 1977",both,"1,77m",4352,"Mar 1, 2008",€1.70m,Johann Vogel,['Switzerland'],Blackburn-Rovers,Defensive Midfield,2008-2009,Without Club
+38,Retired,"Aug 24, 1970",right,"1,76m",3703,"Jul 1, 2001",€800k,Tugay Kerimoğlu,['Türkiye'],Blackburn-Rovers,Defensive Midfield,2008-2009,: Ablöse €1.95m
+27,Retired,"Sep 8, 1981",left,"1,83m",22741,"Aug 27, 2004",€8.70m,Morten Gamst Pedersen,['Norway'],Blackburn-Rovers,Central Midfield,2008-2009,Tromsø IL
+29,Retired,"Oct 5, 1979",both,"1,83m",6021,"Aug 26, 2008",€3.30m,Vincenzo Grella,"['Australia', 'Italy']",Blackburn-Rovers,Central Midfield,2008-2009,Torino FC
+28,Retired,"Sep 13, 1980",right,"1,83m",8035,"Aug 28, 2008",€2.30m,Keith Andrews,"['Ireland', 'England']",Blackburn-Rovers,Central Midfield,2008-2009,Milton Keynes Dons
+24,Retired,"Sep 8, 1984",right,"1,85m",10501,"Jul 1, 2003",€1.75m,Paul Gallagher,['Scotland'],Blackburn-Rovers,Central Midfield,2008-2009,Blackburn Rovers U18
+20,Woking FC,"Nov 11, 1988",right,"1,68m",42249,"Jul 1, 2013",€50k,Alan Judge,['Ireland'],Blackburn-Rovers,Central Midfield,2008-2009,Notts County
+21,Retired,"Sep 23, 1987",left,"1,78m",48106,"Jul 1, 2006",€50k,Bryan Hodge,['Scotland'],Blackburn-Rovers,Central Midfield,2008-2009,Blackburn Rovers U18
+30,Retired,"Feb 22, 1979",right,"1,85m",4367,"Jul 10, 2003",€4.40m,Brett Emerton,['Australia'],Blackburn-Rovers,Right Midfield,2008-2009,: Ablöse €3.00m
+20,Retired,"Nov 28, 1988",,"1,80m",65416,"Jul 1, 2009",,Andy Haworth,['England'],Blackburn-Rovers,Right Midfield,2008-2009,Blackburn Rovers U18
+18,Strathspey Thistle FC,"May 13, 1991",both,"1,70m",96148,"Jul 1, 2009",,Aaron Doran,['Ireland'],Blackburn-Rovers,Right Midfield,2008-2009,Blackburn Rovers U18
+20,Retired,"Sep 13, 1988",left,"1,83m",57064,"Jul 1, 2007",€700k,Keith Treacy,['Ireland'],Blackburn-Rovers,Left Midfield,2008-2009,Blackburn Rovers U18
+29,Retired,"Dec 27, 1979",right,"1,78m",4243,"Jan 17, 2007",€4.00m,David Dunn,['England'],Blackburn-Rovers,Attacking Midfield,2008-2009,: Ablöse €3.20m
+23,Audax Italiano,"Feb 5, 1986",left,"1,73m",53164,"Jul 1, 2008",€1.90m,Carlos Villanueva,['Chile'],Blackburn-Rovers,Attacking Midfield,2008-2009,: Ablöse ?
+27,Club Libertad Asunción,"Aug 16, 1981",right,"1,93m",215,"Jan 14, 2011",€10.00m,Roque Santa Cruz,"['Paraguay', 'Spain']",Blackburn-Rovers,Centre-Forward,2008-2009,: Ablöse free transfer
+31,Retired,"Nov 12, 1977",right,"1,84m",3091,"Jul 1, 2006",€8.00m,Benni McCarthy,['South Africa'],Blackburn-Rovers,Centre-Forward,2008-2009,FC Porto
+28,Retired,"Jan 15, 1981",right,"1,80m",3604,"Jan 30, 2009",€4.10m,El-Hadji Diouf,"['Senegal', 'France']",Blackburn-Rovers,Centre-Forward,2008-2009,Sunderland AFC
+23,Retired,"Apr 14, 1986",right,"1,80m",15175,"Jul 1, 2006",€3.50m,Matt Derbyshire,['England'],Blackburn-Rovers,Centre-Forward,2008-2009,Blackburn Rovers Reserves
+31,Retired,"Jan 25, 1978",right,"1,85m",3666,"Jul 3, 2006",€2.80m,Jason Roberts,"['Grenada', 'England']",Blackburn-Rovers,Centre-Forward,2008-2009,Wigan Athletic
+34,Retired,"Apr 9, 1975",left,"1,80m",3225,"Sep 1, 2008",€400k,Robbie Fowler,['England'],Blackburn-Rovers,Centre-Forward,2008-2009,Without Club
+19,Eastwood Community FC,"Oct 7, 1989",right,"1,78m",92455,,,Marcus Marshall,['England'],Blackburn-Rovers,Centre-Forward,2008-2009,
+30,Retired,"Oct 15, 1979",right,"1,93m",3630,"Jul 1, 2008",€5.00m,Paul Robinson,['England'],Blackburn-Rovers,Goalkeeper,2009-2010,Tottenham Hotspur
+28,Retired,"May 18, 1982",,,15916,"Jul 1, 2006",€500k,Jason Brown,['Wales'],Blackburn-Rovers,Goalkeeper,2009-2010,Gillingham FC
+25,Retired,"Nov 16, 1984",right,"1,83m",49319,"Aug 1, 2008",€300k,Mark Bunn,"['England', 'Ireland']",Blackburn-Rovers,Goalkeeper,2009-2010,: Ablöse €150k
+22,Stoke City,"Apr 4, 1988",right,"1,85m",57070,"Jul 1, 2007",€250k,Frank Fielding,['England'],Blackburn-Rovers,Goalkeeper,2009-2010,Blackburn Rovers U18
+26,Retired,"Mar 28, 1984",,,29016,"Jan 25, 2007",€6.00m,Christopher Samba,"['Congo', 'France']",Blackburn-Rovers,Centre-Back,2009-2010,: Ablöse €500k
+28,Retired,"Oct 9, 1981",left,"1,81m",5286,"Jul 1, 2009",€3.50m,Gaël Givet,['France'],Blackburn-Rovers,Centre-Back,2009-2010,Olympique Marseille
+32,Retired,"Oct 18, 1977",right,"1,85m",28878,"Jan 6, 2005",€3.50m,Ryan Nelsen,['New Zealand'],Blackburn-Rovers,Centre-Back,2009-2010,: Ablöse free transfer
+28,Retired,"Oct 6, 1981",right,"1,86m",9621,"Jul 1, 2006",€1.00m,Zurab Khizanishvili,['Georgia'],Blackburn-Rovers,Centre-Back,2009-2010,: Ablöse €750k
+19,Retired,"Jan 26, 1991",left,"1,87m",38083,"Jul 1, 2009",€75k,Gavin Gunning,['Ireland'],Blackburn-Rovers,Centre-Back,2009-2010,Blackburn Rovers U18
+18,Retired,"Feb 21, 1992",right,"1,85m",117996,"Jan 1, 2010",€50k,Phil Jones,['England'],Blackburn-Rovers,Centre-Back,2009-2010,Blackburn Rovers Reserves
+18,Norwich City,"Nov 20, 1991",right,"1,88m",121385,"Jan 1, 2010",,Grant Hanley,['Scotland'],Blackburn-Rovers,Centre-Back,2009-2010,Blackburn Rovers U18
+28,Retired,"Dec 12, 1981",left,"1,78m",3308,"Jan 22, 2007",€8.50m,Stephen Warnock,['England'],Blackburn-Rovers,Left-Back,2009-2010,: Ablöse €2.25m
+22,Malmö FF,"May 17, 1988",left,"1,78m",38073,"Jul 1, 2007",€750k,Martin Olsson,['Sweden'],Blackburn-Rovers,Left-Back,2009-2010,Blackburn Rovers U18
+31,Skelmersdale United,"Feb 21, 1979",right,"1,82m",18875,"Aug 27, 2009",€4.50m,Pascal Chimbonda,"['Guadeloupe', 'France']",Blackburn-Rovers,Right-Back,2009-2010,Tottenham Hotspur
+29,Retired,"Mar 10, 1981",right,"1,85m",7330,"Jul 1, 2003",€3.00m,Steven Reid,"['Ireland', 'England']",Blackburn-Rovers,Right-Back,2009-2010,: Ablöse €3.60m
+30,Retired,"Sep 20, 1979",both,"1,81m",1423,"Jul 1, 2009",€2.50m,Lars Jacobsen,['Denmark'],Blackburn-Rovers,Right-Back,2009-2010,: Ablöse free transfer
+34,Retired,"Oct 22, 1975",right,"1,74m",7515,"Aug 1, 2009",€1.50m,Míchel Salgado,['Spain'],Blackburn-Rovers,Right-Back,2009-2010,Real Madrid
+21,Sepahan FC,"Dec 15, 1988",right,"1,96m",73734,"Jul 1, 2009",€3.00m,Steven Nzonzi,"['France', 'DR Congo']",Blackburn-Rovers,Defensive Midfield,2009-2010,: Ablöse €580k
+28,Retired,"Sep 8, 1981",left,"1,83m",22741,"Aug 27, 2004",€7.00m,Morten Gamst Pedersen,['Norway'],Blackburn-Rovers,Central Midfield,2009-2010,Tromsø IL
+30,Retired,"Oct 5, 1979",both,"1,83m",6021,"Aug 26, 2008",€3.00m,Vincenzo Grella,"['Australia', 'Italy']",Blackburn-Rovers,Central Midfield,2009-2010,Torino FC
+29,Retired,"Sep 13, 1980",right,"1,83m",8035,"Aug 28, 2008",€2.50m,Keith Andrews,"['Ireland', 'England']",Blackburn-Rovers,Central Midfield,2009-2010,Milton Keynes Dons
+25,Retired,"Sep 8, 1984",right,"1,85m",10501,"Jul 1, 2003",€1.75m,Paul Gallagher,['Scotland'],Blackburn-Rovers,Central Midfield,2009-2010,Blackburn Rovers U18
+20,Retired,"Nov 16, 1989",right,"1,86m",88596,"Jan 28, 2010",€150k,Amine Linganzi,"['Congo', 'France']",Blackburn-Rovers,Central Midfield,2009-2010,: Ablöse free transfer
+31,Retired,"Feb 22, 1979",right,"1,85m",4367,"Jul 10, 2003",€4.00m,Brett Emerton,['Australia'],Blackburn-Rovers,Right Midfield,2009-2010,: Ablöse €3.00m
+19,Strathspey Thistle FC,"May 13, 1991",both,"1,70m",96148,"Jul 1, 2009",€50k,Aaron Doran,['Ireland'],Blackburn-Rovers,Right Midfield,2009-2010,Blackburn Rovers U18
+30,Retired,"Dec 27, 1979",right,"1,78m",4243,"Jan 17, 2007",€5.00m,David Dunn,['England'],Blackburn-Rovers,Attacking Midfield,2009-2010,: Ablöse €3.20m
+31,Retired,"Dec 24, 1978",,,618,"Jan 1, 2010",€1.50m,Yıldıray Baştürk,"['Türkiye', 'Germany']",Blackburn-Rovers,Attacking Midfield,2009-2010,: Ablöse free transfer
+26,Retired,"Jul 11, 1983",both,"1,68m",14920,"Jul 1, 2009",€750k,Elrio van Heerden,['South Africa'],Blackburn-Rovers,Attacking Midfield,2009-2010,: Ablöse free transfer
+20,Hibernian FC,"Jun 5, 1990",right,"1,74m",58993,"Jul 1, 2009",€1.50m,Junior Hoilett,"['Canada', 'Jamaica']",Blackburn-Rovers,Left Winger,2009-2010,Blackburn Rovers Reserves
+32,Retired,"Nov 12, 1977",right,"1,84m",3091,"Jul 1, 2006",€5.50m,Benni McCarthy,['South Africa'],Blackburn-Rovers,Centre-Forward,2009-2010,FC Porto
+22,Retired,"Jan 5, 1988",both,"1,87m",36371,"Aug 3, 2009",€5.00m,Nikola Kalinić,['Croatia'],Blackburn-Rovers,Centre-Forward,2009-2010,HNK Hajduk Split
+29,Retired,"Jan 15, 1981",right,"1,80m",3604,"Jan 30, 2009",€4.00m,El-Hadji Diouf,"['Senegal', 'France']",Blackburn-Rovers,Centre-Forward,2009-2010,Sunderland AFC
+32,Retired,"Jan 25, 1978",right,"1,85m",3666,"Jul 3, 2006",€3.00m,Jason Roberts,"['Grenada', 'England']",Blackburn-Rovers,Centre-Forward,2009-2010,Wigan Athletic
+21,Without Club,"Apr 7, 1989",right,"1,93m",59783,"Aug 4, 2009",€2.50m,Franco Di Santo,"['Argentina', 'Italy']",Blackburn-Rovers,Centre-Forward,2009-2010,Chelsea FC
+26,Retired,"Jan 22, 1984",right,"1,79m",27701,"Jul 1, 2007",€500k,Maceo Rigters,"['Netherlands', 'Suriname']",Blackburn-Rovers,Centre-Forward,2009-2010,: Ablöse €1.20m
+31,Retired,"Oct 15, 1979",right,"1,93m",3630,"Jul 1, 2008",€5.00m,Paul Robinson,['England'],Blackburn-Rovers,Goalkeeper,2010-2011,Tottenham Hotspur
+26,Retired,"Nov 16, 1984",right,"1,83m",49319,"Aug 1, 2008",€500k,Mark Bunn,"['England', 'Ireland']",Blackburn-Rovers,Goalkeeper,2010-2011,: Ablöse €150k
+29,Retired,"May 18, 1982",,,15916,"Jul 1, 2006",€500k,Jason Brown,['Wales'],Blackburn-Rovers,Goalkeeper,2010-2011,Gillingham FC
+23,Stoke City,"Apr 4, 1988",right,"1,85m",57070,"Jul 1, 2007",€250k,Frank Fielding,['England'],Blackburn-Rovers,Goalkeeper,2010-2011,Blackburn Rovers U18
+27,Retired,"Mar 28, 1984",,,29016,"Jan 25, 2007",€7.50m,Christopher Samba,"['Congo', 'France']",Blackburn-Rovers,Centre-Back,2010-2011,: Ablöse €500k
+29,Retired,"Oct 9, 1981",left,"1,81m",5286,"Jul 1, 2009",€4.50m,Gaël Givet,['France'],Blackburn-Rovers,Centre-Back,2010-2011,Olympique Marseille
+19,Retired,"Feb 21, 1992",right,"1,85m",117996,"Jan 1, 2010",€3.50m,Phil Jones,['England'],Blackburn-Rovers,Centre-Back,2010-2011,Blackburn Rovers Reserves
+33,Retired,"Oct 18, 1977",right,"1,85m",28878,"Jan 6, 2005",€3.00m,Ryan Nelsen,['New Zealand'],Blackburn-Rovers,Centre-Back,2010-2011,: Ablöse free transfer
+23,Without Club,"Jun 12, 1988",right,"1,95m",41978,"Oct 1, 2010",€1.00m,Hérold Goulon,['France'],Blackburn-Rovers,Centre-Back,2010-2011,Without Club
+29,Retired,"Oct 6, 1981",right,"1,86m",9621,"Jul 1, 2006",€750k,Zurab Khizanishvili,['Georgia'],Blackburn-Rovers,Centre-Back,2010-2011,: Ablöse €750k
+19,Norwich City,"Nov 20, 1991",right,"1,88m",121385,"Jan 1, 2010",€500k,Grant Hanley,['Scotland'],Blackburn-Rovers,Centre-Back,2010-2011,Blackburn Rovers U18
+23,Malmö FF,"May 17, 1988",left,"1,78m",38073,"Jul 1, 2007",€2.00m,Martin Olsson,['Sweden'],Blackburn-Rovers,Left-Back,2010-2011,Blackburn Rovers U18
+31,Retired,"Sep 20, 1979",both,"1,81m",1423,"Jul 1, 2009",€2.00m,Lars Jacobsen,['Denmark'],Blackburn-Rovers,Right-Back,2010-2011,: Ablöse free transfer
+32,Skelmersdale United,"Feb 21, 1979",right,"1,82m",18875,"Aug 27, 2009",€2.00m,Pascal Chimbonda,"['Guadeloupe', 'France']",Blackburn-Rovers,Right-Back,2010-2011,Tottenham Hotspur
+35,Retired,"Oct 22, 1975",right,"1,74m",7515,"Aug 1, 2009",€1.00m,Míchel Salgado,['Spain'],Blackburn-Rovers,Right-Back,2010-2011,Real Madrid
+29,Retired,"Nov 3, 1981",both,"1,84m",1321,"Jan 18, 2011",€5.00m,Jermaine Jones,"['United States', 'Germany']",Blackburn-Rovers,Defensive Midfield,2010-2011,FC Schalke 04
+22,Sepahan FC,"Dec 15, 1988",right,"1,96m",73734,"Jul 1, 2009",€4.00m,Steven Nzonzi,"['France', 'DR Congo']",Blackburn-Rovers,Defensive Midfield,2010-2011,: Ablöse €580k
+19,Port Vale FC,"Sep 2, 1991",right,"1,83m",117997,"Jul 1, 2010",€50k,Jason Lowe,['England'],Blackburn-Rovers,Defensive Midfield,2010-2011,Blackburn Rovers U18
+29,Retired,"Sep 8, 1981",left,"1,83m",22741,"Aug 27, 2004",€7.50m,Morten Gamst Pedersen,['Norway'],Blackburn-Rovers,Central Midfield,2010-2011,Tromsø IL
+31,Retired,"Oct 5, 1979",both,"1,83m",6021,"Aug 26, 2008",€2.00m,Vincenzo Grella,"['Australia', 'Italy']",Blackburn-Rovers,Central Midfield,2010-2011,Torino FC
+30,Retired,"Sep 13, 1980",right,"1,83m",8035,"Aug 28, 2008",€2.00m,Keith Andrews,"['Ireland', 'England']",Blackburn-Rovers,Central Midfield,2010-2011,Milton Keynes Dons
+22,Woking FC,"Nov 11, 1988",right,"1,68m",42249,"Jul 1, 2013",€50k,Alan Judge,['Ireland'],Blackburn-Rovers,Central Midfield,2010-2011,Notts County
+21,Retired,"Nov 16, 1989",right,"1,86m",88596,"Jan 28, 2010",,Amine Linganzi,"['Congo', 'France']",Blackburn-Rovers,Central Midfield,2010-2011,: Ablöse free transfer
+32,Retired,"Feb 22, 1979",right,"1,85m",4367,"Jul 10, 2003",€3.00m,Brett Emerton,['Australia'],Blackburn-Rovers,Right Midfield,2010-2011,: Ablöse €3.00m
+20,Strathspey Thistle FC,"May 13, 1991",both,"1,70m",96148,"Jul 1, 2009",€75k,Aaron Doran,['Ireland'],Blackburn-Rovers,Right Midfield,2010-2011,Blackburn Rovers U18
+19,Without Club,"Sep 30, 1991",left,"1,80m",121391,"Jul 1, 2010",€50k,Josh Morris,['England'],Blackburn-Rovers,Left Midfield,2010-2011,Blackburn Rovers U18
+31,Retired,"Dec 27, 1979",right,"1,78m",4243,"Jan 17, 2007",€4.50m,David Dunn,['England'],Blackburn-Rovers,Attacking Midfield,2010-2011,: Ablöse €3.20m
+23,Retired,"Apr 4, 1988",right,"1,79m",55870,"Jan 31, 2011",€3.50m,Mauro Formica,"['Argentina', 'Italy']",Blackburn-Rovers,Attacking Midfield,2010-2011,CA Newell's Old Boys
+16,Goole AFC,"Sep 15, 1994",,"1,80m",134415,,,Robbie Cotton,['England'],Blackburn-Rovers,Attacking Midfield,2010-2011,
+21,Hibernian FC,"Jun 5, 1990",right,"1,74m",58993,"Jul 1, 2009",€3.00m,Junior Hoilett,"['Canada', 'Jamaica']",Blackburn-Rovers,Left Winger,2010-2011,Blackburn Rovers Reserves
+20,Without Club,"Mar 23, 1991",left,"1,82m",67548,"Jan 1, 2011",€800k,Rubén Rochina,['Spain'],Blackburn-Rovers,Right Winger,2010-2011,FC Barcelona B
+29,Club Libertad Asunción,"Aug 16, 1981",right,"1,93m",215,"Jan 14, 2011",€5.00m,Roque Santa Cruz,"['Paraguay', 'Spain']",Blackburn-Rovers,Centre-Forward,2010-2011,: Ablöse free transfer
+23,Retired,"Jan 5, 1988",both,"1,87m",36371,"Aug 3, 2009",€4.50m,Nikola Kalinić,['Croatia'],Blackburn-Rovers,Centre-Forward,2010-2011,HNK Hajduk Split
+23,Ankara Keciörengücü,"Dec 16, 1987",right,"1,85m",62049,"Aug 6, 2010",€4.00m,Mame Diouf,['Senegal'],Blackburn-Rovers,Centre-Forward,2010-2011,Manchester United
+32,Retired,"Aug 13, 1978",right,"1,88m",12063,"Aug 1, 2010",€3.50m,Benjani,['Zimbabwe'],Blackburn-Rovers,Centre-Forward,2010-2011,: Ablöse free transfer
+30,Retired,"Jan 15, 1981",right,"1,80m",3604,"Jan 30, 2009",€3.00m,El-Hadji Diouf,"['Senegal', 'France']",Blackburn-Rovers,Centre-Forward,2010-2011,Sunderland AFC
+33,Retired,"Jan 25, 1978",right,"1,85m",3666,"Jul 3, 2006",€2.00m,Jason Roberts,"['Grenada', 'England']",Blackburn-Rovers,Centre-Forward,2010-2011,Wigan Athletic
+32,Retired,"Oct 15, 1979",right,"1,93m",3630,"Jul 1, 2008",€2.00m,Paul Robinson,['England'],Blackburn-Rovers,Goalkeeper,2011-2012,Tottenham Hotspur
+27,Retired,"Nov 16, 1984",right,"1,83m",49319,"Aug 1, 2008",€750k,Mark Bunn,"['England', 'Ireland']",Blackburn-Rovers,Goalkeeper,2011-2012,: Ablöse €150k
+22,Canberra Olympic FC,"Feb 28, 1990",right,"1,90m",163344,"Jul 1, 2012",,Sebastian Usai,['Australia'],Blackburn-Rovers,Goalkeeper,2011-2012,Blackburn Rovers U21
+21,Retired,"Feb 4, 1991",,"1,93m",121388,"Jul 1, 2010",,Jake Kean,['England'],Blackburn-Rovers,Goalkeeper,2011-2012,Blackburn Rovers U18
+28,Retired,"Mar 28, 1984",,,29016,"Jan 25, 2007",€12.00m,Christopher Samba,"['Congo', 'France']",Blackburn-Rovers,Centre-Back,2011-2012,: Ablöse €500k
+25,Without Club,"Feb 14, 1987",right,"1,94m",62688,"Aug 1, 2011",€4.00m,Scott Dann,['England'],Blackburn-Rovers,Centre-Back,2011-2012,: Ablöse €6.80m
+20,Norwich City,"Nov 20, 1991",right,"1,88m",121385,"Jan 1, 2010",€2.00m,Grant Hanley,['Scotland'],Blackburn-Rovers,Centre-Back,2011-2012,Blackburn Rovers U18
+30,Retired,"Oct 9, 1981",left,"1,81m",5286,"Jul 1, 2009",€1.50m,Gaël Givet,['France'],Blackburn-Rovers,Centre-Back,2011-2012,Olympique Marseille
+34,Retired,"Oct 18, 1977",right,"1,85m",28878,"Jan 6, 2005",€750k,Ryan Nelsen,['New Zealand'],Blackburn-Rovers,Centre-Back,2011-2012,: Ablöse free transfer
+24,Without Club,"Jun 12, 1988",right,"1,95m",41978,"Oct 1, 2010",€500k,Hérold Goulon,['France'],Blackburn-Rovers,Centre-Back,2011-2012,Without Club
+22,Northwood FC,"Jan 9, 1990",left,"1,83m",173860,"Jul 1, 2011",,Myles Anderson,['England'],Blackburn-Rovers,Centre-Back,2011-2012,Aberdeen FC
+24,Malmö FF,"May 17, 1988",left,"1,78m",38073,"Jul 1, 2007",€4.50m,Martin Olsson,['Sweden'],Blackburn-Rovers,Left-Back,2011-2012,Blackburn Rovers U18
+24,Halmstads BK,"May 17, 1988",left,"1,80m",72264,"Jan 30, 2012",€1.50m,Marcus Olsson,['Sweden'],Blackburn-Rovers,Left-Back,2011-2012,Halmstads BK
+29,Retired,"Nov 1, 1982",right,"1,82m",16091,"Jan 31, 2012",€1.50m,Bradley Orr,['England'],Blackburn-Rovers,Right-Back,2011-2012,: Ablöse €1.80m
+18,Chorley FC,"Jun 14, 1994",right,"1,78m",173585,"Jul 1, 2012",€750k,Adam Henley,"['Wales', 'United States']",Blackburn-Rovers,Right-Back,2011-2012,Blackburn Rovers U18
+36,Retired,"Oct 22, 1975",right,"1,74m",7515,"Aug 1, 2009",€500k,Míchel Salgado,['Spain'],Blackburn-Rovers,Right-Back,2011-2012,Real Madrid
+23,Sepahan FC,"Dec 15, 1988",right,"1,96m",73734,"Jul 1, 2009",€4.50m,Steven Nzonzi,"['France', 'DR Congo']",Blackburn-Rovers,Defensive Midfield,2011-2012,: Ablöse €580k
+23,APOEL Nicosia,"Mar 8, 1989",right,"1,93m",75296,"Aug 9, 2011",€2.00m,Radosav Petrovic,['Serbia'],Blackburn-Rovers,Defensive Midfield,2011-2012,FK Partizan Belgrade
+20,Port Vale FC,"Sep 2, 1991",right,"1,83m",117997,"Jul 1, 2010",€1.50m,Jason Lowe,['England'],Blackburn-Rovers,Defensive Midfield,2011-2012,Blackburn Rovers U18
+30,Retired,"Sep 8, 1981",left,"1,83m",22741,"Aug 27, 2004",€4.50m,Morten Gamst Pedersen,['Norway'],Blackburn-Rovers,Central Midfield,2011-2012,Tromsø IL
+32,Retired,"Oct 5, 1979",both,"1,83m",6021,"Aug 26, 2008",€500k,Vincenzo Grella,"['Australia', 'Italy']",Blackburn-Rovers,Central Midfield,2011-2012,Torino FC
+22,Retired,"Nov 16, 1989",right,"1,86m",88596,"Jan 28, 2010",€250k,Amine Linganzi,"['Congo', 'France']",Blackburn-Rovers,Central Midfield,2011-2012,: Ablöse free transfer
+33,Retired,"Feb 22, 1979",right,"1,85m",4367,"Jul 10, 2003",€1.50m,Brett Emerton,['Australia'],Blackburn-Rovers,Right Midfield,2011-2012,: Ablöse €3.00m
+20,Without Club,"Sep 30, 1991",left,"1,80m",121391,"Jul 1, 2010",€500k,Josh Morris,['England'],Blackburn-Rovers,Left Midfield,2011-2012,Blackburn Rovers U18
+24,Retired,"Apr 4, 1988",right,"1,79m",55870,"Jan 31, 2011",€3.00m,Mauro Formica,"['Argentina', 'Italy']",Blackburn-Rovers,Attacking Midfield,2011-2012,CA Newell's Old Boys
+32,Retired,"Dec 27, 1979",right,"1,78m",4243,"Jan 17, 2007",€1.50m,David Dunn,['England'],Blackburn-Rovers,Attacking Midfield,2011-2012,: Ablöse €3.20m
+29,Retired,"Apr 1, 1983",right,"1,72m",76181,"Aug 1, 2011",€250k,Bruno Ribeiro,['Brazil'],Blackburn-Rovers,Attacking Midfield,2011-2012,Without Club
+17,Goole AFC,"Sep 15, 1994",,"1,80m",134415,,,Robbie Cotton,['England'],Blackburn-Rovers,Attacking Midfield,2011-2012,
+22,Hibernian FC,"Jun 5, 1990",right,"1,74m",58993,"Jul 1, 2009",€9.00m,Junior Hoilett,"['Canada', 'Jamaica']",Blackburn-Rovers,Left Winger,2011-2012,Blackburn Rovers Reserves
+26,Retired,"Jan 29, 1986",left,"1,80m",27239,"Aug 23, 2011",€2.50m,Simon Vukcevic,['Montenegro'],Blackburn-Rovers,Right Winger,2011-2012,Sporting CP
+21,Without Club,"Mar 23, 1991",left,"1,82m",67548,"Jan 1, 2011",€1.00m,Rubén Rochina,['Spain'],Blackburn-Rovers,Right Winger,2011-2012,FC Barcelona B
+29,Retired,"Nov 22, 1982",,"1,83m",8559,"Aug 31, 2011",€7.50m,Yakubu Aiyegbeni,['Nigeria'],Blackburn-Rovers,Centre-Forward,2011-2012,: Ablöse €1.70m
+24,Without Club,"Apr 14, 1988",right,"1,88m",50512,"Jan 20, 2012",€3.50m,Anthony Modeste,"['France', 'Martinique']",Blackburn-Rovers,Centre-Forward,2011-2012,: Ablöse ?
+23,Glasgow United FC,"Mar 28, 1989",right,"1,75m",37677,"Aug 3, 2011",€2.50m,David Goodwillie,['Scotland'],Blackburn-Rovers,Centre-Forward,2011-2012,: Ablöse €3.40m
+19,Morecambe FC,"Sep 7, 1992",right,"1,91m",164785,"Sep 1, 2011",€1.00m,Jordan Slew,"['England', 'Jamaica']",Blackburn-Rovers,Centre-Forward,2011-2012,Sheffield United
+22,Without Club,"Nov 11, 1989",left,"1,88m",67369,"Jan 12, 2009",€500k,Nick Blackman,"['Barbados', 'England']",Blackburn-Rovers,Centre-Forward,2011-2012,Macclesfield Town FC
+34,Retired,"Jan 25, 1978",right,"1,85m",3666,"Jul 3, 2006",€250k,Jason Roberts,"['Grenada', 'England']",Blackburn-Rovers,Centre-Forward,2011-2012,Wigan Athletic
