@@ -4,7 +4,7 @@ import { defineNuxtConfig } from "nuxt/config"
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
-  modules: ['@nuxt/icon'],
+  modules: ['@nuxt/icon', "@nuxtjs/tailwindcss"],
   ssr: true,
   runtimeConfig: {
     public: {
