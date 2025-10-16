@@ -1,13 +1,24 @@
 <script setup>
 const config = useRuntimeConfig()
-const { team_names, error } = await useAsyncData("team_names", () => $fetch(`${config.public.apiBase}/api/team_names`))
+const { status, data: team_names, error } = await useFetch(`${config.public.apiBase}/api/team_names`, {
+  lazy: true,
+})
 console.log("Fetched team names:", team_names)
 </script>
 
 <template>
+  <h1>Teams Page</h1>
   <div>
-    <h1>Teams Page</h1>
-    <div v-if="error">Error: {{ error.message }}</div>
-    <pre v-else>all teams: {{ team_names }}</pre>
+    <div v-if="status === 'pending'">
+      Loading...
+    </div>
+    <div v-else-if="error">
+      Error: {{ error.message }}
+    </div>
+    <div v-else>
+      <div v-for="(team, index) in team_names" :key="index">
+        <pre>{{ team }}</pre>
+      </div>
+    </div>
   </div>
 </template>

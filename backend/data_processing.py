@@ -11,4 +11,6 @@ def process_dataset():
 def team_names():
     base_dir = Path(__file__).parent
     data_dir = base_dir / "datasets" / "players-for-team"
-    return os.listdir(data_dir)[:39]
+    teams = os.listdir(data_dir)[:39]
+    teams = [team.replace(".csv", "").replace("-", " ") for team in teams]
+    return teams

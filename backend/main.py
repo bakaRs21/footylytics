@@ -5,6 +5,8 @@ from fastapi.staticfiles import StaticFiles
 import data_processing
 
 app = FastAPI(title="API for Nuxt + FastAPI example")
+router = APIRouter(prefix="/api")
+
 
 app.add_middleware(
     CORSMiddleware,
@@ -21,12 +23,10 @@ app.add_middleware(
 async def root():
     return {"message": "server is running"}
 
-router = APIRouter(prefix="/api")
-
-@router.get("/nums")
+@app.get("/nums")
 async def get_nums():
     result = data_processing.process_dataset()
-    return {"teams": result}
+    return {"numbers": "10"}
 
 @router.get("/team_names")
 async def get_team_names():
