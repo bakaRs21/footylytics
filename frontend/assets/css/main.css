@@ -1,0 +1,26 @@
+@import "tailwindcss";
+@tailwind utilities;
+
+
+@layer base {
+    body {
+        @apply bg-gradient-to-br from-gray-900 via-gray-800 to-gray-800 font-sans min-h-screen text-white;
+        margin: 0;
+        padding: 0;
+    }
+    html {
+        @apply bg-gray-900;
+    }
+}
+
+/* Utilities layer - Custom utility classes */
+@layer utilities {
+    /* Add any custom utilities here if needed */
+    .text-shadow-sm {
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    }
+
+    .backdrop-blur-xs {
+        backdrop-filter: blur(2px);
+    }
+}

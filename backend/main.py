@@ -33,4 +33,8 @@ async def get_team_names():
     names = data_processing.team_names()
     return {"teams": names}
 
+@router.get("/seasons")
+async def get_seasons():
+    return data_processing.seasons()
+
 app.include_router(router)
