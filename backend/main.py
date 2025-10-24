@@ -28,9 +28,9 @@ async def get_nums():
     result = data_processing.process_dataset()
     return {"numbers": "10"}
 
-@router.get("/team_names")
+@router.get("/teams")
 async def get_team_names():
     names = data_processing.team_names()
-    return {"team_names": names}
+    return {"teams": names}
 
 app.include_router(router)
