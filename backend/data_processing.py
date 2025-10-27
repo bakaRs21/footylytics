@@ -32,9 +32,9 @@ def team_seasons(team: str):
 def team_stats_from_season(team: str, season: str):
     team_stats_df = pl.read_csv(team_stats_dir)
     filtered_df = team_stats_df.filter((pl.col("team") == team) & (pl.col("season") == season))
-    stats = filtered_df.to_dicts()
-    team_stats = {f"{team}_{season}_stats": stats}
-    return team_stats
+    stats = {f"{team}_{season}_stats": filtered_df.drop("team").to_dicts()}
+    return stats
+
 
 
 def seasons():

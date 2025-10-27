@@ -1,9 +1,8 @@
 <script setup>
 const config = useRuntimeConfig()
-const { status, data: teams, error } = await useFetch(`${config.public.apiBase}/api/teams`, {
+const { status, data: teams, error } = await useFetch(`${config.public.apiBase}api/teams`, {
   lazy: true,
 })
-console.log("Fetched teams:", teams)
 </script>
 
 <template>
@@ -17,8 +16,10 @@ console.log("Fetched teams:", teams)
       Error: {{ error.message }}
     </div>
     <div v-else>
-      <div v-for="(team, index) in team_names" :key="index">
-        <pre><NuxtLink :to="`/teams/${teamName}`">{{ team.name }}</NuxtLink></pre>
+      <div v-for="team in teams" :key="team">
+        <div v-for="name in team" :key="name">
+          <NuxtLink :to="`/teams/${name}`">{{ name }}</NuxtLink>
+        </div>
       </div>
     </div>
   </div>

@@ -7,6 +7,7 @@ import data_processing
 app = FastAPI(title="API for Nuxt + FastAPI example")
 router = APIRouter(prefix="/api")
 
+#run uvicorn main:app --reload --port 8000
 
 app.add_middleware(
     CORSMiddleware,
