@@ -16,7 +16,7 @@ const fetchSeasonData = async (season) => {
 
   dataStatus.value = true
   try {
-    const { data: seasonDataResponse, error: seasonError } = await useFetch(`${config.public.apiBase}api/team_stats/${teamName}/${season}`, {
+    const { data: seasonDataResponse, error: seasonError } = await useFetch(`${config.public.apiBase}api/team_stats/${teamName}/seasons/${season}`, {
       lazy: true,
     })
     if (seasonError.value) {
@@ -24,7 +24,7 @@ const fetchSeasonData = async (season) => {
       dataStatus.value = false
       return
     }
-    seasonData.value = seasonDataResponse
+    seasonData.value = seasonDataResponse.value
   } catch (err) {
     dataError.value = err
     dataStatus.value = false
@@ -58,8 +58,10 @@ const fetchSeasonData = async (season) => {
     </div>
     <div v-else-if="seasonData">
       <h2>Data for {{ selectedSeason }}</h2>
-      <div v-for="data in seasonData" :key="data">
-        <pre>{{ data }}</pre>
+      <div v-for="(stat, index) in seasonData" :key="index">
+        <div v-for="(value, key) in stat" :key="key">
+          {{ key }}: {{ value }}
+        </div>
       </div>
     </div>
 </div>

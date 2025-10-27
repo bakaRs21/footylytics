@@ -42,7 +42,7 @@ async def get_seasons():
 async def get_team_seasons(team: str):
     return data_processing.team_seasons(team)
 
-router.get("/team_stats/{team}/{season}")
+@router.get("/team_stats/{team}/seasons/{season}")
 async def get_team_stats(team: str, season: str):
     return data_processing.team_stats_from_season(team, season)
 

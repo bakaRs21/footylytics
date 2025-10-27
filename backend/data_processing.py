@@ -32,7 +32,7 @@ def team_seasons(team: str):
 def team_stats_from_season(team: str, season: str):
     team_stats_df = pl.read_csv(team_stats_dir)
     filtered_df = team_stats_df.filter((pl.col("team") == team) & (pl.col("season") == season))
-    stats = {f"{team}_{season}_stats": filtered_df.drop("team").to_dicts()}
+    stats = filtered_df.drop("team").drop("season").to_dicts()
     return stats
 
 
@@ -43,3 +43,5 @@ def seasons():
     seasons_df = df.select(pl.col("season")).unique().sort("season").to_dicts()
     seasons = {"seasons" : [season["season"] for season in seasons_df]}
     return seasons
+
+print(team_stats_from_season("Arsenal", "2010-2011"))
