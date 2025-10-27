@@ -16,11 +16,11 @@ def process_dataset():
     return processed_data
 
 def team_names():
-    team_dir = data_dir / "team_stats"
-    teams = os.listdir(team_dir)[:39]
-    teams = [team.replace(".csv", "").replace("_", " ") for team in teams]
-    return teams
+    team_df = pl.read_csv(team_stats_dir)
+    teams = team_df.select(pl.col("team").unique()).sort("team").to_dicts()
+    return {"teams": [team["team"] for team in teams]}
 
+print(team_names())
 def team_seasons(team: str):
     df = pl.read_csv(team_stats_dir)
     team_df = df.filter(pl.col("team") == team)
@@ -43,5 +43,3 @@ def seasons():
     seasons_df = df.select(pl.col("season")).unique().sort("season").to_dicts()
     seasons = {"seasons" : [season["season"] for season in seasons_df]}
     return seasons
-
-print(team_stats_from_season("Arsenal", "2010-2011"))

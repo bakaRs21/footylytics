@@ -1,7 +1,7 @@
 <script setup>
 const config = useRuntimeConfig()
 const { data, error } = await useFetch(`${config.public.apiBase}`)
-const { data: teams, error: teamsError } = await useFetch(`${config.public.apiBase}/api/teams`)
+const { data: teams, error: teamsError } = await useFetch(`${config.public.apiBase}api/teams`)
 
 const selectedTeam = ref(null)
 </script>
