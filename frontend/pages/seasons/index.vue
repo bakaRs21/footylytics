@@ -19,7 +19,7 @@
 
 <script setup>
 const config = useRuntimeConfig()
-const { status, data:seasons, error } = await useFetch(`${config.public.apiBase}/api/seasons`, {
+const { status, data:seasons, error } = await useFetch(`${config.public.apiBase}api/seasons`, {
   lazy: true,
 })
 </script>

@@ -1,5 +1,5 @@
 {
-  "name": "Nuxt",
+  "name": "premier-league-frontend",
   "type": "module",
   "private": true,
   "scripts": {
@@ -10,10 +10,8 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
-    "@tailwindcss/vite": "^4.1.16",
     "apexcharts": "^5.3.5",
     "nuxt": "^3.16.1",
-    "tailwindcss": "^4.1.16",
     "vue": "^3.5.22",
     "vue-router": "^4.6.3",
     "vue3-apexcharts": "^1.10.0"

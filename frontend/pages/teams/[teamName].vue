@@ -11,6 +11,7 @@ const seasonData = ref(null)
 const dataStatus = ref(false)
 const dataError = ref(null)
 
+// function to fetch season data dynamically
 const fetchSeasonData = async (season) => {
   if (!season) return
 
@@ -31,6 +32,8 @@ const fetchSeasonData = async (season) => {
   }
   dataStatus.value = false
 }
+
+
 
 
 </script>

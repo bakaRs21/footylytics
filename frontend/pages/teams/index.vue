@@ -17,8 +17,10 @@ const { status, data: teams, error } = await useFetch(`${config.public.apiBase}a
     </div>
     <div v-else>
       <div v-for="team in teams" :key="team">
-        <div v-for="name in team" :key="name">
-          <NuxtLink :to="`/teams/${name}`">{{ name }}</NuxtLink>
+        <div v-for="index in team" :key="index">
+          <div v-for="value in index" :key="value">
+            <NuxtLink :to="`/teams/${value}`">{{ value }}</NuxtLink>
+          </div>
         </div>
       </div>
     </div>

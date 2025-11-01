@@ -1,7 +1,7 @@
 import polars as pl
 from pathlib import Path
 
-base_dir = Path(__file__).parent
+base_dir = Path(__file__).resolve().parent.parent.parent
 data_dir = base_dir / "datasets"
 team_stats_dir = data_dir / "team_stats.csv"
 
@@ -10,6 +10,8 @@ def team_names():
     team_df = pl.read_csv(team_stats_dir)
     teams = team_df.select(pl.col("team").unique()).sort("team").to_dicts()
     return {"teams": [team["team"] for team in teams]}
+
+print(team_names())
 
     # Get seasons for a specific team
 def team_seasons(team: str):
