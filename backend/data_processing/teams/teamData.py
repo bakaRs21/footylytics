@@ -5,13 +5,11 @@ base_dir = Path(__file__).resolve().parent.parent.parent
 data_dir = base_dir / "datasets"
 team_stats_dir = data_dir / "team_stats.csv"
 
-    # Get unique team names
-def team_names():
-    team_df = pl.read_csv(team_stats_dir)
-    teams = team_df.select(pl.col("team").unique()).sort("team").to_dicts()
-    return {"teams": [team["team"] for team in teams]}
-
-print(team_names())
+def teams():
+    df = pl.read_csv(team_stats_dir)
+    teams_df = df.select(pl.col("team")).unique().sort("team").to_dicts()
+    teams = {"teams" : [team["team"] for team in teams_df]}
+    return teams
 
     # Get seasons for a specific team
 def team_seasons(team: str):
@@ -21,6 +19,14 @@ def team_seasons(team: str):
     seasons = [entry["season"] for entry in team_season_dict]
     team_season = {f"{team}_seasons": seasons}
     return team_season
+
+    # get all teams from specific season
+def teams_from_season(season: str):
+    df = pl.read_csv(team_stats_dir)
+    season_df = df.filter(pl.col("season") == season)
+    teams_season_dict = season_df.select(pl.col("team")).unique().sort("team").to_dicts()
+    teams = {f"{season}": [entry["team"] for entry in teams_season_dict]}
+    return teams
 
     # Get team stats for a specific team and season
 def team_stats_from_season(team: str, season: str):
