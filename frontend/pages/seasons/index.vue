@@ -1,6 +1,7 @@
 <template>
-  <div class="container">
-    <h1>Seasons Page</h1>
+  <div class="page-heading">
+    <h1 class="h1-design">Seasons Page</h1>
+  </div>
   <div>
     <div v-if="status === 'pending'">
       Loading...
@@ -13,7 +14,6 @@
         <pre><NuxtLink :to="`/teams/${season.year}`">{{ season.year }}</NuxtLink></pre>
       </div>
     </div>
-  </div>
   </div>
 </template>
 

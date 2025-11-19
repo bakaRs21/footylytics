@@ -11,6 +11,7 @@
                         </NuxtLink>
                     </div> 
                     <ul class="menu">
+                        <li><NuxtLink to="/compare">Compare</NuxtLink></li>
                         <li><NuxtLink to="/seasons/">Seasons</NuxtLink></li>
                         <li><NuxtLink to="/teams/">Teams</NuxtLink></li>
                         <li><NuxtLink to="/about">About</NuxtLink></li>
@@ -111,7 +112,7 @@ header nav ul.menu li .manual:hover {
 }
 
 @media (max-width: 600px) {
-  header nav .container {
+  header nav .navigation {
     padding-left: 0.75rem;
     padding-right: 0.75rem;
   }

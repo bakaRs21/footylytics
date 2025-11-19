@@ -1,11 +1,11 @@
 <script setup>
+import card from '~/components/card.vue';
 </script>
 
 <template>
-  <div class="container">
-    <h1 class="h1-position">
-      <span class="h1-design">About page</span>
-    </h1>
+    <div class="page-heading">
+      <h1 class="h1-design">About page</h1>
+    </div>
     <div>
         <h1>About this website</h1>
 
@@ -65,8 +65,6 @@
                 or contact the maintainers via the repository.
             </p>
         </section>
-
         <NuxtLink to="/" class="back">← Back to home</NuxtLink>
     </div>
-  </div>
 </template>

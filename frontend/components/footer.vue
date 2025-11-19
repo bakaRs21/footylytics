@@ -9,7 +9,7 @@
         <p>Advanced football analytics platform for fans and analysts. Dive deep into stats, compare teams, and explore global football data.</p>
       </div>
         <div>
-          <h3>Features</h3>
+          <h3 class="h3-footer">Features</h3>
           <ul class="padding-fix">
             <li class="footer-link"><NuxtLink to="/seasons">Seasons Comparison</NuxtLink></li>
             <li class="footer-link"><NuxtLink to="/teams">Team Analysis</NuxtLink></li>
@@ -17,7 +17,7 @@
           </ul>
         </div>
         <div>
-          <h3>Resources</h3>
+          <h3 class="h3-footer">Resources</h3>
           <ul class="padding-fix">
             <li ><NuxtLink to="/documentation">Documentation</NuxtLink></li>
             <li ><NuxtLink to="/manual">El Manuel</NuxtLink></li>
@@ -91,7 +91,7 @@ footer ul.padding-fix li a:hover, footer ul.padding-fix li .nuxt-link:hover {
   color: #fff;
 }
 
-h3 {
+.h3-footer {
   font-weight: 800;
   font-size: 30px;
   color: rgb(118, 76, 172);

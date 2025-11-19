@@ -6,8 +6,9 @@ const { status, data: teams, error } = await useFetch(`${config.public.apiBase}a
 </script>
 
 <template>
-  <div class="container">
-  <h1>Teams Page</h1>
+  <div class="page-heading"> 
+    <h1 class="h1-design">Teams Page</h1>
+  </div>
   <div>
     <div v-if="status === 'pending'">
       Loading...
@@ -24,6 +25,5 @@ const { status, data: teams, error } = await useFetch(`${config.public.apiBase}a
         </div>
       </div>
     </div>
-  </div>
   </div>
 </template>

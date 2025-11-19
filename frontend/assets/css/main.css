@@ -8,7 +8,7 @@ body, .main-wrapper {
     color: #ffffff; 
 }
 html {
-    background: linear-gradient(90deg,rgb(5, 5, 37) 19%, rgb(2, 28, 54) 100%);
+    background: linear-gradient(180deg,rgb(31, 31, 41) 19%, rgb(19, 44, 68) 100%);
 }
 html, body {
     height: 100%;
@@ -21,8 +21,8 @@ html, body {
 h1, h2, h3, h4, h5, h6 {
   font-family: inherit;
   font-weight: inherit;
-  color: #ffffff;
   line-height: 1.2;
+  margin: 15px 0 15px 0;
 }
 
 
@@ -30,8 +30,8 @@ h1, h2, h3, h4, h5, h6 {
     padding-top: 96px;
     padding-left: 16px; 
     padding-right: 16px;
-    padding-bottom: 2rem;  
-    max-width: 80rem;  
+    padding-bottom: 2rem;
+    width: 1200px;
     margin-left: auto; 
     margin-right: auto;
 }
@@ -48,15 +48,13 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
-.h1-position {
-  text-align: center;   
-  font-size: 30px;       
-  font-weight: 700;            
-  margin-bottom: 24px;             
+.page-heading {
+  text-align: center;
 }
-@media (min-width: 768px) {
-  .h1-position {
-    font-size: 50px;     
+
+@media (max-width: 920px) {
+  .h1-design {
+    font-size: 58px;     
   }
 }
 
@@ -65,6 +63,9 @@ h1, h2, h3, h4, h5, h6 {
   -webkit-background-clip: text;
   background-image: linear-gradient(90deg,rgba(111, 32, 150, 1) 19%, rgba(3, 77, 138, 1) 100%);
   color: transparent;
+  font-weight: 700;
+  font-size: 80px;
+  padding-bottom: 5px;
 }
 
 
