@@ -1,5 +1,7 @@
 <script setup>
 import card from '~/components/card.vue';
+
+const choices = ["Seasons", "Teams", "Players"]
 </script>
 
 <template>
@@ -9,15 +11,11 @@ import card from '~/components/card.vue';
     </div>
     <div class="card-margin">
         <div class="card-grid">
-            <card>
-                <p>Compare Seasons</p>
-            </card>
-            <card>
-                <p>Compare Teams</p>
-            </card>
-            <card>
-                <p>Compare Players</p>
-            </card>
+          <div v-for="selection in choices" :key="index">
+              <NuxtLink :to="`/compare/${selection}`">
+                <card id="card">Compare {{ selection }}</card>
+              </NuxtLink>
+          </div>
         </div>
     </div>
 </template>
@@ -41,4 +39,6 @@ import card from '~/components/card.vue';
     grid-template-columns: repeat(3, 1fr);
   }
 }
+
+
 </style>

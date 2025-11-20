@@ -28,9 +28,13 @@ def teams_from_season(season: str):
     teams = {f"{season}": [entry["team"] for entry in teams_season_dict]}
     return teams
 
-    # Get team stats for a specific team and season
+    # get team stats for a specific team and season
 def team_stats_from_season(team: str, season: str):
     team_stats_df = pl.read_csv(team_stats_dir)
     filtered_df = team_stats_df.filter((pl.col("team") == team) & (pl.col("season") == season))
     stats = filtered_df.drop("team").drop("season").to_dicts()
     return stats
+
+    # get team stats from specific season for basic ranking table
+def team_stats_for_table(season: str):
+    
