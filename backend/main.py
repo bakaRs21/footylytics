@@ -2,10 +2,11 @@ from fastapi import FastAPI
 from fastapi import APIRouter
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
-import data_processing.teams.teamData as team_data
-import data_processing.general.generalData as general_data
+import scripts.teamData as team_data
+import scripts.generalData as general_data
+import scripts.playersData as players_data
 
-app = FastAPI(title="API for Nuxt + FastAPI example")
+app = FastAPI(title="API for Nuxt + FastAPI")
 router = APIRouter(prefix="/api")
 
 #run uvicorn main:app --reload --port 8000

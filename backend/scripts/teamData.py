@@ -1,9 +1,10 @@
 import polars as pl
-from pathlib import Path
+import os
 
-base_dir = Path(__file__).resolve().parent.parent.parent
-data_dir = base_dir / "datasets"
-team_stats_dir = data_dir / "team_stats.csv"
+dirname = os.path.dirname(__file__)
+data_dir = os.path.join(os.path.dirname(os.path.dirname((__file__))), "datasets")
+team_stats_dir = os.path.join(data_dir, "team_stats.csv")
+print(team_stats_dir)
 
 def teams():
     df = pl.read_csv(team_stats_dir)
@@ -35,6 +36,7 @@ def team_stats_from_season(team: str, season: str):
     stats = filtered_df.drop("team").drop("season").to_dicts()
     return stats
 
+
     # get team stats from specific season for basic ranking table
 def team_stats_for_table(season: str):
-    
+    df = pl.read_csv(team_stats_dir)
