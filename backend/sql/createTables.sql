@@ -1,66 +1,65 @@
--- SQL to create the main tables. Run this once (psql -f backend/sql/create_tables.sql) or let the loader run it.
--- Adjust owner/permissions as needed.
-
--- 1) results (clean relational table)
-CREATE TABLE IF NOT EXISTS results (
-  id SERIAL PRIMARY KEY,
-  home_team TEXT NOT NULL,
-  away_team TEXT NOT NULL,
-  home_goals INTEGER,
-  away_goals INTEGER,
-  result CHAR(1),
-  season TEXT,
-  created_at TIMESTAMP WITH TIME ZONE DEFAULT now()
+-- Teams
+CREATE TABLE IF NOT EXISTS Teams (
+    team_id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL UNIQUE
 );
 
--- 2) all_matches: store known columns if present, otherwise use staging table below
-CREATE TABLE IF NOT EXISTS all_matches (
-  id SERIAL PRIMARY KEY,
-  match_date DATE,
-  home_team TEXT,
-  away_team TEXT,
-  home_goals INTEGER,
-  away_goals INTEGER,
-  season TEXT,
-  metadata JSONB,  -- keeps any other columns that are not formalized
-  created_at TIMESTAMP WITH TIME ZONE DEFAULT now()
+-- Referees
+CREATE TABLE IF NOT EXISTS referees (
+    referee_id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL
 );
 
--- 3) team_stats: safe approach — keep team + jsonb for all numeric columns
-CREATE TABLE IF NOT EXISTS team_stats_raw (
-  id SERIAL PRIMARY KEY,
-  team TEXT,
-  stats JSONB,
-  created_at TIMESTAMP WITH TIME ZONE DEFAULT now()
+-- Seasons
+CREATE TABLE IF NOT EXISTS Seasons (
+    season_id SERIAL PRIMARY KEY,
+    season VARCHAR(20) UNIQUE
 );
 
--- If you prefer a flat table you can add columns manually later; the loader stores row -> JSON.
-
--- 4) players (staging/raw)
-CREATE TABLE IF NOT EXISTS players_raw (
-  id SERIAL PRIMARY KEY,
-  raw JSONB,
-  created_at TIMESTAMP WITH TIME ZONE DEFAULT now()
+-- Teams <--> Seasons (many-to-many)
+CREATE TABLE IF NOT EXISTS Teams_has_Seasons (
+    team_id INT NOT NULL,
+    season_id INT NOT NULL,
+    standing_position INT,
+    wins INT,
+    losses INT,
+    draws INT,
+    PRIMARY KEY (team_id, season_id),
+    FOREIGN KEY (team_id) REFERENCES Teams(team_id),
+    FOREIGN KEY (season_id) REFERENCES Seasons(season_id)
 );
 
--- 5) top20 players (staging/raw)
-CREATE TABLE IF NOT EXISTS top20_players_raw (
-  id SERIAL PRIMARY KEY,
-  raw JSONB,
-  created_at TIMESTAMP WITH TIME ZONE DEFAULT now()
+-- Players (basic info only, constant data)
+CREATE TABLE IF NOT EXISTS Players (
+    player_id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    date_of_birth DATE NOT NULL
 );
 
--- 6) EPL standings normalized (team, season, position)
-CREATE TABLE IF NOT EXISTS epl_standings (
-  id SERIAL PRIMARY KEY,
-  team TEXT NOT NULL,
-  season TEXT NOT NULL,
-  position INTEGER,
-  created_at TIMESTAMP WITH TIME ZONE DEFAULT now(),
-  UNIQUE (team, season)
+-- Players in Seasons + Teams (player’s changing data)
+CREATE TABLE IF NOT EXISTS Players_has_Seasons (
+    player_id INT NOT NULL,
+    season_id INT NOT NULL,
+    team_id INT NOT NULL,
+    appearances INT DEFAULT 0,
+    goals INT DEFAULT 0,
+    PRIMARY KEY (player_id, season_id),
+    FOREIGN KEY (player_id) REFERENCES Players(player_id),
+    FOREIGN KEY (season_id) REFERENCES Seasons(season_id),
+    FOREIGN KEY (team_id) REFERENCES Teams(team_id)
 );
 
--- Indexes for common queries
-CREATE INDEX IF NOT EXISTS idx_results_season ON results (season);
-CREATE INDEX IF NOT EXISTS idx_all_matches_season ON all_matches (season);
-CREATE INDEX IF NOT EXISTS idx_epl_team ON epl_standings (team);
+-- Matches
+CREATE TABLE IF NOT EXISTS matches (
+    match_id SERIAL PRIMARY KEY,
+    season_id INT NOT NULL,
+    referee_id INT NOT NULL,
+    home_team_id INT NOT NULL,
+    away_team_id INT NOT NULL,
+    match_date DATE NOT NULL,
+
+    FOREIGN KEY (season_id) REFERENCES Seasons(season_id),
+    FOREIGN KEY (referee_id) REFERENCES referees(referee_id),
+    FOREIGN KEY (home_team_id) REFERENCES Teams(team_id),
+    FOREIGN KEY (away_team_id) REFERENCES Teams(team_id)
+);
