@@ -35,6 +35,10 @@ async def get_team_names():
 async def get_seasons():
     return general_data.seasons()
 
+@router.get("/players")
+async def get_players():
+    return players_data.players()
+
 @router.get("/team_seasons/{team}")
 async def get_team_seasons(team: str):
     return team_data.team_seasons(team)
