@@ -29,7 +29,9 @@ a {
   text-decoration: none;
   color: white;
 }
-
+li {
+  list-style-type: none;
+}
 
 .container {
     padding-top: 96px;
@@ -39,6 +41,7 @@ a {
     width: 1200px;
     margin-left: auto; 
     margin-right: auto;
+    text-align: center;
 }
 @media (min-width: 640px) {
   .container {
@@ -72,6 +75,28 @@ a {
   font-size: 80px;
   padding-bottom: 5px;
 }
+
+select {
+  background-color: #303030c4;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-size: 16px;
+  padding: 10px 15px;
+  margin: 10px;
+  width: 200px;
+}
+.options {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.option-items {
+  display: flex;
+  gap: 60px;
+}
+
+
 
 
 .text-shadow-sm {

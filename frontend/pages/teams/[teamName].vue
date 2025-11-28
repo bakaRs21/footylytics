@@ -1,71 +1,49 @@
 <script setup>
-const teamName = useRoute().params.teamName
-String(teamName)
 const config = useRuntimeConfig()
-const { status, data: teamLeagues, error } = await useFetch(`${config.public.apiBase}api/team_seasons/${teamName}`, {
-  lazy: true,
-})
+const route = useRoute()
+const router = useRouter()
+const teamName = ref(route.params.teamName || "")
+const selectedSeason = ref(route.query.season || "")
+const { status, data: teamSeasons, error } = await useFetch(`${config.public.apiBase}teams/${teamName.value}`)
 
-const selectedSeason = ref('')
-const seasonData = ref(null)
-const dataStatus = ref(false)
-const dataError = ref(null)
-
-// function to fetch season data dynamically
-const fetchSeasonData = async (season) => {
-  if (!season) return
-
-  dataStatus.value = true
-  try {
-    const { data: seasonDataResponse, error: seasonError } = await useFetch(`${config.public.apiBase}api/team_stats/${teamName}/seasons/${season}`, {
-      lazy: true,
-    })
-    if (seasonError.value) {
-      dataError.value = seasonError.value
-      dataStatus.value = false
-      return
-    }
-    seasonData.value = seasonDataResponse.value
-  } catch (err) {
-    dataError.value = err
-    dataStatus.value = false
-  }
-  dataStatus.value = false
+const stats = ref([])
+const statsStatus = ref("")
+const statsError = ref("")
+const seasonSelected = async (season) => {
+  selectedSeason.value = season
+  router.push({ query: { ...route.query, season: season } })
+  const { status: status, data: statsData, error: error } = await useFetch(`${config.public.apiBase}teams/${teamName.value}/season/${selectedSeason.value}`)
+  stats.value = statsData.value
+  statsStatus.value = status.value
+  statsError.value = error.value
 }
-
-
-
-
 </script>
 <template>
-<pre>You've selected team: {{ teamName }}</pre>
-<div v-if="status === 'pending'">
-  Loading...
-</div>
-<div v-else-if="error">
-  Error: {{ error.message }}
-</div>
-<div v-else>
-  <h4>Select a season</h4>
-  <select v-model="selectedSeason" v-for="teamLeague in teamLeagues" :key="teamLeague" @change="fetchSeasonData(selectedSeason)">
-      <option disabled value="">Seasons</option>
-      <option v-for="season in teamLeague" :key="season" :value="season">
-        {{ season }}
-      </option>
+  <div class="page-heading">
+        <h1 class ="h1-design">You've selected {{ teamName }}</h1>
+  </div>
+  <div v-if="status === 'pending'">
+    Loading...
+  </div>
+  <div v-else-if="error">
+    Error: {{ error.message }}
+  </div>
+  <div v-else>
+    <h4>Select a season</h4>
+    <select v-model="selectedSeason" v-for="seasons in teamSeasons" :key="seasons">
+      <option disabled value="" >Seasons</option>
+      <option v-for="season in seasons" :key="season" :value="season" @click="() => seasonSelected(season)">{{ season }}</option>
     </select>
-    <div v-if="dataStatus === 'pending'">
-      Loading season data...
-    </div>
-    <div v-else-if="dataError">
-      Error loading season data: {{ dataError.message }}
-    </div>
-    <div v-else-if="seasonData">
-      <h2>Data for {{ selectedSeason }}</h2>
-      <div v-for="(stat, index) in seasonData" :key="index">
-        <div v-for="(value, key) in stat" :key="key">
-          {{ key }}: {{ value }}
-        </div>
+    <div v-if="selectedSeason">
+      <div v-if="statsStatus === 'pending'">
+        Loading stats...
+      </div>
+      <div v-else-if="statsError">
+        Error loading stats: {{ statsError.message }}
+      </div>
+      <div v-else v-for="stat in stats" :key="stat">
+        {{ stat }}
       </div>
     </div>
-</div>
+  </div>
 </template>

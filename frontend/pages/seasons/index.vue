@@ -9,9 +9,9 @@
     <div v-else-if="error">
       Error: {{ error.message }}
     </div>
-    <div v-else>
-      <div v-for="(season, index) in seasons" :key="index">
-        <pre><NuxtLink :to="`/teams/${season.year}`">{{ season.year }}</NuxtLink></pre>
+    <div v-else v-for="values in seasons" :key="values">
+      <div v-for="value in values" :key="value">
+        <pre><NuxtLink :to="`/Seasons/${value}`">{{ value }}</NuxtLink></pre>
       </div>
     </div>
   </div>
@@ -19,7 +19,7 @@
 
 <script setup>
 const config = useRuntimeConfig()
-const { status, data:seasons, error } = await useFetch(`${config.public.apiBase}api/seasons`, {
+const { status, data: seasons, error } = await useFetch(`${config.public.apiBase}compare/Seasons`, {
   lazy: true,
 })
 </script>
