@@ -1,18 +1,20 @@
 import polars as pl
 from pathlib import Path
+import os
 
     # Get base and data directories
-base_dir = Path(__file__).resolve().parent.parent.parent
-data_dir = base_dir / "datasets"
+dirname = os.path.dirname(__file__)
+data_dir = os.path.join(os.path.dirname(os.path.dirname((__file__))), "datasets")
+player_stats_dir = os.path.join(data_dir, "players_2006-2018.csv")
 
     # Specific data file paths
-player_stats_dir = data_dir / "players_2006-2018.csv"
 
 def players():
     df = pl.read_csv(player_stats_dir)
     players_df = df.select(pl.col("name")).unique().sort("name").to_dicts()
     players = {"players" : [player["name"] for player in players_df]}
     return players
+
 
     # Get seasons for a specific player
 def player_seasons(player: str):

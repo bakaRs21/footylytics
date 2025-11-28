@@ -3,13 +3,21 @@ from fastapi import APIRouter
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 import scripts.teamData as team_data
-import scripts.generalData as general_data
+import scripts.seasons as seasons_data
 import scripts.playersData as players_data
 
-app = FastAPI(title="API for Nuxt + FastAPI")
-router = APIRouter(prefix="/api")
+from Database import engine
+from scripts.models import Base
 
-#run uvicorn main:app --reload --port 8000
+
+app = FastAPI(title="API for Nuxt + FastAPI")
+common = APIRouter(prefix="/common")
+compare = APIRouter(prefix="/compare")
+seasons = APIRouter(prefix="/seasons")
+teams = APIRouter(prefix="/teams")
+players = APIRouter(prefix="/players")
+
+#run uvicorn main:app --reload --port 8000 or fastapi dev main.py --reload --port 8000
 
 app.add_middleware(
     CORSMiddleware,
@@ -22,32 +30,70 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+@app.on_event("startup")
+async def startup_event():
+    Base.metadata.create_all(bind=engine)
+    print("Database created / checked")
+
 @app.get("/")
 async def root():
     return {"message": "server is running"}
 
-@router.get("/teams")
-async def get_team_names():
-    names = team_data.team_names()
-    return {"teams": names}
+# from compare page
 
-@router.get("/seasons")
+@compare.get("/Teams")
+async def get_team_names(team: str | None = None, season: str | None = None):
+    if team and season:
+        return team_data.team_stats_from_season(team, season)
+    elif season:
+        return team_data.teams_from_season(season)
+    elif team:
+        return seasons_data.stats_for_season(team)
+    
+    return team_data.teams()
+
+@compare.get("/Seasons")
 async def get_seasons():
-    return general_data.seasons()
+    return seasons_data.seasons()
 
-@router.get("/players")
+@compare.get("/Players")
 async def get_players():
     return players_data.players()
 
-@router.get("/team_seasons/{team}")
-async def get_team_seasons(team: str):
-    return team_data.team_seasons(team)
+# common api endpoints
+@common.get("/Seasons")
+async def get_seasons(season: str | None = None, overall: bool = False):
+    if season and overall:
+        stats = seasons_data.stats_for_season(season)
+        return stats
+    return seasons_data.seasons()
 
-@router.get("/team_stats/{team}/seasons/{season}")
+@common.get("/Players")
+async def get_players():
+    return players_data.players()
+
+@common.get("/Teams")
+async def get_teams():
+    return team_data.teams()
+
+
+# from teams page
+@teams.get("/{team}")
+async def get_team(team: str):
+    return seasons_data.seasons_for_team(team)
+
+@teams.get("/{team}/season/{season}")
 async def get_team_stats(team: str, season: str):
     return team_data.team_stats_from_season(team, season)
 
-app.include_router(router)
+
+# from players page
+
+
+app.include_router(common)
+app.include_router(compare)
+app.include_router(teams)
+app.include_router(players)
 
 
 # jestli se na to nekdy podivam, tak sem chtel pojmenovat i routery podle toho co delaj/kam patri

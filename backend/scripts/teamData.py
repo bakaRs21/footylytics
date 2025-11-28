@@ -12,14 +12,6 @@ def teams():
     teams = {"teams" : [team["team"] for team in teams_df]}
     return teams
 
-    # Get seasons for a specific team
-def team_seasons(team: str):
-    df = pl.read_csv(team_stats_dir)
-    team_df = df.filter(pl.col("team") == team)
-    team_season_dict = team_df.select(pl.col("team", "season")).unique().sort("season").to_dicts()
-    seasons = [entry["season"] for entry in team_season_dict]
-    team_season = {f"{team}_seasons": seasons}
-    return team_season
 
     # get all teams from specific season
 def teams_from_season(season: str):
