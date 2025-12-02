@@ -1,13 +1,19 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, UploadFile, File, HTTPException
+from contextlib import asynccontextmanager
 from fastapi import APIRouter
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.staticfiles import StaticFiles
 import scripts.teamData as team_data
 import scripts.seasons as seasons_data
 import scripts.playersData as players_data
+import scripts.data_insertion as data_insertion
+from scripts.schema import TableEnum
 
+import io
+import polars as pl
 from Database import engine
 from scripts.models import Base
+from typing import Literal, get_args
+
 
 
 app = FastAPI(title="API for Nuxt + FastAPI")
@@ -30,14 +36,35 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-@app.on_event("startup")
-async def startup_event():
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    # Startup
     Base.metadata.create_all(bind=engine)
     print("Database created / checked")
+    yield
+    # Shutdown
 
 @app.get("/")
 async def root():
     return {"message": "server is running"}
+
+
+
+@app.post("/upload-csv/")
+async def upload_csv(file: UploadFile = File(..., description="CSV file to upload"), tables: TableEnum = None):
+    if not file.filename.endswith(".csv"):
+        raise HTTPException(status_code=400, detail="Invalid file type. Only CSV files allowed.")
+    if file.content_type not in ["text/csv", "application/vnd.ms-excel"]:
+        raise HTTPException(status_code=400, detail="Invalid content type. Only CSV files allowed.")
+    try:
+        selected_table = tables.value
+        uploaded_file = await file.read()
+        text_buffer = io.BytesIO(uploaded_file)
+        return data_insertion.insert_to_db(text_buffer, selected_table)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error reading CSV file: {e}")
+    
+    
 
 # from compare page
 

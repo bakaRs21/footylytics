@@ -1,17 +1,18 @@
 from pydantic import BaseModel
 from sqlalchemy import Integer
+from enum import Enum
 
 class Seasons(BaseModel):
     season: str
-    class Config:
+    class ConfigDict:
         orm_mode = True
 class Teams(BaseModel):
     name: str
-    class Config:
+    class ConfigDict:
         orm_mode = True
 class Referees(BaseModel):
     name: str
-    class Config:
+    class ConfigDict:
         orm_mode = True
 
 class Players(BaseModel):
@@ -20,7 +21,7 @@ class Players(BaseModel):
     foot: str | None = None
     height_in_meters: float | None
     nationality: str
-    class Config:
+    class ConfigDict:
         orm_mode = True
 
 class TeamHasSeason(BaseModel):
@@ -68,7 +69,7 @@ class TeamHasSeason(BaseModel):
     total_high_claim: int | None = None
     punches: int | None = None
 
-    class Config:
+    class ConfigDict:
         orm_mode = True
 
 class PlayerHasSeasons(BaseModel):
@@ -126,7 +127,7 @@ class PlayerHasSeasons(BaseModel):
     fouls_committed: int | None = None
     offsides: int | None = None
 
-    class Config:
+    class ConfigDict:
         orm_mode = True
 
 class AllMatches(BaseModel):
@@ -154,5 +155,19 @@ class AllMatches(BaseModel):
     home_team_red_cards: int | None = None
     away_team_red_cards: int | None = None
 
-    class Config:
+    class ConfigDict:
         orm_mode = True
+
+def generate_enum():
+    model_classes = BaseModel.__subclasses__()
+    enum_dict = {}
+    for table in model_classes:
+        if not table.__module__.startswith("scripts.schema"):
+            continue
+        name = table.__name__
+        if "Has" in name:
+            continue
+        enum_dict[name] = name
+    return Enum("TableEnum", enum_dict)
+
+TableEnum = generate_enum()
