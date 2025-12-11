@@ -4,31 +4,47 @@ import dotenv
 from pathlib import Path
 
 base_dir = Path(__file__).resolve().parent.parent
-datasets_dir = base_dir / "datasets"
 
-env_dir = base_dir / ".env"
+async def get_table_columns(conn, table_name: str):
+    try:
+        columns = await conn.fetch("SELECT column_name FROM information_schema.columns WHERE table_name = $1;", table_name)
+        return [col["column_name"] for col in columns]
+    except Exception as e:
+        print(f"Error fetching columns for table {table_name}: {e}")
+
+async def insert_to_db(file, selected_table, conn):
+
+    #start with uploading teams, then players, referees
+
+    # if all_matches -> match will be store by finding pk of these columns and writing them with all other columns
+    # season_id = Column(Integer, ForeignKey("seasons.season_id"))
+    # referee_id = Column(Integer, ForeignKey("referees.referee_id"))
+    # home_team_id = Column(Integer, ForeignKey("teams.team_id"))
+    # away_team_id = Column(Integer, ForeignKey("teams.team_id"))
+
+    #if player -> if not exist insert matching columns, then find play_has_seasons and insert all other matching columns, these needs to have referenced pk (if they exist)
+    # player_id = Column(Integer, ForeignKey("players.player_id"), primary_key=True)
+    # season_id = Column(Integer, ForeignKey("seasons.season_id"), primary_key=True)
+    # team_id = Column(Integer, ForeignKey("teams.team_id"))
+
+    #if teams -> same process, go to team_has_season and insert all other matching columns with referenced pk | COLUMNS CHECKED
+    # team_id = Column(Integer, ForeignKey("teams.team_id"), primary_key=True)
+    # season_id = Column(Integer, ForeignKey("seasons.season_id"), primary_key=True)
+
+    #first thing first open transaction
+    async with conn.transaction():
+        valid_columns = await get_table_columns(conn, selected_table)
+        df_csv = pl.read_csv(file)
+        if selected_table:
+            return
+        return
 
 
-def insert_to_db(file, selected_table):
-    print(f"File {file}, selected_table: {selected_table}")
 
 
 
 
 
-
-
-
-
-
-
-
-dbname = dotenv.get_key(env_dir, "DB_NAME")
-user = dotenv.get_key(env_dir, "DB_USER")
-password = dotenv.get_key(env_dir, "DB_PASSWORD")
-host = dotenv.get_key(env_dir, "DB_HOST")
-port = dotenv.get_key(env_dir, "DB_PORT")
-db_url = dotenv.get_key(env_dir, "DATABASE_URL")
 
 def script_start():
     print(f"Notice: This script was aborted, now you fastapi upload-csv endopoint to insert data into the DB")

@@ -7,17 +7,14 @@ dirname = os.path.dirname(__file__)
 data_dir = os.path.join(os.path.dirname(os.path.dirname((__file__))), "datasets")
 player_stats_dir = os.path.join(data_dir, "players_2006-2018.csv")
 
-    # Specific data file paths
 
-def players():
-    df = pl.read_csv(player_stats_dir)
-    players_df = df.select(pl.col("name")).unique().sort("name").to_dicts()
-    players = {"players" : [player["name"] for player in players_df]}
-    return players
-
+    #get all players
+async def players(conn):
+    rows = await conn.fetch("SELECT player_id, name FROM Players;")
+    return dict(rows)
 
     # Get seasons for a specific player
-def player_seasons(player: str):
+async def player_seasons(player: str):
     df = pl.read_csv(player_stats_dir)
     player_df = df.filter(pl.col("name") == player)
     player_season_dict = player_df.select(pl.col("name", "season")).unique().sort("season").to_dicts()
@@ -26,7 +23,7 @@ def player_seasons(player: str):
     return player_season
 
     # get all players from specific season
-def players_from_season(season: str):
+async def players_from_season(season: str):
     df = pl.read_csv(player_stats_dir)
     season_df = df.filter(pl.col("season") == season)
     players_season_dict = season_df.select(pl.col("name")).unique().sort("name").to_dicts()
@@ -34,7 +31,7 @@ def players_from_season(season: str):
     return players
 
     # Get player stats for a specific player and season
-def player_stats_from_season(player: str, season: str):
+async def player_stats_from_season(player: str, season: str):
     player_stats_df = pl.read_csv(player_stats_dir)
     filtered_df = player_stats_df.filter((pl.col("name") == player) & (pl.col("season") == season))
     stats = filtered_df.drop("name").drop("season").to_dicts()

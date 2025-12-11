@@ -11,21 +11,19 @@ player_stats_dir = data_dir / "players_2006-2018.csv"
 
 
     # Get all unique seasons
-def seasons():
-    df = pl.read_csv(team_stats_dir)
-    seasons_df = df.select(pl.col("season")).unique().sort("season").to_dicts()
-    seasons = {"seasons" : [season["season"] for season in seasons_df]}
-    return seasons
+async def seasons(conn):
+    try:
+        row = await conn.fetch("SELECT season_id, season FROM seasons;")
+        return dict(row)
+    except Exception as e:
+        print(f"Error fetching seasons: {e}")
 
-    # Get all season for specific team
-def seasons_for_team(team: str):
-    df = pl.read_csv(team_stats_dir)
-    team_seasons_df = df.filter(pl.col("team") == team).select(pl.col("season")).unique().sort("season").to_dicts()
-    team_seasons = {f"{team}_seasons": [season["season"] for season in team_seasons_df]}
-    return team_seasons
+    # Get all seasons for specific team
+async def seasons_for_team(conn, team: str):
+    row = await conn.fetch("SELECT ")
 
 # NEEDS FIXING - SHOULD RETURN OVERALL STATS FOR A SEASON WITHOUT TEAMS
-def stats_for_season(season: str):
+async def stats_for_season(conn,season: str):
     df = pl.read_csv(team_stats_dir)
     season_stats_df = df.filter(pl.col("season") == season).to_dicts()
     return season_stats_df

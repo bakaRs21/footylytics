@@ -1,19 +1,22 @@
-from fastapi import FastAPI, UploadFile, File, HTTPException
-from contextlib import asynccontextmanager
-from fastapi import APIRouter
+from fastapi import FastAPI, UploadFile, File, HTTPException, Depends
+from Database import connect_db, disconnect_db, get_db
 from fastapi.middleware.cors import CORSMiddleware
+from contextlib import asynccontextmanager
+from scripts.schema import TableEnum
+from scripts.models import Base
+from dotenv import load_dotenv
+from fastapi import APIRouter
+from Database import engine
+import os
+import psycopg2
+import scripts.users as users_data
 import scripts.teamData as team_data
 import scripts.seasons as seasons_data
 import scripts.playersData as players_data
 import scripts.data_insertion as data_insertion
-from scripts.schema import TableEnum
 
-import io
-import polars as pl
-from Database import engine
-from scripts.models import Base
-from typing import Literal, get_args
 
+#run uvicorn main:app --reload --port 8000 or fastapi dev main.py --reload --port 8000
 
 
 app = FastAPI(title="API for Nuxt + FastAPI")
@@ -23,7 +26,19 @@ seasons = APIRouter(prefix="/seasons")
 teams = APIRouter(prefix="/teams")
 players = APIRouter(prefix="/players")
 
-#run uvicorn main:app --reload --port 8000 or fastapi dev main.py --reload --port 8000
+
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    # Startup
+    Base.metadata.create_all(bind=engine)
+    print("Database created / checked")
+    await connect_db()
+    yield
+    # Shutdown
+    await disconnect_db()
+
+app = FastAPI(lifespan=lifespan)
 
 app.add_middleware(
     CORSMiddleware,
@@ -36,72 +51,72 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-@asynccontextmanager
-async def lifespan(app: FastAPI):
-    # Startup
-    Base.metadata.create_all(bind=engine)
-    print("Database created / checked")
-    yield
-    # Shutdown
-
 @app.get("/")
 async def root():
     return {"message": "server is running"}
 
+@app.get("/users")
+async def get_users(conn=Depends(get_db)):
+    return await users_data.get_all_users(conn)
 
+@app.post("/create-user")
+async def create_user(name: str, conn=Depends(get_db)):
+    return await users_data.create_user(conn, name)
 
-@app.post("/upload-csv/")
-async def upload_csv(file: UploadFile = File(..., description="CSV file to upload"), tables: TableEnum = None):
+@app.post("/upload-csv")
+async def upload_csv(file: UploadFile = File(..., description="CSV file to upload"), tables: TableEnum = None, conn=Depends(get_db)):
     if not file.filename.endswith(".csv"):
         raise HTTPException(status_code=400, detail="Invalid file type. Only CSV files allowed.")
     if file.content_type not in ["text/csv", "application/vnd.ms-excel"]:
         raise HTTPException(status_code=400, detail="Invalid content type. Only CSV files allowed.")
     try:
         selected_table = tables.value
-        uploaded_file = await file.read()
-        text_buffer = io.BytesIO(uploaded_file)
-        return data_insertion.insert_to_db(text_buffer, selected_table)
+        
+        return data_insertion.insert_to_db(await file, selected_table, conn)
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error reading CSV file: {e}")
-    
-    
+
+
+@app.delete("/delete-user")
+async def delete_user(user_id: int, conn=(Depends(get_db))):
+    return await users_data.delete_user(conn, user_id)
 
 # from compare page
 
 @compare.get("/Teams")
-async def get_team_names(team: str | None = None, season: str | None = None):
+async def get_team_names(team: str | None = None, season: str | None = None, conn=Depends(get_db)):
     if team and season:
-        return team_data.team_stats_from_season(team, season)
+        return await team_data.team_stats_from_season(team, season, conn)
     elif season:
-        return team_data.teams_from_season(season)
+        return await team_data.teams_from_season(season, conn)
     elif team:
-        return seasons_data.stats_for_season(team)
+        return await seasons_data.stats_for_season(team, conn)
     
-    return team_data.teams()
+    return await team_data.teams(conn)
 
 @compare.get("/Seasons")
-async def get_seasons():
-    return seasons_data.seasons()
+async def get_seasons(conn=Depends(get_db)):
+    return await seasons_data.seasons(conn)
 
 @compare.get("/Players")
 async def get_players():
     return players_data.players()
 
+
 # common api endpoints
 @common.get("/Seasons")
-async def get_seasons(season: str | None = None, overall: bool = False):
+async def get_seasons(conn=Depends(get_db), season: str | None = None, overall: bool = False):
     if season and overall:
-        stats = seasons_data.stats_for_season(season)
+        stats = await seasons_data.stats_for_season(conn, season) #call function that return overall stats for season (funcntion is under construction)
         return stats
-    return seasons_data.seasons()
-
+    return await seasons_data.seasons(conn)
 @common.get("/Players")
-async def get_players():
-    return players_data.players()
-
+async def get_players(conn=Depends(get_db)):
+    return await players_data.players(conn)
 @common.get("/Teams")
-async def get_teams():
-    return team_data.teams()
+async def get_teams(conn=Depends(get_db)):
+    return await team_data.teams(conn)
+
 
 
 # from teams page
