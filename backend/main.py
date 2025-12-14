@@ -5,14 +5,11 @@ from scripts.schema import TableEnum
 from Database import Base, engine
 from dotenv import load_dotenv
 from fastapi import APIRouter
-import os
-import psycopg2
-import scripts.models as models
-import scripts.users as users_data
-import scripts.teamData as team_data
-import scripts.seasons as seasons_data
-import scripts.playersData as players_data
-import scripts.data_insertion as data_insertion
+from scripts import users as users_data
+from scripts import teamData as team_data
+from scripts import seasons as seasons_data
+from scripts import playersData as players_data
+from scripts import data_insertion
 
 
 #run uvicorn main:app --reload --port 8000 or fastapi dev main.py --reload --port 8000
@@ -81,32 +78,20 @@ async def delete_user():
 # from compare page
 
 @compare.get("/Teams")
-async def get_team_names(team: str | None = None, season: str | None = None):
+def get_team_names(team: str | None = None, season: str | None = None):
     if team and season:
-        return await team_data.team_stats_from_season(team, season)
+        return team_data.team_stats_from_season(team, season)
     elif season:
-        return await team_data.teams_from_season(season)
+        return team_data.teams_from_season(season)
     elif team:
-        return await seasons_data.stats_for_season(team)
-    return await team_data.teams()
+        return seasons_data.stats_for_season(team)
+    return team_data.teams()
 
 @compare.get("/Seasons")
 async def get_seasons():
     return await seasons_data.seasons()
 
 @compare.get("/Players")
-async def get_players():
-    return players_data.players()
-
-
-# common api endpoints
-@common.get("/Seasons")
-async def get_seasons(season: str | None = None, overall: bool = False):
-    if season and overall:
-        stats = await seasons_data.stats_for_season(season) #call function that return overall stats for season (funcntion is under construction)
-        return stats
-    return await seasons_data.seasons()
-@common.get("/Players")
 async def get_players():
     return await players_data.players()
 @common.get("/Teams")
@@ -117,11 +102,11 @@ async def get_teams():
 
 # from teams page
 @teams.get("/{team}")
-async def get_team(team: str):
+def get_team(team: str):
     return seasons_data.seasons_for_team(team)
 
 @teams.get("/{team}/season/{season}")
-async def get_team_stats(team: str, season: str):
+def get_team_stats(team: str, season: str):
     return team_data.team_stats_from_season(team, season)
 
 

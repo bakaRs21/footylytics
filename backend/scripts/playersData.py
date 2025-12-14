@@ -1,6 +1,10 @@
 import polars as pl
 from pathlib import Path
 import os
+from Database import get_session
+from scripts.models import Players
+from typing import List, Optional
+
 
     # Get base and data directories
 dirname = os.path.dirname(__file__)
@@ -9,9 +13,16 @@ player_stats_dir = os.path.join(data_dir, "players_2006-2018.csv")
 
 
     #get all players
-async def players(conn):
-    rows = await conn.fetch("SELECT player_id, name FROM Players;")
-    return dict(rows)
+async def players(limit: int = 50) -> List[Players]:
+    df = pl.read_csv(player_stats_dir)
+    players_df = df.select(pl.col("name")).unique().sort("name").to_dicts()
+    players = {"players" : [player["name"] for player in players_df]}
+    return players
+    session = get_session()
+    try:
+        return session.query(Players).limit(limit).all()
+    finally:
+        session.close()
 
     # Get seasons for a specific player
 async def player_seasons(player: str):
@@ -21,9 +32,22 @@ async def player_seasons(player: str):
     seasons = [entry["season"] for entry in player_season_dict]
     player_season = {f"{player}": seasons}
     return player_season
+    session = get_session()
+    try:
+        player = session.query(Players).filter(Players.player_id == player_id).first()
+        if not player:
+            return False
+        session.delete(player)
+        session.commit()
+        return True
+    except Exception:
+        session.rollback()
+        raise
+    finally:
+        session.close()
 
     # get all players from specific season
-async def players_from_season(season: str):
+def players_from_season(season: str):
     df = pl.read_csv(player_stats_dir)
     season_df = df.filter(pl.col("season") == season)
     players_season_dict = season_df.select(pl.col("name")).unique().sort("name").to_dicts()
@@ -31,7 +55,7 @@ async def players_from_season(season: str):
     return players
 
     # Get player stats for a specific player and season
-async def player_stats_from_season(player: str, season: str):
+def player_stats_from_season(player: str, season: str):
     player_stats_df = pl.read_csv(player_stats_dir)
     filtered_df = player_stats_df.filter((pl.col("name") == player) & (pl.col("season") == season))
     stats = filtered_df.drop("name").drop("season").to_dicts()
