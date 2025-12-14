@@ -1,14 +1,13 @@
 from fastapi import FastAPI, UploadFile, File, HTTPException, Depends
-from Database import connect_db, disconnect_db, get_db
 from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
 from scripts.schema import TableEnum
-from scripts.models import Base
+from Database import Base, engine
 from dotenv import load_dotenv
 from fastapi import APIRouter
-from Database import engine
 import os
 import psycopg2
+import scripts.models as models
 import scripts.users as users_data
 import scripts.teamData as team_data
 import scripts.seasons as seasons_data
@@ -33,10 +32,8 @@ async def lifespan(app: FastAPI):
     # Startup
     Base.metadata.create_all(bind=engine)
     print("Database created / checked")
-    await connect_db()
     yield
     # Shutdown
-    await disconnect_db()
 
 app = FastAPI(lifespan=lifespan)
 
@@ -56,15 +53,15 @@ async def root():
     return {"message": "server is running"}
 
 @app.get("/users")
-async def get_users(conn=Depends(get_db)):
-    return await users_data.get_all_users(conn)
+async def get_users():
+    return await users_data.get_all_users()
 
 @app.post("/create-user")
-async def create_user(name: str, conn=Depends(get_db)):
-    return await users_data.create_user(conn, name)
+async def create_user(name: str):
+    return await users_data.create_user(name)
 
 @app.post("/upload-csv")
-async def upload_csv(file: UploadFile = File(..., description="CSV file to upload"), tables: TableEnum = None, conn=Depends(get_db)):
+async def upload_csv(file: UploadFile = File(..., description="CSV file to upload"), tables: TableEnum = None):
     if not file.filename.endswith(".csv"):
         raise HTTPException(status_code=400, detail="Invalid file type. Only CSV files allowed.")
     if file.content_type not in ["text/csv", "application/vnd.ms-excel"]:
@@ -72,31 +69,30 @@ async def upload_csv(file: UploadFile = File(..., description="CSV file to uploa
     try:
         selected_table = tables.value
         
-        return data_insertion.insert_to_db(await file, selected_table, conn)
+        return data_insertion.insert_to_db(await file, selected_table)
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error reading CSV file: {e}")
 
 
 @app.delete("/delete-user")
-async def delete_user(user_id: int, conn=(Depends(get_db))):
-    return await users_data.delete_user(conn, user_id)
+async def delete_user():
+    return await users_data.delete_user()
 
 # from compare page
 
 @compare.get("/Teams")
-async def get_team_names(team: str | None = None, season: str | None = None, conn=Depends(get_db)):
+async def get_team_names(team: str | None = None, season: str | None = None):
     if team and season:
-        return await team_data.team_stats_from_season(team, season, conn)
+        return await team_data.team_stats_from_season(team, season)
     elif season:
-        return await team_data.teams_from_season(season, conn)
+        return await team_data.teams_from_season(season)
     elif team:
-        return await seasons_data.stats_for_season(team, conn)
-    
-    return await team_data.teams(conn)
+        return await seasons_data.stats_for_season(team)
+    return await team_data.teams()
 
 @compare.get("/Seasons")
-async def get_seasons(conn=Depends(get_db)):
-    return await seasons_data.seasons(conn)
+async def get_seasons():
+    return await seasons_data.seasons()
 
 @compare.get("/Players")
 async def get_players():
@@ -105,17 +101,17 @@ async def get_players():
 
 # common api endpoints
 @common.get("/Seasons")
-async def get_seasons(conn=Depends(get_db), season: str | None = None, overall: bool = False):
+async def get_seasons(season: str | None = None, overall: bool = False):
     if season and overall:
-        stats = await seasons_data.stats_for_season(conn, season) #call function that return overall stats for season (funcntion is under construction)
+        stats = await seasons_data.stats_for_season(season) #call function that return overall stats for season (funcntion is under construction)
         return stats
-    return await seasons_data.seasons(conn)
+    return await seasons_data.seasons()
 @common.get("/Players")
-async def get_players(conn=Depends(get_db)):
-    return await players_data.players(conn)
+async def get_players():
+    return await players_data.players()
 @common.get("/Teams")
-async def get_teams(conn=Depends(get_db)):
-    return await team_data.teams(conn)
+async def get_teams():
+    return await team_data.teams()
 
 
 

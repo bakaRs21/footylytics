@@ -19,12 +19,14 @@ DATABASE_URL = f"postgresql://{POSTGRES_USER}:{POSTGRES_PASSWORD}@{POSTGRES_HOST
 
 engine = create_engine(DATABASE_URL, echo=True)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+Base = declarative_base()
 metadata_obj = MetaData()
 
-
+def get_session():
+    return SessionLocal()
 
 pool : Optional[asyncpg.pool.Pool] = None
-
+"""
 async def connect_db():
     global pool
     try:
@@ -43,7 +45,7 @@ async def disconnect_db():
 async def get_db():
     async with pool.acquire() as connection:
         yield connection
-
+"""
 
 
 
@@ -54,5 +56,5 @@ def get_selected_table(table_name: str):
     table = Table(table_name, metadata_obj, autoload_with=engine)
     return table
 
-Base = declarative_base()
+
 

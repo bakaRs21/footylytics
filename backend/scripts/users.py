@@ -1,35 +1,45 @@
-import polars as pl
+import models
+import Database as db
 
-async def get_all_users(conn):
+users = models.Users
+
+def get_all_users():
+    session = db.get_session()
     try:
-        rows = await conn.fetch("SELECT id, name FROM Users;")
-        return dict(rows)
+        users = session.query(users).all()
+        return users
     except Exception as e:
-        return print(f"Error fetching users: {e}")
+        print(f"Error fetching users: {e}")
+    finally:
+        session.close()
 
-async def create_user(conn, name: str):
-    async with conn.transaction():
-        try:
-            row = await conn.fetchrow("INSERT INTO Users (name) VALUES ($1) RETURNING id,name;", name)
-            print(f"Inserted user: {row}")
-        except EncodingWarning as e:
-            return print(f"Encoding error: {e}")
-            
-        except Exception as e:
-            return print(f"Error inserting user: {e}")
-            
-        return dict(row)
+def create_user(name: str):
+    session = db.get_session()
+    try:
+        user = users(name=name)
+        session.add(user)
+        session.commit()
+        print(f"User created successfully: {user}")
+    except Exception as e:
+        session.rollback()
+        print(f"Error creating user: {e}")
+    finally:
+        session.close()
 
-async def delete_user(conn, user_id: int):
-    async with conn.transaction():
-        try:
-            row = await conn.fetchrow("DELETE FROM Users WHERE id = $1 RETURNING id,name;", user_id)
-            if row is None:
-                return print(f"User with id {user_id} not found.")
-            else:
-                await conn.execute(
-                    f"SELECT setval('public.users_id_seq', {row['id']-1})",
-                )
-                return print(f"Successfully deleted user {row}")
-        except Exception as e:
-            return print(f"Error deleting user: {e}")
+async def delete_user(user_id: int):
+    session = db.get_session()
+    try:
+        user = session.query(users).filter(users.id == user_id)
+        if user:
+            session.delete(user)
+            session.commit()
+            return {"message": "User deleted successfully"}
+        else:
+            return {"message": "User not found"}
+    except Exception as e:
+        session.rollback()
+        print(f"Error deleting user: {e}")
+    finally:
+        session.close()
+
+print(get_all_users())

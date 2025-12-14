@@ -24,6 +24,11 @@ class Players(BaseModel):
     class ConfigDict:
         orm_mode = True
 
+class Users(BaseModel):
+    name:str
+    class ConfigDict:
+        orm_mode = True
+
 class TeamHasSeason(BaseModel):
     team_id: int
     season_id: int
