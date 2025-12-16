@@ -92,7 +92,9 @@ async def get_seasons():
     return await seasons_data.seasons()
 
 @compare.get("/Players")
-async def get_players():
+async def get_players(player: str | None = None):
+    if player:
+        return await players_data.player_seasons(player)
     return await players_data.players()
 @common.get("/Teams")
 async def get_teams():
