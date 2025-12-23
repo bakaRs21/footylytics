@@ -2,12 +2,16 @@
 import card from '~/components/card.vue';
 import { ref } from 'vue';
 import searchableSelect from '~/components/searchableSelect.vue';
+import RightArrow from '~/components/Icons/Right_Arrow.vue';
+import LeftArrow from '~/components/Icons/Left_Arrow.vue';
+import SlidingPanel from '~/components/Sliding_panel.vue';
 
 const season = ref("");
 const seasons = ["2006", "2007", "2009", "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023"];
 
-const items = ["item 1", "item 2", "item 3", "item 4", "item 5", "item 6"];
+const items = ["item 148390284789023740238947890", "item 2", "item 3", "item 4", "item 5", "item 6"];
 
+const item = "one item";
 
 </script>
 
@@ -15,21 +19,18 @@ const items = ["item 1", "item 2", "item 3", "item 4", "item 5", "item 6"];
   <searchable-select v-model="season" :options="seasons" placeholder="Select season"/>
   <p>Selected season: {{ season }}</p>
   
-
-    <div class="card-margin">
-        <div class="card-grid" v-for="value in items" :key="value">
-            <card id="card">{{ value }}</card>
-        </div>
+    
+    <div class="cards">
+      <div v-for="value in items" :key="value">
+        <card class="card">{{ value }}</card>
+      </div>
     </div>
+    
+    <RightArrow />
+    <LeftArrow />
+
+    <SlidingPanel :items="items" />
 </template>
 
 <style scoped>
-.card-margin {
-  margin-top: 80px;
-}
-.card-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 20px;
-}
 </style>

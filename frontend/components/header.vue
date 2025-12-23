@@ -14,7 +14,7 @@
                         <li><NuxtLink to="/compare">Compare</NuxtLink></li>
                         <li><NuxtLink to="/seasons/">Seasons</NuxtLink></li>
                         <li><NuxtLink to="/teams/">Teams</NuxtLink></li>
-                        <li><NuxtLink to="/about">About</NuxtLink></li>
+                        <li><NuxtLink to="/players/">Players</NuxtLink></li>
                         <li><NuxtLink to="/documentation" class="docs">Docs</NuxtLink></li>
                         <li><NuxtLink to="/manual" class="manual">ElManuel</NuxtLink></li>
                     </ul>
@@ -37,28 +37,71 @@ header nav .navigation {
   max-width: 80rem; 
   margin-left: auto;
   margin-right: auto;
-  padding-left: 16px;
-  padding-right: 16px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+@media (max-width: 512px) {
+  header nav ul.menu {
+    gap: 0.5rem; 
+  }
+}
+@media (min-width: 513px) and (max-width: 580px) {
+  header nav ul.menu {
+    gap: 1rem;
+  }
 }
 
-@media (min-width: 640px) {
-  header nav .navigation {
-    padding-left: 24px;
-    padding-right: 24px;
+@media (max-width: 580px) {
+  header nav .menu-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    height: 5rem;
+    gap: 10px;
   }
+  header nav .navigation {
+    padding-left: 0; 
+    padding-right: 0;
+
+  }
+  header nav .logo-row {
+    margin-top: 10px;
+  }
+}
+
+@media (max-width: 809px) and (min-width: 581px) {
+  header nav .menu-bar {
+    justify-content: space-evenly;
+    height: 4rem;
+  }
+}
+
+@media (min-width: 810px) {
+  header nav .navigation {
+    padding-left: 26px;
+    padding-right: 50px;
+  }
+  header nav .menu-bar {
+    justify-content: space-between;
+    height: 4rem;
+  }
+  header nav ul.menu {
+    gap: 14px; 
+  }
+  
 }
 @media (min-width: 1024px) {
   header nav .navigation {
     padding-left: 32px;
     padding-right: 32px;
   }
+  header nav .menu-bar {
+    height: 4rem;
+  }
 }
 
 header nav .menu-bar {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  height: 4rem;
 }
 
 header nav .logo-row {
@@ -76,7 +119,6 @@ header nav .logo-row .logo-text {
 header nav ul.menu {
   display: flex;
   align-items: center;
-  gap: 1rem; 
   margin: 0;
   padding: 0;
   list-style: none;
@@ -109,17 +151,6 @@ header nav ul.menu li .manual {
 }
 header nav ul.menu li .manual:hover {
   background: #7f1d1d;
-}
-
-@media (max-width: 600px) {
-  header nav .navigation {
-    padding-left: 0.75rem;
-    padding-right: 0.75rem;
-  }
-  header nav .menu-bar {
-    flex-direction: column;
-    height: auto;
-  }
 }
 
 .router-link-exact-active {

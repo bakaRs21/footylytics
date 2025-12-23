@@ -40,21 +40,23 @@ li {
     padding-left: 16px; 
     padding-right: 16px;
     padding-bottom: 2rem;
-    width: 1200px;
+    
     margin-left: auto; 
     margin-right: auto;
     text-align: center;
 }
-@media (min-width: 640px) {
+@media (min-width: 840px) {
   .container {
     padding-left: 24px;  
     padding-right: 24px;
+    width: 800px;
   }
 }
-@media (min-width: 1024px) {
+@media (min-width: 1340px) {
   .container {
     padding-left: 32px;
     padding-right: 32px;
+    width: 1200px;
   }
 }
 
@@ -102,6 +104,14 @@ select {
   display: flex;
   gap: 60px;
 }
+
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
 
 
 

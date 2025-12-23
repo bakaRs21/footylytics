@@ -50,12 +50,12 @@ async def root():
     return {"message": "server is running"}
 
 @app.get("/users")
-async def get_users():
-    return await users_data.get_all_users()
+def get_users():
+    return users_data.get_all_users()
 
 @app.post("/create-user")
-async def create_user(name: str):
-    return await users_data.create_user(name)
+def create_user(name: str):
+    return users_data.create_user(name)
 
 @app.post("/upload-csv")
 async def upload_csv(file: UploadFile = File(..., description="CSV file to upload"), tables: TableEnum = None):
@@ -72,8 +72,8 @@ async def upload_csv(file: UploadFile = File(..., description="CSV file to uploa
 
 
 @app.delete("/delete-user")
-async def delete_user():
-    return await users_data.delete_user()
+async def delete_user(user_id: int):
+    return users_data.delete_user(user_id)
 
 # from compare page
 

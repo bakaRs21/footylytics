@@ -6,8 +6,10 @@ from typing import List
 def get_all_users(limit: int = 50) -> List[users]:
     session = get_session()
     try:
-        users = session.query(users).limit(limit).all()
-        return users
+        all_users = session.query(users).limit(limit).all()
+        if not all_users:
+            print("No users found")
+        return all_users
     except Exception as e:
         print(f"Error fetching users: {e}")
     finally:
@@ -19,17 +21,17 @@ def create_user(name: str):
         user = users(name=name)
         session.add(user)
         session.commit()
-        print(f"User created successfully: {user}")
+        return {f"message": "{name} created"}
     except Exception as e:
         session.rollback()
         print(f"Error creating user: {e}")
     finally:
         session.close()
 
-async def delete_user(user_id: int):
+def delete_user(user_id: int):
     session = get_session()
     try:
-        user = session.query(users).filter(users.id == user_id)
+        user = session.query(users).filter(users.id == user_id).first()
         if user:
             session.delete(user)
             session.commit()
@@ -39,5 +41,6 @@ async def delete_user(user_id: int):
     except Exception as e:
         session.rollback()
         print(f"Error deleting user: {e}")
+        return {"message": "Internal error"}
     finally:
         session.close()

@@ -10,7 +10,8 @@
 .card {
   background-color: #111822;
   border-radius: 20px;
-  padding: 22px;
+  padding: 22px 50px 22px 50px;
+  max-width: 200px;
   text-align: center;
   transition: 
     opacity 0.3s,
@@ -32,8 +33,6 @@
 }
 
 .icon-box {
-  height: 4rem;
-  width: 4rem;
   margin-left: auto;
   margin-right: auto;
   display: flex;
