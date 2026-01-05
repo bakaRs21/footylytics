@@ -21,7 +21,6 @@
           <ul class="padding-fix">
             <li ><NuxtLink to="/documentation">Documentation</NuxtLink></li>
             <li ><NuxtLink to="/manual">El Manuel</NuxtLink></li>
-            <li ><NuxtLink to="/about">About</NuxtLink></li>
           </ul>
         </div>
     <div class="div-2">

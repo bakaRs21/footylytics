@@ -1,11 +1,10 @@
 <script setup>
-import card from '~/components/card.vue';
+const teamArray = ref([]);
 
 const config = useRuntimeConfig()
 const { pending: isLoading, data: teams, error } = await useFetch(`${config.public.apiBase}compare/Teams`, {
   lazy: true,
 })
-
 </script>
 
 <template>
@@ -19,10 +18,8 @@ const { pending: isLoading, data: teams, error } = await useFetch(`${config.publ
   <div v-else-if="error">
     Error: {{ error.message }}
   </div>
-  <div v-else v-for="team in teams" :key="team">
-    <div  class="cards">
-      <card v-for="value in team"><NuxtLink :to="`/teams/${value}`">{{ value }}</NuxtLink></card>
-    </div>
+  <div v-else v-for="teamArray in teams" :key="teamArray">
+    <SearchableCards :enable-links="true" :items="teamArray" placeholder="Search teams..."/>
   </div>
 </template>
 
