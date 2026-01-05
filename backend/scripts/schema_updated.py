@@ -1,0 +1,226 @@
+from pydantic import BaseModel
+from enum import Enum
+
+class TeamSchema(BaseModel):
+    league_id: int
+    league_name: str
+    league_country: str
+    league_logo: str
+    league_flag: str
+    league_season: int
+    team_id: int
+    team_name: str
+    team_logo: str
+    form: str
+    fixtures_played_home: int
+    fixtures_played_away: int
+    fixtures_wins_home: int
+    fixtures_wins_away: int
+    fixtures_draws_home: int
+    fixtures_draws_away: int
+    fixtures_loses_home: int
+    fixtures_loses_away: int
+    goals_for_total_home: int
+    goals_for_total_away: int
+    goals_for_minute_0_15_total: int
+    goals_for_minute_0_15_percentage: str
+    goals_for_minute_16_30_total: int
+    goals_for_minute_16_30_percentage: str
+    goals_for_minute_31_45_total: int
+    goals_for_minute_31_45_percentage: str
+    goals_for_minute_46_60_total: int
+    goals_for_minute_46_60_percentage: str
+    goals_for_minute_61_75_total: int
+    goals_for_minute_61_75_percentage: str
+    goals_for_minute_76_90_total: int
+    goals_for_minute_76_90_percentage: str
+    goals_for_minute_91_105_total: int
+    goals_for_minute_91_105_percentage: str
+    goals_for_minute_106_120_total: int
+    goals_for_minute_106_120_percentage: str
+    goals_against_total_home: int
+    goals_against_total_away: int
+    goals_against_average_home: float
+    goals_against_average_away: float
+    goals_against_minute_0_15_total: int
+    goals_against_minute_0_15_percentage: str
+    goals_against_minute_16_30_total: int
+    goals_against_minute_16_30_percentage: str
+    goals_against_minute_31_45_total: int
+    goals_against_minute_31_45_percentage: str
+    goals_against_minute_46_60_total: int
+    goals_against_minute_46_60_percentage: str
+    goals_against_minute_61_75_total: int
+    goals_against_minute_61_75_percentage: str
+    goals_against_minute_76_90_total: int
+    goals_against_minute_76_90_percentage: str
+    goals_against_minute_91_105_total: int
+    goals_against_minute_91_105_percentage: str
+    goals_against_minute_106_120_total: int
+    goals_against_minute_106_120_percentage: str
+    biggest_streak_wins: str
+    biggest_streak_draws: str
+    biggest_streak_loses: str
+    biggest_wins_home: str
+    biggest_wins_away: str
+    biggest_loses_home: str
+    biggest_loses_away: str
+    biggest_goals_for_home: str
+    biggest_goals_for_away: str
+    biggest_goals_against_home: str
+    biggest_goals_against_away: str
+    clean_sheet_home: int
+    clean_sheet_away: int
+    failed_to_score_home: int
+    failed_to_score_away: int
+    penalty_scored_total: int
+    penalty_missed_total: int
+    lineups: str
+    cards_yellow_0_15_total: int
+    cards_yellow_0_15_percentage: str
+    cards_yellow_16_30_total: int
+    cards_yellow_16_30_percentage: str
+    cards_yellow_31_45_total: int
+    cards_yellow_31_45_percentage: str
+    cards_yellow_46_60_total: int
+    cards_yellow_46_60_percentage: str
+    cards_yellow_61_75_total: int
+    cards_yellow_61_75_percentage: str
+    cards_yellow_76_90_total: int
+    cards_yellow_76_90_percentage: str
+    cards_yellow_91_105_total: int
+    cards_yellow_91_105_percentage: str
+    cards_red_0_15_total: int
+    cards_red_0_15_percentage: str
+    cards_red_16_30_total: int
+    cards_red_16_30_percentage: str
+    cards_red_31_45_total: int
+    cards_red_31_45_percentage: str
+    cards_red_46_60_total: int
+    cards_red_46_60_percentage: str
+    cards_red_61_75_total: int
+    cards_red_61_75_percentage: str
+    cards_red_76_90_total: int
+    cards_red_76_90_percentage: str
+    cards_red_91_105_total: int
+    cards_red_91_105_percentage: str
+    cards_red_106_120_total: int
+    cards_red_106_120_percentage: str
+    class ConfigDict:
+        orm_mode = True
+
+class PlayerSchema(BaseModel):
+    player_id: int
+    player_name: str
+    age: int
+    nationality: str
+    height: str
+    weight: str
+    season: int
+    team_id: int
+    team_name: str
+    team_logo: str
+    league_id: int
+    league_name: str
+    league_country: str
+    league_logo: str
+    league_flag: str
+    league_season: str
+    games_appearences: int
+    games_lineups: int
+    games_minutes: int
+    games_number: int
+    games_position: str
+    games_rating: float
+    games_captain: str
+    substitutes_in: int
+    substitutes_out: int
+    substitutes_bench: int
+    shots_total: int
+    shots_on: int
+    goals_total: int
+    goals_conceded: int
+    goals_assists: int
+    goals_saves: int
+    passes_total: int
+    passes_key: int
+    passes_accuracy: int
+    tackles_total: int
+    tackles_blocks: int
+    tackles_interceptions: int
+    duels_total: int
+    duels_won: int
+    dribbles_attempts: int
+    dribbles_success: int
+    dribbles_past: int
+    fouls_drawn: int
+    fouls_committed: int
+    cards_yellow: int
+    cards_yellowred: int
+    cards_red: int
+    penalty_won: int
+    penalty_commited: int
+    penalty_scored: int
+    penalty_missed: int
+    penalty_saved: int
+    class ConfigDict:
+        orm_mode = True
+
+class MatchSchema(BaseModel):
+    fixture_id: int
+    fixture_referee: str
+    fixture_timezone: str
+    fixture_date: str
+    fixture_timestamp: int
+    fixture_periods_first: int
+    fixture_periods_second: int
+    fixture_venue_id: int
+    fixture_venue_name: str
+    fixture_venue_city: str
+    fixture_status_long: str
+    fixture_status_short: str
+    fixture_status_elapsed: int
+    fixture_status_extra: int
+    league_id: int
+    league_name: str
+    league_country: str
+    league_logo: str
+    league_flag: str
+    league_season: str
+    league_round: str
+    league_standings: bool
+    teams_home_id: int
+    teams_home_name: str
+    teams_home_logo: str
+    teams_home_winner: bool
+    teams_away_id: int
+    teams_away_name: str
+    teams_away_logo: str
+    teams_away_winner: bool
+    goals_home: int
+    goals_away: int
+    score_halftime_home: int
+    score_halftime_away: int
+    score_fulltime_home: int
+    score_fulltime_away: int
+    score_extratime_home: int
+    score_extratime_away: int
+    score_penalty_home: int
+    score_penalty_away: int
+    season: str
+    class ConfigDict:
+        orm_mode = True
+
+def generate_enum():
+    model_classes = BaseModel.__subclasses__()
+    enum_dict = {}
+    for table in model_classes:
+        if not table.__module__.startswith("scripts.schema"):
+            continue
+        name = table.__name__
+        if "Has" in name:
+            continue
+        enum_dict[name] = name
+    return Enum("TableEnum", enum_dict)
+
+TableEnum = generate_enum()

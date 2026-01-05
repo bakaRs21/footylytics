@@ -1,15 +1,14 @@
 from fastapi import FastAPI, UploadFile, File, HTTPException, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
-from scripts.schema import TableEnum
+from scripts.schema_updated import TableEnum
 from Database import Base, engine
-from dotenv import load_dotenv
 from fastapi import APIRouter
 from scripts import users as users_data
 from scripts import teamData as team_data
 from scripts import seasons as seasons_data
 from scripts import playersData as players_data
-from scripts import data_insertion
+from scripts import filet
 
 
 #run uvicorn main:app --reload --port 8000 or fastapi dev main.py --reload --port 8000
@@ -66,7 +65,7 @@ async def upload_csv(file: UploadFile = File(..., description="CSV file to uploa
     try:
         selected_table = tables.value
         
-        return data_insertion.insert_to_db(await file, selected_table)
+        return filet.insert_to_db(await file, selected_table)
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error reading CSV file: {e}")
 
@@ -84,7 +83,7 @@ def get_team_names(team: str | None = None, season: str | None = None):
     elif season:
         return team_data.teams_from_season(season)
     elif team:
-        return seasons_data.stats_for_season(team)
+        return seasons_data.seasons_for_team(team)
     return team_data.teams()
 
 @compare.get("/Seasons")
@@ -96,6 +95,8 @@ async def get_players(player: str | None = None):
     if player:
         return await players_data.player_seasons(player)
     return await players_data.players()
+
+
 @common.get("/Teams")
 async def get_teams():
     return await team_data.teams()
@@ -104,12 +105,12 @@ async def get_teams():
 
 # from teams page
 @teams.get("/{team}")
-def get_team(team: str):
-    return seasons_data.seasons_for_team(team)
+async def get_team(team: str):
+    return await seasons_data.seasons_for_team(team)
 
 @teams.get("/{team}/season/{season}")
-def get_team_stats(team: str, season: str):
-    return team_data.team_stats_from_season(team, season)
+async def get_team_stats(team: str, season: str):
+    return await team_data.team_stats_from_season(team, season)
 
 
 # from players page

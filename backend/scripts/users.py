@@ -1,5 +1,5 @@
 from Database import get_session
-from scripts.models import Users as users
+from scripts.models_updated import Users as users
 from typing import List
 
 

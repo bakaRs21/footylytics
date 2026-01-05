@@ -2,7 +2,7 @@ import polars as pl
 from pathlib import Path
 import os
 from Database import get_session
-from scripts.models import Players
+from scripts.models_updated import Players
 from typing import List, Optional
 
 
