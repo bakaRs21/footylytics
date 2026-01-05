@@ -19,9 +19,7 @@ const { status, data: seasons, error } = await useFetch(`${config.public.apiBase
       Error: {{ error.message }}
     </div>
     <div v-else v-for="values in seasons" :key="values">
-      <div v-for="value in values" :key="value">
-        <pre><NuxtLink :to="`/Seasons/${value}`">{{ value }}</NuxtLink></pre>
-      </div>
+      <SearchableCards :enable-links="true" :items="values" placeholder="Search season" />
     </div>
   </div>
 </template>

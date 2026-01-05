@@ -211,6 +211,12 @@ class MatchSchema(BaseModel):
     class ConfigDict:
         orm_mode = True
 
+class UsersSchema(BaseModel):
+    user_id: int
+    username: str
+    class ConfigDict:
+        orm_mode = True
+
 def generate_enum():
     model_classes = BaseModel.__subclasses__()
     enum_dict = {}

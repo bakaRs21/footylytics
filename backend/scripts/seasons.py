@@ -2,7 +2,7 @@ from typing import Optional
 import polars as pl
 from pathlib import Path
 from Database import get_session
-from scripts.models_updated import Seasons
+from scripts.models_updated import Season
 from typing import List
 
     # Get base and data directories
@@ -15,23 +15,18 @@ player_stats_dir = data_dir / "players_2006-2018.csv"
 
 
     # Get all unique seasons
-async def seasons(limit: int = 50) -> List[Seasons]:
-    df = pl.read_csv(team_stats_dir)
-    seasons_df = df.select(pl.col("season")).unique().sort("season").to_dicts()
-    print(seasons_df)
-    seasons = {"seasons" : [season["season"] for season in seasons_df]}
-    return seasons
+async def seasons(limit: int = 20) -> List[Season]:
     session = get_session()
     try:
-        return session.query(Seasons).limit(limit).all()
+        return session.query(Season).limit(limit).all()
     finally:
         session.close()
 
     # Create season
-def create_season(season: str) -> Seasons:
+def create_season(season: str) -> Season:
     session = get_session()
     try:
-        s = Seasons(season=season)
+        s = Season(season=season)
         session.add(s)
         session.commit()
         session.refresh(s)
@@ -44,10 +39,10 @@ def create_season(season: str) -> Seasons:
 
 
     #get a single season by ID
-def get_season(season_id: int) -> Optional[Seasons]:
+def get_season(season_id: int) -> Optional[Season]:
     session = get_session()
     try:
-        return session.query(Seasons).filter(Seasons.season_id == season_id).first()
+        return session.query(Season).filter(Season.season_id == season_id).first()
     finally:
         session.close()
 

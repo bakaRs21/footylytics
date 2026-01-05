@@ -17,8 +17,8 @@ class Team(Base):
     logo = Column(String(255))
     team_seasons = relationship("TeamSeason", back_populates="team", passive_deletes=True)
     player_seasons = relationship("PlayerSeason", back_populates="team", passive_deletes=True)
-    home_matches = relationship("Match", backref="home_team", foreign_keys="Match.home_team_id", passive_deletes=True)
-    away_matches = relationship("Match", backref="away_team", foreign_keys="Match.away_team_id", passive_deletes=True)
+    home_matches = relationship("Match", back_populates="home_team", foreign_keys="Match.home_team_id", passive_deletes=True)
+    away_matches = relationship("Match", back_populates="away_team", foreign_keys="Match.away_team_id", passive_deletes=True)
 
 class Nation(Base):
     __tablename__ = 'nations'
@@ -241,3 +241,8 @@ class Match(Base):
     season = relationship("Season", back_populates="matches")
     home_team = relationship("Team", foreign_keys=[home_team_id], back_populates="home_matches")
     away_team = relationship("Team", foreign_keys=[away_team_id], back_populates="away_matches")
+
+class Users(Base):
+    __tablename__ = "users"
+    user_id = Column(Integer, primary_key=True, autoincrement=True)
+    username = Column(String(50), unique=True, nullable=False)

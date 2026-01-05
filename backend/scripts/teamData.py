@@ -1,7 +1,7 @@
 import polars as pl
 from Database import get_session
 from typing import List, Optional
-from scripts.models_updated import Teams
+from scripts.models_updated import Team
 import os
 
 dirname = os.path.dirname(__file__)

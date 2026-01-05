@@ -1,3 +1,4 @@
+import asyncio
 from fastapi import FastAPI, UploadFile, File, HTTPException, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
@@ -8,7 +9,7 @@ from scripts import users as users_data
 from scripts import teamData as team_data
 from scripts import seasons as seasons_data
 from scripts import playersData as players_data
-from scripts import filet
+from scripts.load_from_csv import run_loader_once, run_loader_periodically
 
 
 #run uvicorn main:app --reload --port 8000 or fastapi dev main.py --reload --port 8000
@@ -28,6 +29,9 @@ async def lifespan(app: FastAPI):
     # Startup
     Base.metadata.create_all(bind=engine)
     print("Database created / checked")
+    await asyncio.to_thread(run_loader_once)
+    print("Initial data load complete")
+    asyncio.create_task(run_loader_periodically(interval_seconds=24*60*60))  # 24 hours
     yield
     # Shutdown
 
@@ -55,20 +59,6 @@ def get_users():
 @app.post("/create-user")
 def create_user(name: str):
     return users_data.create_user(name)
-
-@app.post("/upload-csv")
-async def upload_csv(file: UploadFile = File(..., description="CSV file to upload"), tables: TableEnum = None):
-    if not file.filename.endswith(".csv"):
-        raise HTTPException(status_code=400, detail="Invalid file type. Only CSV files allowed.")
-    if file.content_type not in ["text/csv", "application/vnd.ms-excel"]:
-        raise HTTPException(status_code=400, detail="Invalid content type. Only CSV files allowed.")
-    try:
-        selected_table = tables.value
-        
-        return filet.insert_to_db(await file, selected_table)
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Error reading CSV file: {e}")
-
 
 @app.delete("/delete-user")
 async def delete_user(user_id: int):
