@@ -41,7 +41,6 @@ class Player(Base):
     height_in_m = Column(Float, nullable=True)
     weight = Column(Integer, nullable=True)
     date_of_birth = Column(Date, nullable=True)
-    foot = Column(String(5), nullable=True)
     nation = relationship("Nation", back_populates="players")
     player_seasons = relationship("PlayerSeason", back_populates="player", passive_deletes=True)
 

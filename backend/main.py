@@ -10,6 +10,7 @@ from scripts import teamData as team_data
 from scripts import seasons as seasons_data
 from scripts import playersData as players_data
 from scripts.load_from_csv import run_loader_once, run_loader_periodically
+from metrics.PlayerMetrics import metrics as player_metrics
 
 
 #run uvicorn main:app --reload --port 8000 or fastapi dev main.py --reload --port 8000
@@ -17,7 +18,7 @@ from scripts.load_from_csv import run_loader_once, run_loader_periodically
 
 app = FastAPI(title="API for Nuxt + FastAPI")
 common = APIRouter(prefix="/common")
-compare = APIRouter(prefix="/compare")
+compare = APIRouter(prefix="/compare", tags=["Compare Page"])
 seasons = APIRouter(prefix="/seasons")
 teams = APIRouter(prefix="/teams")
 players = APIRouter(prefix="/players")
@@ -110,10 +111,4 @@ app.include_router(common)
 app.include_router(compare)
 app.include_router(teams)
 app.include_router(players)
-
-
-# jestli se na to nekdy podivam, tak sem chtel pojmenovat i routery podle toho co delaj/kam patri
-# napr. teams_router, players_router apod.
-# naštudovat query parametry ve fastapi
-# plexac mi neco vypliv o query parametrech, ale moc se mi to nezda, mam pocit ze to bylo trochu jinak
-# https://fastapi.tiangolo.com/tutorial/query-params/ a tu je to zase celkem dost obecne takze to bude pro me jeste tezky "orisek"
+app.include_router(player_metrics.router)

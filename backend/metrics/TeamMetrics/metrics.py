@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 from Database import get_session
 
-router = APIRouter(prefix="/metrics", tags=["metrics"])
+router = APIRouter(prefix="/team-metrics", tags=["Team Metrics"])
 
 metric_options = [
     {
@@ -24,3 +24,4 @@ def get_db():
 
 @router.get("/team-goals-per-match")
 def team_goals_per_match(team_id: int | None = None, season_id: int | None = None):
+    pass
