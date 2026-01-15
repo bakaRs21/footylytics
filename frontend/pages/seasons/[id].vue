@@ -4,10 +4,10 @@ const route = useRoute()
 const router = useRouter()
 const selectedSeason = ref(route.params.id || "")
 
-const { data: teams, error: teamsError } = await useFetch(`${config.public.apiBase}Teams/${selectedSeason.value}`)
+const { status: teamStatus, data: teamsInSeason, error: teamInSeasonError } = await useFetch(`${config.public.apiBase}seasons/${selectedSeason.value}/teams`, {
+  lazy: true,
+})
 </script>
 <template>
-    {{ selectedSeason }}
-    Teams in this season:
-    {{ teams }}
+    {{ teamInSeason }}
 </template>

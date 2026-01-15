@@ -1,8 +1,6 @@
 <script setup>
-import LoadingSvg from '~/components/Icons/loading_svg.vue';
-
 const config = useRuntimeConfig()
-const { status, data: seasons, error } = await useFetch(`${config.public.apiBase}compare/Seasons`, {
+const {status, data: seasons, error } = await useFetch(`${config.public.apiBase}compare/Seasons`, {
   lazy: true,
 })
 </script>
@@ -18,8 +16,8 @@ const { status, data: seasons, error } = await useFetch(`${config.public.apiBase
     <div v-else-if="error">
       Error: {{ error.message }}
     </div>
-    <div v-else v-for="values in seasons" :key="values">
-      <SearchableCards :enable-links="true" :items="values" placeholder="Search season" />
+    <div v-else>
+      <SearchableCards :enable-links="true" :items="seasons" :page="'season'" placeholder="Search season" />
     </div>
   </div>
 </template>

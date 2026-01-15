@@ -1,5 +1,4 @@
 <script setup>
-const teamArray = ref([]);
 
 const config = useRuntimeConfig()
 const { pending: isLoading, data: teams, error } = await useFetch(`${config.public.apiBase}compare/Teams`, {
@@ -18,8 +17,8 @@ const { pending: isLoading, data: teams, error } = await useFetch(`${config.publ
   <div v-else-if="error">
     Error: {{ error.message }}
   </div>
-  <div v-else v-for="teamArray in teams" :key="teamArray">
-    <SearchableCards :enable-links="true" :items="teamArray" placeholder="Search teams..."/>
+  <div v-else>
+    <SearchableCards :enable-links="true" :items="teams" :page="'team'" placeholder="Search teams..."/>
   </div>
 </template>
 

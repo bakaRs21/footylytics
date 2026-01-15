@@ -16,15 +16,30 @@ const props = defineProps({
     enableLinks: {
         type: Boolean,
         default: true
+    },
+    page: {
+        type: String,
+        required: true
     }
 });
+const getItemId = (item) => {
+  const key = `${props.page}_id`
+  return item[key]
+}
+
 const filteredItems = computed(() => {
     if (!search.value.trim()) return props.items
     
     const searchLower = search.value.toLowerCase().trim()
-    return props.items.filter(item => 
-        item.toString().toLowerCase().includes(searchLower)
-    )
+    return props.items.filter((item) => {
+        if (props.page === 'season') {
+            const season = item.season ?? ''
+            return season.toLowerCase().includes(searchLower)
+        } else {
+            const name = item.name ?? ''
+            return name.toLowerCase().includes(searchLower)
+        }
+    })
 });
 watch(filteredItems, (newItems) => {
     count.value = newItems.length;
@@ -44,10 +59,11 @@ watch(filteredItems, (newItems) => {
     </div>
     <hr />
     <div class="cards">
-        <NuxtLink v-for="item in filteredItems" v-if="enableLinks" :to="`/teams/${item}`">
-            <card :key="item">{{ item }}</card>
+        <NuxtLink v-if="enableLinks" v-for="item in filteredItems" :key="getItemId(item)"  :to="`/${page}s/${getItemId(item)}`">
+            <card v-if="page !== 'season'">{{ item.name }}</card>
+            <card v-else>{{ item.season }}</card>
         </NuxtLink>
-        <card v-else v-for="item in filteredItems" :key="item">{{ item }}</card>
+        <card v-else v-for="itm in filteredItems" :key="getItemId(itm)">{{ itm.name }}</card>
         <p v-if="filteredItems.length == 0">No items match {{ search }}</p>
     </div>
 </template>

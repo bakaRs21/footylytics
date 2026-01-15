@@ -1,5 +1,6 @@
 <script setup>
 const playerArray = ref([]);
+const page = "player";
 
 const config = useRuntimeConfig()
 const { pending: isLoading, data: players, error } = await useFetch(`${config.public.apiBase}compare/Players`, {
@@ -17,7 +18,7 @@ const { pending: isLoading, data: players, error } = await useFetch(`${config.pu
   <div v-else-if="error">
     Error: {{ error.message }}
   </div>
-  <div v-else v-for="playerArray in players" :key="playerArray">
-    <SearchableCards :enable-links="true" :items="playerArray" placeholder="Search players..."/>
+  <div v-else>
+    <SearchableCards :enable-links="true" :items="players" :page="page" placeholder="Search players..."/>
   </div>
 </template>
