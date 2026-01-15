@@ -1,4 +1,5 @@
 from typing import Optional
+import pandas as pl
 from pathlib import Path
 from Database import get_session
 from scripts.models_updated import Season
