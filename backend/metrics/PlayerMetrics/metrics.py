@@ -7,35 +7,6 @@ from typing import Optional
 
 router = APIRouter(prefix="/player-metrics", tags=["Player Metrics"])
 
-metric_options = [
-    {
-        "key": 'player_goals_per_match',
-        "label": "Player Average Goals per Match",
-        "params": [
-            {"name": "player_id", 'type': 'int', 'required': False, 'help': 'Filter to one player_id; if skipped return all players'},
-            {'name': 'season_id', 'type': 'int', 'required': False, 'help': 'Filter to one season_id; if skipped return all seasons'},
-        ]
-    }, {
-        "key": 'player_assists_per_match',
-        "label": "Player Average Assists per Match",
-        "params": [
-            {"name": "player_id", 'type': 'int', 'required': False, 'help': 'Filter to one player_id; if skipped return all players'},
-            {'name': 'season_id', 'type': 'int', 'required': False, 'help': 'Filter to one season_id; if skipped return all seasons'},
-        ]
-    }, {
-        "key": 'player_shots_per_match',
-        "label": "Player Average Shots per Match",
-        "params": [
-            {"name": "player_id", 'type': 'int', 'required': False, 'help': 'Filter to one player_id; if skipped return all players'},
-            {'name': 'season_id', 'type': 'int', 'required': False, 'help': 'Filter to one season_id; if skipped return all seasons'},
-        ]
-    },
-]
-
-@router.get("/options")
-def get_metric_options():
-    return metric_options
-
 def player_queries(db: Session, player_id: int | None, season_id: int | None):
     query = db.query(
         Player.player_id,

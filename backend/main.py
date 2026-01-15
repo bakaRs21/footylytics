@@ -17,11 +17,11 @@ from metrics.PlayerMetrics import metrics as player_metrics
 
 
 app = FastAPI(title="API for Nuxt + FastAPI")
-common = APIRouter(prefix="/common")
+common = APIRouter(prefix="/common", tags=["Common Endpoints"])
 compare = APIRouter(prefix="/compare", tags=["Compare Page"])
-seasons = APIRouter(prefix="/seasons")
-teams = APIRouter(prefix="/teams")
-players = APIRouter(prefix="/players")
+seasons = APIRouter(prefix="/seasons", tags=["Seasons Page"])
+teams = APIRouter(prefix="/teams", tags=["Teams Page"])
+players = APIRouter(prefix="/players", tags=["Players Page"])
 
 
 
@@ -35,6 +35,8 @@ async def lifespan(app: FastAPI):
     asyncio.create_task(run_loader_periodically(interval_seconds=24*60*60))  # 24 hours
     yield
     # Shutdown
+    print("Shutting down backend...")
+
 
 app = FastAPI(lifespan=lifespan)
 
@@ -78,13 +80,15 @@ def get_team_names(team: str | None = None, season: str | None = None):
     return team_data.teams()
 
 @compare.get("/Seasons")
-async def get_seasons():
-    return await seasons_data.seasons()
+def get_seasons():
+    return seasons_data.seasons()
 
 @compare.get("/Players")
-async def get_players(player: str | None = None):
-    if player:
-        return await players_data.player_seasons(player)
+async def get_players(player_id: int | None = None, season_id: int | None = None):
+    if player_id and season_id:
+        return await players_data.player_stats_from_season(player_id, season_id)
+    elif player_id:
+        return await players_data.player_seasons(player_id)
     return await players_data.players()
 
 
@@ -95,18 +99,34 @@ async def get_teams():
 
 
 # from teams page
-@teams.get("/{team}")
-async def get_team(team: str):
-    return await seasons_data.seasons_for_team(team)
+@teams.get("/{team_id}")
+async def get_team_info(team_id: int):
+    return team_data.team_info(team_id)
 
-@teams.get("/{team}/season/{season}")
-async def get_team_stats(team: str, season: str):
-    return await team_data.team_stats_from_season(team, season)
+@teams.get("/{team_id}/seasons")
+async def get_team_seasons(team_id: int):
+    return await team_data.seasons_for_team(team_id)
+
+@teams.get("/{team_id}/season/{season_id}")
+async def get_team_stats(team_id: int, season_id: int):
+    return await team_data.team_stats_from_season(team_id, season_id)
 
 
 # from players page
+@players.get("/{player_id}")
+def get_player_info(player_id: int):
+    return players_data.player_info(player_id)
 
+@players.get("/{player_id}/seasons")
+async def get_player(player_id: int):
+    return await players_data.player_seasons(player_id)
 
+# seasons page
+@seasons.get("/{season_id}/teams")
+def get_teams_in_season(season_id: int):
+    return team_data.teams_from_season(season_id)
+
+app.include_router(seasons)
 app.include_router(common)
 app.include_router(compare)
 app.include_router(teams)

@@ -1,62 +1,64 @@
-import polars as pl
-from pathlib import Path
-import os
 from Database import get_session
-from scripts.models_updated import Player
-from typing import List, Optional
+from scripts.models_updated import Player, PlayerSeason, Season
+from typing import List
+from sqlalchemy.orm import load_only
 
 
-    # Get base and data directories
-dirname = os.path.dirname(__file__)
-data_dir = os.path.join(os.path.dirname(os.path.dirname((__file__))), "datasets")
-player_stats_dir = os.path.join(data_dir, "players_2006-2018.csv")
 
 
     #get all players
-async def players(limit: int = 50) -> List[Players]:
-    df = pl.read_csv(player_stats_dir)
-    players_df = df.select(pl.col("name")).unique().sort("name").to_dicts()
-    players = {"players" : [player["name"] for player in players_df]}
-    return players
+async def players(limit: int = 5000) -> List[Player]:
     session = get_session()
     try:
-        return session.query(Players).limit(limit).all()
+        return session.query(Player).options(load_only(Player.player_id, Player.name)).limit(limit).all()
     finally:
         session.close()
 
     # Get seasons for a specific player
-async def player_seasons(player: str):
-    df = pl.read_csv(player_stats_dir)
-    player_df = df.filter(pl.col("name") == player)
-    player_season_dict = player_df.select(pl.col("name", "season")).unique().sort("season").to_dicts()
-    seasons = [entry["season"] for entry in player_season_dict]
-    player_season = {f"{player}": seasons}
-    return player_season
+async def player_seasons(player_id: int):
     session = get_session()
     try:
-        player = session.query(Players).filter(Players.player_id == player_id).first()
+        player = session.query(Season).join(PlayerSeason).options(load_only(Season.season_id, Season.season)).filter(PlayerSeason.player_id == player_id).all()
         if not player:
-            return False
-        session.delete(player)
-        session.commit()
-        return True
-    except Exception:
-        session.rollback()
-        raise
+            raise ValueError(f"Player with id {player_id} not found")
+        return player
     finally:
         session.close()
 
     # get all players from specific season
 def players_from_season(season: str):
-    df = pl.read_csv(player_stats_dir)
-    season_df = df.filter(pl.col("season") == season)
-    players_season_dict = season_df.select(pl.col("name")).unique().sort("name").to_dicts()
-    players = {f"players_{season}": [entry["name"] for entry in players_season_dict]}
-    return players
+    session = get_session()
+    try:
+        players = (
+            session.query(Player)
+            .join(PlayerSeason, PlayerSeason.player_id == Player.player_id)
+            .join(Season, PlayerSeason.season_id == Season.season_id)
+            .options(load_only(Player.player_id, Player.name))
+            .filter(Season.season == season).all()
+            )
+        return players
+    finally:
+        session.close()
+
+    # Get general info about a specific player
+def player_info(player_id: int):
+    session = get_session()
+    try:
+        return session.query(Player).filter(Player.player_id == player_id).first()
+    finally:
+        session.close()
 
     # Get player stats for a specific player and season
-def player_stats_from_season(player: str, season: str):
-    player_stats_df = pl.read_csv(player_stats_dir)
-    filtered_df = player_stats_df.filter((pl.col("name") == player) & (pl.col("season") == season))
-    stats = filtered_df.drop("name").drop("season").to_dicts()
-    return stats
+def player_stats_from_season(player_id: int, season_id: int):
+    session = get_session()
+    try:
+        stats = (
+            session.query(PlayerSeason)
+            .join(Player, Player.player_id == PlayerSeason.player_id)
+            .join(Season, PlayerSeason.season_id == Season.season_id)
+            .filter(Player.player_id == player_id, Season.season_id == season_id)
+            .all()
+        )
+        return stats
+    finally:
+        session.close()

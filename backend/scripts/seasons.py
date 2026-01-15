@@ -15,10 +15,10 @@ player_stats_dir = data_dir / "players_2006-2018.csv"
 
 
     # Get all unique seasons
-async def seasons(limit: int = 20) -> List[Season]:
+def seasons()-> List[Season]:
     session = get_session()
     try:
-        return session.query(Season).limit(limit).all()
+        return session.query(Season).all()
     finally:
         session.close()
 
@@ -46,16 +46,10 @@ def get_season(season_id: int) -> Optional[Season]:
     finally:
         session.close()
 
-    # Get all seasons for specific team
-async def seasons_for_team(team: str):
-    df = pl.read_csv(team_stats_dir)
-    team_seasons_df = df.filter(pl.col("name") == team).select(pl.col("season")).unique().sort("season").to_dicts()
-    print(f"team_seasons_df: {team_seasons_df}")
-    team_seasons = {f"{team}_seasons": [season["season"] for season in team_seasons_df]}
-    return team_seasons
+    # get team for a season
 
 # NEEDS FIXING - SHOULD RETURN OVERALL STATS FOR A SEASON WITHOUT TEAMS
-async def stats_for_season(season: str):
+def stats_for_season(season: str):
     df = pl.read_csv(team_stats_dir)
     season_stats_df = df.filter(pl.col("season") == season).to_dicts()
     return season_stats_df
