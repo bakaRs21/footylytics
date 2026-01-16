@@ -1,4 +1,3 @@
-import polars as pl
 from Database import get_session
 from typing import List, Optional
 from scripts.models_updated import Team, TeamSeason, Season
@@ -75,7 +74,3 @@ def team_stats_from_season(team_id: int, season_id: int):
     finally:
         session.close()
 
-
-    # get team stats from specific season for basic ranking table
-def team_stats_for_table(season: str):
-    df = pl.read_csv()

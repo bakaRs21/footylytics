@@ -10,7 +10,7 @@ class TeamSchema(BaseModel):
     league_season: int
     team_id: int
     team_name: str
-    team_logo: str
+    logo: str
     form: str
     fixtures_played_home: int
     fixtures_played_away: int
