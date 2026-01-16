@@ -4,3 +4,4 @@ backend/.env
 backend/__pycache__/
 backend/scripts/__pycache__
 backend/metrics/PlayerMetrics/__pycache__
+backend/metrics/TeamMetrics/__pycache__
