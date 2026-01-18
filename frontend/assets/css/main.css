@@ -116,7 +116,22 @@ select {
   justify-content: center;
 }
 
-
+.all-seasons-button {
+  background-color: #472828d8;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  font-size: 16px;
+  padding: 10px 20px;
+  margin: 0 0 0 15px;
+  cursor: pointer;
+}
+.all-seasons-button:hover {
+  background-color: #7a2929bd;
+}
+.all-seasons-button:active {
+  background-color: #a83232c4;
+}
 
 
 
@@ -126,4 +141,24 @@ select {
 
 .backdrop-blur-xs {
     backdrop-filter: blur(2px);
+}
+
+/* Export menu background */
+.apexcharts-menu {
+  background: #1e1e1e !important;
+  border: 1px solid #333 !important;
+}
+
+/* Export menu items */
+.apexcharts-menu-item {
+  color: white !important;
+}
+
+.apexcharts-menu-item:hover {
+  background: #333 !important;
+}
+
+/* Toolbar icons (3 dots) */
+.apexcharts-toolbar svg {
+  fill: white !important;
 }

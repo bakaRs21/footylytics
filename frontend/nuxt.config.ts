@@ -11,6 +11,9 @@ export default defineNuxtConfig({
     }
   ],
   css: ["~/assets/css/main.css"],
+  plugins: [
+    { src: "~/plugins/apexcharts.client.ts", mode: "client" },
+  ],
   ssr: true,
   runtimeConfig: {
     public: {
