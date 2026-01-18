@@ -1,6 +1,8 @@
 <script setup>
   import { onMounted, ref } from 'vue'
   import ColorThief from 'colorthief'
+import Card from '~/components/card.vue'
+import Loading_svg from '~/components/Icons/loading_svg.vue'
 const config = useRuntimeConfig()
 const route = useRoute()
 const router = useRouter()
@@ -45,12 +47,16 @@ onMounted(() => {
 watch(() => teamInfo.value.logo, () => {
   extractColors()
 })
-
-
-const stats = ref([])
+const { data: teamSeasons, error: teamSeasonsError } = await useFetch(`${config.public.apiBase}teams/${id.value}/seasons`)
+let stats = ref(null)
 const statsStatus = ref("")
 const statsError = ref("")
 const seasonSelected = async (season) => {
+  if (season === "all") {
+    selectedSeason.value = "all-seasons"
+    router.push({ query: { ...route.query, season: selectedSeason.value } })
+    return  stats.value = []
+  }
   selectedSeason.value = season
   router.push({ query: { ...route.query, season: season } })
   const { status: status, data: statsData, error: error } = await useFetch(`${config.public.apiBase}teams/${id.value}/season/${selectedSeason.value}`)
@@ -69,44 +75,60 @@ const seasonSelected = async (season) => {
     Error: {{ teamInfoError.message }}
   </div>
   <div v-else>
-    
-    <div class="team" :style="{backgroundColor: secondary}">
-      <h4>{{ teamInfo.name }}</h4>
-      <img :src="teamInfo.logo" :alt="teamInfo.name" />
+    <div class="team-box">
+      <div class="team-card" :style="{backgroundColor: secondary}">
+        <h4>{{ teamInfo.name }}</h4>
+        <img :src="teamInfo.logo" :alt="teamInfo.name" />
+      </div>
+      <div class="team-seasons-wrapper">
+        <div class="wrapper-heading">
+          <h4 id="selectS">Select a season: </h4>
+          <div class="all-seasons">
+            <h4 id="allS">Or data from</h4>
+            <button class="all-seasons-button" @click="seasonSelected('all')">All Seasons</button>
+          </div>
+        </div>
+        <div class="team-seasons">
+          <Card v-if="!teamSeasonsError" v-for="season in teamSeasons" :key="season" @click="() => seasonSelected(season)">{{ season }}</Card>
+          <p v-else-if="teamSeasonsError">{{ teamSeasonsError.message }}</p>
+        </div>
+      </div>
     </div>
-    <!--
-    <h4>Select a season</h4>
-    <select v-model="selectedSeason" v-for="seasons in teamSeasons" :key="seasons">
-      <option disabled value="" >Seasons</option>
-      <option v-for="season in seasons" :key="season" :value="season" @click="() => seasonSelected(season)">{{ season }}</option>
-    </select>
-    <div v-if="selectedSeason">
-      <div v-if="statsStatus === 'pending'">
-        Loading stats...
-      </div>
-      <div v-else-if="statsError">
-        Error loading stats: {{ statsError.message }}
-      </div>
-      <div v-else v-for="stat in stats" :key="stat">
-        {{ stat }}
-      </div>
-    </div>-->
+    <div v-if="statsStatus === 'pending'">
+      Loading stats...
+      <Loading_svg />
+    </div>
+    <div v-else-if="statsError">
+      Error loading stats: {{ statsError.message }}
+    </div>
+    <div v-else-if="stats">
+      <h3>Statistics for season {{ selectedSeason }}:</h3>
+    </div>
   </div>
 </template>
 <style scoped>
-  h4 {
+.team-box {
+  display: flex;
+  align-items: flex-start;
+  margin-top: 20px;
+}
+h4 {
     margin: 0;
     font-size: 32px;
     color: var(--teamNameColor);
-  }
-.team {
+}
+#selectS {
+  margin-left: 20px;
+}
+.team-card {
   border-radius: 12px;
   width: 350px;
-  height: 230px;
+  height: 240px;
   display: flex;
   align-items: center;
   flex-direction: column;
   justify-content: space-evenly;
+  flex-shrink: 0;
   background: repeating-linear-gradient(
     -45deg,
     var(--stripe-main),
@@ -114,5 +136,29 @@ const seasonSelected = async (season) => {
     var(--stripe-dark) 22px,
     var(--stripe-dark) 50px
   );
+  margin: 20px 10px 0 0;
+}
+.team-seasons-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  flex: 1;
+}
+.wrapper-heading {
+  display: flex;
+  flex-direction: row;
+  gap: 80px;
+  margin-bottom: 5px;
+}
+.all-seasons {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+.team-seasons {
+  display: flex;
+  flex-wrap: wrap;
+  flex: 1;
+  gap: 5px;
 }
 </style>
