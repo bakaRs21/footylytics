@@ -42,6 +42,7 @@ async def teams_from_season(season_id: int):
     finally:
         session.close()
 
+    # get seasons for a specific team
 async def seasons_for_team(team_id: int):
     session = get_session()
     try:
@@ -61,7 +62,14 @@ async def seasons_for_team(team_id: int):
 async def team_stats_from_season(team_id: int, season_id: int):
     session = get_session()
     try:
-        return
+        team_stats = (session.query(TeamSeason)
+                      .join(Team, TeamSeason.team_id == Team.team_id)
+                      .filter(Team.team_id == team_id, TeamSeason.season_id == season_id)
+                      .first()
+                      )
+        if not team_stats:
+            raise ValueError(f"Stats for team id {team_id} in season id {season_id} not found")
+        return team_stats
     finally:
         session.close()
 

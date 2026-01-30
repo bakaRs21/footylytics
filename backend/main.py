@@ -89,7 +89,7 @@ async def get_players(player_id: int | None = None, season_id: int | None = None
     if player_id and season_id:
         return await players_data.player_stats_from_season(player_id, season_id)
     elif player_id:
-        return await players_data.player_seasons(player_id)
+        return players_data.player_seasons(player_id)
     return await players_data.players()
 
 
@@ -114,6 +114,20 @@ async def get_team_stats(team_id: int, season_id: int):
 def get_player_info(player_id: int):
     return players_data.player_info(player_id)
 
+@players.get("/{player_id}/seasons")
+def get_player(player_id: int):
+    return players_data.player_seasons(player_id)
+
+@players.get("/{player_id}/season/{season_id}")
+async def get_player_stats(player_id: int, season_id: int):
+    return await players_data.player_stats_from_season(player_id, season_id)
+
+# seasons page
+@seasons.get("/{season_id}/teams")
+def get_teams_in_season(season_id: int):
+    return team_data.teams_from_season(season_id)
+
+app.include_router(seasons)
 app.include_router(common)
 app.include_router(compare)
 app.include_router(teams)

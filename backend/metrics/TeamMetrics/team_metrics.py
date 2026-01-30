@@ -1,13 +1,12 @@
 from fastapi import APIRouter, Query, Depends, HTTPException
 from Database import get_session
-from typing import Optional, List
 from scripts.models_updated import Team, TeamSeason, Match
 from sqlalchemy import func, case
 from sqlalchemy.orm import Session
 
 router = APIRouter(prefix="/team-metrics", tags=["Team Metrics"])
 
-def aggregate_matches(db: Session, team_id: Optional[int], season_id: Optional[int]):
+def aggregate_matches(db: Session, team_id: int | None, season_id: int | None):
     home_q = db.query(
         Match.home_team_id.label("team_id"),
         Match.teams_home_name.label("team_name"),
@@ -51,8 +50,8 @@ def aggregate_matches(db: Session, team_id: Optional[int], season_id: Optional[i
 
 @router.get("/goals-conceded-per-match")
 def goals_conceded_per_match(
-    team_id: Optional[int] = Query(None),
-    season_id: Optional[int] = Query(None),
+    team_id: int | None = Query(None),
+    season_id: int | None = Query(None),
     db: Session = Depends(get_session),
 ):
     rows = aggregate_matches(db, team_id, season_id)
@@ -68,8 +67,8 @@ def goals_conceded_per_match(
 
 @router.get("/points-per-match")
 def points_per_match(
-    team_id: Optional[int] = Query(None),
-    season_id: Optional[int] = Query(None),
+    team_id: int | None = Query(None),
+    season_id: int | None = Query(None),
     db: Session = Depends(get_session),
 ):
     rows = aggregate_matches(db, team_id, season_id)
@@ -88,8 +87,8 @@ def points_per_match(
 
 @router.get("/win-rate")
 def win_rate(
-    team_id: Optional[int] = Query(None),
-    season_id: Optional[int] = Query(None),
+    team_id: int | None = Query(None),
+    season_id: int | None = Query(None),
     db: Session = Depends(get_session),
 ):
     rows = aggregate_matches(db, team_id, season_id)
@@ -106,8 +105,8 @@ def win_rate(
 
 @router.get("/goal-difference-per-match")
 def goal_difference_per_match(
-    team_id: Optional[int] = Query(None),
-    season_id: Optional[int] = Query(None),
+    team_id: int | None = Query(None),
+    season_id: int | None = Query(None),
     db: Session = Depends(get_session),
 ):
     rows = aggregate_matches(db, team_id, season_id)
@@ -124,8 +123,8 @@ def goal_difference_per_match(
 
 @router.get("/attack-defense-balance")
 def attack_defense_balance(
-    team_id: Optional[int] = Query(None),
-    season_id: Optional[int] = Query(None),
+    team_id: int | None = Query(None),
+    season_id: int | None = Query(None),
     db: Session = Depends(get_session),
 ):
     rows = aggregate_matches(db, team_id, season_id)
@@ -142,8 +141,8 @@ def attack_defense_balance(
 
 @router.get("/points-per-goal-scored")
 def points_per_goal_scored(
-    team_id: Optional[int] = Query(None),
-    season_id: Optional[int] = Query(None),
+    team_id: int | None = Query(None),
+    season_id: int | None = Query(None),
     db: Session = Depends(get_session),
 ):
     rows = aggregate_matches(db, team_id, season_id)
@@ -165,8 +164,8 @@ def points_per_goal_scored(
 
 @router.get("/season-consistency-index")
 def season_consistency_index(
-    team_id: Optional[int] = Query(None),
-    season_id: Optional[int] = Query(None),
+    team_id: int | None = Query(None),
+    season_id: int | None = Query(None),
     db: Session = Depends(get_session),
 ):
     """(wins + losses) / matches_played, from TeamSeason aggregates."""

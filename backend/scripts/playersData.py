@@ -15,7 +15,7 @@ async def players(limit: int = 5000) -> List[Player]:
         session.close()
 
     # Get seasons for a specific player
-async def player_seasons(player_id: int):
+def player_seasons(player_id: int):
     session = get_session()
     try:
         player = session.query(Season).join(PlayerSeason).options(load_only(Season.season_id, Season.season)).filter(PlayerSeason.player_id == player_id).all()
@@ -49,16 +49,17 @@ def player_info(player_id: int):
         session.close()
 
     # Get player stats for a specific player and season
-def player_stats_from_season(player_id: int, season_id: int):
+async def player_stats_from_season(player_id: int, season_id: int):
     session = get_session()
     try:
-        stats = (
-            session.query(PlayerSeason)
-            .join(Player, Player.player_id == PlayerSeason.player_id)
-            .join(Season, PlayerSeason.season_id == Season.season_id)
-            .filter(Player.player_id == player_id, Season.season_id == season_id)
-            .all()
+        stats = (session.query(PlayerSeason)
+                .join(Player, Player.player_id == PlayerSeason.player_id)
+                .filter(Player.player_id == player_id, PlayerSeason.season_id == season_id)
+                .all()
         )
+        if not stats:
+            raise ValueError(f"Stats for player id {player_id} in season id {season_id} not found")
+        
         return stats
     finally:
         session.close()
