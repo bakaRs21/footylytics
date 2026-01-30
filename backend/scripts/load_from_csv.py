@@ -10,8 +10,6 @@ from scripts.models_updated import (
     Player, TeamSeason, PlayerSeason, Match
 )
 
-# ---------- Helpers ----------
-
 def to_int(v: Any) -> Optional[int]:
     try:
         if v in (None, "", "None"):
@@ -61,7 +59,6 @@ TEAM_SEASON_FIELDS = {c.name for c in TeamSeason.__table__.columns if c.name not
 PLAYER_SEASON_FIELDS = {c.name for c in PlayerSeason.__table__.columns if c.name not in ("player_id", "season_id", "team_id")}
 MATCH_FIELDS = {c.name for c in Match.__table__.columns}
 
-# ---------- Loaders ----------
 
 def load_teams_and_seasons(teams_csv: Path):
     # First pass: Seasons and Teams with cached existing IDs

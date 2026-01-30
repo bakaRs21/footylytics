@@ -47,6 +47,11 @@ def aggregate_matches(db: Session, team_id: int | None, season_id: int | None):
 
     return rows
 
+def aggregate_goals_by_15_minutes(db: Session, team_id: Optional[int], season_id: Optional[int]):
+    goals_scored = db.query(
+        
+    )
+
 
 @router.get("/goals-conceded-per-match")
 def goals_conceded_per_match(
@@ -55,15 +60,34 @@ def goals_conceded_per_match(
     db: Session = Depends(get_session),
 ):
     rows = aggregate_matches(db, team_id, season_id)
-    return [
-        {
+    result = []
+    for r in rows:
+        result.append({
             "team_id": r.team_id,
             "team_name": r.team_name,
             "avg_goals_conceded_per_match": round((r.ga or 0) / (r.matches or 1), 3),
             "matches": r.matches,
-        }
-        for r in rows
-    ]
+        })
+    return result
+
+@router.get("/goals-scored-per-match")
+def goals__scored_per_match(
+    team_id: Optional[int] = Query(None),
+    season_id: Optional[int] = Query(None),
+    db: Session = Depends(get_session)
+):
+    rows = aggregate_matches(db, team_id, season_id)
+    result = []
+    for r in rows:
+        result.append({
+            "team_id": r.team_id,
+            "team_name":r.team_name,
+            "avg_goals_scored_per_match": round((r.gf or 0) / (r.matches or 1), 3),
+            "team_goals": r.gf,
+            "matches": r.matches
+        })
+        
+    return result
 
 @router.get("/points-per-match")
 def points_per_match(
@@ -190,3 +214,16 @@ def season_consistency_index(
             "season_consistency_index": round(idx, 3) if idx is not None else None,
         })
     return results
+
+@router.get("/goals-scored-percentage-by-minutes")
+def  scored_gaols_percentage_by_minutes(
+    team_id: Optional[int] = Query(None),
+    season_id: Optional[int] = Query(None),
+    db: Session = Depends(get_session)
+):
+    rows = aggregate_matches(team_id, season_id, db)
+    result = []
+    for r in rows:
+        result.append(
+
+        )

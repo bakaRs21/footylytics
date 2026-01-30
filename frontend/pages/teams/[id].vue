@@ -52,14 +52,14 @@ let stats = ref(null)
 const statsStatus = ref("")
 const statsError = ref("")
 const seasonSelected = async (season) => {
+  const { status: status, data: statsData, error: error } = await useFetch(`${config.public.apiBase}teams/${id.value}/season/${selectedSeason.value}`)
   if (season === "all") {
     selectedSeason.value = "all-seasons"
     router.push({ query: { ...route.query, season: selectedSeason.value } })
-    return  stats.value = []
+  } else {
+    selectedSeason.value = season
+    router.push({ query: { ...route.query, season: season } })
   }
-  selectedSeason.value = season
-  router.push({ query: { ...route.query, season: season } })
-  const { status: status, data: statsData, error: error } = await useFetch(`${config.public.apiBase}teams/${id.value}/season/${selectedSeason.value}`)
   stats.value = statsData.value
   statsStatus.value = status.value
   statsError.value = error.value
@@ -85,7 +85,7 @@ const seasonSelected = async (season) => {
           <h4 id="selectS">Select a season: </h4>
           <div class="all-seasons">
             <h4 id="allS">Or data from</h4>
-            <button class="all-seasons-button" @click="seasonSelected('all')">All Seasons</button>
+            <button class="all-seasons-button" @click="seasonSelected(0)">All Seasons</button>
           </div>
         </div>
         <div class="team-seasons">

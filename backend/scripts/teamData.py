@@ -2,6 +2,8 @@ import pandas as pl
 from Database import get_session
 from typing import List, Optional
 from scripts.models_updated import Team, TeamSeason, Season
+from sqlalchemy import func
+from sqlalchemy.inspection import inspect
 
     #get all teams
 def teams(limit: int = 50) -> List[Team]:
@@ -62,15 +64,32 @@ async def seasons_for_team(team_id: int):
 async def team_stats_from_season(team_id: int, season_id: int):
     session = get_session()
     try:
-        team_stats = (session.query(TeamSeason)
-                      .join(Team, TeamSeason.team_id == Team.team_id)
-                      .filter(Team.team_id == team_id, TeamSeason.season_id == season_id)
-                      .first()
-                      )
+        if season_id is None:
+            team_stats = (session.query(
+                TeamSeason.team_id,
+                
+            ))
+        else:
+            team_stats = (session.query(TeamSeason)
+                        .join(Season, TeamSeason.season_id == Season.season_id)
+                        .filter(Team.team_id == team_id, Season.season_id == season_id)
+                        .first()
+                        )
         if not team_stats:
             raise ValueError(f"Stats for team id {team_id} in season id {season_id} not found")
         return team_stats
     finally:
         session.close()
 
+def team_stats_builder(team_id, session):
+    mapper = inspect(TeamSeason)
+    summed_cols = []
 
+    for column in mapper:
+        col_name = column.name
+        if not isinstance(column.type, Integer):
+            continue
+        if "percentage" in col_name or "avarage" in col_name:
+            continue
+
+        summed_cols.append(getattr(TeamSeason, col_name)).label(col_name)

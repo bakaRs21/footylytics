@@ -104,8 +104,14 @@ async def get_teams():
 async def get_team_info(team_id: int):
     return team_data.team_info(team_id)
 
-@teams.get("/{team}/season/{season}")
-async def get_team_stats(team_id: int, season_id: int):
+@teams.get("/{team_id}/seasons")
+async def get_team_seasons(team_id: int):
+    return await team_data.seasons_for_team(team_id)
+
+@teams.get("/{team_id}/season/{season_id}")
+async def get_team_stats(team_id: int, season_id: int | None = None):
+    if not season_id:
+        return await team_data.team_stats(team_id)
     return await team_data.team_stats_from_season(team_id, season_id)
 
 

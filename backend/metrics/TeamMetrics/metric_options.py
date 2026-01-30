@@ -4,21 +4,21 @@ router = APIRouter(prefix="/team-metrics", tags=["Team Metrics"])
 
 METRIC_OPTIONS = [
     {
-        "key": 'team_goals_per_match',
+        "key": 'goals__scored_per_match',
         "label": "Team Avarage Goals per Match",
         "params": [
             {"name": "team_id", 'tpye': 'int', 'required': False, 'help': 'Filter to one team_id; if skipped return all teams'},
             {'name': 'season_id', 'type': 'int', 'required': False, 'help': 'Filter to one season_id; if skipped return all seasons'},
         ]
     },{
-        "key": "team_goal_difference",
+        "key": "goal_difference",
         "label": "team goal difference ",
         "params": [
             {"name": "team_id", "type": 'int', 'required': False, 'help': 'Filter to one team; if skipped return all teams'},
             {"name": 'season_id', 'type': 'int', 'required': False, 'help': 'Filter to one season; if skipped return all seasons'}
         ]
     }, {
-        'key': 'team_goals_conceded_per_match',
+        'key': 'goals_conceded_per_match',
         'label': "Team goals conceded per match",
         'params': [
             {'name': 'team_id', 'type': 'int', 'required': False, 'help': 'Filter to one team; if skipped return all teams'},
@@ -59,7 +59,21 @@ METRIC_OPTIONS = [
             {"name": "team_id", "type": "int", "required": False},
             {"name": "season_id", "type": "int", "required": False},
         ],
-    },
+    }, {
+        "key": "goals_scored_percentage_by_minutes",
+        "label": "Team goals scored percentage by 15 minutes through match",
+        "params": [
+            {"name": "team_id", "type": "int", "required": False},
+            {"name": "season_id", "type": "int", "required": False}
+        ]
+    }, {
+        "key": "goals_conceded_percentage_by_minutes",
+        "label": "Team goals conceded percentage by 15 minutes through match",
+        "params": [
+            {"name": "team_id", "type": "int", "required": False},
+            {"name": "season_id", "type": "int", "required": False}
+        ]
+    }
 ]
 
 @router.get("/options")
