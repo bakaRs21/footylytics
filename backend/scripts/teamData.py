@@ -65,10 +65,7 @@ async def team_stats_from_season(team_id: int, season_id: int):
     session = get_session()
     try:
         if season_id is None:
-            team_stats = (session.query(
-                TeamSeason.team_id,
-                
-            ))
+            team_stats = team_stats_builder(team_id, session)
         else:
             team_stats = (session.query(TeamSeason)
                         .join(Season, TeamSeason.season_id == Season.season_id)
@@ -85,11 +82,13 @@ def team_stats_builder(team_id, session):
     mapper = inspect(TeamSeason)
     summed_cols = []
 
-    for column in mapper:
+    for column in mapper.columns:
         col_name = column.name
-        if not isinstance(column.type, Integer):
+        if not isinstance(column.type, int):
             continue
         if "percentage" in col_name or "avarage" in col_name:
             continue
 
-        summed_cols.append(getattr(TeamSeason, col_name)).label(col_name)
+        summed_cols.append(getattr(TeamSeason, col_name).label(col_name))
+
+    return session.query(*summed_cols).filter(TeamSeason.team_id == team_id).all()

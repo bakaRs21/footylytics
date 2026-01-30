@@ -244,9 +244,6 @@ def load_matches(matches_csv: Path):
         db.commit()
 
 def run_loader_once():
-    """
-    Call this from FastAPI startup or manually.
-    """
     base = Path(__file__).resolve().parent.parent  # backend/
     teams_csv = base / "datasets" / "Teams_2010-2024.csv"
     players_csv = base / "datasets" / "Players_2010-2024.csv"
@@ -259,9 +256,6 @@ def run_loader_once():
     load_matches(matches_csv)
 
 async def run_loader_periodically(interval_seconds: int = 6 * 60 * 60):
-    """
-    Loop: load once, sleep, repeat.
-    """
     while True:
         run_loader_once()
         await asyncio.sleep(interval_seconds)
