@@ -1,8 +1,6 @@
-import asyncpg
 import dotenv
 from sqlalchemy import create_engine, MetaData, Table
 from sqlalchemy.orm import sessionmaker, declarative_base
-from typing import Optional
 from pathlib import Path
 
 
@@ -25,36 +23,8 @@ metadata_obj = MetaData()
 def get_session():
     return SessionLocal()
 
-pool : Optional[asyncpg.pool.Pool] = None
-"""
-async def connect_db():
-    global pool
-    try:
-        pool = await asyncpg.create_pool(min_size=1, max_size=10, dsn=DATABASE_URL)
-    except Exception as e:
-        print(f"Error creating database connection pool: {e}")
-        raise
-    print("Database connection pool created")
-
-async def disconnect_db():
-    global pool
-    if pool:
-        await pool.close()
-        print("Database connection pool closed")
-
-async def get_db():
-    async with pool.acquire() as connection:
-        yield connection
-"""
-
-
-
-
 def get_selected_table(table_name: str):
     metadata_obj.clear()
 
     table = Table(table_name, metadata_obj, autoload_with=engine)
     return table
-
-
-
