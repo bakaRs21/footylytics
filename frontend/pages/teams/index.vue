@@ -20,6 +20,7 @@ const { pending: isLoading, data: teams, error } = await useFetch(`${config.publ
   <div v-else>
     <SearchableCards :enable-links="true" :items="teams" :page="'team'" placeholder="Search teams..."/>
   </div>
+  {{ teams }}
 </template>
 
 <style scoped>

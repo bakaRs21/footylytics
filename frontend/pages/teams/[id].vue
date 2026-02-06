@@ -60,6 +60,8 @@ const seasonSelected = async (season) => {
     selectedSeason.value = season
     router.push({ query: { ...route.query, season: season } })
   }
+  const { status: status, data: statsData, error } = await useFetch(`${config.public.apiBase}teams/${id.value}/season/${seasonParam.value}`)
+  console.log(`Fetching from: ${config.public.apiBase}teams/${id.value}/season/${seasonParam.value}`)
   stats.value = statsData.value
   statsStatus.value = status.value
   statsError.value = error.value

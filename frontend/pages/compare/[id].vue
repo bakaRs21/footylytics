@@ -16,10 +16,8 @@ const secondSeasonsError = ref("");
 
 const trimmedId = id.value.replace("s", '').toLowerCase();
 
+const { data: list, error: listError } = await useFetch(apiRoute);
 
-const {status: listPending, data: list, error: listError } = await useFetch(apiRoute, {
-  lazy: true,
-});
 watch(() => first.value, (newVal) => {
   if (newVal) {
     selectFirst(newVal)
@@ -71,28 +69,24 @@ const selectSecondSeason = async (item) => {
   <div class="page-heading">
         <h1 class ="h1-design">Comparing {{ id }}</h1>
     </div>
-    <div v-if="listPending === 'pending'">
-      <h2 class="pending-design">Loading data...</h2> 
-      <loading-svg />
-    </div>
     <div v-if="listError">
-      Error fetching {{ id.value }} : {{ listError.message }}
+      Error fetching {{ id }} : {{ listError.message }}
     </div>
     <div v-else class="options">
         <div v-if="id == 'Seasons'" class="option-items">
-          <select v-model="firstSeason" v-for="items in list" :key="value">
+          <select v-model="firstSeason">
             <option disabled value="">Select</option>
-            <option v-for="value in items" :key="value" @click="() => selectFirstSeason(value)">{{ value }}</option>
+            <option v-for="value in list" :key="value" @click="() => selectFirstSeason(value.season_id)">{{ value.season }}</option>
           </select>
-          <select v-model="secondSeason" v-for="items in list" :key="value">
+          <select v-model="secondSeason">
             <option disabled value="">Select</option>
-            <option v-for="value in items" :key="value" @click="() => selectSecondSeason(value)">{{ value }}</option>
+            <option v-for="value in list" :key="value" @click="() => selectSecondSeason(value.season_id)">{{ value.season }}</option>
           </select>
         </div>
         <div v-else class="option-items">
           <div class="first-selects">
-            <SearchableSelect v-for="values in list" v-model="first" :options="values" placeholder="Select..." />
-            <SearchableSelect v-for="values in list" v-model="second" :options="values" placeholder="Select..." />
+            <SearchableSelect v-model="first" :options="list" :page="trimmedId"/>
+            <SearchableSelect v-model="second" :options="list" :page="trimmedId"/>
           </div>
           <div v-if="firstSeasonsError || secondSeasonsError">
             Error fetching seasons:
@@ -100,8 +94,8 @@ const selectSecondSeason = async (item) => {
             <div v-if="secondSeasonsError">{{ secondSeasonsError.message }}</div>
           </div>
           <div v-else-if="first && second" class="season-selects">
-            <SearchableSelect v-for="values in firstSeasons" v-model="firstSeason" :options="values" placeholder="Select season "/>
-            <SearchableSelect v-for="values in secondSeasons" v-model="secondSeason" :options="values" placeholder="Select season "/>
+            <SearchableSelect v-model="firstSeason" :options="firstSeasons" placeholder="Select season "/>
+            <SearchableSelect v-model="secondSeason" :options="secondSeasons" placeholder="Select season "/>
           </div>
         </div>
     </div>

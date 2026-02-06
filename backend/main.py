@@ -122,8 +122,8 @@ def get_player_info(player_id: int):
 def get_player(player_id: int):
     return players_data.player_seasons(player_id)
 
-@players.get("/{player_id}/season/{season_id}")
-async def get_player_stats(player_id: int, season_id: int):
+@players.get("/{player_id}/season/")
+async def get_player_stats(player_id: int, season_id: int | None = None):
     return await players_data.player_stats_from_season(player_id, season_id)
 
 # seasons page

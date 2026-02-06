@@ -1,7 +1,5 @@
 <script setup>
 
-import card from '~/components/card.vue';
-
 const choices = ["Seasons", "Teams", "Players"]
 </script>
 
