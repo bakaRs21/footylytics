@@ -65,7 +65,8 @@ async def team_stats_from_season(team_id: int, season_id: int):
     session = get_session()
     try:
         if season_id is None:
-            team_stats = team_stats_builder(team_id, session)
+            stats = team_stats_builder(team_id, session)
+            team_stats = stats._asdict()
         else:
             team_stats = (session.query(TeamSeason)
                         .join(Season, TeamSeason.season_id == Season.season_id)
@@ -88,7 +89,9 @@ def team_stats_builder(team_id, session):
             continue
         if "percentage" in col_name or "avarage" in col_name:
             continue
-
-        summed_cols.append(getattr(TeamSeason, col_name).label(col_name))
-
-    return session.query(*summed_cols).filter(TeamSeason.team_id == team_id).all()
+        if "percentage" in col_name or "average" in col_name:
+            continue
+        summed_cols.append(func.sum(getattr(TeamSeason, col_name)).label(col_name))
+    query = session.query(*summed_cols).filter(TeamSeason.team_id == team_id).first()
+    print(f"team stats builder query: {query}")
+    return query
