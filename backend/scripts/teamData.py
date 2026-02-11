@@ -50,48 +50,12 @@ async def seasons_for_team(team_id: int):
     try:
         seasons = (session.query(Season.season)
                 .join(TeamSeason, TeamSeason.season_id == Season.season_id)
-                .join(Team, Team.team_id == TeamSeason.team_id)
-                .filter(Team.team_id == team_id)
+                .filter(TeamSeason.team_id == team_id)
                 .all()
                 )
         if not seasons:
             raise ValueError(f"Seasons for team with id {team_id} not found")
-        return [row[0] for row in seasons]
+        flat_seasons = [s[0] for s in seasons]
+        return flat_seasons
     finally:
         session.close()
-
-    # get team stats for a specific team and season
-async def team_stats_from_season(team_id: int, season_id: int):
-    session = get_session()
-    try:
-        if season_id is None:
-            stats = team_stats_builder(team_id, session)
-            team_stats = stats._asdict()
-        else:
-            team_stats = (session.query(TeamSeason)
-                        .join(Season, TeamSeason.season_id == Season.season_id)
-                        .filter(Team.team_id == team_id, Season.season_id == season_id)
-                        .first()
-                        )
-        if not team_stats:
-            raise ValueError(f"Stats for team id {team_id} in season id {season_id} not found")
-        return team_stats
-    finally:
-        session.close()
-
-def team_stats_builder(team_id, session):
-    mapper = inspect(TeamSeason)
-    summed_cols = []
-
-    for column in mapper.columns:
-        col_name = column.name
-        if not isinstance(column.type, int):
-            continue
-        if "percentage" in col_name or "avarage" in col_name:
-            continue
-        if "percentage" in col_name or "average" in col_name:
-            continue
-        summed_cols.append(func.sum(getattr(TeamSeason, col_name)).label(col_name))
-    query = session.query(*summed_cols).filter(TeamSeason.team_id == team_id).first()
-    print(f"team stats builder query: {query}")
-    return query
