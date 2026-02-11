@@ -25,10 +25,9 @@ const search = ref("");
 const open = ref(false);
 const optionSelected = ref(false);
 
-const getItemId = (item) => {
-    const key = `${props.page}_id`
-    console.log(item[key])
-    return item[key]
+function getItemId(option) {
+    const key = `${props.page}_id`;
+    return option[key];
 }
 
 const filteredOptions = computed(() =>
@@ -73,7 +72,7 @@ watch(() => props.modelValue, val => {
             <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24"><defs><path id="SVG0kegTdID" fill="#a9a9df" d="M8 6.943L1.807.75L.75 1.807L6.943 8L.75 14.193l1.057 1.057L8 9.057l6.193 6.193l1.057-1.057L9.057 8l6.193-6.193L14.193.75z"/></defs><use fill-rule="evenodd" href="#SVG0kegTdID" transform="translate(4 4)"/></svg>
         </div>
         <ul v-if="open" class="onOpen">
-            <li v-for="option in filteredOptions" :key="option" @click="() => selectOption(option.name)">{{ option.name }}</li>
+            <li v-for="option in filteredOptions" :key="option" @click="selectOption(option)">{{ option.name }}</li>
         </ul>
     </div>
 

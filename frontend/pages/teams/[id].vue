@@ -1,7 +1,6 @@
 <script setup>
   import { onMounted, ref } from 'vue'
   import ColorThief from 'colorthief'
-import Card from '~/components/card.vue'
 import Loading_svg from '~/components/Icons/loading_svg.vue'
 const config = useRuntimeConfig()
 const route = useRoute()
@@ -59,15 +58,13 @@ const seasonSelected = async (season) => {
   } else {
     selectedSeason.value = season
     router.push({ query: { ...route.query, season: season } })
+    seasonParam.value = `&season_id=${season}`
   }
-  const { status: status, data: statsData, error } = await useFetch(`${config.public.apiBase}teams/${id.value}/season/${seasonParam.value}`)
-  console.log(`Fetching from: ${config.public.apiBase}teams/${id.value}/season/${seasonParam.value}`)
+  const { status: status, data: statsData, error } = await useFetch(`${config.public.apiBase}team-metrics/basic-stats?team_id=${id.value}${seasonParam.value}`)
   stats.value = statsData.value
   statsStatus.value = status.value
   statsError.value = error.value
 }
-
-
 </script>
 <template>
   <div v-if="teamInfoStatus === 'pending'">
@@ -104,7 +101,7 @@ const seasonSelected = async (season) => {
       Error loading stats: {{ statsError.message }}
     </div>
     <div v-else-if="stats">
-      <h3>Statistics for season {{ selectedSeason }}:</h3>
+      <TeamStatsDashoBoard :stats="stats" />
     </div>
   </div>
 </template>

@@ -13,8 +13,11 @@ const firstSeasons = ref("");
 const firstSeasonsError = ref("");
 const secondSeasons = ref("");
 const secondSeasonsError = ref("");
-
 const trimmedId = id.value.replace("s", '').toLowerCase();
+const statsForFirst = ref(null);
+const statsForFirstError = ref(null);
+const statsForSecond = ref(null);
+const statsForSecondError = ref(null);
 
 const { data: list, error: listError } = await useFetch(apiRoute);
 
@@ -28,21 +31,10 @@ watch(() => second.value, (newVal) => {
     selectSecond(newVal)
   }
 });
-watch(() => firstSeason.value, (newVal) => {
-  if (newVal) {
-    selectFirstSeason(newVal)
-  }
-});
-watch(() => secondSeason.value, (newVal) => {
-  if (newVal) {
-    selectSecondSeason(newVal)
-  }
-});
 const selectFirst = async(item) => {
   first.value = item;
   router.push({ query: { ...route.query, first: item } });
   const { data: seasons, error: firstError } = await useFetch(`${apiRoute}?${trimmedId}=${first.value}`);
-  console.log(`${apiRoute}?${trimmedId}=${first.value}`);
   firstSeasons.value = seasons.value;
   firstSeasonsError.value = firstError.value;
 };
@@ -57,11 +49,27 @@ const selectSecond = async (item) => {
 const selectFirstSeason = async (item) => {
   firstSeason.value = item;
   router.push({ query: { ...route.query, firstSeason: item } });
-
+  fetchStats({ season: item, first: true });
 }
 const selectSecondSeason = async (item) => {
   secondSeason.value = item;
   router.push({ query: { ...route.query, secondSeason: item } });
+  fetchStats({ season: item, first: false });
+}
+async function fetchStats(params) {
+  if (id.value === "Seasons") {
+    console.log("Fetching stats for season", params.season);
+  } else if (first.value && second.value && params.season) {
+    if (params.first) {
+      const { data: stats1, error: stats1err } = await useFetch(`${apiRoute}?${trimmedId}=${first.value}&season=${params.season}`);
+      statsForFirst.value = stats1.value;
+      statsForFirstError.value = stats1err.value;
+    } else {
+      const { data: stats2, error: stats2err } = await useFetch(`${apiRoute}?${trimmedId}=${second.value}&season=${params.season}`);
+      statsForSecond.value = stats2.value;
+      statsForSecondError.value = stats2err.value;
+    }
+  }
 }
 </script>
 
@@ -94,10 +102,28 @@ const selectSecondSeason = async (item) => {
             <div v-if="secondSeasonsError">{{ secondSeasonsError.message }}</div>
           </div>
           <div v-else-if="first && second" class="season-selects">
-            <SearchableSelect v-model="firstSeason" :options="firstSeasons" placeholder="Select season "/>
-            <SearchableSelect v-model="secondSeason" :options="secondSeasons" placeholder="Select season "/>
+            <div class="second-selects">
+              <select v-model="firstSeason">
+                <option disabled value="">Select</option>
+                <option v-for="value in firstSeasons" :key="value" @click="selectFirstSeason(value)">{{ value }}</option>
+              </select>
+              <select v-model="secondSeason">
+                <option disabled value="">Select</option>
+                <option v-for="value in secondSeasons" :key="value" @click="selectSecondSeason(value)">{{ value }}</option>
+              </select>
+            </div>
           </div>
         </div>
+    </div>
+    <div v-if="statsForFirst && statsForSecond" class="stats-display">
+      <div class="first-stats">
+        STATS for {{ first }}:
+        {{ statsForFirst }}
+      </div>
+      <div class="stats-second">
+        STATS for {{ second }}:
+        {{ statsForSecond }}
+      </div>
     </div>
 </template>
 
