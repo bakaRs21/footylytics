@@ -94,17 +94,39 @@ def get_basic_player_stats(db: Session, player_id: int | None = None, season_id:
             "season_id": season_id,
             "market_value": player_season.market_value,
             "position": player_season.position,
+            "team_id": player_season.team_id,
             "total_matches_played": player_season.games_appearences,
             "total_minutes_played": player_season.games_minutes,
             "rating": player_season.games_rating,
-            "total_shots": player_season.total_shots,
             "total_goals": player_season.goals_total,
-
+            "total_assists": player_season.goals_assists,
+            "total_shots": player_season.shots_total,
+            "shots_on_target": player_season.shots_on,
+            "total_tackles": player_season.tackles_total,
+            "tackles_blocks": player_season.tackles_blocks,
+            "tackles_interceptions": player_season.tackles_interceptions,
+            "total_passes": player_season.passes_total,
+            "key_passes": player_season.passes_key,
+            "pass_accuracy": player_season.passes_accuracy,
+            "total_duels": player_season.duels_total,
+            "duels_won": player_season.duels_won,
+            "dribbles_success": player_season.dribbles_success,
+            "dribbles_attempts": player_season.dribbles_attempts,
+            "yellow_cards": player_season.cards_yellow,
+            "red_cards": player_season.cards_red,
+            "fouls_committed": player_season.fouls_committed,
+            "fouls_drawn": player_season.fouls_drawn,
+            "penalties_scored": player_season.penalty_scored,
+            "penalties_missed": player_season.penalty_missed,
+            "penalties_won": player_season.penalty_won,
+            "goals_conceded": player_season.goals_conceded,
+            "saves": player_season.goals_saves,
+            "penalties_saved": player_season.penalty_saved,
         }
 
     else:
         player_seasons = (
-            ddb.query(PlayerSeason)
+            db.query(PlayerSeason)
             .filter(PlayerSeason.player_id == player_id)
             .all()
         )
@@ -115,8 +137,81 @@ def get_basic_player_stats(db: Session, player_id: int | None = None, season_id:
         stats = {
             "player_id": player_id,
             "season_id": None,
-            "total_seasons": len(player_seasons)
+            "total_seasons": len(player_seasons),
+            "total_matches_played": 0,
+            "total_minutes_played": 0,
+            "rating": 0,
+            "total_goals": 0,
+            "total_assists": 0,
+            "total_shots": 0,
+            "shots_on_target": 0,
+            "total_tackles": 0,
+            "tackles_blocks": 0,
+            "tackles_interceptions": 0,
+            "total_passes": 0,
+            "key_passes": 0,
+            "passes_accuracy": 0,
+            "total_duels": 0,
+            "duels_won": 0,
+            "dribbles_success": 0,
+            "dribbles_attempts": 0,
+            "yellow_cards": 0,
+            "red_cards": 0,
+            "fouls_committed": 0,
+            "fouls_drawn": 0,
+            "penalties_scored": 0,
+            "penalties_missed": 0,
+            "penalties_won": 0,
+            "goals_conceded": 0,
+            "saves": 0,
+            "penalties_saved": 0,
         }
+        rating_sum = 0
+        rating_count = 0
+        pass_accuracy_sum = 0
+
+        for ps in player_seasons:
+            stats["total_matches_played"] += ps.games_appearences
+            stats["total_minutes_played"] += ps.games_minutes
+            stats["total_goals"] += ps.goals_total,
+            stats["total_assists"] += ps.goals_assists
+            stats["total_shots"] += ps.shots_total
+            stats["shots_on_target"] += ps.shots_on
+            stats["total_tackles"] += ps.tackles_total
+            stats["tackles_blocks"] += ps.tackles_blocks
+            stats["tackles_interceptions"] += ps.tackles_interceptions
+            stats["total_passes"] += ps.passes_total
+            stats["key_passes"] += ps.passes_key
+            stats["total_duels"] += ps.duels_total
+            stats["duels_won"] += ps.duels_won
+            stats["dribbles_success"] += ps.dribbles_success
+            stats["dribbles_attempts"] += ps.dribbles_attempts
+            stats["yellow_cards"] += ps.cards_yellow
+            stats["red_cards"] += ps.cards_red
+            stats["fouls_committed"] += ps.fouls_committed
+            stats["fouls_drawn"] += ps.fouls_drawn
+            stats["penalties_scored"] += ps.penalties_scored
+            stats["penalties_missed"] += ps.penalties_missed
+            stats["penalties_won"] += ps.penalties_won
+            stats["goals_conceded"] += ps.goals_conceded
+            stats["saves"] += ps.goals_saves
+            stats["penalties_saved"] += ps.penalties_saved
+
+            if ps.passes_accuracy:
+                pass_accuracy_sum += ps.passes_accuracy
+            if ps.games_rating:
+                rating_sum += ps.games_rating
+                rating_count += 1
+
+        avg_pass_accuracy = round(pass_accuracy_sum / len(player_seasons), 3) if pass_accuracy_sum > 0 else None
+        avg_rating = round(rating_sum / rating_count, 3) if rating_count > 0 else None
+
+        stats["passes_accuracy"] = avg_pass_accuracy
+        stats["rating"] = avg_rating
+
+        return stats
+
+
 
 @router.get("/goals-per-match")
 def player_goals_per_match(

@@ -511,8 +511,7 @@ def basic_team_stats(
     if not stats:
         raise HTTPException(
             status_code=404, 
-            detail=f"No data found for team_id={team_id}" + 
-                   (f" and season_id={season_id}" if season_id else "")
+            detail=f"No data found for team_id={team_id}" + (f" and season_id={season_id}" if season_id else "")
         )
     
     return stats

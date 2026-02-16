@@ -43,6 +43,13 @@ metric_options = [
             {"name": "player_id", 'type': 'int', 'required': False, 'help': 'Filter to one player_id; if skipped return all players'},
             {'name': 'season_id', 'type': 'int', 'required': False, 'help': 'Filter to one season_id; if skipped return all seasons'},
         ]
+    }, {
+        "key": "basic_player_stats",
+        "label": "Basic Stats for Player",
+        "params": [
+            {"name": "player_id", "type": "int", "required": False},
+            {"name": "season_id", "type": "int", "required": False}
+        ]
     }
 ]
 

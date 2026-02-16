@@ -9,8 +9,11 @@ from sqlalchemy.inspection import inspect
 
 
     #get all players
-async def players(limit) -> List[Player]:
+async def players(limita) -> List[Player]:
     session = get_session()
+    limit = limita
+    if not limit:
+        limit = 100
     try:
         return session.query(Player).options(load_only(Player.player_id, Player.name)).limit(limit).all()
     finally:
