@@ -10,13 +10,19 @@ services:
             POSTGRES_PASSWORD: ${DB_PASSWORD}
         volumes:
         - pgdata:/var/lib/postgresql/data
+        healthcheck:
+            test: ["CMD-SHELL", "pg_isready -U ${DB_USER}"]
+            interval: 30s
+            timeout: 15s
+            retries: 5
 
     backend:
         build: ./backend
         container_name: fastapi_api
         restart: always
         depends_on:
-            - postgres
+            postgres:
+                condition: service_healthy
         env_file:
             - ./backend/.env
         environment:

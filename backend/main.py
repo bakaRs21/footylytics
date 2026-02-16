@@ -16,16 +16,6 @@ from metrics.TeamMetrics import metric_options, team_metrics
 
 #run: uvicorn main:app --reload --port 8000 or fastapi dev main.py --reload --port 8000
 
-
-app = FastAPI(title="API for Nuxt + FastAPI")
-common = APIRouter(prefix="/common", tags=["Common Endpoints"])
-compare = APIRouter(prefix="/compare", tags=["Compare Page"])
-seasons = APIRouter(prefix="/seasons", tags=["Seasons Page"])
-teams = APIRouter(prefix="/teams", tags=["Teams Page"])
-players = APIRouter(prefix="/players", tags=["Players Page"])
-
-
-
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # Startup
@@ -39,7 +29,13 @@ async def lifespan(app: FastAPI):
     print("Shutting down backend...")
 
 
-app = FastAPI(lifespan=lifespan)
+app = FastAPI(title="API for Nuxt + FastAPI", lifespan=lifespan)
+
+common = APIRouter(prefix="/common", tags=["Common Endpoints"])
+compare = APIRouter(prefix="/compare", tags=["Compare Page"])
+seasons = APIRouter(prefix="/seasons", tags=["Seasons Page"])
+teams = APIRouter(prefix="/teams", tags=["Teams Page"])
+players = APIRouter(prefix="/players", tags=["Players Page"])
 
 app.add_middleware(
     CORSMiddleware,
