@@ -25,11 +25,6 @@ const search = ref("");
 const open = ref(false);
 const optionSelected = ref(false);
 
-function getItemId(option) {
-    const key = `${props.page}_id`;
-    return option[key];
-}
-
 const filteredOptions = computed(() =>
     props.options.filter(option =>
         option.name.toLowerCase().includes(search.value.toLocaleLowerCase())
@@ -45,9 +40,10 @@ const action = () => {
 const erase = () => {
     optionSelected.value = false;
     search.value = '';
+    emit('update:modelValue', '');
 }
 const selectOption = (item) => {
-    emit('update:modelValue', getItemId(item));
+    emit('update:modelValue', item);
     search.value = item.name;
     open.value = false;
     optionSelected.value = true;
@@ -80,16 +76,18 @@ watch(() => props.modelValue, val => {
 <style scoped>
 .component {
     position: relative;
-    width: 100px;   
+    width: 100%;
+    min-width: 150px;
 }
 input {
-    width: 100%; 
     border-radius: 0.5rem;
     border: none;
-    padding: 0.75rem 2.5rem 0.75rem 1.5rem;
+    padding: 0.75rem 1.5rem 0.75rem 1.5rem;
     background-color: #4d4d4de8;
     color: white;
     transition: all 0.15s ease;
+    width: 100%;
+    box-sizing: border-box;
 }
 input:focus {
     outline: none;
@@ -102,7 +100,7 @@ input::placeholder {
 .svg {
     position: absolute; 
     top: 50%; 
-    right: -3rem; 
+    right: 0.75rem; 
     transform: translateY(-50%);
     pointer-events: none;
 }
@@ -110,24 +108,29 @@ input::placeholder {
     cursor: pointer;
     position: absolute; 
     top: 50%; 
-    right: -3rem; 
+    right: 0.75rem; 
     transform: translateY(-50%);
 }
 
 ul {
     position: absolute; 
     z-index: 10; 
-    margin: 2px 0 0 2px;
+    margin: 4px 0 0 0;
     max-height: 16rem;
     padding: 0;
-    width: 150px; 
+    width: 100%; 
     overflow-y: auto; 
-    border-radius: 0.75rem 0.75rem 0.75rem 0.75rem;
+    border-radius: 0.75rem;
     background-color: #303030e3;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 ul li {
     cursor: pointer; 
     padding: 0.5rem 0.75rem 0.5rem 0.75rem;
     background-color: #504e4ee7;
+    transition: background 0.2s;
+}
+ul li:hover {
+    background-color: #666464e7;
 }
 </style>
