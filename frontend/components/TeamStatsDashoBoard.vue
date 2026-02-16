@@ -1,10 +1,5 @@
 <script setup>
 import { computed } from 'vue';
-import Goal from './Icons/ForStats/Goal.vue';
-import Ball from './Icons/ForStats/Ball.vue';
-import Shield from './Icons/ForStats/Shield.vue';
-import XMark from './Icons/XMark.vue';
-import ArrowDown from './Icons/ForStats/ArrowDown.vue';
 
 const props = defineProps({
     stats: {
@@ -32,12 +27,10 @@ const formArray = computed(() => {
     if (!newStats.value.form) return null;
     return newStats.value.form.split('');
 });
-const getFormLabel = (letter) => {
-    if (letter === 'W') return 'Win';
-    if (letter === 'D') return 'Draw';
-    if (letter === 'L') return 'Loss';
-    return letter;
-};
+const activeIndex = ref(null);
+const toggleLineUp = (index) => {
+    activeIndex.value = activeIndex.value === index ? null : index;
+}
 
 const showMetricOptions = ref(false);
 const metric_options = () => {
@@ -52,9 +45,17 @@ const metric_options = () => {
         <div class="card lineups-card">
             <h3 class="card-title">Formations</h3>
             <div v-if="lineups" class="lineups-content">
-                <div v-for="(lineup, index) in lineups" :key="index" class="lineup-item">
-                    <span class="formation">{{ lineup.formation }}</span>
-                    <span class="played-count">{{ lineup.played }} matches</span>
+                <div v-for="(lineup, index) in lineups" :key="index" class="lineup-wrapper">
+                    <div class="lineup-item" @click="toggleLineUp(index)">
+                        <span class="formation">{{ lineup.formation }}</span>
+                        <span class="played-count">{{ lineup.played }} matches</span>
+                        <span class="lineup-arrow"  :class="{ 'arrow-rotated': activeIndex === index }">
+                            <SmallArrowDown />
+                        </span>
+                    </div>
+                    <div v-if="activeIndex === index" class="lineup-details">
+                        <LineUps :data="lineup" />
+                    </div>
                 </div>
             </div>
             <div v-else class="no-data">
@@ -118,8 +119,6 @@ const metric_options = () => {
                         <span class="goal-label">Failed to Score</span>
                     </div>
                 </div>
-                
-                <!-- Penalties Subsection -->
                 <div class="penalties-section">
                     <h4 class="subsection-title">Penalties</h4>
                     <div class="penalty-stats">
@@ -135,7 +134,6 @@ const metric_options = () => {
                 </div>
             </div>
         </div>
-
         <div class="card streaks-card">
             <h3 class="card-title">Streaks</h3>
             <div class="streaks-content">
@@ -284,6 +282,9 @@ const metric_options = () => {
     flex-direction: column;
     gap: 1rem;
 }
+.lineup-wrapper { 
+    margin-bottom: 0.5rem;
+}
 .lineup-item {
     display: flex;
     justify-content: space-between;
@@ -292,6 +293,7 @@ const metric_options = () => {
     background: #333333;
     border-radius: 8px;
     transition: background 0.2s;
+    cursor: pointer;
 }
 .lineup-item:hover {
     background: #3d3d3d;
@@ -305,10 +307,40 @@ const metric_options = () => {
     font-size: 0.9rem;
     color: #a0a0a0;
 }
+.lineup-arrow {
+    display: flex;
+    align-items: center;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+}
+.arrow-rotated {
+    transform: rotate(180deg);
+}
+.lineup-details {
+    padding: 0.75rem;
+    background: #3a3a3a;
+    border-radius: 8px;
+    animation: slideDown 0.3s ease-out;
+}
 .no-data {
     text-align: center;
     padding: 2rem;
     color: #666;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        max-height: 0;
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+    to {
+        opacity: 1;
+        max-height: 500px;
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+    }
 }
 
 

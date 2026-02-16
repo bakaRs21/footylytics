@@ -3,7 +3,7 @@ import { ref } from 'vue';
 
 const config = useRuntimeConfig()
 const route = useRoute()
-const router = useRoute()
+const router = useRouter()
 const id = route.params.id
 const selectedSeason = ref(route.query.season || "")
 
@@ -12,6 +12,26 @@ const { data: playerSeasons, error: playerSeasonsError } = await useFetch(`${con
 const stats = ref(null)
 const statsError = ref("")
 
+function filterKyes(obj) {
+  return Object.fromEntries(Object.entries(obj).filter(([key, value]) =>
+      !key.toLowerCase().includes('id') && value !== null)
+    )
+}
+async function selectSeason(season) {
+  const seasonParam = ref("")
+  if (season === 0) {
+    selectedSeason.value = "all-seasons"
+    router.push({ query: { ...route.query, season: selectedSeason.value } })
+  } else {
+    selectedSeason.value = season
+    router.push({ query: { ...route.query, season: selectedSeason.value } })
+    seasonParam.value = `?season_id=${season}`
+  }
+  const { data: playerStats, error } = await useFetch(`${config.public.apiBase}players/${id}/season/${seasonParam.value}`)
+  stats.value = playerStats.value
+  statsError.value = error.value
+  console.log(`${config.public.apiBase}players/${id}/season/${seasonParam.value}`)
+}
 </script>
 <template>
   <div v-if="playerInfoError">
