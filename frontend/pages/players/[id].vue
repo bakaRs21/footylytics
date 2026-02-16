@@ -25,12 +25,12 @@ async function selectSeason(season) {
   } else {
     selectedSeason.value = season
     router.push({ query: { ...route.query, season: selectedSeason.value } })
-    seasonParam.value = `?season_id=${season}`
+    seasonParam.value = `&season_id=${season}`
   }
-  const { data: playerStats, error } = await useFetch(`${config.public.apiBase}players/${id}/season/${seasonParam.value}`)
+  const { data: playerStats, error } = await useFetch(`${config.public.apiBase}player-metrics/basic-stats?player_id=${id}${seasonParam.value}`)
   stats.value = playerStats.value
   statsError.value = error.value
-  console.log(`${config.public.apiBase}players/${id}/season/${seasonParam.value}`)
+  console.log(`${config.public.apiBase}player-metrics/basic-stats?player_id=${id}${seasonParam.value}`)
 }
 </script>
 <template>
@@ -47,7 +47,7 @@ async function selectSeason(season) {
     </div>
   </div>
   <div v-if="stats">
-    {{ stats }}
+    <PlayerStatsDashBoard :stats="stats" />
   </div>
   <div v-else-if="statsError">
     {{ statsError.message }}
