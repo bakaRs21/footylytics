@@ -23,8 +23,22 @@ metric_options = [
             {'name': 'season_id', 'type': 'int', 'required': False, 'help': 'Filter to one season_id; if skipped return all seasons'},
         ]
     }, {
+        "key": 'minutes_per_match',
+        "label": "Player Avarage Minutes per Match",
+        "params": [
+            {"name": "player_id", 'type': 'int', 'required': False, 'help': 'Filter to one player_id; if skipped return all players'},
+            {'name': 'season_id', 'type': 'int', 'required': False, 'help': 'Filter to one season_id; if skipped return all seasons'},
+        ]
+    }, {
         "key": 'penalty_success_rate',
         "label": "Player Penalty Success Rate",
+        "params": [
+            {"name": "player_id", 'type': 'int', 'required': False, 'help': 'Filter to one player_id; if skipped return all players'},
+            {'name': 'season_id', 'type': 'int', 'required': False, 'help': 'Filter to one season_id; if skipped return all seasons'},
+        ]
+    }, {
+        "key": 'shots_accuracy',
+        "label": "Player Shots Accuracy",
         "params": [
             {"name": "player_id", 'type': 'int', 'required': False, 'help': 'Filter to one player_id; if skipped return all players'},
             {'name': 'season_id', 'type': 'int', 'required': False, 'help': 'Filter to one season_id; if skipped return all seasons'},

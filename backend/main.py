@@ -85,14 +85,14 @@ def get_seasons():
     return seasons_data.seasons()
 
 @compare.get("/Players")
-async def get_players(player_id: int | None = None, season_id: int | None = None):
+async def get_players(player_id: int | None = None, season_id: int | None = None, limit: int | None = None):
     if player_id and season_id:
         return await players_data.player_stats_from_season(player_id, season_id)
     elif season_id:
         return players_data.players_from_season(season_id)
     elif player_id:
         return players_data.player_seasons(player_id)
-    return await players_data.players()
+    return await players_data.players(limit)
 
 
 @common.get("/Teams")

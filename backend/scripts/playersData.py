@@ -9,7 +9,7 @@ from sqlalchemy.inspection import inspect
 
 
     #get all players
-async def players(limit: int = 5000) -> List[Player]:
+async def players(limit) -> List[Player]:
     session = get_session()
     try:
         return session.query(Player).options(load_only(Player.player_id, Player.name)).limit(limit).all()
