@@ -28,18 +28,36 @@ const { data: list, error: listError } = await useFetch(apiRoute);
 watch(() => firstName.value, (newVal) => {
   if (newVal && typeof newVal === 'object') {
     selectFirst(newVal)
+  } else if (newVal ==='') {
+    firstName.value = '';
+    firstId.value = '';
+    firstSeasons.value = '';
+    firstSeasonsError.value = '';
+    firstSeason.value = '';
+    statsForFirst.value = null;
+    statsForFirstError.value = null;
+    router.push({ query: { ...route.query, first: undefined, firstSeason: undefined } });
   }
 });
 watch(() => secondName.value, (newVal) => {
   if (newVal &&typeof newVal === 'object') {
     selectSecond(newVal)
+  } else if (newVal ==='') {
+    secondName.value = '';
+    secondId.value = '';
+    secondSeasons.value = '';
+    secondSeasonsError.value = '';
+    secondSeason.value = '';
+    statsForSecond.value = null;
+    statsForSecondError.value = null;
+    router.push({ query: { ...route.query, second: undefined, secondSeason: undefined } });
   }
 });
 const selectFirst = async(item) => {
   firstName.value = item.name;
   firstId.value = item[pageId];
   router.push({ query: { ...route.query, first: firstId.value } });
-  const { data: seasons, error: firstError } = await useFetch(`${apiRoute}?${trimmedId}=${firstId.value}`);
+  const { data: seasons, error: firstError } = await useFetch(`${apiRoute}?${pageId}=${firstId.value}`);
   firstSeasons.value = seasons.value;
   firstSeasonsError.value = firstError.value;
 };
@@ -48,7 +66,7 @@ const selectSecond = async (item) => {
   secondName.value = item.name;
   secondId.value = item[pageId];
   router.push({ query: { ...route.query, second: secondId.value } });
-  const { data: seasons, error: secondError } = await useFetch(`${apiRoute}?${trimmedId}=${secondId.value}`);
+  const { data: seasons, error: secondError } = await useFetch(`${apiRoute}?${pageId}=${secondId.value}`);
   secondSeasons.value = seasons.value;
   secondSeasonsError.value = secondError.value;
 };
@@ -88,14 +106,16 @@ async function fetchStats(params) {
     </div>
     <div v-else class="options">
         <div v-if="id == 'Seasons'" class="option-items">
-          <select v-model="firstSeason">
-            <option disabled value="">Select</option>
-            <option v-for="value in list" :key="value" @click="() => selectFirstSeason(value.season_id)">{{ value.season }}</option>
-          </select>
-          <select v-model="secondSeason">
-            <option disabled value="">Select</option>
-            <option v-for="value in list" :key="value" @click="() => selectSecondSeason(value.season_id)">{{ value.season }}</option>
-          </select>
+          <div class="first-selects">
+            <select v-model="firstSeason">
+              <option disabled value="">Select</option>
+              <option v-for="value in list" :key="value" @click="() => selectFirstSeason(value.season_id)">{{ value.season }}</option>
+            </select>
+            <select v-model="secondSeason">
+              <option disabled value="">Select</option>
+              <option v-for="value in list" :key="value" @click="() => selectSecondSeason(value.season_id)">{{ value.season }}</option>
+            </select>
+          </div>
         </div>
         <div v-else class="option-items">
           <div class="first-selects">

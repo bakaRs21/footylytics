@@ -1,24 +1,18 @@
-import dotenv
 from sqlalchemy import create_engine, MetaData, Table
 from sqlalchemy.orm import sessionmaker, declarative_base
-from pathlib import Path
+from dotenv import find_dotenv, load_dotenv
 import os
 
-base_path = Path(__file__).resolve().parent
-dotenv.load_dotenv(base_path / ".env")
+dotenvpath = find_dotenv()
+load_dotenv(dotenvpath)
 
-POSTGRES_USER = os.getenv("DB_USER")
-POSTGRES_PASSWORD = os.getenv("DB_PASSWORD")
-POSTGRES_HOST = os.getenv("DB_HOST")
-POSTGRES_PORT = os.getenv("DB_PORT")
-POSTGRES_DB = os.getenv("DB_NAME")
+POSTGRES_USER = os.environ.get("DB_USER")
+POSTGRES_PASSWORD = os.environ.get("DB_PASSWORD")
+POSTGRES_HOST = os.environ.get("DB_HOST")
+POSTGRES_PORT = os.environ.get("DB_PORT")
+POSTGRES_DB = os.environ.get("DB_NAME")
 DATABASE_URL = f"postgresql://{POSTGRES_USER}:{POSTGRES_PASSWORD}@{POSTGRES_HOST}:{POSTGRES_PORT}/{POSTGRES_DB}"
 
-print(f"DEBUG - DB_USER: {POSTGRES_USER}")
-print(f"DEBUG - DB_HOST: {POSTGRES_HOST}")
-print(f"DEBUG - DB_PORT: {POSTGRES_PORT}")
-print(f"DEBUG - DB_NAME: {POSTGRES_DB}")
-print(f"DEBUG - DATABASE_URL: {DATABASE_URL}")
 
 engine = create_engine(DATABASE_URL, echo=False)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)

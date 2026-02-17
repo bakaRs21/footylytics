@@ -23,10 +23,14 @@ async def players(limita) -> List[Player]:
 def player_seasons(player_id: int):
     session = get_session()
     try:
-        player = session.query(Season).join(PlayerSeason).options(load_only(Season.season_id, Season.season)).filter(PlayerSeason.player_id == player_id).all()
-        if not player:
+        seasons = (session.query(Season.season)
+                  .join(PlayerSeason, PlayerSeason.season_id == Season.season_id)
+                  .filter(PlayerSeason.player_id == player_id)
+                  .all())
+        if not seasons:
             raise ValueError(f"Player with id {player_id} not found")
-        return player
+        flat_seasons = [s[0] for s in seasons]
+        return flat_seasons
     finally:
         session.close()
 

@@ -67,13 +67,13 @@ async def delete_user(user_id: int):
 # from compare page
 
 @compare.get("/Teams")
-async def get_team_names(team: str | None = None, season: str | None = None):
-    if team and season:
-        return await team_data.team_info(team, season)
-    elif season:
-        return team_data.teams_from_season(season)
-    elif team:
-        return await team_data.seasons_for_team(team)
+async def get_team_names(team_id: str | None = None, season_id: str | None = None):
+    if team_id and season_id:
+        return await team_data.team_info(team_id, season_id)
+    elif season_id:
+        return team_data.teams_from_season(season_id)
+    elif team_id:
+        return await team_data.seasons_for_team(team_id)
     return team_data.teams()
 
 @compare.get("/Seasons")
