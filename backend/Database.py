@@ -20,7 +20,11 @@ Base = declarative_base()
 metadata_obj = MetaData()
 
 def get_session():
-    return SessionLocal()
+    db =  SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
 
 def get_selected_table(table_name: str):
     metadata_obj.clear()

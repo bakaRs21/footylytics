@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Query, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException
 from Database import get_session
 from scripts.models_updated import Team, TeamSeason, Match
 from sqlalchemy import func, case

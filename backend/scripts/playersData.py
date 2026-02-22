@@ -1,16 +1,12 @@
 from sqlalchemy import Integer, func
-from Database import get_session
 from scripts.models_updated import Player, PlayerSeason, Season
 from typing import List
-from sqlalchemy.orm import load_only
+from sqlalchemy.orm import load_only, Session
 from sqlalchemy.inspection import inspect
 
 
-
-
     #get all players
-async def players(limita) -> List[Player]:
-    session = get_session()
+async def players(limita, session: Session) -> List[Player]:
     limit = limita
     if not limit:
         limit = 100
@@ -20,8 +16,7 @@ async def players(limita) -> List[Player]:
         session.close()
 
     # Get seasons for a specific player
-def player_seasons(player_id: int):
-    session = get_session()
+def player_seasons(player_id: int, session: Session):
     try:
         seasons = (session.query(Season.season)
                   .join(PlayerSeason, PlayerSeason.season_id == Season.season_id)
@@ -35,8 +30,7 @@ def player_seasons(player_id: int):
         session.close()
 
     # get all players from specific season
-def players_from_season(season: str):
-    session = get_session()
+def players_from_season(season: str, session: Session):
     try:
         players = (
             session.query(Player)
@@ -50,16 +44,14 @@ def players_from_season(season: str):
         session.close()
 
     # Get general info about a specific player
-def player_info(player_id: int):
-    session = get_session()
+def player_info(player_id: int, session: Session):
     try:
         return session.query(Player).filter(Player.player_id == player_id).first()
     finally:
         session.close()
 
     # Get player stats for a specific player and season
-async def team_stats_from_season(player_id: int, season_id: int):
-    session = get_session()
+async def player_stats_from_season(player_id: int, season_id: int, session: Session):
     try:
         if season_id is None:
             stats = player_stats_builder(player_id, session)

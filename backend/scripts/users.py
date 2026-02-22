@@ -1,46 +1,45 @@
-from Database import get_session
 from scripts.models_updated import Users as users
 from typing import List
+from sqlalchemy.orm import Session
 
 
-def get_all_users() -> List[users]:
-    session = get_session()
+def get_all_users(db: Session) -> List[users]:
     try:
-        all_users = session.query(users).all()
+        all_users = db.query(users).all()
         if not all_users:
             print("No users found")
         return all_users
     except Exception as e:
         print(f"Error fetching users: {e}")
-    finally:
-        session.close()
 
-def create_user(usr: str):
-    session = get_session()
+def create_user(usr: str, db: Session):
     try:
         user = users(username=usr)
-        session.add(user)
-        session.commit()
+        db.add(user)
+        db.commit()
         return {"message": f"{usr} created"}
     except Exception as e:
-        session.rollback()
+        db.rollback()
         print(f"Error creating user: {e}")
-    finally:
-        session.close()
-
-def delete_user(id: int):
-    session = get_session()
     try:
-        user = session.query(users).filter(users.user_id == id).first()
+        user = users(username=usr)
+        db.add(user)
+        db.commit()
+        return {"message": f"{usr} created"}
+    except Exception as e:
+        db.rollback()
+        print(f"Error creating user: {e}")
+
+def delete_user(id: int, db: Session):
+    try:
+        user = db.query(users).filter(users.user_id == id).first()
         if user:
-            session.delete(user)
-            session.commit()
+            db.delete(user)
+            db.commit()
             return {"message": "User deleted successfully"}
         else:
             return {"message": "User not found"}
     except Exception as e:
-        session.rollback()
+        db.rollback()
         print(f"Error deleting user: {e}")
         return {"message": "Internal error"}
-    finally:
-        session.close()

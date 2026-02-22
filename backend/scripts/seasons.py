@@ -1,22 +1,18 @@
 from typing import Optional
-import pandas as pl
-from pathlib import Path
-from Database import get_session
 from scripts.models_updated import Season
 from typing import List
+from sqlalchemy.orm import Session
 
 
     # Get all unique seasons
-def seasons()-> List[Season]:
-    session = get_session()
+def seasons(session: Session) -> List[Season]:
     try:
         return session.query(Season).all()
     finally:
         session.close()
 
     # Create season
-def create_season(season: str) -> Season:
-    session = get_session()
+def create_season(season: str, session: Session) -> Season:
     try:
         s = Season(season=season)
         session.add(s)
@@ -31,8 +27,7 @@ def create_season(season: str) -> Season:
 
 
     #get a single season by ID
-def get_season(season_id: int) -> Optional[Season]:
-    session = get_session()
+def get_season(season_id: int, session: Session) -> Optional[Season]:
     try:
         return session.query(Season).filter(Season.season_id == season_id).first()
     finally:

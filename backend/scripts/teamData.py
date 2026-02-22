@@ -1,36 +1,29 @@
-import pandas as pl
-from Database import get_session
 from typing import List, Optional
 from scripts.models_updated import Team, TeamSeason, Season
-from sqlalchemy import func
-from sqlalchemy.inspection import inspect
+from sqlalchemy.orm import Session
 
     #get all teams
-def teams(limit: int = 50) -> List[Team]:
-    session = get_session()
+def teams(session: Session) -> List[Team]:
     try:
         return session.query(Team).all()
     finally:
         session.close()
 
     #get a single team by ID
-def get_team(team_id: int) -> Optional[Team]:
-    session = get_session()
+def get_team(team_id: int, session: Session) -> Optional[Team]:
     try:
         return session.query(Team).filter(Team.team_id == team_id).first()
     finally:
         session.close()
 
-def team_info(team_id: int) -> Optional[Team]:
-    session = get_session()
+def team_info(team_id: int, session: Session) -> Optional[Team]:
     try:
         return session.query(Team).filter(Team.team_id == team_id).first()
     finally:
         session.close()
 
     # get all teams from specific season
-async def teams_from_season(season_id: int):
-    session = get_session()
+async def teams_from_season(season_id: int, session: Session):
     try:
         teams = (session.query(Team.name)
                 .join(TeamSeason, TeamSeason.team_id == Team.team_id)
@@ -45,8 +38,7 @@ async def teams_from_season(season_id: int):
         session.close()
 
     # get seasons for a specific team
-async def seasons_for_team(team_id: int):
-    session = get_session()
+async def seasons_for_team(team_id: int, session: Session):
     try:
         seasons = (session.query(Season.season)
                 .join(TeamSeason, TeamSeason.season_id == Season.season_id)

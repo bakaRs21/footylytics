@@ -3,7 +3,7 @@ import re
 import asyncio
 from pathlib import Path
 from typing import Any, Optional
-
+from sqlalchemy.orm import Session
 from Database import Base, engine, get_session
 from scripts.models_updated import (
     Season, Team, Nation, Referee,
@@ -60,9 +60,9 @@ PLAYER_SEASON_FIELDS = {c.name for c in PlayerSeason.__table__.columns if c.name
 MATCH_FIELDS = {c.name for c in Match.__table__.columns}
 
 
-def load_teams_and_seasons(teams_csv: Path):
+def load_teams_and_seasons(teams_csv: Path, db: Session):
     # First pass: Seasons and Teams with cached existing IDs
-    with get_session() as db, teams_csv.open(newline="", encoding="utf-8") as f:
+    with teams_csv.open(newline="", encoding="utf-8") as f:
         reader = csv.DictReader(f)
         existing_seasons = {sid for (sid,) in db.query(Season.season_id).all()}
         existing_teams = {tid for (tid,) in db.query(Team.team_id).all()}
@@ -84,7 +84,7 @@ def load_teams_and_seasons(teams_csv: Path):
         db.commit()
 
     # Second pass: TeamSeason (composite PK check uses tuple in PK order)
-    with get_session() as db, teams_csv.open(newline="", encoding="utf-8") as f:
+    with teams_csv.open(newline="", encoding="utf-8") as f:
         reader = csv.DictReader(f)
         for row in reader:
             season_id = to_int(row.get("league_season"))
@@ -106,9 +106,9 @@ def load_teams_and_seasons(teams_csv: Path):
             db.add(TeamSeason(**ts_kwargs))
         db.commit()
 
-def load_players(players_csv: Path):
+def load_players(players_csv: Path, db: Session):
     # First pass: Players and Nations
-    with get_session() as db, players_csv.open(newline="", encoding="utf-8") as f:
+    with players_csv.open(newline="", encoding="utf-8") as f:
         reader = csv.DictReader(f)
         nation_cache = {}
         existing_players = {pid for (pid,) in db.query(Player.player_id).all()}
@@ -142,7 +142,7 @@ def load_players(players_csv: Path):
         db.commit()
 
     # Second pass: PlayerSeason
-    with get_session() as db, players_csv.open(newline="", encoding="utf-8") as f:
+    with players_csv.open(newline="", encoding="utf-8") as f:
         reader = csv.DictReader(f)
         for row in reader:
             player_id = to_int(row.get("player_id"))
@@ -165,8 +165,8 @@ def load_players(players_csv: Path):
             db.add(PlayerSeason(**ps_kwargs))
         db.commit()
 
-def load_matches(matches_csv: Path):
-    with get_session() as db, matches_csv.open(newline="", encoding="utf-8") as f:
+def load_matches(matches_csv: Path, db: Session):
+    with matches_csv.open(newline="", encoding="utf-8") as f:
         reader = csv.DictReader(f)
         ref_cache = {}
         existing_matches = {fid for (fid,) in db.query(Match.fixture_id).all()}
@@ -243,7 +243,7 @@ def load_matches(matches_csv: Path):
             existing_matches.add(fixture_id)
         db.commit()
 
-def run_loader_once():
+def run_loader_once(db: Session):
     base = Path(__file__).resolve().parent.parent  # backend/
     teams_csv = base / "datasets" / "Teams_2010-2024.csv"
     players_csv = base / "datasets" / "Players_2010-2024.csv"
@@ -251,14 +251,22 @@ def run_loader_once():
 
     Base.metadata.create_all(bind=engine)  # ensure tables exist
 
-    load_teams_and_seasons(teams_csv)
-    load_players(players_csv)
-    load_matches(matches_csv)
+    load_teams_and_seasons(teams_csv, db)
+    load_players(players_csv, db)
+    load_matches(matches_csv, db)
 
 async def run_loader_periodically(interval_seconds: int = 6 * 60 * 60):
     while True:
-        run_loader_once()
         await asyncio.sleep(interval_seconds)
+        db_gen = get_session()
+        db = next(db_gen)
+        try:
+            await asyncio.to_thread(run_loader_once, db)
+        finally:
+            try:
+                next(db_gen)
+            except StopIteration:
+                pass
 
 if __name__ == "__main__":
     run_loader_once()
