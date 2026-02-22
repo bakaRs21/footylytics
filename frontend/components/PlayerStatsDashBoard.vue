@@ -212,112 +212,84 @@ const metric_options = () => {
 <style scoped>
 .dashboard-wrapper {
     width: 100%;
-    padding: 2rem;
+    padding: 1rem;
     background: #1a1a1a9c;
     min-height: 100vh;
-    margin-top: 20px;
-    border-top: solid 12px #1f1d2552;
+    margin-top: 10px;
+    border-top: solid 6px #1f1d2552;
 }
-
-
 .dashboard-title {
-    font-size: 2rem;
+    font-size: 1.4rem;
     font-weight: 700;
     text-align: center;
+    margin-bottom: 0.75rem;
 }
-
-
-
 .dashboard-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1rem;
     max-width: 1400px;
     margin: 0 auto;
 }
 
-
-
 .card {
     background: #2a2a2a;
-    border-radius: 12px;
-    padding: 1.5rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    padding: 1rem;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.3);
     transition: transform 0.2s, box-shadow 0.2s;
-    grid-column: span 1;
 }
 .card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.4);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 10px rgba(0,0,0,0.4);
 }
 .card-title {
-    font-size: 1.25rem;
+    font-size: 1rem;
     font-weight: 600;
-    color: #ffffff;
-    margin-bottom: 1.25rem;
-    padding-bottom: 0.75rem;
+    color: #fff;
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.5rem;
     border-bottom: 2px solid #3a3a3a;
 }
-.card-content {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-}
-
+.card-content { display: flex; flex-direction: column; gap: 0.5rem; }
 .no-data {
     text-align: center;
-    padding: 2rem;
+    padding: 1rem;
     color: #666;
+    font-size: 0.85rem;
 }
 
+.stat-value { font-size: 1.4rem; font-weight: 600; color: #4ade80; }
+.stat-label {
+    font-size: 0.78rem;
+    color: #a0a0a0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
 
 .game-stat {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 1rem;
-    background: #333333;
-    border-radius: 8px;
-}
-.stat-value {
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: #4ade80;
-}
-.stat-label {
-    font-size: 0.9rem;
-    color: #a0a0a0;
-    text-transform: uppercase;
-    letter-spacing: 1px;
+    padding: 0.6rem;
+    background: #333;
+    border-radius: 6px;
 }
 
 .card-stat {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 0.9rem;
-    padding: 0.75rem;
-    background: #333333;
-    border-radius: 8px;
+    gap: 0.6rem;
+    padding: 0.5rem;
+    background: #333;
+    border-radius: 6px;
 }
-.goal-icon {
-    font-size: 2rem;
-}
-.goal-details {
-    display: flex;
-    flex-direction: column;
-}
-
-
+.goal-icon    { font-size: 1.4rem; }
+.goal-details { display: flex; flex-direction: column; }
 
 @media (max-width: 840px) {
-    .dashboard-wrapper {
-        padding: 1rem;
-    }
-    
-    .dashboard-grid {
-        grid-template-columns: 1fr;
-    }
-    
+    .dashboard-wrapper { padding: 0.75rem; }
+    .dashboard-grid { grid-template-columns: 1fr; }
 }
 </style>

@@ -97,7 +97,11 @@ select {
   width: 200px;
 }
 
-
+.error-message {
+  color: #ff4d4d;
+  font-size: 20px;
+  margin-top: 20px;
+}
 
 .cards {
   display: flex;
