@@ -2,8 +2,8 @@
 import { ref, computed, watch } from 'vue';
 const props = defineProps({
     modelValue: {
-        type: String,
-        default: ""
+        type: [Object, String],
+        default: null
     }, 
     options: {
         type: Array,
@@ -27,7 +27,7 @@ const optionSelected = ref(false);
 
 const filteredOptions = computed(() =>
     props.options.filter(option =>
-        option.name.toLowerCase().includes(search.value.toLocaleLowerCase())
+        option.name.toLowerCase().includes((search.value ?? "").toLowerCase())
     )
 );
 const action = () => {
@@ -49,10 +49,12 @@ const selectOption = (item) => {
     optionSelected.value = true;
 }
 watch(() => props.modelValue, val => {
-    search.value = val
-},
-    { immediate: true }
-);
+    if (typeof val === "object" && val !== null) {
+        search.value = val.name
+    } else {
+        search.value = val ?? ""
+    }
+},{ immediate: true });
 
 </script>
 <template>

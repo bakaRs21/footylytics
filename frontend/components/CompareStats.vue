@@ -438,20 +438,6 @@ const groupHasData = (group, competitors) => {
     box-shadow: 0 0 12px rgba(34, 197, 94, 0.5);
 }
 
-.metric-value.winner::before {
-    content: '👑';
-    position: absolute;
-    top: -8px;
-    right: -8px;
-    font-size: 1rem;
-    animation: bounce 0.6s ease infinite;
-}
-
-@keyframes bounce {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-4px); }
-}
-
 .value {
     font-size: 1.2rem;
     font-weight: 700;

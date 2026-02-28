@@ -1,7 +1,7 @@
 from sqlalchemy import Integer, func
-from scripts.models_updated import Player, PlayerSeason, Season
+from scripts.models_updated import Player, PlayerSeason, Season, Nation
 from typing import List
-from sqlalchemy.orm import load_only, Session
+from sqlalchemy.orm import load_only, Session, joinedload
 from sqlalchemy.inspection import inspect
 
 
@@ -46,7 +46,10 @@ def players_from_season(season: str, session: Session):
     # Get general info about a specific player
 def player_info(player_id: int, session: Session):
     try:
-        return session.query(Player).filter(Player.player_id == player_id).first()
+        return (session.query(Player)
+                .options(joinedload(Player.nation))
+                .filter(Player.player_id == player_id)
+                .first())
     finally:
         session.close()
 

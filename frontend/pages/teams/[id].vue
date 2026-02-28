@@ -1,12 +1,17 @@
 <script setup>
   import { onMounted, ref } from 'vue'
   import ColorThief from 'colorthief'
-import Loading_svg from '~/components/Icons/loading_svg.vue'
 const config = useRuntimeConfig()
 const route = useRoute()
 const router = useRouter()
 const id = ref(route.params.id || "")
 const selectedSeason = ref(route.query.season || "")
+const seasonParam = ref("")
+const onMountedMsg = ref("")
+const stats = ref(null)
+const statsStatus = ref("")
+const statsError = ref("")
+
 const { status: teamInfoStatus, data: teamInfo, error: teamInfoError } = await useFetch(`${config.public.apiBase}teams/${id.value}`)
 
 const secondary = ref("")
@@ -17,13 +22,22 @@ function extractColors() {
   img.onload = () => {
     const colorThief = new ColorThief();
     const palette = colorThief.getPalette(img, 3);
-    
     secondary.value = `rgb(${palette[0].join(',')})`
-    let teamNameColor = `rgb(${[240, 240, 240].join(',')})`
-    if (teamInfo.value.name === "Liverpool") {
+    let teamNameColor = `rgb(${palette[1].join(',')})`
+    if (
+      teamInfo.value.name === "Liverpool" || teamInfo.value.name === "Nottingham Forest" || teamInfo.value.name === "Blackpool" || teamInfo.value.name === "Bolton"
+    ) {
       secondary.value = `rgb(${[220, 220, 220].join(',')})`
       teamNameColor = `rgb(${[ 160, 16, 20 ].join(',')})`
       palette[0] = [210, 210, 210]
+    }
+    if (teamInfo.value.name === "Leeds") {
+      secondary.value = `rgb(${palette[1].join(',')})`
+      teamNameColor = `rgb(${palette[0].join(',')})`
+      palette[0] = palette[1]
+    }
+    if (teamInfo.value.name === "Arsenal" || teamInfo.value.name === "Everton" || teamInfo.value.name === "Stoke City") {
+      teamNameColor = `rgb(${[ 255, 255, 255 ].join(',')})`
     }
     document.documentElement.style.setProperty(
       '--teamNameColor',
@@ -33,38 +47,57 @@ function extractColors() {
       '--stripe-main',
       secondary.value
     )
-    const darker = palette[0].map(v => Math.round(v * 0.75))
     document.documentElement.style.setProperty(
       '--stripe-dark',
-      `rgb(${darker.join(',')})`
+      `rgb(${palette[0].map(v => Math.round(v*0.75)).join(',')})`
     )
   }
 }
-onMounted(() => {
-  extractColors()
-})
 watch(() => teamInfo.value.logo, () => {
   extractColors()
 })
 const { data: teamSeasons, error: teamSeasonsError } = await useFetch(`${config.public.apiBase}teams/${id.value}/seasons`)
-let stats = ref(null)
-const statsStatus = ref("")
-const statsError = ref("")
 const seasonSelected = async (season) => {
-  const { status: status, data: statsData, error: error } = await useFetch(`${config.public.apiBase}teams/${id.value}/season/${selectedSeason.value}`)
-  if (season === "all") {
+  seasonParam.value = ""
+  if (season === 0) {
     selectedSeason.value = "all-seasons"
-    router.push({ query: { ...route.query, season: selectedSeason.value } })
   } else {
     selectedSeason.value = season
-    router.push({ query: { ...route.query, season: season } })
-    seasonParam.value = `&season_id=${season}`
   }
-  const { status: status, data: statsData, error } = await useFetch(`${config.public.apiBase}team-metrics/basic-stats?team_id=${id.value}${seasonParam.value}`)
-  stats.value = statsData.value
-  statsStatus.value = status.value
-  statsError.value = error.value
+  await router.push({ query: { ...route.query, season: selectedSeason.value } })
+  Inspection()
 }
+function Inspection() {
+  if (!route.query.season) {
+    return onMountedMsg.value = "Please select a season to view the stats."
+  } else if (!id.value || !selectedSeason.value ) {
+    return onMountedMsg.value = "Invalid team ID or season. Please select a valid season."
+  }
+  if (route.query.season === "all-seasons") {
+    seasonParam.value = ""
+  } else if (route.query.season) {
+    seasonParam.value = `&season_id=${route.query.season}`
+  }
+  onMountedMsg.value = ""
+  fetchData()
+}
+async function fetchData() {
+  statsStatus.value = "pending"
+  statsError.value = ""
+  try {
+    const data = await $fetch(`${config.public.apiBase}team-metrics/basic-stats?team_id=${id.value}${seasonParam.value}`)
+    stats.value = data
+    statsStatus.value = ""
+  } catch (error) {
+    statsError.value = error.message
+    statsStatus.value = "error"
+  }
+}
+
+onMounted(() => {
+  extractColors()
+  Inspection()
+})
 </script>
 <template>
   <div v-if="teamInfoStatus === 'pending'">
@@ -92,6 +125,9 @@ const seasonSelected = async (season) => {
           <p v-else-if="teamSeasonsError">{{ teamSeasonsError.message }}</p>
         </div>
       </div>
+    </div>
+    <div v-if="onMountedMsg">
+      {{ onMountedMsg }}
     </div>
     <div v-if="statsStatus === 'pending'">
       Loading stats...
