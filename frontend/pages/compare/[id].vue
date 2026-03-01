@@ -6,8 +6,8 @@ const router = useRouter();
 // route query constants
 const first = route.query.first;
 const second = route.query.second;
-const firstSeason = route.query.firstSeason;
-const secondSeason = route.query.secondSeason;
+const firstSeasonSelected = ref(route.query.firstSeason || "");
+const secondSeasonSelected = ref(route.query.secondSeason || "");
 const id = ref(route.params.id || "");
  // api route for current page
 const apiRoute = `${config.public.apiBase}compare/${id.value}`;
@@ -23,14 +23,12 @@ const firstObject = ref(null)
 const firstName = ref("");
 const firstId = ref(route.query.first || "");
 const firstSeasons = ref(null); // seasons for first item
-const firstSeasonParam = ref(""); // parameter for fetching stats for first item
 const firstSeasonsError = ref("");
 // Second Item Constants
 const secondObject = ref(null)
 const secondName = ref("");
 const secondId = ref(route.query.second || "");
 const secondSeasons = ref(null); // seasons for second item
-const secondSeasonParam = ref(""); // parameter for fetching stats for second item
 const secondSeasonsError = ref("");
 // Fetching
 const compareErrorMsg = ref(""); // error message used before fetching stats
@@ -40,111 +38,112 @@ const statsErrorMsg = ref("");
 const statsForFirst = ref(null);
 const statsForSecond = ref(null);
 
-
-watch([first, second, firstSeason, secondSeason], () => {
-  Inspection();
-  if (!compareErrorMsg.value) {
-    fetchData();
+watch([firstObject, secondObject], async ([newFirst, newSecond], [oldFirst, oldSecond]) => {
+  if (newFirst != oldFirst){
+    firstId.value = newFirst?.[pageId]
+    firstName.value = newFirst?.name
+    firstSeasons.value = null
+    firstSeasonSelected.value = ""
+    firstSeasonsError.value = ""
   }
+  if (newSecond != oldSecond) {
+    secondId.value = newSecond?.[pageId]
+    secondName.value = newSecond?.name
+    secondSeasons.value = null
+    secondSeasonSelected.value = ""
+    secondSeasonsError.value = ""
+  }
+  router.replace({ query: { first: firstId, second: secondId}})
+  await Inspection()
 })
 
-function Inspection() {
+watch([firstSeasonSelected, secondSeasonSelected], async () => {
+  router.replace({ query: {firstSeason: firstSeasonSelected, secondSeason: secondSeasonSelected}})
+  await Inspection();
+})
+
+async function Inspection() {
   compareErrorMsg.value = "";
+  statsForFirst.value = null
+  statsForSecond.value = null
+  statsErrorMsg.value = "";
   if (id.value === "Seasons") {
-    if (!route.query.firstSeason || !route.query.secondSeason) {
+    if (!firstSeasonSelected.value|| !secondSeasonSelected.value ) {
       compareErrorMsg.value = "Please select both seasons.";
       return;
     }
-    if (route.query.firstSeason === route.query.secondSeason) {
+    if (firstSeasonSelected.value === secondSeasonSelected.value) {
       compareErrorMsg.value = "Cannot compare the same season. Please select different seasons.";
       return;
     }
+    isFetchingStats.value = true;
+    try {
+      const [first, second] = await Promise.all([
+        $fetch(`${metricApiRoute}stats?${pageId}=${firstSeasonSelected.value}`),
+        $fetch(`${metricApiRoute}stats?${pageId}=${secondSeasonSelected.value}`)
+      ]);
+      statsForFirst.value = first;
+      statsForSecond.value = second;
+    } catch (error) {
+      statsErrorMsg.value = "Error fetching stats: " + error.message;
+    } finally {
+      isFetchingStats.value = false;
+    }
+    return; 
   }
-  if (!route.query.first || !route.query.second) {
+  if (!firstId.value || !secondId.value) {
     compareErrorMsg.value = `Please select both ${errorMsgId}.`;
     firstSeasons.value = "";
     secondSeasons.value = "";
     return;
   }
-  if (route.query.first === route.query.second) {
+  if (firstId.value === secondId.value) {
     compareErrorMsg.value = `Cannot compare the same ${errorMsgId}. Please select different ${errorMsgId}.`;
     return;
   }
-  if (route.query.first && route.query.second && !route.query.firstSeason && !route.query.secondSeason) {return;}
+  if (!firstSeasons.value || !secondSeasons.value) {
+    firstSeasonsError.value = ""
+    secondSeasonsError.value = ""
+    try {
+      const [first, second] = Promise.all([
+        $fetch(`${apiRoute}?${pageId}=${firstId.value}`),
+        $fetch(`${apiRoute}?${pageId}=${secondId.value}`)
+      ])
+      firstSeasons.value = first,
+      secondSeasons.value = second
+    } catch (error) {
+      firstSeasonsError.value = error.message
+      return
+    }
+    if (!firstSeasonSelected.value || !secondSeasonSelected.value) {
+      return;
+    }
+  }
   if (!route.query.first || !route.query.second || !route.query.firstSeason || !route.query.secondSeason) {
     compareErrorMsg.value = `Please select both ${errorMsgId} and their seasons.`;
     return;
   }
-  if (route.query.firstSeason === 'all-seasons' || route.query.secondSeason === 'all-seasons') {
-    if (route.query.firstSeason === 'all-seasons') {
-      firstSeasonParam.value = "";
-    } else {
-        firstSeasonParam.value = `&season_id=${route.query.firstSeason}`;
-    }
-    if (route.query.secondSeason === 'all-seasons') {
-      secondSeasonParam.value = "";
-    } else {
-      secondSeasonParam.value = `&season_id=${route.query.secondSeason}`;
-    }
-  } else {
-    firstSeasonParam.value = `&season_id=${route.query.firstSeason}`;
-    secondSeasonParam.value = `&season_id=${route.query.secondSeason}`;
-  }
-  statsErrorMsg.value = "";
-  return
-}
-async function fetchData() {
-  isFetchingStats.value = true;
-  statsForFirst.value = null;
-  statsForSecond.value = null;
-  statsErrorMsg.value = "";
+  const firstSeasonParam = firstSeasonSelected.value === "all-seasons" ? "" : `&season_id=${firstSeasonSelected.value}`
+  const secondSeasonParam = secondSeasonSelected.value === "all-seasons" ? "" : `&season_id=${secondSeasonSelected.value}`
+  isFetchingStats.value = true
   try {
-    if (id.value === "Seasons") {
-      const [first, second] = await Promise.all([
-        $fetch(`${apiRoute}?season_id=${route.query.firstSeason}`),
-        $fetch(`${apiRoute}?season_id=${route.query.secondSeason}`)
-      ]);
-      statsForFirst.value = first;
-      statsForSecond.value = second;
-    } else {
-      if (!route.query.firstSeason || !route.query.secondSeason) {
-        const [first, second] =await Promise.all([
-          $fetch(`${apiRoute}?${pageId}=${route.query.first}`),
-          $fetch(`${apiRoute}?${pageId}=${route.query.second}`)
-        ])
-        firstSeasons.value = first,
-        secondSeasons.value = second;
-      } else {
-        const [first, second] = await Promise.all([
-        $fetch(`${metricApiRoute}basic-stats?${pageId}=${route.query.first}${firstSeasonParam.value}`),
-        $fetch(`${metricApiRoute}basic-stats?${pageId}=${route.query.second}${secondSeasonParam.value}`)
-      ]);
-      statsForFirst.value = first;
-      statsForSecond.value = second;
-      } 
-    }
+    const [first, second] = Promise.all([
+      $fetch(`${metricApiRoute}basic-stats?${pageId}=${firstId.value}${firstSeasonParam}`),
+      $fetch(`${metricApiRoute}basic-stats?${pageId}=${secondId.value}${secondSeasonParam}`)
+    ])
+    statsForFirst.value = first
+    statsForSecond.value = second
   } catch (error) {
-    statsErrorMsg.value = "Error fetching stats: " + error.message;
+    statsErrorMsg.value = error.message
   } finally {
-    isFetchingStats.value = false;
+    statsErrorMsg.value = "";
+    isFetchingStats.value = false
   }
-} 
+}
 
 onMounted(async () => {
-  if (route.query.first && !firstName.value) {
-    try {
-      console.log("fetching first seasons for", firstId.value);
-    } catch (error) {
-      firstSeasonsError.value = error.message;
-    }
-  }
-  if (route.query.second && !secondName.value) {
-    try {
-      console.log("fetching second seasons for", secondId.value);
-    } catch (error) {
-      secondSeasonsError.value = error.message;
-    }
-  }
+  const hasParams = firstId.value || secondId.value || firstSeasonSelected.value || secondSeasonSelected.value;
+  if (hasParams) await Inspection();
 })
 </script>
 
@@ -158,11 +157,11 @@ onMounted(async () => {
     <div v-else class="options">
         <div v-if="id == 'Seasons'" class="option-items">
           <div class="first-selects">
-            <select v-model="firstSeason">
+            <select v-model="firstSeasonSelected">
               <option disabled value="">Select</option>
               <option v-for="value in list" :key="value" @click="() => selectFirstSeason(value.season_id)">{{ value.season }}</option>
             </select>
-            <select v-model="secondSeason">
+            <select v-model="secondSeasonSelected">
               <option disabled value="">Select</option>
               <option v-for="value in list" :key="value" @click="() => selectSecondSeason(value.season_id)">{{ value.season }}</option>
             </select>
@@ -179,15 +178,15 @@ onMounted(async () => {
             <div v-if="secondSeasonsError">{{ secondSeasonsError.message }}</div>
           </div>
           <div class="season-selects">
-            <select v-model="firstSeason">
+            <select v-model="firstSeasonSelected">
               <option disabled value="">Select</option>
               <option value="all-seasons" @click="selectFirstSeason(0)">all seasons</option>
-              <option v-for="value in firstSeasons" :key="value" @click="selectFirstSeason(value)">{{ value }}</option>
+              <option v-for="value in firstSeasons" :key="value">{{ value }}</option>
             </select>
-            <select v-model="secondSeason">
+            <select v-model="secondSeasonSelected">
               <option disabled value="">Select</option>
               <option value="all-seasons" @click="selectSecondSeason(0)">all seasons</option>
-              <option v-for="value in secondSeasons" :key="value" @click="selectSecondSeason(value)">{{ value }}</option>
+              <option v-for="value in secondSeasons" :key="value">{{ value }}</option>
              </select>
           </div>
         </div>
@@ -202,7 +201,7 @@ onMounted(async () => {
       <div v-else-if="statsErrorMsg" class="error-message">
         {{ statsErrorMsg }}
       </div>
-      <div v-else-if="firstSeason && secondSeason && !statsForFirst && !statsForSecond">
+      <div v-else-if="firstSeasonSelected && secondSeasonSelected && !statsForFirst && !statsForSecond">
         No stats available for the selected seasons.
       </div>
       <div v-else-if="statsForFirst && statsForSecond">
