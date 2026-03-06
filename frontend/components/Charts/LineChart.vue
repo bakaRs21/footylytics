@@ -8,7 +8,6 @@ const props = defineProps({
 })
 
 const chartOptions = computed(() => ({
-  ...$apexcharts,
   xaxis: {
     categories: props.categories,
   },

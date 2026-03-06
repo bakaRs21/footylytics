@@ -23,7 +23,6 @@ function onChartChange(chart) {
 const data = ref(null)
 function onSelectedKeysChange(selectedKeys) {
     data.value = selectedKeys;
-    processData(data.value)
 }
 const chartMap = {
     "Bar Chart": BarChart,

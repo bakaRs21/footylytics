@@ -35,7 +35,7 @@ METRIC_MAP = {
             "primary": "total_goals",
             "additional": ["total_game_appearances"]
         }
-    }, "penalty_succes_rate": {
+    }, "penalty_success_rate": {
         "primary_column": PlayerSeason.penalty_scored,
         "additional_column": [PlayerSeason.penalty_missed],
         "label_map": {
@@ -283,7 +283,7 @@ def player_penalty_success_rate(
     season_id: int | None = Query(None, description="Filter to one season_id; if skipped return all seasons"),
     db: Session = Depends(get_session)
     ):
-    rows = player_queries(db, player_id, season_id, "penalty_succes_rate")
+    rows = player_queries(db, player_id, season_id, "penalty_success_rate")
 
     return [
         {
@@ -292,7 +292,7 @@ def player_penalty_success_rate(
             "penalties_scored": r.penalties_scored,
             "penalties_missed": r.penalties_missed,
             "total_penalties": (r.penalties_scored) + (r.penalties_missed),
-            "penalty_succes_rate": round(((r.penalties_scored) / ((r.penalties_scored) + (r.penalties_missed))) * 100, 3
+            "penalty_success_rate": round(((r.penalties_scored) / ((r.penalties_scored) + (r.penalties_missed))) * 100, 3
             ) if (r.penalties_scored or 0) + (r.penalties_missed or 0) > 0 else 0
         }
         for r in rows

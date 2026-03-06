@@ -4,10 +4,10 @@ router = APIRouter(prefix="/team-metrics", tags=["Team Metrics"])
 
 METRIC_OPTIONS = [
     {
-        "key": 'goals__scored_per_match',
+        "key": 'goals_scored_per_match',
         "label": "Team Avarage Goals per Match",
         "params": [
-            {"name": "team_id", 'tpye': 'int', 'required': False, 'help': 'Filter to one team_id; if skipped return all teams'},
+            {"name": "team_id", 'type': 'int', 'required': False, 'help': 'Filter to one team_id; if skipped return all teams'},
             {'name': 'season_id', 'type': 'int', 'required': False, 'help': 'Filter to one season_id; if skipped return all seasons'},
         ]
     }, {
