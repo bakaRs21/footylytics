@@ -1,18 +1,37 @@
 <script setup>
-  import { onMounted, ref } from 'vue'
+  import { onMounted, ref, watch } from 'vue'
   import ColorThief from 'colorthief'
+  import { TEAM_METRIC_CONFIGS } from '~/composables/useMetricConfig.js';
 const config = useRuntimeConfig()
 const route = useRoute()
 const router = useRouter()
 const id = ref(route.params.id || "")
-const selectedSeason = ref(route.query.season || "")
+const pageParam = 'team_id'
+const selectedSeason = ref("")
 const seasonParam = ref("")
 const onMountedMsg = ref("")
 const stats = ref(null)
 const statsStatus = ref("")
 const statsError = ref("")
+const showMetrics = ref(false)
+const sections = [
+  { label: "Team Logo", anchor: "team-logo" },
+  { label: "Season Selection", anchor: "season-selection" },
+  { label: "Team Statistics", anchor: "team-stats" },
+  { label: "Team Metrics", anchor: "metrics" },
+]
+watch(() => stats.value, (newVal) => {
+  if (newVal === null) {
+    selectedSeason.value = ""
+  }
+})
+watch(() => showMetrics.value, async (newVal) => {
+  await router.push({ query: { ...route.query, metrics: showMetrics.value }})
+})
 
 const { status: teamInfoStatus, data: teamInfo, error: teamInfoError } = await useFetch(`${config.public.apiBase}teams/${id.value}`)
+const { data: teamSeasons, error: teamSeasonsError } = await useFetch(`${config.public.apiBase}teams/${id.value}/seasons`)
+const { data: teamMetricOptions, error: teamMetricOptionsError } = await useFetch(`${config.public.apiBase}team-metrics/options`)
 
 const secondary = ref("")
 function extractColors() {
@@ -56,22 +75,22 @@ function extractColors() {
 watch(() => teamInfo.value.logo, () => {
   extractColors()
 })
-const { data: teamSeasons, error: teamSeasonsError } = await useFetch(`${config.public.apiBase}teams/${id.value}/seasons`)
-const seasonSelected = async (season) => {
-  seasonParam.value = ""
-  if (season === 0) {
-    selectedSeason.value = "all-seasons"
-  } else {
-    selectedSeason.value = season
-  }
-  await router.push({ query: { ...route.query, season: selectedSeason.value } })
-  Inspection()
+
+function seasonSelected(season) {
+  selectedSeason.value = season;
 }
-function Inspection() {
+watch(() => selectedSeason.value, async (newVal) => {
+  seasonParam.value = ""
+  if (newVal === 0) {
+    await router.replace({ query: { ...route.query, season: 'all-seasons' } })
+  } else {
+    await router.replace({ query: { ...route.query, season: newVal} })
+  }
+  await Inspection()
+})
+async function Inspection() {
   if (!route.query.season) {
     return onMountedMsg.value = "Please select a season to view the stats."
-  } else if (!id.value || !selectedSeason.value ) {
-    return onMountedMsg.value = "Invalid team ID or season. Please select a valid season."
   }
   if (route.query.season === "all-seasons") {
     seasonParam.value = ""
@@ -79,9 +98,6 @@ function Inspection() {
     seasonParam.value = `&season_id=${route.query.season}`
   }
   onMountedMsg.value = ""
-  fetchData()
-}
-async function fetchData() {
   statsStatus.value = "pending"
   statsError.value = ""
   try {
@@ -107,53 +123,68 @@ onMounted(() => {
     Error: {{ teamInfoError.message }}
   </div>
   <div v-else>
-    <div class="team-box">
+    <div v-if="teamInfo" class="top-section team-top-section">
       <div class="team-card" :style="{backgroundColor: secondary}">
-        <h4>{{ teamInfo.name }}</h4>
+        <h4 id="team-logo">{{ teamInfo.name }}</h4>
         <img :src="teamInfo.logo" :alt="teamInfo.name" />
       </div>
-      <div class="team-seasons-wrapper">
-        <div class="wrapper-heading">
-          <h4 id="selectS">Select a season: </h4>
-          <div class="all-seasons">
-            <h4 id="allS">Or data from</h4>
-            <button class="all-seasons-button" @click="seasonSelected(0)">All Seasons</button>
-          </div>
-        </div>
-        <div class="team-seasons">
-          <Card v-if="!teamSeasonsError" v-for="season in teamSeasons" :key="season" @click="() => seasonSelected(season)">{{ season }}</Card>
-          <p v-else-if="teamSeasonsError">{{ teamSeasonsError.message }}</p>
+    </div>
+    <div class="seasons">
+      <div class="season-selection-heading">
+        <h3 id="season-selection">Select a season: </h3>
+        <div class="all-seasons">
+          <h3 id="allS">Or data from</h3  >
+          <button class="all-seasons-button" @click="seasonSelected(0)">All Seasons</button>
         </div>
       </div>
+      <div class="team-seasons">
+        <Card v-if="!teamSeasonsError" v-for="season in teamSeasons" :key="season" @click="() => seasonSelected(season)">{{ season }}</Card>
+        <p v-else-if="teamSeasonsError" class="error-message">{{ teamSeasonsError.message }}</p>
+      </div>
+      <div v-if="onMountedMsg" class="error-message">{{ onMountedMsg }}</div>
     </div>
-    <div v-if="onMountedMsg">
-      {{ onMountedMsg }}
+    <div class="stats">
+      <div v-if="statsStatus === 'pending'">
+        Loading stats...
+        <Loading_svg />
+      </div>
+      <div v-else-if="statsError">
+        Error loading stats: {{ statsError.message }}
+      </div>
+      <div id="team-stats">
+        <TeamStatsDashoBoard v-model="stats"/>
+      </div>
     </div>
-    <div v-if="statsStatus === 'pending'">
-      Loading stats...
-      <Loading_svg />
-    </div>
-    <div v-else-if="statsError">
-      Error loading stats: {{ statsError.message }}
-    </div>
-    <div v-else-if="stats">
-      <TeamStatsDashoBoard :stats="stats" />
+    <div class="metrics">
+      <div @click="showMetrics = !showMetrics" class="title-with-arrows tooltip" data-tooltip="Show metric options to be selected" >
+      <ArrowDown />
+        <h2 class="stats-h2" id="metrics"> Metrics </h2>
+      <ArrowDown />
+      </div>
+      <div v-show="showMetrics">
+        <div v-if="teamMetricOptionsError">
+          Error loading metrics options: {{ teamMetricOptionsError.message}}
+        </div>
+        <MetricDashboard v-if="teamMetricOptions" title="metricOptions"
+        :entity-id="id" :entity-param-name="pageParam" :seasons="teamSeasons"
+        :metric-options="teamMetricOptions" :metric-config-map="TEAM_METRIC_CONFIGS"
+        />
+      </div>
     </div>
   </div>
+
+  <PageContent :page-sections="sections" />
 </template>
 <style scoped>
-.team-box {
+.team-top-section {
   display: flex;
-  align-items: flex-start;
-  margin-top: 20px;
+  justify-content: center;
 }
+
 h4 {
     margin: 0;
     font-size: 32px;
     color: var(--teamNameColor);
-}
-#selectS {
-  margin-left: 20px;
 }
 .team-card {
   border-radius: 12px;
@@ -173,12 +204,7 @@ h4 {
   );
   margin: 20px 10px 0 0;
 }
-.team-seasons-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  flex: 1;
-}
+
 .wrapper-heading {
   display: flex;
   flex-direction: row;
@@ -195,5 +221,12 @@ h4 {
   flex-wrap: wrap;
   flex: 1;
   gap: 5px;
+}
+
+.stats-h2 {
+  margin-bottom: 0;
+  font-size: 1.4rem;
+  font-weight: 700;
+  text-align: center;
 }
 </style>

@@ -1,29 +1,32 @@
 <script setup>
-import { computed } from 'vue';
+import { computed, watch } from 'vue';
 
-const props = defineProps({
-    stats: {
-        type: Object,
-        required: true,
-    },
+const stats = defineModel({
+    type: Object,
+    required: true,
+    default: null,
 })
+const showStats = ref(false);
+const dashboard = ref(null);
 
-const newStats = computed(() => 
-    Object.fromEntries(Object.entries(props.stats).filter(([_, v]) => v != null))
-);
+const newStats = computed(() =>  {
+    if (!stats.value) return null;
+    return Object.fromEntries(Object.entries(stats.value).filter(([_, v]) => v != null))
+});
 
 const lineups = computed(() => {
+    if (!newStats.value) return null;
     if (!newStats.value.lineups) return null;
     try {
         const formatted = newStats.value.lineups.replace(/'/g, '"');
         return JSON.parse(formatted);
     } catch (e) {
-        console.error('Failed to parse lineups:', e);
         return null;
     }
 });
 
 const formArray = computed(() => {
+    if (!newStats.value) return null;
     if (!newStats.value.form) return null;
     return newStats.value.form.split('');
 });
@@ -32,155 +35,170 @@ const toggleLineUp = (index) => {
     activeIndex.value = activeIndex.value === index ? null : index;
 }
 
-const showMetricOptions = ref(false);
-const metric_options = () => {
-    showMetricOptions.value = !showMetricOptions.value;
+watch(() => stats.value, (newVal) => {
+    if (newVal) {
+        showStats.value = true;
+        scrollToDashboard();
+    } else {
+        showStats.value = false;
+    }
+})
+watch(() => showStats.value, async (newVal) => {
+    if (newVal) {
+        await scrollToDashboard();
+    }
+})
+async function scrollToDashboard() {
+    if (showStats.value) {
+        await nextTick();
+        const offset = 200
+        const top = dashboard.value.getBoundingClientRect().top + window.scrollY - offset
+        window.scrollTo({ top, behavior: 'smooth' })
+    }
+}
+function clearStats() {
+    stats.value = null;
 }
 </script>
 
 <template>
-<div class="dashboard-wrapper">
-    <h2 class="dashboard-title">Team Statistics</h2>
-    <div class="dashboard-grid">
-        <div class="card lineups-card">
-            <h3 class="card-title">Formations</h3>
-            <div v-if="lineups" class="lineups-content">
-                <div v-for="(lineup, index) in lineups" :key="index" class="lineup-wrapper">
-                    <div class="lineup-item" @click="toggleLineUp(index)">
-                        <span class="formation">{{ lineup.formation }}</span>
-                        <span class="played-count">{{ lineup.played }} matches</span>
-                        <span class="lineup-arrow"  :class="{ 'arrow-rotated': activeIndex === index }">
-                            <SmallArrowDown />
-                        </span>
-                    </div>
-                    <div v-if="activeIndex === index" class="lineup-details">
-                        <LineUps :data="lineup" />
-                    </div>
-                </div>
-            </div>
-            <div v-else class="no-data">
-                <p>No lineup data available</p>
-            </div>
-        </div>
-        <div class="card matches-card">
-            <h3 class="card-title">Matches Overview</h3>
-            <div class="matches-content">
-                <div class="stat-large">
-                    <span class="stat-value">{{ newStats.total_matches_played }}</span>
-                    <span class="stat-label">Total Matches</span>
-                </div>
-                <div class="result-breakdown">
-                    <div class="result-item">
-                        <span class="result-icon win">W</span>
-                        <span class="result-value">{{ newStats.total_wins }}</span>
-                        <span class="result-label">Wins</span>
-                    </div>
-                    <div class="result-item">
-                        <span class="result-icon draw">D</span>
-                        <span class="result-value">{{ newStats.total_draws }}</span>
-                        <span class="result-label">Draws</span>
-                    </div>
-                    <div class="result-item">
-                        <span class="result-icon lose">L</span>
-                        <span class="result-value">{{ newStats.total_losses }}</span>
-                        <span class="result-label">Losses</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="card goals-card">
-            <h3 class="card-title">Goals & Performance</h3>
-            <div class="goals-content">
-                <div class="goal-stat">
-                    <Ball class="goal-icon" />
-                    <div class="goal-details">
-                        <span class="goal-value">{{ newStats.total_goals_scored }}</span>
-                        <span class="goal-label">Goals Scored</span>
-                    </div>
-                </div>
-                <div class="goal-stat">
-                    <Goal class="goal-icon" />
-                    <div class="goal-details">
-                        <span class="goal-value">{{ newStats.total_goals_conceded }}</span>
-                        <span class="goal-label">Goals Conceded</span>
-                    </div>
-                </div>
-                <div class="goal-stat">
-                    <Shield class="goal-icon" />
-                    <div class="goal-details">
-                        <span class="goal-value">{{ newStats.total_clean_sheets }}</span>
-                        <span class="goal-label">Clean Sheets</span>
-                    </div>
-                </div>
-                <div class="goal-stat">
-                    <XMark class="goal-icon" />
-                    <div class="goal-details">
-                        <span class="goal-value">{{ newStats.total_failed_to_score }}</span>
-                        <span class="goal-label">Failed to Score</span>
-                    </div>
-                </div>
-                <div class="penalties-section">
-                    <h4 class="subsection-title">Penalties</h4>
-                    <div class="penalty-stats">
-                        <div class="penalty-item">
-                            <span class="penalty-value success">{{ newStats.total_penalties_scored }}</span>
-                            <span class="penalty-label">Scored</span>
-                        </div>
-                        <div class="penalty-item">
-                            <span class="penalty-value missed">{{ newStats.total_penalties_missed }}</span>
-                            <span class="penalty-label">Missed</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="card streaks-card">
-            <h3 class="card-title">Streaks</h3>
-            <div class="streaks-content">
-                <div class="streak-item">
-                    <span class="streak-icon win">📈</span>
-                    <div class="streak-details">
-                        <span class="streak-value">{{ newStats.biggest_win_streak }}</span>
-                        <span class="streak-label">Biggest Win Streak</span>
-                    </div>
-                </div>
-                <div class="streak-item">
-                    <span class="streak-icon draw">➖</span>
-                    <div class="streak-details">
-                        <span class="streak-value">{{ newStats.biggest_draw_streak }}</span>
-                        <span class="streak-label">Biggest Draw Streak</span>
-                    </div>
-                </div>
-                <div class="streak-item">
-                    <span class="streak-icon lose">📉</span>
-                    <div class="streak-details">
-                        <span class="streak-value">{{ newStats.biggest_lose_streak }}</span>
-                        <span class="streak-label">Biggest Loss Streak</span>
-                    </div>
-                </div>
-            </div>
-            <div v-if="formArray" class="form-section">
-                <h4 class="subsection-title">Team Form</h4>
-                <div class="form-display">
-                    <div v-for="(result, index) in formArray" :key="index" :class="['form-badge', result.toLowerCase()]">
-                        {{ result }}
-                    </div>
-                </div>
-                <p class="form-note">Latest match played on the right</p>
-            </div>
-        </div>
+<div>
+    <div @click="showStats = !showStats" class="title-with-arrows tooltip" data-tooltip="Show metric options to be selected" >
+        <ArrowDown />
+        <h2 class="stats-h2" id="metrics"> Team Statistics </h2>
+        <ArrowDown />
     </div>
-    <div class="metrics">
-        <div>
-            <h2 class="dashboard-title title-with-arrows tooltip" data-tooltip="Show metric options to be selected" >
-                <ArrowDown class="arrow" @click="metric_options()" /> 
-                Metrics 
-                <ArrowDown class="arrow" @click="metric_options()"/>
-            </h2>
+    <div v-if="showStats" class="dashboard-wrapper">
+        <div class="dashboard-grid" ref="dashboard">
+            <div class="card lineups-card">
+                <h3 class="card-title">Formations</h3>
+                <div v-if="lineups" class="lineups-content">
+                    <div v-for="(lineup, index) in lineups" :key="index" class="lineup-wrapper">
+                        <div class="lineup-item" @click="toggleLineUp(index)">
+                            <span class="formation">{{ lineup.formation }}</span>
+                            <span class="played-count">{{ lineup.played }} matches</span>
+                            <span class="lineup-arrow"  :class="{ 'arrow-rotated': activeIndex === index }">
+                                <SmallArrowDown />
+                            </span>
+                        </div>
+                        <div v-if="activeIndex === index" class="lineup-details">
+                            <LineUps :data="lineup" />
+                        </div>
+                    </div>
+                </div>
+                <div v-else class="no-data">
+                    <p>No lineup data available</p>
+                </div>
+            </div>
+            <div class="card matches-card">
+                <h3 class="card-title">Matches Overview</h3>
+                <div class="matches-content">
+                    <div class="stat-large">
+                        <span class="stat-value">{{ newStats.total_matches_played }}</span>
+                        <span class="stat-label">Total Matches</span>
+                    </div>
+                    <div class="result-breakdown">
+                        <div class="result-item">
+                            <span class="result-icon win">W</span>
+                            <span class="result-value">{{ newStats.total_wins }}</span>
+                            <span class="result-label">Wins</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="result-icon draw">D</span>
+                            <span class="result-value">{{ newStats.total_draws }}</span>
+                            <span class="result-label">Draws</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="result-icon lose">L</span>
+                            <span class="result-value">{{ newStats.total_losses }}</span>
+                            <span class="result-label">Losses</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card goals-card">
+                <h3 class="card-title">Goals & Performance</h3>
+                <div class="goals-content">
+                    <div class="goal-stat">
+                        <Ball class="goal-icon" />
+                        <div class="goal-details">
+                            <span class="goal-value">{{ newStats.total_goals_scored }}</span>
+                            <span class="goal-label">Goals Scored</span>
+                        </div>
+                    </div>
+                    <div class="goal-stat">
+                        <Goal class="goal-icon" />
+                        <div class="goal-details">
+                            <span class="goal-value">{{ newStats.total_goals_conceded }}</span>
+                            <span class="goal-label">Goals Conceded</span>
+                        </div>
+                    </div>
+                    <div class="goal-stat">
+                        <Shield class="goal-icon" />
+                        <div class="goal-details">
+                            <span class="goal-value">{{ newStats.total_clean_sheets }}</span>
+                            <span class="goal-label">Clean Sheets</span>
+                        </div>
+                    </div>
+                    <div class="goal-stat">
+                        <XMark class="goal-icon" />
+                        <div class="goal-details">
+                            <span class="goal-value">{{ newStats.total_failed_to_score }}</span>
+                            <span class="goal-label">Failed to Score</span>
+                        </div>
+                    </div>
+                    <div class="penalties-section">
+                        <h4 class="subsection-title">Penalties</h4>
+                        <div class="penalty-stats">
+                            <div class="penalty-item">
+                                <span class="penalty-value success">{{ newStats.total_penalties_scored }}</span>
+                                <span class="penalty-label">Scored</span>
+                            </div>
+                            <div class="penalty-item">
+                                <span class="penalty-value missed">{{ newStats.total_penalties_missed }}</span>
+                                <span class="penalty-label">Missed</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card streaks-card">
+                <h3 class="card-title">Streaks</h3>
+                <div class="streaks-content">
+                    <div class="streak-item">
+                        <span class="streak-icon win">📈</span>
+                        <div class="streak-details">
+                            <span class="streak-value">{{ newStats.biggest_win_streak }}</span>
+                            <span class="streak-label">Biggest Win Streak</span>
+                        </div>
+                    </div>
+                    <div class="streak-item">
+                        <span class="streak-icon draw">➖</span>
+                        <div class="streak-details">
+                            <span class="streak-value">{{ newStats.biggest_draw_streak }}</span>
+                            <span class="streak-label">Biggest Draw Streak</span>
+                        </div>
+                    </div>
+                    <div class="streak-item">
+                        <span class="streak-icon lose">📉</span>
+                        <div class="streak-details">
+                            <span class="streak-value">{{ newStats.biggest_lose_streak }}</span>
+                            <span class="streak-label">Biggest Loss Streak</span>
+                        </div>
+                    </div>
+                </div>
+                <div v-if="formArray" class="form-section">
+                    <h4 class="subsection-title">Team Form</h4>
+                    <div class="form-display">
+                        <div v-for="(result, index) in formArray" :key="index" :class="['form-badge', result.toLowerCase()]">
+                            {{ result }}
+                        </div>
+                    </div>
+                    <p class="form-note">Latest match played on the right</p>
+                </div>
+            </div>
         </div>
-        <div v-if="showMetricOptions" class="metric-options">
-            <p>Metric options will be available in a future update!</p>
-        </div>
+        <button class="eraseStatsButton" @click="clearStats">Clear Stats</button>
     </div>
 </div>
 </template>
@@ -189,10 +207,8 @@ const metric_options = () => {
 .dashboard-wrapper {
     width: 100%;
     padding: 1rem;
-    background: #1a1a1a9c;
     min-height: 100vh;
     margin-top: 10px;
-    border-top: solid 6px #1f1d2552;
 }
 .dashboard-title {
     font-size: 1.4rem;
@@ -234,7 +250,8 @@ const metric_options = () => {
 .arrow { margin: 0 0.5rem; cursor: pointer; }
 
 .card {
-    background: #2a2a2a;
+    background: #16162e59;
+    border: 1px solid rgba(61, 214, 140, 0.12);
     border-radius: 10px;
     padding: 1rem;
     box-shadow: 0 2px 6px rgba(0,0,0,0.3);
@@ -274,12 +291,12 @@ const metric_options = () => {
     justify-content: space-between;
     align-items: center;
     padding: 0.5rem 0.75rem;
-    background: #333;
+    background: rgba(34, 32, 139, 0.199);
     border-radius: 6px;
     cursor: pointer;
     transition: background 0.2s;
 }
-.lineup-item:hover { background: #3d3d3d; }
+.lineup-item:hover { background: #284e2754; }
 .formation { font-size: 1rem; font-weight: 600; color: #4ade80; }
 .played-count { font-size: 0.8rem; color: #a0a0a0; }
 .lineup-arrow { display: flex; align-items: center; transition: transform 0.3s ease; }
@@ -301,7 +318,7 @@ const metric_options = () => {
     flex-direction: column;
     align-items: center;
     padding: 0.75rem;
-    background: #333;
+    background: rgba(53, 50, 223, 0.199);
     border-radius: 6px;
 }
 .stat-value { font-size: 2rem; font-weight: 700; color: #4ade80; }
@@ -315,7 +332,7 @@ const metric_options = () => {
     flex-direction: column;
     align-items: center;
     padding: 0.6rem;
-    background: #333;
+    background: rgba(34, 32, 139, 0.199);
     border-radius: 6px;
 }
 .result-icon {
@@ -341,7 +358,7 @@ const metric_options = () => {
     justify-content: center;
     gap: 0.75rem;
     padding: 0.5rem;
-    background: #333;
+    background: rgba(53, 50, 223, 0.199);
     border-radius: 6px;
 }
 .goal-icon   { font-size: 1.5rem; }
@@ -371,7 +388,7 @@ const metric_options = () => {
     flex-direction: column;
     align-items: center;
     padding: 0.4rem;
-    background: #3a3a3a;
+    background: rgba(34, 32, 139, 0.199);
     border-radius: 6px;
 }
 .penalty-value          { font-size: 1.2rem; font-weight: 600; margin-bottom: 0.2rem; }
@@ -390,7 +407,7 @@ const metric_options = () => {
     align-items: center;
     gap: 0.75rem;
     padding: 0.6rem 0.9rem;
-    background: #333;
+    background: rgba(34, 32, 139, 0.199);
     border-radius: 6px;
 }
 .streak-icon    { font-size: 1.5rem; }

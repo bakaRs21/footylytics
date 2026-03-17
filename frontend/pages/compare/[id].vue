@@ -4,8 +4,6 @@ const config = useRuntimeConfig()
 const route = useRoute();
 const router = useRouter();
 // route query constants
-const first = route.query.first;
-const second = route.query.second;
 const firstSeasonSelected = ref(route.query.firstSeason || "");
 const secondSeasonSelected = ref(route.query.secondSeason || "");
 const id = ref(route.params.id || "");
@@ -38,7 +36,7 @@ const statsErrorMsg = ref("");
 const statsForFirst = ref(null);
 const statsForSecond = ref(null);
 
-watch([firstObject, secondObject], async ([newFirst, newSecond], [oldFirst, oldSecond]) => {
+watch([firstObject, secondObject, firstSeasonSelected, secondSeasonSelected], async ([newFirst, newSecond, newFirstSeason, newSecondSeason], [oldFirst, oldSecond]) => {
   if (newFirst != oldFirst){
     firstId.value = newFirst?.[pageId]
     firstName.value = newFirst?.name
@@ -53,13 +51,12 @@ watch([firstObject, secondObject], async ([newFirst, newSecond], [oldFirst, oldS
     secondSeasonSelected.value = ""
     secondSeasonsError.value = ""
   }
-  router.replace({ query: { first: firstId, second: secondId}})
+  if (newFirstSeason && newSecondSeason) {
+    firstSeasonSelected.value = newFirstSeason || ""
+    secondSeasonSelected.value = newSecondSeason || ""
+  }
+  await router.replace({ query: { first: firstId.value, second: secondId.value, firstSeason: firstSeasonSelected.value, secondSeason: secondSeasonSelected.value } })
   await Inspection()
-})
-
-watch([firstSeasonSelected, secondSeasonSelected], async () => {
-  router.replace({ query: {firstSeason: firstSeasonSelected, secondSeason: secondSeasonSelected}})
-  await Inspection();
 })
 
 async function Inspection() {
@@ -103,13 +100,13 @@ async function Inspection() {
   }
   if (!firstSeasons.value || !secondSeasons.value) {
     firstSeasonsError.value = ""
-    secondSeasonsError.value = ""
+    secondSeasonsError.value = "" 
     try {
-      const [first, second] = Promise.all([
+      const [first, second] = await Promise.all([
         $fetch(`${apiRoute}?${pageId}=${firstId.value}`),
         $fetch(`${apiRoute}?${pageId}=${secondId.value}`)
       ])
-      firstSeasons.value = first,
+      firstSeasons.value = first
       secondSeasons.value = second
     } catch (error) {
       firstSeasonsError.value = error.message
@@ -125,9 +122,9 @@ async function Inspection() {
   }
   const firstSeasonParam = firstSeasonSelected.value === "all-seasons" ? "" : `&season_id=${firstSeasonSelected.value}`
   const secondSeasonParam = secondSeasonSelected.value === "all-seasons" ? "" : `&season_id=${secondSeasonSelected.value}`
-  isFetchingStats.value = true
+  isFetchingStats.value = true;
   try {
-    const [first, second] = Promise.all([
+    const [first, second] = await Promise.all([
       $fetch(`${metricApiRoute}basic-stats?${pageId}=${firstId.value}${firstSeasonParam}`),
       $fetch(`${metricApiRoute}basic-stats?${pageId}=${secondId.value}${secondSeasonParam}`)
     ])
@@ -136,7 +133,6 @@ async function Inspection() {
   } catch (error) {
     statsErrorMsg.value = error.message
   } finally {
-    statsErrorMsg.value = "";
     isFetchingStats.value = false
   }
 }
@@ -159,11 +155,11 @@ onMounted(async () => {
           <div class="first-selects">
             <select v-model="firstSeasonSelected">
               <option disabled value="">Select</option>
-              <option v-for="value in list" :key="value" @click="() => selectFirstSeason(value.season_id)">{{ value.season }}</option>
+              <option v-for="value in list" :key="value">{{ value.season }}</option>
             </select>
             <select v-model="secondSeasonSelected">
               <option disabled value="">Select</option>
-              <option v-for="value in list" :key="value" @click="() => selectSecondSeason(value.season_id)">{{ value.season }}</option>
+              <option v-for="value in list" :key="value">{{ value.season }}</option>
             </select>
           </div>
         </div>
@@ -172,20 +168,19 @@ onMounted(async () => {
             <SearchableSelect v-model="firstObject" :options="list" :page="trimmedId"/>
             <SearchableSelect v-model="secondObject" :options="list" :page="trimmedId"/>
           </div>
-          <div v-if="firstSeasonsError || secondSeasonsError">
+          <div v-if="firstSeasonsError">
             Error fetching seasons:
-            <div v-if="firstSeasonsError">{{ firstSeasonsError.message }}</div>
-            <div v-if="secondSeasonsError">{{ secondSeasonsError.message }}</div>
+            <div>{{ firstSeasonsError }}</div>
           </div>
           <div class="season-selects">
             <select v-model="firstSeasonSelected">
               <option disabled value="">Select</option>
-              <option value="all-seasons" @click="selectFirstSeason(0)">all seasons</option>
+              <option value="all-seasons">all seasons</option>
               <option v-for="value in firstSeasons" :key="value">{{ value }}</option>
             </select>
             <select v-model="secondSeasonSelected">
               <option disabled value="">Select</option>
-              <option value="all-seasons" @click="selectSecondSeason(0)">all seasons</option>
+              <option value="all-seasons">all seasons</option>
               <option v-for="value in secondSeasons" :key="value">{{ value }}</option>
              </select>
           </div>

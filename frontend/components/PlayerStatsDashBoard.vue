@@ -1,33 +1,59 @@
 <script setup>
-import { computed } from 'vue';
+import { computed, watch } from 'vue';
 
-const props = defineProps({
-    stats: {
-        type: Object,
-        required: true,
-    },
+const stats = defineModel({
+    type: Object,
+    required: true,
+    default: null,
 })
+const showStats = ref(false);
+const dashboard = ref(null);
 
 const newStats = computed(() => 
-    Object.fromEntries(Object.entries(props.stats).filter(([_, v]) => v != null))
+    Object.fromEntries(Object.entries(stats.value).filter(([_, v]) => v != null))
 );
-const showMetricOptions = ref(false);
-const metric_options = () => {
-    showMetricOptions.value = !showMetricOptions.value;
+
+watch(() => stats.value, (newVal) => {
+    if (newVal) {
+        showStats.value = true;
+        scrollToDashboard();
+    } else {
+        showStats.value = false;
+    }
+})
+watch(() => showStats.value, async (newVal) => {
+    if (newVal) {
+        await scrollToDashboard();
+    }
+})
+async function scrollToDashboard() {
+    if (showStats.value) {
+        await nextTick();
+        const offset = 200
+        const top = dashboard.value.getBoundingClientRect().top + window.scrollY - offset
+        window.scrollTo({ top, behavior: 'smooth' })
+    }
+}
+function eraseStats() {
+    stats.value = null
 }
 </script>
 
 <template>
-<div class="dashboard-wrapper">
-    <h2 class="dashboard-title">Player Statistics</h2>
-    <div class="dashboard-grid">
+<div @click="showStats = !showStats" class="title-with-arrows tooltip" data-tooltip="Stats will be displayed here" >
+    <ArrowDown/>
+    <h2 class="stats-h2">Player Statistics</h2> 
+    <ArrowDown/>
+</div>
+<div v-if="showStats" class="dashboard-wrapper">
+    <div class="dashboard-grid" ref="dashboard">
         <div class="card">
             <h3 class="card-title">Games</h3>
             <div 
             v-if="newStats.total_matches_played > 0 || newStats.total_minutes_played > 0 || newStats.rating !== null" 
             class="card-content">
                 <div class="game-stat">
-                    <span class="stat-value">{{ newStats.total_matches_played }}</span>
+                    <span class="stat-value green">{{ newStats.total_matches_played }}</span>
                     <span class="stat-label">Total Matches Played</span>
                 </div>
                 <div class="game-stat">
@@ -145,11 +171,11 @@ const metric_options = () => {
             <h3 class="card-title">Discipline</h3>
             <div v-if="newStats.red_cards > 0 || newStats.yellow_cards > 0 || newStats.fouls_committed > 0 || newStats.fouls_drawn > 0" class="card-content">
                 <div class="card-stat">
-                    <span class="stat-value">{{ newStats.red_cards }}</span>
+                    <span class="stat-value red">{{ newStats.red_cards }}</span>
                     <span class="stat-label">Red Cards</span>
                 </div>
                 <div class="card-stat">
-                    <span class="stat-value">{{ newStats.yellow_cards }}</span>
+                    <span class="stat-value yellow">{{ newStats.yellow_cards }}</span>
                     <span class="stat-label">Yellow Cards</span>
                 </div>
                 <div class="card-stat">
@@ -169,11 +195,11 @@ const metric_options = () => {
             <h3 class="card-title">Penalties</h3>
             <div v-if="newStats.penalties_scored > 0 || newStats.penalties_missed > 0 || newStats.penalties_won > 0" class="card-content">
                 <div class="card-stat">
-                    <span class="stat-value">{{ newStats.penalties_scored }}</span>
+                    <span class="stat-value green">{{ newStats.penalties_scored }}</span>
                     <span class="stat-label">Penalties Scored</span>
                 </div>
                 <div class="card-stat">
-                    <span class="stat-value">{{ newStats.penalties_missed }}</span>
+                    <span class="stat-value red">{{ newStats.penalties_missed }}</span>
                     <span class="stat-label">Penalties Missed</span>
                 </div>
                 <div class="card-stat">
@@ -206,6 +232,7 @@ const metric_options = () => {
             </div>
         </div>
     </div>
+    <button class="eraseStatsButton" @click="eraseStats()">Clear Stats</button>
 </div>
 </template>
 
@@ -213,17 +240,8 @@ const metric_options = () => {
 .dashboard-wrapper {
     width: 100%;
     padding: 1rem;
-    background: #1a1a1a9c;
-    min-height: 100vh;
-    margin-top: 10px;
-    border-top: solid 6px #1f1d2552;
 }
-.dashboard-title {
-    font-size: 1.4rem;
-    font-weight: 700;
-    text-align: center;
-    margin-bottom: 0.75rem;
-}
+
 .dashboard-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -233,24 +251,24 @@ const metric_options = () => {
 }
 
 .card {
-    background: #2a2a2a;
+    background: #16162e59;
+    border: 1px solid rgba(61, 214, 140, 0.12);
     border-radius: 10px;
     padding: 1rem;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.3);
-    transition: transform 0.2s, box-shadow 0.2s;
+    transition: transform 0.2s, border-color 0.2s;
 }
 .card:hover {
     transform: translateY(-3px);
-    box-shadow: 0 6px 10px rgba(0,0,0,0.4);
+    border-color: rgba(61, 214, 140, 0.35);
 }
+
 .card-title {
     font-size: 1rem;
     font-weight: 600;
-    color: #fff;
     margin-bottom: 0.75rem;
     padding-bottom: 0.5rem;
-    border-bottom: 2px solid #3a3a3a;
-}
+    border-bottom: 1px solid rgba(61, 214, 140, 0.2);
+}    
 .card-content { display: flex; flex-direction: column; gap: 0.5rem; }
 .no-data {
     text-align: center;
@@ -259,12 +277,20 @@ const metric_options = () => {
     font-size: 0.85rem;
 }
 
-.stat-value { font-size: 1.4rem; font-weight: 600; color: #4ade80; }
+.stat-value {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #e2e8f0;
+}
+.red { color: #ef4444; }
+.green { color: #22c55e; }
+.yellow { color: #eab308; }
+
 .stat-label {
-    font-size: 0.78rem;
-    color: #a0a0a0;
+    font-size: 0.75rem;
+    color: #64748b;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.05em;
 }
 
 .game-stat {
@@ -272,20 +298,22 @@ const metric_options = () => {
     flex-direction: column;
     align-items: center;
     padding: 0.6rem;
-    background: #333;
+    background: rgba(255,255,255,0.04);
     border-radius: 6px;
+    border: 1px solid rgba(255,255,255,0.06);
 }
 
 .card-stat {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 0.6rem;
-    padding: 0.5rem;
-    background: #333;
+    gap: 0.75rem;
+    padding: 0.5rem 0.75rem;
+    background: rgba(255,255,255,0.04);
     border-radius: 6px;
-}
-.goal-icon    { font-size: 1.4rem; }
+    border: 1px solid rgba(255,255,255,0.06);
+}    
+.goal-icon    { font-size: 1.4rem;}
 .goal-details { display: flex; flex-direction: column; }
 
 @media (max-width: 840px) {

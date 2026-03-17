@@ -1,5 +1,6 @@
 <script setup>
-import { computed, ref, toRaw } from 'vue';
+import { computed, ref, toRaw, onMounted } from 'vue';
+const comparing = ref(null);
 
 const props = defineProps({
     firstStats: { 
@@ -188,11 +189,19 @@ const groupHasData = (group, competitors) => {
         competitors.some(c => c.rawStats[metric.key] != null)
     );
 };
+
+onMounted(() => {
+    if (comparing.value) {
+        const offset = 80;
+        const top = comparing.value.getBoundingClientRect().top + window.scrollY - offset;
+        window.scrollTo({ top, behavior: 'smooth' });
+    }
+})
 </script>
 
 <template>
-<div v-if="competitors.length === 2" class="comparison-wrapper">
-    <div class="comparison-header">
+<div v-if="competitors.length === 2" class="comparison-wrapper" >
+    <div class="comparison-header" ref="comparing">
         <div class="header-item first">
             <h2 class="entity-name">{{ firstName }}</h2>
         </div>
@@ -309,10 +318,8 @@ const groupHasData = (group, competitors) => {
 .comparison-wrapper {
     width: 100%;
     padding: 1rem;
-    background: #1a1a1a9c;
     min-height: 100vh;
     margin-top: 10px;
-    border-top: solid 6px #1f1d2552;
 }
 
 .comparison-header {
