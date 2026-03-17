@@ -3,7 +3,7 @@ from fastapi import APIRouter
 metric_options = [
     {
         "key": "goals_per_match",
-        "label": "Player Average Goals per Match",
+        "label": "Player Goals per Match",
         "params": [
             {"name": "player_id", "type": "int", "required": False, "help": "Filter to one player_id; if skipped return all players"},
             {"name": "season_id", "type": "int", "required": False, "help": "Filter to one season_id; if skipped return all seasons"},
@@ -11,7 +11,7 @@ metric_options = [
     },
     {
         "key": "assists_per_match",
-        "label": "Player Average Assists per Match",
+        "label": "Player Assists per Match",
         "params": [
             {"name": "player_id", "type": "int", "required": False, "help": "Filter to one player_id; if skipped return all players"},
             {"name": "season_id", "type": "int", "required": False, "help": "Filter to one season_id; if skipped return all seasons"},
@@ -19,7 +19,7 @@ metric_options = [
     },
     {
         "key": "shots_per_match",
-        "label": "Player Average Shots per Match",
+        "label": "Player Shots per Match",
         "params": [
             {"name": "player_id", "type": "int", "required": False, "help": "Filter to one player_id; if skipped return all players"},
             {"name": "season_id", "type": "int", "required": False, "help": "Filter to one season_id; if skipped return all seasons"},
@@ -27,7 +27,7 @@ metric_options = [
     },
     {
         "key": "minutes_per_match",
-        "label": "Player Average Minutes per Match",
+        "label": "Player Minutes per Match",
         "params": [
             {"name": "player_id", "type": "int", "required": False, "help": "Filter to one player_id; if skipped return all players"},
             {"name": "season_id", "type": "int", "required": False, "help": "Filter to one season_id; if skipped return all seasons"},

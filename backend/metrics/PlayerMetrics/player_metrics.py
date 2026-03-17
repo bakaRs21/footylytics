@@ -32,7 +32,7 @@ METRIC_MAP = {
         "primary_column": PlayerSeason.games_minutes,
         "additional_column": [PlayerSeason.games_appearences],
         "label_map": {
-            "primary": "total_goals",
+            "primary": "total_minutes",
             "additional": ["total_game_appearances"]
         }
     }, "penalty_success_rate": {
@@ -59,14 +59,17 @@ def player_queries(db: Session, player_id: int | None, season_id: int | None, me
     query_cols = [
         Player.player_id,
         Player.name,
-        func.sum(mapped_key["primary_column"].label(mapped_key["label_map"]["primary"]))
+        func.sum(mapped_key["primary_column"]).label(mapped_key["label_map"]["primary"])
     ]
+    if not query_cols:
+        raise ValueError(f"No primary column defined for metric key: {metric_key}")
     for i, col in enumerate(mapped_key["additional_column"]):
         label = mapped_key["label_map"]["additional"][i]
         query_cols.append(func.sum(col).label(label))
 
     query = db.query(*query_cols).join(PlayerSeason, PlayerSeason.player_id == Player.player_id)
-
+    if not query:
+        raise ValueError("Query construction failed, no columns fetched")
     if player_id is not None:
         query = query.filter(PlayerSeason.player_id == player_id)
     if season_id is not None:
@@ -214,10 +217,10 @@ def player_goals_per_match(
     return [
         {
             "player_id": r.player_id,
-            "player_name": r.name,
-            "player_total_goals": r.total_goals,
-            "player_total_game_appearences": r.total_games_appearences,
-            "average_goals_per_match": round((r.total_goals or 0) / r.total_games_appearences, 3) if r.total_games_appearences or 0 > 0 else 0
+            "name": r.name,
+            "total_goals": r.total_goals,
+            "total_game_appearances": r.total_game_appearances,
+            "goals_per_match": round((r.total_goals or 0) / r.total_game_appearances, 3) if (r.total_game_appearances or 0) > 0 else 0
         }
         for r in rows
     ]
@@ -232,10 +235,10 @@ def player_shots_per_match(
     return [
         {
             "player_id": r.player_id,
-            "player_name": r.name,
-            "player_total_shots": r.total_shots,
-            "player_total_game_appearences": r.total_games_appearences,
-            "average_shots_per_match": round((r.total_shots or 0) / r.total_games_appearences, 3) if r.total_games_appearences or 0 > 0 else 0
+            "name": r.name,
+            "total_shots": r.total_shots,
+            "total_game_appearances": r.total_game_appearances,
+            "shots_per_match": round((r.total_shots or 0) / r.total_game_appearances, 3) if (r.total_game_appearances or 0) > 0 else 0
         }
         for r in rows
     ]
@@ -250,10 +253,10 @@ def player_assists_per_match(
     return [
         {
             "player_id": r.player_id,
-            "player_name": r.name,
-            "player_total_assists": r.total_assists,
-            "player_total_game_appearences": r.total_games_appearences,
-            "average_assists_per_match": ((r.total_assists or 0) / r.total_games_appearences) if r.total_games_appearences or 0 > 0 else 0
+            "name": r.name,
+            "total_assists": r.total_assists,
+            "total_game_appearances": r.total_game_appearances,
+            "assists_per_match": round((r.total_assists or 0) / r.total_game_appearances, 3) if (r.total_game_appearances or 0) > 0 else 0
         }
         for r in rows
     ]
@@ -267,11 +270,11 @@ def minutes_per_match(
     rows = player_queries(db, player_id, season_id, "minutes_per_match")
     return [
         {
-            "payer_id": r.player_id,
-            "player_name": r.name,
-            "player_total_minutes": r.total_minutes,
-            "player_total_game_appearences": r.total_games_appearences,
-            "average_minutes_per_match": ((r.total_minutes or 0) / r.total_games_appearences) if r.total_games_appearences or 0 > 0 else 0
+            "player_id": r.player_id,
+            "name": r.name,
+            "total_minutes": r.total_minutes,
+            "total_game_appearances": r.total_game_appearances,
+            "minutes_per_match": round(((r.total_minutes or 0) / r.total_game_appearances), 3) if (r.total_game_appearances or 0) > 0 else 0
         }
         for r in rows
     ]
@@ -288,7 +291,7 @@ def player_penalty_success_rate(
     return [
         {
             "player_id": r.player_id,
-            "player_name": r.name,
+            "name": r.name,
             "penalties_scored": r.penalties_scored,
             "penalties_missed": r.penalties_missed,
             "total_penalties": (r.penalties_scored) + (r.penalties_missed),
@@ -309,11 +312,11 @@ def player_shots_accuracy(
     return [
         {
             "player_id": r.player_id,
-            "player_name": r.name,
+            "name": r.name,
             "total_shots": r.total_shots,
             "shots_on_target": r.shots_on_target,
             "accuracy_pct": round(((r.shots_on_target or 0) / (r.total_shots or 1)) * 100, 2
-            ) if r.total_shots and r.total_shots > 0 else 0
+            ) if (r.total_shots and r.total_shots > 0) else 0
         }
         for r in rows
     ]

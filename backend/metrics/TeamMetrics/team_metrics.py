@@ -246,7 +246,7 @@ def goals_scored_per_match(
         result.append({
             "team_id": r.team_id,
             "team_name": r.team_name,
-            "avg_goals_scored_per_match": round((r.gf or 0) / (r.matches or 1), 3),
+            "goals_scored_per_match": round((r.gf or 0) / (r.matches or 1), 3),
             "team_goals": r.gf,
             "matches": r.matches
         })
@@ -266,7 +266,7 @@ def goals_conceded_per_match(
         result.append({
             "team_id": r.team_id,
             "team_name": r.team_name,
-            "avg_goals_conceded_per_match": round((r.ga or 0) / (r.matches or 1), 3),
+            "goals_conceded_per_match": round((r.ga or 0) / (r.matches or 1), 3),
             "matches": r.matches,
         })
     
