@@ -1,27 +1,29 @@
 <script setup>
-import { computed } from 'vue';
-
+import { watch, onMounted } from 'vue';
 const props = defineProps({
     chartOptions: {
         type: Array,
         required: true,
     },
 })
-
+const emitSelectedChart = defineEmits(['update:selectedChart']);
 const selectedChart = defineModel('modelValue', {
     type: String,
     required: true,
 })
-const emitSelectedChart = defineEmits(['update:selectedChart']);
-const selectChart = computed(() => {
-    return (chart) => {
-        emitSelectedChart('update:selectedChart', chart);
-    }
+
+watch(selectedChart, (newChart) => {
+    emitSelectedChart('update:selectedChart', newChart);
 });
+onMounted(() => {
+    if (props.chartOptions.length > 0 && !selectedChart.value) {
+    selectedChart.value = props.chartOptions[0];
+}
+})
 </script>
 <template>
 <div class="input-container">
-    <label v-for="option in chartOptions" :key="option" class="option" @click="() => selectChart(option)">
+    <label v-for="option in chartOptions" :key="option" class="option">
         <input type="radio" :value="option" v-model="selectedChart"/>
         {{ option }}
     </label>

@@ -1,7 +1,7 @@
 //      PLAYER METRICS
 export const PLAYER_METRIC_CONFIGS = {
   goals_per_match: {
-    label: 'Avg Goals per Match',
+    label: 'Goals per Match',
     endpoint: '/player-metrics/goals-per-match',
     allowedCharts: ['Bar Chart', 'Line Chart'],
     toChartData(rows, _chartType) {
@@ -12,7 +12,7 @@ export const PLAYER_METRIC_CONFIGS = {
     },
   },
   assists_per_match: {
-    label: 'Avg Assists per Match',
+    label: 'Assists per Match',
     endpoint: '/player-metrics/assists-per-match',
     allowedCharts: ['Bar Chart', 'Line Chart'],
     toChartData(rows, _chartType) {
@@ -23,7 +23,7 @@ export const PLAYER_METRIC_CONFIGS = {
     },
   },
   shots_per_match: {
-    label: 'Avg Shots per Match',
+    label: 'Shots per Match',
     endpoint: '/player-metrics/shots-per-match',
     allowedCharts: ['Bar Chart', 'Line Chart'],
     toChartData(rows, _chartType) {
@@ -32,6 +32,17 @@ export const PLAYER_METRIC_CONFIGS = {
         categories: rows.map(r => r.player_name),
       }
     },
+  },
+  minutes_per_match: {
+    label: 'Minutes per Match',
+    endpoint: '/player-metrics/minutes-per-match',
+    allowedCharts: ['Bar Chart', 'Line Chart'],
+    toChartData(rows, _chartType) {
+      return {
+        series: [{ name: 'Avg Minutes/Match', data: rows.map(r => r.average_minutes_per_match) }],
+        categories: rows.map(r => r.player_name),
+      }
+    }
   },
   penalty_success_rate: {
     label: 'Penalty Success Rate',
@@ -73,7 +84,7 @@ export const PLAYER_METRIC_CONFIGS = {
 
 export const TEAM_METRIC_CONFIGS = {
   goals_scored_per_match: {
-    label: 'Avg Goals Scored/Match',
+    label: 'Goals Scored/Match',
     endpoint: '/team-metrics/goals-scored-per-match',
     allowedCharts: ['Bar Chart', 'Line Chart'],
     toChartData(rows, _chartType) {
@@ -84,7 +95,7 @@ export const TEAM_METRIC_CONFIGS = {
     },
   },
   goals_conceded_per_match: {
-    label: 'Avg Goals Conceded/Match',
+    label: 'Goals Conceded/Match',
     endpoint: '/team-metrics/goals-conceded-per-match',
     allowedCharts: ['Bar Chart', 'Line Chart'],
     toChartData(rows, _chartType) {

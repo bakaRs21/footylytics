@@ -22,7 +22,4 @@ const chartOptions = computed(() => ({
 </div>
 </template>
 <style scoped>
-#apexchart {
-  width: 300px;
-}
 </style>

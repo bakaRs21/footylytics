@@ -5,7 +5,7 @@ body, .main-wrapper {
     padding: 0; 
     margin: 0;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"; 
-    color: #ffffff; 
+    color: #ffffff;
 }
 html {
   background: linear-gradient(180deg,rgb(18, 18, 37) 19%, rgb(48, 52, 56) 100%);
@@ -40,14 +40,14 @@ li {
 }
 
 .container {
-    padding-top: 66px;
-    padding-left: 16px; 
-    padding-right: 16px;
-    padding-bottom: 2rem;
-    
-    margin-left: auto; 
-    margin-right: auto;
-    text-align: center;
+  background-color: #07122242;
+  padding-top: 66px;
+  padding-left: 16px; 
+  padding-right: 16px;
+  padding-bottom: 80px;
+  margin-left: auto; 
+  margin-right: auto;
+  text-align: center;
 }
 @media (min-width: 840px) {
   .container {
@@ -64,12 +64,31 @@ li {
   }
 }
 
-
-@media (max-width: 920px) {
-  .h1-design {
-    font-size: 58px;     
-  }
+/* Page Sections */
+.top-section {
+  margin-bottom: 100px;
 }
+.seasons {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 100px;
+}
+.season-selection-heading {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  padding-bottom: 10px;
+  margin-bottom: 14px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.281);
+}
+.stats {
+  margin-bottom: 100px;
+}
+.metrics {
+  margin-bottom: 100px;
+}
+/* End of Page Sections */
+
 
 .h1-design {
   background-clip: text; 
@@ -80,6 +99,13 @@ li {
   font-size: 80px;
   padding-bottom: 5px;
 }
+@media (max-width: 920px) {
+  .h1-design {
+    font-size: 58px;     
+  }
+}
+
+
 .pending-design {
   font-size: 28px;
   color: #c928585d;
@@ -137,22 +163,64 @@ select {
     backdrop-filter: blur(2px);
 }
 
-/* Export menu background */
+
+
+/* APEX CHARTS */
 .apexcharts-menu {
   background: #1e1e1e !important;
   border: 1px solid #333 !important;
 }
-
-/* Export menu items */
 .apexcharts-menu-item {
   color: white !important;
 }
-
 .apexcharts-menu-item:hover {
   background: #333 !important;
 }
-
-/* Toolbar icons (3 dots) */
 .apexcharts-toolbar svg {
   fill: white !important;
+}
+.apexcharts-text {
+  fill: white !important;
+  font-weight: 50;
+  font-size: 0.7rem;
+}
+
+
+
+
+.title-with-arrows {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+.tooltip { position: relative; cursor: help; }
+.tooltip::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #703b3b28;
+    color: white;
+    padding: 6px 10px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+}
+.tooltip:hover::after { opacity: 1; }
+
+.eraseStatsButton {
+  background-color: #421c1c;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  font-size: 16px;
+  padding: 10px 30px;
+  margin: 40px 0 0 0;
+  cursor: pointer;
 }

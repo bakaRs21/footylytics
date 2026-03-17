@@ -1,7 +1,5 @@
 <script setup>
   import { ref, computed } from 'vue';
-import DoneArrow from './Icons/DoneArrow.vue';
-import Close from './Icons/Close.vue';
 
 const props = defineProps({
   options: {
@@ -36,11 +34,7 @@ const selectedObjects = computed(() => {
 const search = ref("");
 const open = ref(false);
 const action = () => {
-    if (open.value == false) {
-        open.value = true;
-    } else {
-        open.value = false;
-    }
+  open.value = !open.value
 }
 const clear = () => {
   selectedKeys.value = [];
@@ -57,85 +51,123 @@ const filteredOptions = computed(() =>
     ),
 );
 
+function selectAll() {
+  selectedKeys.value = keys.value.map(k => k.raw);
+  emitSelectedKeys('update:selectedKeys', selectedObjects.value)
+}
+watch(keys, (newKeys) => {
+  if (newKeys.length > 0 && selectedKeys.value.length === 0) {
+    selectAll();
+  } 
+}, { immediate: true})
 </script>
 <template>
   <div class="component">
-        <input class="type-input" :placeholder="'filter data'" v-model="search" v-on:focus="true" @click="() => action()"/>
-        <div v-if="open && selectedKeys.length === 0">
+    <div class="input-wrapper">
+      <input class="type-input" :placeholder="'filter data'" v-model="search" v-on:focus="true" @click="() => action()"/>
+        <div v-if="open && selectedKeys.length === 0" class="icon">
           <svg class="svg" xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24"><path fill="none" stroke="#a9a9df" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m18 15l-6-6l-6 6"/></svg>
         </div>
-        <div v-else-if="!open && selectedKeys.length === 0">
+        <div v-else-if="!open && selectedKeys.length === 0" class="icon">
           <svg class="svg" xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24"><path fill="none" stroke="#a9a9df" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m6 9l6 6l6-6"/></svg>
         </div>
-        <div v-else-if="open && selectedKeys.length > 0" class="svg-x" @click="() => filter()">
+        <div v-else-if="open && selectedKeys.length > 0" class="icon icon-clickable" @click="() => filter()">
           <DoneArrow />
         </div>
-        <div v-else-if="!open && selectedKeys.length > 0" class="svg-x">
+        <div v-else-if="!open && selectedKeys.length > 0" class="icon icon-clickable" @click="() => filter()">
           <Close @click="() => clear()"/>
         </div>
-        <ul v-if="open" class="onOpen">
-            <li v-for="option in filteredOptions" :key="option.raw">
-              <input class="check-box" type="checkbox" :value="option.raw" v-model="selectedKeys" @click.stop/>
-              {{ option.label }}
-            </li>
-        </ul>
     </div>
+    <div v-if="open" class="ds_panel">
+      <div class="ds_list">
+        <label v-for="option in filteredOptions" :key="option.raw" class="ds_option">
+          <input class="check-box" type="checkbox" :value="option.raw" v-model="selectedKeys" @click.stop/>
+          <span class="option-label">{{ option.label }}</span>
+        </label>
+      </div>
+    </div>
+  </div>
 </template>
 <style scoped>
 .component {
   position: relative;
-  width: 100px;
+  width: 180px;
+}
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
 }
 .type-input {
     width: 100%; 
     border-radius: 0.5rem;
     border: none;
-    padding: 4px 30px 6px 12px;
-    background-color: #252525e8;
+    padding: 6px 36px 6px 12px;
+    background-color: #0f131b;
     color: white;
     transition: all 0.15s ease;
-}
+    box-sizing: border-box;
+  }
 .type-input:focus {
     outline: none;
+    border-color: #3b82f6;
     box-shadow: 0 0 0 3px #4d576685;
 }
 .type-input::placeholder {
-    color: #dddddd;
+    color: #8899aa;
 }
-.svg {
+.icon {
     position: absolute; 
     top: 50%; 
-    right: -2.5rem; 
+    right: 0.5rem; 
     transform: translateY(-50%);
     pointer-events: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
-.svg-x {
-    position: absolute; 
-    top: 55%; 
-    right: -2.4rem; 
-    transform: translateY(-50%);
+.icon-clickable {
+  pointer-events: auto;
+  cursor: pointer;
 }
-
-ul {
-    position: absolute; 
-    z-index: 10; 
-    margin: 2px 0 0 -8px;
-    max-height: 16rem;
-    padding: 0;
-    width: 170px; 
-    overflow-y: auto; 
-    border-radius: 0.75rem 0.75rem 0.75rem 0.75rem;
-    background-color: #303030e3;
+.ds_panel {
+  position: absolute;
+  top: calc(100%);
+  left: 0;
+  width: 100%;
+  z-index: 50;
+  overflow-y: auto;
+  border-radius: 0.5rem;
+  background-color: #1a2332;
+  border: 1px solid #2d3a4a;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
 }
-ul li {
+.ds_list {
+  max-height: 120px;
+  overflow: auto;
+  padding: 4px;
+}
+.ds_option {
   display: flex;
-  flex-direction: row;
-  cursor: pointer; 
-  padding: 0.5rem 0.5rem 0.5rem 0.5rem;
-  background-color: #3d3c3ce7;
-  font-size: 12px;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 6px;
+  cursor: pointer;
+  border-radius: 0.5rem;
 }
-.chek-box {
+.ds_option:hover {
+  background-color: #243044;
+}
+.option-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 0.8rem;
+}
+.check-box {
   max-width: 16px;
+  cursor: pointer;
+  accent-color: #3b82f6;
 }
 </style>

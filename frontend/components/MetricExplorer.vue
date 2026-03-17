@@ -12,7 +12,7 @@ const allMetrics = computed(() =>
 
 const selectedMetricKey = ref(null)
 const selectedMetric = computed(() =>
-  allMetrics.value.find(m => m.key === selectedMetricKey.value) ?? null
+  allMetrics.value.find(m => m.key === selectedMetricKey.value) ?? ""
 )
 </script>
 <template>

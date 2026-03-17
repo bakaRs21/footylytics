@@ -15,8 +15,8 @@ export function useMetrics() {
     error.value = null
     try {
       const [playerOpts, teamOpts] = await Promise.all([
-        $fetch(`${apiBase}/player-metrics/options`),
-        $fetch(`${apiBase}/team-metrics/options`),
+        $fetch(`${apiBase}player-metrics/options`),
+        $fetch(`${apiBase}team-metrics/options`),
       ])
       playerMetrics.value = playerOpts
       teamMetrics.value = teamOpts
