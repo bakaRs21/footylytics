@@ -82,10 +82,17 @@ li {
   border-bottom: 1px solid rgba(255, 255, 255, 0.281);
 }
 .stats {
-  margin-bottom: 100px;
+  margin-bottom: 70px;
 }
 .metrics {
   margin-bottom: 100px;
+}
+
+#top-section,
+#seasons,
+#stats,
+#metrics {
+  scroll-margin-top: 90px;
 }
 /* End of Page Sections */
 
@@ -221,6 +228,6 @@ select {
   color: white;
   font-size: 16px;
   padding: 10px 30px;
-  margin: 40px 0 0 0;
+  margin: 10px 0 0 0;
   cursor: pointer;
 }

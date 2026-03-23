@@ -1,16 +1,28 @@
 <script setup>
 import { computed, ref, watch } from 'vue'
 import MultiSelect from './MultiSelect.vue'
+import { title } from 'process'
 
 const config = useRuntimeConfig()
 const apiBase = config.public.apiBase
+const showMetrics = ref(false)
+const dashboard = ref(null)
 
 const props = defineProps({
   title: { type: String, default: 'Metrics' },
-  metricOptions: { type: Array, required: true },
-  metricConfigMap: { type: Object, required: true },
-  entityParamName: { type: String, required: true },
-  entityId: { type: [String, Number], required: true },
+  metricOptions: { 
+    type: Array, 
+    required: true 
+  },
+  metricConfigMap: { 
+    type: Object, 
+    required: true 
+  },
+  itemParamName: { 
+    type: String, 
+    required: true 
+  },
+  itemId: { type: [String, Number], required: true },
   seasons: { type: Array, default: () => [] },
   initialSeason: { type: [String, Number], default: 'all-seasons' },
   initialMetricKeys: { type: Array, default: () => [] },
@@ -20,8 +32,12 @@ const props = defineProps({
 const selectedSeason = ref(props.initialSeason)
 const selectedMetricKeys = ref([...(props.initialMetricKeys ?? [])])
 
-watch(() => props.initialSeason, v => { selectedSeason.value = v }, { immediate: true })
-watch(() => props.initialMetricKeys, v => { selectedMetricKeys.value = [...(v ?? [])] }, { deep: true })
+watch(() => props.initialSeason, (newVal) => { 
+  selectedSeason.value = newVal 
+}, { immediate: true })
+watch(() => props.initialMetricKeys, (newVal) => { 
+  selectedMetricKeys.value = [...(newVal ?? [])] 
+}, { deep: true })
 
 const normalizedMetricOptions = computed(() => {
   return (props.metricOptions ?? [])
@@ -44,32 +60,42 @@ function allowedChartsForMetricKey(metricKey) {
   return cfg?.allowedCharts ?? ['Bar Chart', 'Line Chart', 'Pie Chart', 'Donut Chart']
 }
 
-function numericObjectFromResult(result) {
+function flattenResultToChartData(result) {
   const obj = Array.isArray(result) ? (result[0] ?? {}) : (result ?? {})
   const out = {}
-  for (const [k, v] of Object.entries(obj)) {
-    if (k.toLowerCase().includes('id')) continue
-    if (typeof v === 'number' && Number.isFinite(v)) out[k] = v
+
+  for (const [key, value] of Object.entries(obj)) {
+    if (key.toLowerCase().includes("id")) continue
+    if (typeof value === "number" && Number.isFinite(value)) {
+      out[key] = value
+
+    } else if (value !== null && typeof value === "object" && !Array.isArray(value)) {
+      for (const [subKey, subValue] of Object.entries(value)) {
+        if (subKey.toLowerCase().includes("id")) continue
+        if (typeof subValue === "number" && Number.isFinite(subValue)) {
+          out[`${key}_${subKey}`] = subValue
+        }
+      }
+    }
   }
-  return out
+
+  return out;
+}
+
+function extractMetricValue(raw, metricKey) {
+  const conf = props.metricConfigMap?.[metricKey]
+  const flat = flattenResultToChartData(raw)
+
+  if (conf?.metricValue) {
+    return flat[conf?.metricValue] ?? 0
+  }
+  return flat
 }
 
 const fetched = ref({})
 const loading = ref(false)
 const error = ref('')
 
-const metricCards = computed(() => {
-  return (selectedMetricKeys.value ?? []).map(key => {
-    const raw = fetched.value[key]
-    return {
-      key,
-      title: normalizedMetricOptions.value.find(o => o.key === key)?.label ?? key,
-      allowedCharts: allowedChartsForMetricKey(key),
-      dataForChart: numericObjectFromResult(raw),
-      hasData: Object.keys(numericObjectFromResult(raw)).length > 0,
-    }
-  })
-})
 
 async function fetchSelectedMetrics() {
   error.value = ''
@@ -80,7 +106,7 @@ async function fetchSelectedMetrics() {
         const endpoint = endpointForMetricKey(metricKey)
         if (!endpoint) return [metricKey, null]
         const url = new URL(endpoint, apiBase)
-        url.searchParams.set(props.entityParamName, String(props.entityId))
+        url.searchParams.set(props.itemParamName, String(props.itemId))
 
         if (selectedSeason.value && selectedSeason.value !== 'all-seasons') {
           url.searchParams.set('season_id', String(selectedSeason.value))
@@ -101,6 +127,7 @@ async function fetchSelectedMetrics() {
   }
 }
 
+
 async function onConfirm(keys) {
   selectedMetricKeys.value = [...(keys ?? [])]
   await fetchSelectedMetrics()
@@ -111,54 +138,154 @@ watch(selectedSeason, async () => {
   if (!Object.keys(fetched.value ?? {}).length) return
   await fetchSelectedMetrics()
 })
+
+// Metric Card Control
+const metricCardsControl = computed (() => {
+  const standAloneCards = []
+  const sharedCards = {}
+  for (const key of (selectedMetricKeys.value ?? [])) {
+    const conf = props.metricConfigMap?.[key]
+    const raw = fetched.value[key]
+    const dataForChart = flattenResultToChartData(raw)
+    if (!conf) continue
+    standAloneCards.push({
+      key,
+      title: normalizedMetricOptions.value.find(o => o.key === key)?.label ?? key,
+      allowedCharts: allowedChartsForMetricKey(key),
+      dataForChart,
+      hasData: Object.keys(dataForChart).length > 0,
+      isPct: key.toLowerCase().includes('pct'),
+      isShared: false,
+    })
+    
+    if (!conf.sharedGraph) continue
+
+    const groupSharedGraph = conf.sharedGraph.bar
+    if (!groupSharedGraph) continue
+    const sharedGraphId = groupSharedGraph.name
+    if (!sharedCards[sharedGraphId]) {
+      sharedCards[sharedGraphId] = {
+        key: sharedGraphId,
+        title: sharedGraphId.replace(/_bar$|_pie$/, '').replace(/_/g, ' '),
+        allowedCharts: conf.allowedCharts,
+        dataForChart: {},
+        hasData: false,
+        isPct: false,
+        isShared: true,
+      }
+    }
+
+    if (raw && Object.keys(dataForChart).length > 0) {
+      sharedCards[sharedGraphId].dataForChart[key] = (extractMetricValue(raw, key))
+      sharedCards[sharedGraphId].hasData = true
+
+    }
+  }
+
+  return [...standAloneCards, ...Object.values(sharedCards)]
+})
+// Row Control
+const rows = computed(() => {
+  const cards = metricCardsControl.value
+  const result = []
+  let currentRow = []
+  let pctCount = 0
+  const maxPerRow = 3
+
+  for (const card of cards) {
+    if (card.isPct && pctCount >= 2) {
+      if (currentRow.length > 0) result.push(currentRow)
+      currentRow = [card]
+      pctCount = 1
+    } else {
+      currentRow.push(card)
+      if (card.isPct) pctCount++
+    }
+
+    if (currentRow.length >= maxPerRow) {
+      result.push(currentRow)
+      currentRow = []
+      pctCount = 0
+    }
+  }
+
+  if (currentRow.length > 0) result.push(currentRow)
+  return result
+})
+
+
+watch(() => showMetrics.value, async (newVal) => {
+  if (!newVal) return;
+  await scrollToDashboard()
+})
+async function scrollToDashboard() {
+  if (showMetrics.value) {
+        await nextTick();
+        const offset = 200
+        const top = dashboard.value.getBoundingClientRect().top + window.scrollY - offset
+        window.scrollTo({ top, behavior: 'smooth' })
+    }
+}
 </script>
 
 <template>
-  <section class="md">
-    <div class="md__top">
-      <div class="md__left">
-        <MultiSelect
-          :options="normalizedMetricOptions"
-          v-model="selectedMetricKeys"
-          placeholder="Select metrics…"
-          confirmText="Confirm"
-          @confirm="onConfirm"
-        />
-      </div>
-
-      <div class="md__right">
-        <div class="md__seasonLabel">filter to season</div>
-        <select v-model="selectedSeason" class="md__seasonSelect">
-          <option value="all-seasons">all seasons</option>
-          <option v-for="s in seasons" :key="s" :value="s">{{ s }}</option>
-        </select>
-      </div>
-    </div>
-
-    <div class="md__body">
-      <p v-if="error" class="md__error">{{ error }}</p>
-      <p v-else-if="loading" class="md__loading">Fetching metrics…</p>
-
-      <div v-else-if="!metricCards.length" class="md__empty">
-        Select metrics and press <strong>Confirm</strong>.
-      </div>
-
-      <div v-else class="md__grid">
-        <div v-for="card in metricCards" :key="card.key" class="md__cardWrap">
-          <h4 class="md__cardTitle">{{ card.title }}</h4>
-
-          <div v-if="!card.hasData" class="md__noData">
-            Make sure to confirm your selection
-          </div>
-
-          <DashboardCard v-else
-            :chartOptions="card.allowedCharts"
-            :dataForChart="card.dataForChart"
+  <div @click="showMetrics = !showMetrics" class="title-with-arrows tooltip" data-tooltip="Show metric options to be selected" >
+    <ArrowDown />
+      <h2 class="stats-h2" id="metrics"> Metrics </h2>
+    <ArrowDown />
+  </div>
+  <div v-if="showMetrics">
+    <section class="md" ref="dashboard">
+      <div class="md__top">
+        <div class="md__left">
+          <MultiSelect
+            :options="normalizedMetricOptions"
+            v-model="selectedMetricKeys"
+            placeholder="Select metrics…"
+            confirmText="Confirm"
+            @confirm="onConfirm"
           />
         </div>
+
+        <div class="md__right">
+          <div class="md__seasonLabel">filter to season</div>
+          <select v-model="selectedSeason" class="md__seasonSelect">
+            <option value="all-seasons">all seasons</option>
+            <option v-for="s in seasons" :key="s" :value="s">{{ s }}</option>
+          </select>
+        </div>
       </div>
-    </div>
-  </section>
+
+      <div class="md__body">
+        <p v-if="error" class="md__error">{{ error }}</p>
+        <p v-else-if="loading" class="md__loading">Fetching metrics…</p>
+
+        <div v-else-if="!rows.length" class="md__empty">
+          Select metrics and press <strong>Confirm</strong>.
+        </div>
+
+        <div v-else class="md__grid">
+          <div v-for="(row, rowIndex) in rows" :key="rowIndex" class="md__row">
+            <div v-for="card in row" 
+            :key="card.key" class="md__cardWrap" 
+            :class="{ 'md__cardWrap--pct' : card.isPct}"
+            >
+              <h4 class="md__cardTitle">{{ card.title }}</h4>
+              <div v-if="!card.hasData" class="md__noData">
+                Make sure to confirm your selection
+              </div>
+              <DashboardCard v-else
+                :chartOptions="card.allowedCharts"
+                :dataForChart="card.dataForChart"
+              />
+            </div>
+            <div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
 </template>
 
 <style scoped>
@@ -218,14 +345,25 @@ watch(selectedSeason, async () => {
 
 .md__grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+  flex-direction: column;
   gap: 14px;
+}
+
+.md__row {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
 }
 
 .md__cardWrap {
   display: flex;
   flex-direction: column;
   gap: 8px;
+  flex: 1 1 360px;
+}
+
+.md__cardWrap--pct {
+  flex: 2 1 360px;
 }
 
 .md__cardTitle {

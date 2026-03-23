@@ -10,14 +10,14 @@ const pageParam = 'team_id'
 const selectedSeason = ref("")
 const seasonParam = ref("")
 const onMountedMsg = ref("")
-const stats = ref(null)
+const stats = ref({})
 const statsStatus = ref("")
 const statsError = ref("")
 const showMetrics = ref(false)
 const sections = [
-  { label: "Team Logo", anchor: "team-logo" },
-  { label: "Season Selection", anchor: "season-selection" },
-  { label: "Team Statistics", anchor: "team-stats" },
+  { label: "Team Logo", anchor: "top-section" },
+  { label: "Season Selection", anchor: "seasons" },
+  { label: "Team Statistics", anchor: "stats" },
   { label: "Team Metrics", anchor: "metrics" },
 ]
 watch(() => stats.value, (newVal) => {
@@ -125,13 +125,13 @@ onMounted(() => {
   <div v-else>
     <div v-if="teamInfo" class="top-section team-top-section">
       <div class="team-card" :style="{backgroundColor: secondary}">
-        <h4 id="team-logo">{{ teamInfo.name }}</h4>
+        <h4 id="top-section">{{ teamInfo.name }}</h4>
         <img :src="teamInfo.logo" :alt="teamInfo.name" />
       </div>
     </div>
     <div class="seasons">
       <div class="season-selection-heading">
-        <h3 id="season-selection">Select a season: </h3>
+        <h3 id="seasons">Select a season: </h3>
         <div class="all-seasons">
           <h3 id="allS">Or data from</h3  >
           <button class="all-seasons-button" @click="seasonSelected(0)">All Seasons</button>
@@ -151,25 +151,18 @@ onMounted(() => {
       <div v-else-if="statsError">
         Error loading stats: {{ statsError.message }}
       </div>
-      <div id="team-stats">
+      <div>
         <TeamStatsDashoBoard v-model="stats"/>
       </div>
     </div>
     <div class="metrics">
-      <div @click="showMetrics = !showMetrics" class="title-with-arrows tooltip" data-tooltip="Show metric options to be selected" >
-      <ArrowDown />
-        <h2 class="stats-h2" id="metrics"> Metrics </h2>
-      <ArrowDown />
-      </div>
-      <div v-show="showMetrics">
         <div v-if="teamMetricOptionsError">
           Error loading metrics options: {{ teamMetricOptionsError.message}}
         </div>
         <MetricDashboard v-if="teamMetricOptions" title="metricOptions"
-        :entity-id="id" :entity-param-name="pageParam" :seasons="teamSeasons"
+        :item-id="id" :item-param-name="pageParam" :seasons="teamSeasons"
         :metric-options="teamMetricOptions" :metric-config-map="TEAM_METRIC_CONFIGS"
         />
-      </div>
     </div>
   </div>
 

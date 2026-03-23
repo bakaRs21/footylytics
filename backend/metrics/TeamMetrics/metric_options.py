@@ -60,14 +60,14 @@ METRIC_OPTIONS = [
             {"name": "season_id", "type": "int", "required": False},
         ],
     }, {
-        "key": "goals_scored_percentage_by_minutes",
+        "key": "goals_scored_pct_by_minutes",
         "label": "Team goals scored percentage by 15 minutes through match",
         "params": [
             {"name": "team_id", "type": "int", "required": False},
             {"name": "season_id", "type": "int", "required": False}
         ]
     }, {
-        "key": "goals_conceded_percentage_by_minutes",
+        "key": "goals_conceded_pct_by_minutes",
         "label": "Team goals conceded percentage by 15 minutes through match",
         "params": [
             {"name": "team_id", "type": "int", "required": False},

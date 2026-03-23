@@ -4,6 +4,7 @@ export const PLAYER_METRIC_CONFIGS = {
     label: 'Goals per Match',
     endpoint: '/player-metrics/goals-per-match',
     allowedCharts: ['Bar Chart', 'Line Chart'],
+    sharedGraph: 'player_per_match',
     toChartData(rows, _chartType) {
       return {
         series: [{ name: 'Avg Goals/Match', data: rows.map(r => r.average_goals_per_match) }],
@@ -15,6 +16,7 @@ export const PLAYER_METRIC_CONFIGS = {
     label: 'Assists per Match',
     endpoint: '/player-metrics/assists-per-match',
     allowedCharts: ['Bar Chart', 'Line Chart'],
+    sharedGraph: 'player_per_match',
     toChartData(rows, _chartType) {
       return {
         series: [{ name: 'Avg Assists/Match', data: rows.map(r => r.average_assists_per_match) }],
@@ -26,6 +28,7 @@ export const PLAYER_METRIC_CONFIGS = {
     label: 'Shots per Match',
     endpoint: '/player-metrics/shots-per-match',
     allowedCharts: ['Bar Chart', 'Line Chart'],
+    sharedGraph: 'player_per_match',
     toChartData(rows, _chartType) {
       return {
         series: [{ name: 'Avg Shots/Match', data: rows.map(r => r.average_shots_per_match) }],
@@ -37,6 +40,7 @@ export const PLAYER_METRIC_CONFIGS = {
     label: 'Minutes per Match',
     endpoint: '/player-metrics/minutes-per-match',
     allowedCharts: ['Bar Chart', 'Line Chart'],
+    sharedGraph: null,
     toChartData(rows, _chartType) {
       return {
         series: [{ name: 'Avg Minutes/Match', data: rows.map(r => r.average_minutes_per_match) }],
@@ -48,6 +52,7 @@ export const PLAYER_METRIC_CONFIGS = {
     label: 'Penalty Success Rate',
     endpoint: '/player-metrics/penalty-success-rate',
     allowedCharts: ['Bar Chart', 'Donut Chart', 'Pie Chart'],
+    sharedGraph: 'player_accuracy',
     toChartData(rows, chartType) {
       if (chartType === 'Donut Chart' || chartType === 'Pie Chart') {
         return {
@@ -65,6 +70,7 @@ export const PLAYER_METRIC_CONFIGS = {
     label: 'Shot Accuracy',
     endpoint: '/player-metrics/shots-accuracy',
     allowedCharts: ['Bar Chart', 'Donut Chart', 'Pie Chart'],
+    sharedGraph: 'player_accuracy',
     toChartData(rows, chartType) {
       if (chartType === 'Donut Chart' || chartType === 'Pie Chart') {
         return {
@@ -86,8 +92,19 @@ export const TEAM_METRIC_CONFIGS = {
   goals_scored_per_match: {
     label: 'Goals Scored/Match',
     endpoint: '/team-metrics/goals-scored-per-match',
-    allowedCharts: ['Bar Chart', 'Line Chart'],
-    toChartData(rows, _chartType) {
+    metricValue: 'goals_scored_per_match',
+    allowedCharts: ['Bar Chart', 'Line Chart', "Pie Chart"],
+    sharedGraph: {
+      bar: {name : 'team_per_match_bar', type: 'bar'},
+      pie: {name: 'team_per_match_pie', type: 'pie'}
+    },  
+    toChartData(rows, chartType) {
+      if (chartType === 'Pie Chart') {
+        return {
+          series: rows.map(r => r.avg_goals_scored_per_match),
+          categories: rows.map(r => r.team_name)
+        }
+      }
       return {
         series: [{ name: 'Avg Goals Scored', data: rows.map(r => r.avg_goals_scored_per_match) }],
         categories: rows.map(r => r.team_name),
@@ -97,8 +114,19 @@ export const TEAM_METRIC_CONFIGS = {
   goals_conceded_per_match: {
     label: 'Goals Conceded/Match',
     endpoint: '/team-metrics/goals-conceded-per-match',
-    allowedCharts: ['Bar Chart', 'Line Chart'],
-    toChartData(rows, _chartType) {
+    metricValue: 'goals_conceded_per_match',
+    allowedCharts: ['Bar Chart', 'Line Chart', 'Pie Chart'],
+    sharedGraph: {
+      bar: {name : 'team_per_match_bar', type: 'bar'},
+      pie: {name: 'team_per_match_pie', type: 'pie'}
+    },
+    toChartData(rows, chartType) {
+      if (chartType === 'Pie Chart') {
+        return {
+          series: rows.map(r => r.avg_goals_conceded_per_match),
+          categories: rows.map(r => r.team_name)
+        }
+      }
       return {
         series: [{ name: 'Avg Goals Conceded', data: rows.map(r => r.avg_goals_conceded_per_match) }],
         categories: rows.map(r => r.team_name),
@@ -108,7 +136,9 @@ export const TEAM_METRIC_CONFIGS = {
   win_rate: {
     label: 'Win Rate (%)',
     endpoint: '/team-metrics/win-rate',
+    metricValue: 'win_rate_pct',
     allowedCharts: ['Bar Chart', 'Donut Chart', 'Pie Chart'],
+    sharedGraph: null,
     toChartData(rows, chartType) {
       if (chartType === 'Donut Chart' || chartType === 'Pie Chart') {
         return {
@@ -125,8 +155,19 @@ export const TEAM_METRIC_CONFIGS = {
   points_per_match: {
     label: 'Points per Match',
     endpoint: '/team-metrics/points-per-match',
-    allowedCharts: ['Bar Chart', 'Line Chart'],
-    toChartData(rows, _chartType) {
+    metricValue: 'points_per_match',
+    allowedCharts: ['Bar Chart', 'Line Chart', 'Pie Chart'],
+    sharedGraph: {
+      bar: {name : 'team_per_match_bar', type: 'bar'},
+      pie: {name: 'team_per_match_pie', type: 'pie'}
+    },
+    toChartData(rows, chartType) {
+      if (chartType === 'Pie Chart') {
+        return {
+          series: rows.map(r => r.points_per_match),
+          categories: rows.map(r => r.team_name)
+        }
+      }
       return {
         series: [{ name: 'Points/Match', data: rows.map(r => r.points_per_match) }],
         categories: rows.map(r => r.team_name),
@@ -136,7 +177,11 @@ export const TEAM_METRIC_CONFIGS = {
   goal_difference_per_match: {
     label: 'Goal Difference/Match',
     endpoint: '/team-metrics/goal-difference-per-match',
+    metricValue: 'goal_diff_per_match',
     allowedCharts: ['Bar Chart', 'Line Chart'],
+    sharedGraph: {
+      bar: {name : 'team_per_match_bar', type: 'bar'}
+    },
     toChartData(rows, _chartType) {
       return {
         series: [{ name: 'Goal Diff/Match', data: rows.map(r => r.goal_diff_per_match) }],
@@ -147,7 +192,9 @@ export const TEAM_METRIC_CONFIGS = {
   attack_defense_balance: {
     label: 'Attack-Defense Balance (GF - GA)',
     endpoint: '/team-metrics/attack-defense-balance',
+    metricValue: 'attack_defense_balance',
     allowedCharts: ['Bar Chart', 'Line Chart'],
+    sharedGraph: null,
     toChartData(rows, _chartType) {
       return {
         series: [{ name: 'GF - GA', data: rows.map(r => r.attack_defense_balance) }],
@@ -158,8 +205,19 @@ export const TEAM_METRIC_CONFIGS = {
   points_per_goal_scored: {
     label: 'Points per Goal Scored',
     endpoint: '/team-metrics/points-per-goal-scored',
-    allowedCharts: ['Bar Chart', 'Line Chart'],
-    toChartData(rows, _chartType) {
+    metricValue: 'points_per_goal_scored',
+    allowedCharts: ['Bar Chart', 'Line Chart', 'Pie Chart'],
+    sharedGraph: {
+      bar: { name: 'team_efficiency_bar', type: 'bar' },
+      pie: { name: 'team_efficiency_pie', type: 'pie' },
+    },
+    toChartData(rows, chartType) {
+      if (chartType === 'Pie Chart') {
+        return {
+          series: rows.map(r => r.points_per_goal_scored),
+          categories: rows.map(r => r.team_name)
+        }
+      }
       return {
         series: [{ name: 'Points/Goal', data: rows.map(r => r.points_per_goal_scored ?? 0) }],
         categories: rows.map(r => r.team_name),
@@ -169,8 +227,19 @@ export const TEAM_METRIC_CONFIGS = {
   season_consistency_index: {
     label: 'Season Consistency Index',
     endpoint: '/team-metrics/season-consistency-index',
-    allowedCharts: ['Bar Chart', 'Line Chart'],
-    toChartData(rows, _chartType) {
+    metricValue: 'season_consistency_index',
+    allowedCharts: ['Bar Chart', 'Line Chart', 'Pie Chart'],
+    sharedGraph: {
+      bar: { name: 'team_efficiency_bar', type: 'bar' },
+      pie: { name: 'team_efficiency_pie', type: 'pie' },
+    },
+    toChartData(rows, chartType) {
+      if (chartType === 'Pie Chart') {
+        return {
+          series: rows.map(r => r.season_consistency_index),
+          categories: rows.map(r => r.team_name)
+        }
+      }
       return {
         series: [{ name: 'Consistency Index', data: rows.map(r => r.season_consistency_index ?? 0) }],
         categories: rows.map(r => `Team ${r.team_id} S${r.season_id}`),
@@ -181,6 +250,7 @@ export const TEAM_METRIC_CONFIGS = {
     label: 'Goals Scored % by Minute Interval',
     endpoint: '/team-metrics/goals-scored-percentage-by-minutes',
     allowedCharts: ['Bar Chart'],
+    sharedGraph: null,
     toChartData(rows, _chartType) {
       const intervals = ['0–15', '16–30', '31–45', '46–60', '61–75', '76–90', '91–105', '106–120']
       const keys = [
@@ -198,6 +268,7 @@ export const TEAM_METRIC_CONFIGS = {
     label: 'Goals Conceded % by Minute Interval',
     endpoint: '/team-metrics/goals-conceded-percentage-by-minutes',
     allowedCharts: ['Bar Chart'],
+    sharedGraph: null,
     toChartData(rows, _chartType) {
       const intervals = ['0–15', '16–30', '31–45', '46–60', '61–75', '76–90', '91–105', '106–120']
       const keys = [

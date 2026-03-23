@@ -1,6 +1,7 @@
 <script setup>
 import { useMetrics } from '~/composables/useMetrics.js'
 
+const showMetrics = ref(false)
 const { loadMetricOptions, mergedPlayerMetrics, mergedTeamMetrics, loading } = useMetrics()
 
 onMounted(() => loadMetricOptions())

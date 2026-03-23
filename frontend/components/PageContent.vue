@@ -5,12 +5,19 @@ const props = defineProps({
         required: true,
     }
 })
-function scrollTo(anchor) {
+async function scrollTo(anchor) {
     if (!anchor) return;
+    await nextTick()
+
     const element = document.getElementById(anchor);
-    const offset = 90
-    const elPosition = element.getBoundingClientRect().top + window.scrollY - offset
-    window.scrollTo({ top: elPosition, behavior: 'smooth' })
+    if (!element) return;
+    element.scrollIntoView({ behavior: 'smooth', block: 'start'})
+
+    requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+            element.scrollIntoView({ behavior: 'smooth', block: 'start'})
+        })
+    })
 }
 
 </script>

@@ -2,15 +2,15 @@
 import { computed, watch } from 'vue';
 
 const stats = defineModel({
-    type: Object,
+    type: Object ?? null,
     required: true,
-    default: null,
+    default: {},
 })
 const showStats = ref(false);
 const dashboard = ref(null);
 
 const newStats = computed(() =>  {
-    if (!stats.value) return null;
+    if (!stats.value) return {};
     return Object.fromEntries(Object.entries(stats.value).filter(([_, v]) => v != null))
 });
 
@@ -62,10 +62,10 @@ function clearStats() {
 </script>
 
 <template>
-<div>
+<div class="tsd-wrapper">
     <div @click="showStats = !showStats" class="title-with-arrows tooltip" data-tooltip="Show metric options to be selected" >
         <ArrowDown />
-        <h2 class="stats-h2" id="metrics"> Team Statistics </h2>
+        <h2 class="stats-h2" id="stats"> Team Statistics </h2>
         <ArrowDown />
     </div>
     <div v-if="showStats" class="dashboard-wrapper">
@@ -204,10 +204,12 @@ function clearStats() {
 </template>
 
 <style scoped>
+.tsd-wrapper {
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.281);
+}
 .dashboard-wrapper {
     width: 100%;
-    padding: 1rem;
-    min-height: 100vh;
     margin-top: 10px;
 }
 .dashboard-title {
