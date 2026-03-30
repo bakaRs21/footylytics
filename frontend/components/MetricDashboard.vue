@@ -63,9 +63,11 @@ function allowedChartsForMetricKey(metricKey) {
 function flattenResultToChartData(result) {
   const obj = Array.isArray(result) ? (result[0] ?? {}) : (result ?? {})
   const out = {}
+  const ignoreKeys = ['player_id', 'team_id', 'season_id', 'id']
 
   for (const [key, value] of Object.entries(obj)) {
-    if (key.toLowerCase().includes("id")) continue
+    if (ignoreKeys.includes(key.toLowerCase())) continue
+
     if (typeof value === "number" && Number.isFinite(value)) {
       out[key] = value
 
@@ -265,6 +267,8 @@ async function scrollToDashboard() {
         </div>
 
         <div v-else class="md__grid">
+          fetched stats {{ fetched }}
+          {{ rows }}
           <div v-for="(row, rowIndex) in rows" :key="rowIndex" class="md__row">
             <div v-for="card in row" 
             :key="card.key" class="md__cardWrap" 

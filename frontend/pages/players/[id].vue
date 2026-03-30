@@ -12,7 +12,6 @@ const seasonParam = ref("")
 const stats = ref(null)
 const statsStatus = ref("")
 const statsError = ref("")
-const showMetrics = ref(false)
 const pageSections = [
   { label: "Player Info", anchor: "player-info" },
   { label: "Season Selection", anchor: "season-selection" },
@@ -24,9 +23,6 @@ watch(() => stats.value, (newVal) => {
   if (newVal === null) {
     selectedSeason.value = ""
   }
-})
-watch(() => showMetrics.value, async (newVal) => {
-  await router.push({ query: { ...route.query, metrics: showMetrics.value } })
 })
 
 const { data: playerInfo, error: playerInfoError } = await useFetch(`${config.public.apiBase}players/${id.value}`)
@@ -86,9 +82,6 @@ async function Inspection() {
 }
 
 onMounted(() => {
-  if (route.query.metrics === "true") {
-    showMetrics.value = true
-  }
   Inspection()
 })
 </script>
@@ -140,20 +133,13 @@ onMounted(() => {
     </div>
   </div>
   <div class="metrics">
-    <div @click="showMetrics = !showMetrics" class="title-with-arrows tooltip" data-tooltip="Show metric options to be selected" >
-    <ArrowDown />
-      <h2 class="stats-h2" id="metrics"> Metrics </h2>
-    <ArrowDown />
-    </div>
-    <div v-show="showMetrics">
       <div v-if="playerMetricOptionsError">
         Error loading metric options: {{  playerMetricOptionsError.message }}
       </div>
       <MetricDashboard v-if="playerMetricOptions" title="metricOptions"
-      :entity-id="id" :entity-param-name="pageParam" :seasons="playerSeasons" 
+      :item-id="id" :item-param-name="pageParam" :seasons="playerSeasons" 
       :metric-options="playerMetricOptions" :metric-config-map="PLAYER_METRIC_CONFIGS"
       />
-    </div>
   </div>
 
   <PageContent :page-sections="pageSections" />

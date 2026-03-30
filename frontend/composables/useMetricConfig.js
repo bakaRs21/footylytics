@@ -3,84 +3,129 @@ export const PLAYER_METRIC_CONFIGS = {
   goals_per_match: {
     label: 'Goals per Match',
     endpoint: '/player-metrics/goals-per-match',
-    allowedCharts: ['Bar Chart', 'Line Chart'],
-    sharedGraph: 'player_per_match',
-    toChartData(rows, _chartType) {
+    metricValue: 'goals_per_match',
+    allowedCharts: ['Bar Chart', 'Line Chart', 'Pie Chart', 'Donut Chart'],
+    sharedGraph: {
+      bar: { name: 'player_per_match_bar', type: 'bar' },
+      pie: { name: 'player_per_match_pie', type: 'pie' }
+    },
+    toChartData(rows, chartType) {
+      if (chartType === 'Pie Chart' || chartType === 'Donut Chart') {
+        return {
+          series: rows.map(r => r.goals_per_match),
+          labels: rows.map(r => r.name),
+        }
+      }
       return {
-        series: [{ name: 'Avg Goals/Match', data: rows.map(r => r.average_goals_per_match) }],
-        categories: rows.map(r => r.player_name),
+        series: [{ name: 'Avg Goals/Match', data: rows.map(r => r.goals_per_match) }],
+        categories: rows.map(r => r.name),
       }
     },
   },
   assists_per_match: {
     label: 'Assists per Match',
     endpoint: '/player-metrics/assists-per-match',
-    allowedCharts: ['Bar Chart', 'Line Chart'],
-    sharedGraph: 'player_per_match',
-    toChartData(rows, _chartType) {
+    metricValue: 'assists_per_match',
+    allowedCharts: ['Bar Chart', 'Line Chart', 'Pie Chart', 'Donut Chart'],
+    sharedGraph: {
+      bar: { name: 'player_per_match_bar', type: 'bar' },
+      pie: { name: 'player_per_match_pie', type: 'pie' }
+    },
+    toChartData(rows, chartType) {
+      if (chartType === 'Pie Chart' || chartType === 'Donut Chart') {
+        return {
+          series: rows.map(r => r.assists_per_match),
+          labels: rows.map(r => r.name),
+        }
+      }
       return {
-        series: [{ name: 'Avg Assists/Match', data: rows.map(r => r.average_assists_per_match) }],
-        categories: rows.map(r => r.player_name),
+        series: [{ name: 'Avg Assists/Match', data: rows.map(r => r.assists_per_match) }],
+        categories: rows.map(r => r.name),
       }
     },
   },
   shots_per_match: {
     label: 'Shots per Match',
     endpoint: '/player-metrics/shots-per-match',
-    allowedCharts: ['Bar Chart', 'Line Chart'],
-    sharedGraph: 'player_per_match',
-    toChartData(rows, _chartType) {
+    metricValue: 'shots_per_match',
+    allowedCharts: ['Bar Chart', 'Line Chart', 'Pie Chart', 'Donut Chart'],
+    sharedGraph: {
+      bar: { name: 'player_per_match_bar', type: 'bar' },
+      pie: { name: 'player_per_match_pie', type: 'pie' }
+    },
+    toChartData(rows, chartType) {
+      if (chartType === 'Pie Chart' || chartType === 'Donut Chart') {
+        return {
+          series: rows.map(r => r.shots_per_match),
+          labels: rows.map(r => r.name),
+        }
+      }
       return {
-        series: [{ name: 'Avg Shots/Match', data: rows.map(r => r.average_shots_per_match) }],
-        categories: rows.map(r => r.player_name),
+        series: [{ name: 'Avg Shots/Match', data: rows.map(r => r.shots_per_match) }],
+        categories: rows.map(r => r.name),
       }
     },
   },
   minutes_per_match: {
     label: 'Minutes per Match',
     endpoint: '/player-metrics/minutes-per-match',
-    allowedCharts: ['Bar Chart', 'Line Chart'],
+    metricValue: 'minutes_per_match',
+    allowedCharts: ['Bar Chart', 'Line Chart', 'Pie Chart', 'Donut Chart'],
     sharedGraph: null,
-    toChartData(rows, _chartType) {
+    toChartData(rows, chartType) {
+      if (chartType === 'Pie Chart' || chartType === 'Donut Chart') {
+        return {
+          series: rows.map(r => r.minutes_per_match),
+          labels: rows.map(r => r.name),
+        }
+      }
       return {
-        series: [{ name: 'Avg Minutes/Match', data: rows.map(r => r.average_minutes_per_match) }],
-        categories: rows.map(r => r.player_name),
+        series: [{ name: 'Avg Minutes/Match', data: rows.map(r => r.minutes_per_match) }],
+        categories: rows.map(r => r.name),
       }
     }
   },
   penalty_success_rate: {
     label: 'Penalty Success Rate',
     endpoint: '/player-metrics/penalty-success-rate',
+    metricValue: 'penalty_success_rate',
     allowedCharts: ['Bar Chart', 'Donut Chart', 'Pie Chart'],
-    sharedGraph: 'player_accuracy',
+    sharedGraph: {
+      bar: { name: 'player_accuracy_bar', type: 'bar' },
+      pie: { name: 'player_accuracy_pie', type: 'pie' }
+    },
     toChartData(rows, chartType) {
       if (chartType === 'Donut Chart' || chartType === 'Pie Chart') {
         return {
-          series: rows.map(r => r.penalty_succes_rate),
-          labels: rows.map(r => r.player_name),
+          series: rows.map(r => r.penalty_success_rate),
+          labels: rows.map(r => r.name),
         }
       }
       return {
-        series: [{ name: 'Penalty Success %', data: rows.map(r => r.penalty_succes_rate) }],
-        categories: rows.map(r => r.player_name),
+        series: [{ name: 'Penalty Success %', data: rows.map(r => r.penalty_success_rate) }],
+        categories: rows.map(r => r.name),
       }
     },
   },
   shots_accuracy: {
     label: 'Shot Accuracy',
     endpoint: '/player-metrics/shots-accuracy',
+    metricValue: 'accuracy_pct',
     allowedCharts: ['Bar Chart', 'Donut Chart', 'Pie Chart'],
-    sharedGraph: 'player_accuracy',
+    sharedGraph: {
+      bar: { name: 'player_accuracy_bar', type: 'bar' },
+      pie: { name: 'player_accuracy_pie', type: 'pie' }
+    },
     toChartData(rows, chartType) {
       if (chartType === 'Donut Chart' || chartType === 'Pie Chart') {
         return {
           series: rows.map(r => r.accuracy_pct),
-          labels: rows.map(r => r.player_name),
+          labels: rows.map(r => r.name),
         }
       }
       return {
         series: [{ name: 'Shot Accuracy %', data: rows.map(r => r.accuracy_pct) }],
-        categories: rows.map(r => r.player_name),
+        categories: rows.map(r => r.name),
       }
     },
   },
