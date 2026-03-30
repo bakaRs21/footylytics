@@ -1,5 +1,6 @@
 <script setup>
 import { computed, ref, toRaw, onMounted } from 'vue';
+import {Icon} from '@iconify/vue';
 const comparing = ref(null);
 
 const props = defineProps({
@@ -83,7 +84,7 @@ const metricGroups = computed(() => {
         return {
             games: {
                 title: 'Game Time',
-                icon: '🎮',
+                icon: 'openmoji:stopwatch',
                 metrics: [
                     { key: 'total_matches_played', label: 'Appearances',   type: 'number' },
                     { key: 'games_lineups',         label: 'Starts',        type: 'number' },
@@ -93,7 +94,7 @@ const metricGroups = computed(() => {
             },
             attacking: {
                 title: 'Attacking',
-                icon: '⚽',
+                icon: 'openmoji:soccer-ball',
                 metrics: [
                     { key: 'total_goals',       label: 'Goals',         type: 'success' },
                     { key: 'total_assists',      label: 'Assists',       type: 'success' },
@@ -105,7 +106,7 @@ const metricGroups = computed(() => {
             },
             passing: {
                 title: 'Passing',
-                icon: '🎯',
+                icon: 'openmoji:bullseye',
                 metrics: [
                     { key: 'total_passes',   label: 'Total Passes',  type: 'number' },
                     { key: 'key_passes',     label: 'Key Passes',    type: 'success' },
@@ -114,7 +115,7 @@ const metricGroups = computed(() => {
             },
             defensive: {
                 title: 'Defensive',
-                icon: '🛡️',
+                icon: 'openmoji:shield',
                 metrics: [
                     { key: 'total_tackles',         label: 'Tackles',           type: 'number' },
                     { key: 'tackles_interceptions', label: 'Interceptions',     type: 'success' },
@@ -125,7 +126,7 @@ const metricGroups = computed(() => {
             },
             discipline: {
                 title: 'Discipline',
-                icon: '🟨',
+                icon: 'openmoji:warning',
                 metrics: [
                     { key: 'fouls_committed',  label: 'Fouls Committed',  type: 'danger',  lowerIsBetter: true },
                     { key: 'fouls_drawn',      label: 'Fouls Drawn',      type: 'success' },
@@ -135,7 +136,7 @@ const metricGroups = computed(() => {
             },
             goalkeeper: {
                 title: 'Goalkeeper',
-                icon: '🧤',
+                icon: 'openmoji:gloves',
                 metrics: [
                     { key: 'saves',           label: 'Saves',            type: 'success' },
                     { key: 'goals_conceded',  label: 'Goals Conceded',   type: 'danger',  lowerIsBetter: true },
@@ -147,7 +148,7 @@ const metricGroups = computed(() => {
     return {
         matches: {
             title: 'Matches Overview',
-            icon: '⚽',
+            icon: 'openmoji:soccer-ball',
             metrics: [
                 { key: 'total_matches_played', label: 'Matches Played', type: 'number' },
                 { key: 'total_wins',           label: 'Wins',           type: 'win' },
@@ -157,7 +158,7 @@ const metricGroups = computed(() => {
         },
         goals: {
             title: 'Goals & Performance',
-            icon: '🥅',
+            icon: 'openmoji:goal-net',
             metrics: [
                 { key: 'total_goals_scored',    label: 'Goals Scored',    type: 'success' },
                 { key: 'total_goals_conceded',  label: 'Goals Conceded',  type: 'danger',  lowerIsBetter: true },
@@ -167,7 +168,7 @@ const metricGroups = computed(() => {
         },
         streaks: {
             title: 'Streaks',
-            icon: '📊',
+            icon: 'openmoji:chart-increasing',
             metrics: [
                 { key: 'biggest_win_streak',   label: 'Win Streak',   type: 'win' },
                 { key: 'biggest_draw_streak',  label: 'Draw Streak',  type: 'draw' },
@@ -189,6 +190,37 @@ const groupHasData = (group, competitors) => {
         competitors.some(c => c.rawStats[metric.key] != null)
     );
 };
+const overallWinner = computed(() => {
+    if (competitors.value.length !== 2) return null;
+
+    const [c1, c2] = competitors.value;
+    let firstWins = 0;
+    let secondWins = 0;
+
+    Object.values(metricGroups.value).forEach(group => {
+        group.metrics.forEach(metric => {
+            const v1 = c1.rawStats[metric.key];
+            const v2 = c2.rawStats[metric.key];
+            if (v1 == null || v2 == null) return;
+            if (isWinner(v1, v2, metric.lowerIsBetter)) firstWins++;
+            else if (isWinner(v2, v1, metric.lowerIsBetter)) secondWins++;
+        });
+    });
+
+    const total = firstWins + secondWins;
+    return {
+        firstWins,
+        secondWins,
+        total,
+        winner: firstWins > secondWins ? 'first'
+              : secondWins > firstWins ? 'second'
+              : 'tie',
+        firstName: props.firstName,
+        secondName: props.secondName,
+        firstPct:  total > 0 ? Math.round((firstWins  / total) * 100) : 50,
+        secondPct: total > 0 ? Math.round((secondWins / total) * 100) : 50,
+    };
+});
 
 onMounted(() => {
     if (comparing.value) {
@@ -212,11 +244,48 @@ onMounted(() => {
             <h2 class="entity-name">{{ secondName }}</h2>
         </div>
     </div>
+     <div v-if="overallWinner" class="winner-banner" :class="overallWinner.winner">
+        <div class="winner-label">
+            <span v-if="overallWinner.winner === 'tie'" class="winner-title">
+                <span><Icon icon="openmoji:handshake" class="icon-md"/></span>
+                <span>It's a Tie!</span>
+            </span>
+            <span v-else class="winner-title">
+                <span><Icon icon="openmoji:crown" class="icon-lg" /> </span>
+                <span>Overall Winner: </span>
+                <strong>{{ overallWinner.winner === 'first' ? overallWinner.firstName : overallWinner.secondName }}</strong>
+            </span>
+            <span class="winner-subtitle">
+                {{ overallWinner.firstWins }}W vs {{ overallWinner.secondWins }}W
+                out of {{ overallWinner.total }} metrics
+            </span>
+        </div>
+        <div class="winner-bar-track">
+            <div
+                class="winner-bar-fill first-fill"
+                :style="{ width: overallWinner.firstPct + '%' }"
+            >
+                <span v-if="overallWinner.firstPct > 15" class="bar-label">
+                    {{ overallWinner.firstName }} {{ overallWinner.firstPct }}%
+                </span>
+            </div>
+            <div
+                class="winner-bar-fill second-fill"
+                :style="{ width: overallWinner.secondPct + '%' }"
+            >
+                <span v-if="overallWinner.secondPct > 15" class="bar-label">
+                    {{ overallWinner.secondName }} {{ overallWinner.secondPct }}%
+                </span>
+            </div>
+        </div>
+    </div>
 
     <div class="metrics-container">
         <div v-for="(group, groupKey) in metricGroups" :key="groupKey" class="metric-group">
             <h3 class="group-title">
-                <span class="group-icon">{{ group.icon }}</span>
+                <span class="group-icon">
+                    <Icon :icon="group.icon" class="icon-lg"/>
+                </span>
                 {{ group.title }}
             </h3>
             <div class="comparison-grid">
@@ -243,7 +312,9 @@ onMounted(() => {
 
     <div v-if="type !== 'player' && competitors.some(c => c.lineups)" class="lineups-section">
         <h3 class="section-title">
-            <span class="group-icon">📋</span>
+            <span class="group-icon">
+                <Icon icon="openmoji:edit" class="icon-lg"/>
+            </span>
             Formations
         </h3>
         <div class="lineups-comparison">
@@ -271,7 +342,9 @@ onMounted(() => {
 
     <div v-if="competitors.some(c => c.form)" class="form-section">
         <h3 class="section-title">
-            <span class="group-icon">📈</span>
+            <span class="group-icon">
+                <Icon icon="openmoji:chart-increasing" class="icon-lg"/>
+            </span>
             Recent Form
         </h3>
         <div class="form-comparison">
@@ -289,7 +362,9 @@ onMounted(() => {
     </div>
     <div v-if="competitors.some(c => c.rawStats.total_penalties_scored !== undefined)" class="penalties-section">
         <h3 class="section-title">
-            <span class="group-icon">⚠️</span>
+            <span class="group-icon">
+                <Icon icon="openmoji:goal-net" class="icon-lg"/>
+            </span>
             Penalties
         </h3>
         <div class="penalties-comparison">
@@ -694,5 +769,79 @@ onMounted(() => {
         font-size: 0.9rem;
         padding: 0.35rem 0.75rem;
     }
+}
+
+.winner-banner {
+    max-width: 1200px;
+    margin: 0 auto 1rem;
+    background: #2a2a2a;
+    border-radius: 10px;
+    padding: 1rem 1.25rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.winner-label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75rem;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+}
+
+.winner-title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.winner-title strong {
+    color: #4ade80;
+}
+
+.winner-banner.first  .winner-title strong { color: #60a5fa; }
+.winner-banner.second .winner-title strong { color: #f87171; }
+.winner-banner.tie    .winner-title strong { color: #fbbf24; }
+
+.winner-subtitle {
+    font-size: 0.8rem;
+    color: #a0a0a0;
+}
+
+.winner-bar-track {
+    display: flex;
+    height: 28px;
+    border-radius: 6px;
+    overflow: hidden;
+    background: #1a1a1a;
+}
+
+.winner-bar-fill {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: width 0.6s ease;
+    overflow: hidden;
+    min-width: 0;
+}
+
+.winner-bar-fill.first-fill  { background: linear-gradient(90deg, #2563eb, #3b82f6); }
+.winner-bar-fill.second-fill { background: linear-gradient(90deg, #ef4444, #dc2626); }
+
+.bar-label {
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: #fff;
+    white-space: nowrap;
+    padding: 0 0.4rem;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+}
+
+@media (max-width: 640px) {
+    .winner-label { flex-direction: column; align-items: flex-start; }
+    .winner-title { font-size: 0.9rem; }
 }
 </style>

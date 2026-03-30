@@ -9,13 +9,13 @@ const pageParam = 'player_id'
 const onMountedMsg = ref("")
 const selectedSeason = ref("")
 const seasonParam = ref("")
-const stats = ref(null)
+const stats = ref({})
 const statsStatus = ref("")
 const statsError = ref("")
 const pageSections = [
-  { label: "Player Info", anchor: "player-info" },
-  { label: "Season Selection", anchor: "season-selection" },
-  { label: "Player Statistics", anchor: "player-stats" },
+  { label: "Player Info", anchor: "top-section" },
+  { label: "Season Selection", anchor: "seasons" },
+  { label: "Player Statistics", anchor: "stats" },
   { label: "Player Metrics", anchor: "metrics" },
 ]
 
@@ -91,7 +91,7 @@ onMounted(() => {
   </div>
   <div v-else-if="playerInfo" class="top-section">
     <div class="page-heading"> 
-      <h1 class="h1-design" id="player-info">{{ playerInfo.name }}</h1>
+      <h1 class="h1-design" id="top-section">{{ playerInfo.name }}</h1>
     </div>
     <div class="player-info">
       <table class="info-table">
@@ -104,7 +104,7 @@ onMounted(() => {
   </div>
   <div class="seasons">
     <div class="season-selection-heading">
-      <h3 id="season-selection">Select a season : </h3>
+      <h3 id="seasons">Select a season : </h3>
       <div class="all-seasons">
         <h3 id="allS">Or data from</h3  >
         <button class="all-seasons-button" @click="selectSeason(0)">All Seasons</button>
@@ -128,7 +128,7 @@ onMounted(() => {
     <div v-else-if="statsError" class="error-message">
       Error loading stats: {{ statsError.message }}
     </div>
-    <div id="player-stats">
+    <div id="stats">
       <PlayerStatsDashBoard v-model="stats" />
     </div>
   </div>
@@ -206,10 +206,4 @@ td {
   margin-left: 20px;
 }
 
-.stats-h2 {
-  margin-bottom: 0;
-  font-size: 1.4rem;
-  font-weight: 700;
-  text-align: center;
-}
 </style>

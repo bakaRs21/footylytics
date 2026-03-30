@@ -1,5 +1,6 @@
 <script setup>
   import { ref, onMounted, watch } from 'vue';
+import PageContent from '~/components/PageContent.vue';
 const config = useRuntimeConfig()
 const route = useRoute();
 const router = useRouter();
@@ -35,8 +36,17 @@ const statsErrorMsg = ref("");
 // Stats Constants
 const statsForFirst = ref(null);
 const statsForSecond = ref(null);
+// page content sections
+const sections = [
+  {label: "Selection", anchor: "top-section"},
+  {label: "Stats comparison", anchor: "stats"}
+]
 
 watch([firstObject, secondObject, firstSeasonSelected, secondSeasonSelected], async ([newFirst, newSecond, newFirstSeason, newSecondSeason], [oldFirst, oldSecond]) => {
+  if (newFirstSeason && newSecondSeason) {
+    firstSeasonSelected.value = newFirstSeason || ""
+    secondSeasonSelected.value = newSecondSeason || ""
+  }
   if (newFirst != oldFirst){
     firstId.value = newFirst?.[pageId]
     firstName.value = newFirst?.name
@@ -50,10 +60,6 @@ watch([firstObject, secondObject, firstSeasonSelected, secondSeasonSelected], as
     secondSeasons.value = null
     secondSeasonSelected.value = ""
     secondSeasonsError.value = ""
-  }
-  if (newFirstSeason && newSecondSeason) {
-    firstSeasonSelected.value = newFirstSeason || ""
-    secondSeasonSelected.value = newSecondSeason || ""
   }
   await router.replace({ query: { first: firstId.value, second: secondId.value, firstSeason: firstSeasonSelected.value, secondSeason: secondSeasonSelected.value } })
   await Inspection()
@@ -89,7 +95,7 @@ async function Inspection() {
     return; 
   }
   if (!firstId.value || !secondId.value) {
-    compareErrorMsg.value = `Please select both ${errorMsgId}.`;
+    compareErrorMsg.value = `Please select both ${errorMsgId} first.`;
     firstSeasons.value = "";
     secondSeasons.value = "";
     return;
@@ -145,7 +151,7 @@ onMounted(async () => {
 
 <template>
   <div class="page-heading">
-        <h1 class ="h1-design">Comparing {{ id }}</h1>
+        <h1 class ="h1-design" id="top-section">Comparing {{ id }}</h1>
     </div>
     <div v-if="listError">
       Error fetching {{ id }} : {{ listError.message }}
@@ -172,14 +178,14 @@ onMounted(async () => {
             Error fetching seasons:
             <div>{{ firstSeasonsError }}</div>
           </div>
-          <div class="season-selects">
+          <div class="season-selects" v-if="firstId && secondId">
             <select v-model="firstSeasonSelected">
-              <option disabled value="">Select</option>
+              <option disabled value="">Select season</option>
               <option value="all-seasons">all seasons</option>
               <option v-for="value in firstSeasons" :key="value">{{ value }}</option>
             </select>
             <select v-model="secondSeasonSelected">
-              <option disabled value="">Select</option>
+              <option disabled value="">Select season</option>
               <option value="all-seasons">all seasons</option>
               <option v-for="value in secondSeasons" :key="value">{{ value }}</option>
              </select>
@@ -200,13 +206,15 @@ onMounted(async () => {
         No stats available for the selected seasons.
       </div>
       <div v-else-if="statsForFirst && statsForSecond">
-        <div>
+        <div id="stats">
             <CompareStats v-if="statsForFirst && statsForSecond"
             :first-stats="statsForFirst" :first-name="firstName" :second-stats="statsForSecond" :second-name="secondName" :type="trimmedId"
             />
         </div>
       </div>
     </div>
+
+    <PageContent :page-sections="sections" />
 </template>
 
 <style scoped>

@@ -267,8 +267,6 @@ async function scrollToDashboard() {
         </div>
 
         <div v-else class="md__grid">
-          fetched stats {{ fetched }}
-          {{ rows }}
           <div v-for="(row, rowIndex) in rows" :key="rowIndex" class="md__row">
             <div v-for="card in row" 
             :key="card.key" class="md__cardWrap" 
