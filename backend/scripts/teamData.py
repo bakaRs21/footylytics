@@ -1,6 +1,6 @@
 from typing import List, Optional
 from scripts.models_updated import Team, TeamSeason, Season
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, joinedload
 
     #get all teams
 def teams(session: Session) -> List[Team]:
@@ -49,5 +49,30 @@ async def seasons_for_team(team_id: int, session: Session):
             raise ValueError(f"Seasons for team with id {team_id} not found")
         flat_seasons = [s[0] for s in seasons]
         return flat_seasons
+    finally:
+        session.close()
+
+async def teams_with_seasons(session: Session):
+    try:
+        teams = (session.query(Team).join(TeamSeason).join(Season).options(
+            joinedload(Team.team_seasons)
+            .joinedload(TeamSeason.season)
+        ).all())
+        if not teams:
+            raise ValueError("No teams with seasons found")
+        return [
+            {
+                'team_id': team.team_id,
+                'name': team.name,
+                'seasons': [
+                    {
+                        'season_id': season.season.season_id,
+                        'season': season.season.season,
+                    }
+                    for season in team.team_seasons
+                ]
+            }
+            for team in teams
+        ]
     finally:
         session.close()

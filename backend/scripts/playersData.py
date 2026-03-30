@@ -1,5 +1,5 @@
 from sqlalchemy import Integer, func
-from scripts.models_updated import Player, PlayerSeason, Season, Nation
+from scripts.models_updated import Player, PlayerSeason, Season, Nation, Team
 from typing import List
 from sqlalchemy.orm import load_only, Session, joinedload
 from sqlalchemy.inspection import inspect
@@ -72,19 +72,37 @@ async def player_stats_from_season(player_id: int, season_id: int, session: Sess
     finally:
         session.close()
 
-def player_stats_builder(player_id, session):
-    mapper = inspect(PlayerSeason)
-    summed_cols = []
-
-    for column in mapper.columns:
-        col_name = column.name
-        if col_name in ["player_season_id", "player_id", "season_id"]:
-            continue
-        if isinstance(column.type, Integer) is False:
-            continue
-        if "percentage" in col_name or "average" in col_name:
-            continue
-        summed_cols.append(func.sum(getattr(PlayerSeason, col_name)).label(col_name))
-
-    query = session.query(*summed_cols).filter(PlayerSeason.player_id == player_id).first()
-    return query
+def player_with_seasons_teams(session: Session):
+    try:
+        players = (session.query(Player).join(PlayerSeason).join(Season).join(Team).options(
+            joinedload(Player.player_seasons)
+            .joinedload(PlayerSeason.team),
+            joinedload(Player.player_seasons)
+            .joinedload(PlayerSeason.season)
+        ).all())
+        if not players:
+            raise ValueError("No players with seasons and teams found")
+        
+        return [
+            {
+                'player_id': player.player_id,
+                'name': player.name,
+                'seasons': [
+                    {
+                        'season_id': season.season.season_id,
+                        'season': season.season.season,
+                    }
+                    for season in player.player_seasons
+                ],
+                'teams': [
+                    {
+                        'team_id': team.team.team_id,
+                        'name': team.team.name,
+                    }
+                    for team in player.player_seasons
+                ]
+            }
+            for player in players
+        ]
+    finally:
+        session.close()

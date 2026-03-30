@@ -3,7 +3,7 @@ const playerArray = ref([]);
 const page = "player";
 
 const config = useRuntimeConfig()
-const { pending: isLoading, data: players, error } = await useFetch(`${config.public.apiBase}compare/Players`, {
+const { pending: isLoading, data: players, error } = await useFetch(`${config.public.apiBase}players/with-seasons-teams`, {
   lazy: true,
 })
 </script>

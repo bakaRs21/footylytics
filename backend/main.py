@@ -110,6 +110,9 @@ async def get_teams(db: Session = Depends(get_session)):
 
 
 # from teams page
+@teams.get("/with-seasons")
+async def get_all_teams(db: Session = Depends(get_session)):
+    return await team_data.teams_with_seasons(db)
 @teams.get("/{team_id}")
 async def get_team_info(team_id: int, db: Session = Depends(get_session)):
     return team_data.team_info(team_id, db)
@@ -124,6 +127,10 @@ async def get_team_stats(team_id: int, season_id: int | None = None, db: Session
 
 
 # from players page
+@players.get("/with-seasons-teams")
+async def get_players_with_seasons_teams(db: Session = Depends(get_session)):
+    return players_data.player_with_seasons_teams(db)
+
 @players.get("/{player_id}")
 def get_player_info(player_id: int, db: Session = Depends(get_session)):
     return players_data.player_info(player_id, db)

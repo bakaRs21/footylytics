@@ -1,7 +1,7 @@
 <script setup>
 
 const config = useRuntimeConfig()
-const { pending: isLoading, data: teams, error } = await useFetch(`${config.public.apiBase}compare/Teams`, {
+const { pending: isLoading, data: teams, error } = await useFetch(`${config.public.apiBase}teams/with-seasons`, {
   lazy: true,
 })
 </script>
