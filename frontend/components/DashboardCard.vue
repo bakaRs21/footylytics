@@ -17,9 +17,7 @@ const props = defineProps({
     },
 })
 const selectedChart = ref(null)
-function onChartChange(chart) {
-    selectedChart.value = chart;
-}
+
 const data = ref(null)
 function onSelectedKeysChange(selectedKeys) {
     data.value = selectedKeys;
@@ -61,7 +59,7 @@ function formatLabel(label) {
         <div class="card-header">
             <div class="header-left">
                 <ChartSelector  :chartOptions="chartOptions"
-                @update:selectedChart="onChartChange"
+                v-model:selectedChart="selectedChart"
                 />
             </div>
             <div class="header-right">

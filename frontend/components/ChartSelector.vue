@@ -4,7 +4,7 @@ const props = defineProps({
     chartOptions: {
         type: Array,
         required: true,
-    },
+    }
 })
 const emitSelectedChart = defineEmits(['update:selectedChart']);
 const selectedChart = defineModel('modelValue', {

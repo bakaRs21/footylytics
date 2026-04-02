@@ -208,15 +208,15 @@ def get_basic_team_stats(db: Session, team_id: int, season_id: int | None):
             
             stats["biggest_win_streak"] = max(
                 stats["biggest_win_streak"], 
-                ts.biggest_streak_wins or 0
+                int(ts.biggest_streak_wins) if ts.biggest_streak_wins is not None else 0
             )
             stats["biggest_draw_streak"] = max(
                 stats["biggest_draw_streak"], 
-                ts.biggest_streak_draws or 0
+                int(ts.biggest_streak_draws) if ts.biggest_streak_draws is not None else 0
             )
             stats["biggest_lose_streak"] = max(
                 stats["biggest_lose_streak"], 
-                ts.biggest_streak_loses or 0
+                int(ts.biggest_streak_loses) if ts.biggest_streak_loses is not None else 0
             )
         
         return stats

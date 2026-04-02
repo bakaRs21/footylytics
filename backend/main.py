@@ -13,6 +13,7 @@ from scripts import playersData as players_data
 from scripts.load_from_csv import run_loader_once, run_loader_periodically
 from metrics.PlayerMetrics import player_metrics, playerM_options
 from metrics.TeamMetrics import metric_options, team_metrics
+from metrics.SeasonMetrics import season_metrics
 
 
 #run: uvicorn main:app --reload --port 8000 or fastapi dev main.py --reload --port 8000
@@ -157,3 +158,4 @@ app.include_router(player_metrics.router)
 app.include_router(playerM_options.router)
 app.include_router(team_metrics.router)
 app.include_router(metric_options.router)
+app.include_router(season_metrics.router)
