@@ -2,11 +2,3 @@ MP2526-zadaniMP-V4B-Svoboda-Roman-11E.docx
 backend/scripts/fixing_team_stats.py
 .env
 backend/.env
-backend/__pycache__
-backend/scripts/__pycache__
-backend/metrics/TeamMetrics/__pycache__
-backend/metrics/PlayerMetrics/__pycache__
-backend\metrics\PlayerMetrics\__pycache__
-backend\metrics\TeamMetrics\__pycache__
-backend\scripts\__pycache__
-backend\__pycache__
