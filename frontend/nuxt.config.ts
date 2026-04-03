@@ -10,7 +10,7 @@ export default defineNuxtConfig({
       pathPrefix: false,
     }
   ],
-  css: ["~/assets/css/main.css"],
+  css: ["~/assets/css/main.css", "~/assets/css/compare.css"], 
   plugins: [
     { src: "~/plugins/apexcharts.client.ts", mode: "client" },
   ],

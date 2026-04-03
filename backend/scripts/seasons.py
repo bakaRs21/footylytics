@@ -7,10 +7,16 @@ from sqlalchemy.orm import Session
     # Get all unique seasons
 def seasons(session: Session) -> List[Season]:
     try:
-        return session.query(Season).all()
+        seasons = session.query(Season).all()
     finally:
         session.close()
-
+    return [
+        {
+            "season_id": s.season_id,
+            "season": f"{s.season}-{int(s.season) + 1}"
+        }
+        for s in seasons
+    ]
     # Create season
 def create_season(season: str, session: Session) -> Season:
     try:

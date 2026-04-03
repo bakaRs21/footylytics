@@ -1,12 +1,15 @@
 <script setup>
   import { ref, onMounted, watch } from 'vue';
+import CompareSeasons from '~/components/CompareSeasons.vue';
 import PageContent from '~/components/PageContent.vue';
 const config = useRuntimeConfig()
 const route = useRoute();
 const router = useRouter();
 // route query constants
 const firstSeasonSelected = ref(route.query.firstSeason || "");
+const firstSeasonSelectedName = computed(() => `${firstSeasonSelected.value}-${Number(firstSeasonSelected.value) + 1}`)
 const secondSeasonSelected = ref(route.query.secondSeason || "");
+const secondSeasonSelectedName = computed(() => `${secondSeasonSelected.value}-${Number(secondSeasonSelected.value) + 1}`)
 const id = ref(route.params.id || "");
  // api route for current page
 const apiRoute = `${config.public.apiBase}compare/${id.value}`;
@@ -17,6 +20,7 @@ const trimmedId = id.value.replace("s", '').toLowerCase();
 const pageId = `${trimmedId}_id`;
 const errorMsgId = id.value.toLowerCase();
 const metricApiRoute = `${config.public.apiBase}${trimmedId}-metrics/`; // api metric route
+const seasonMetricApiRoute = `${config.public.apiBase}season-metrics/`; // season metrics api route
 // First Item Constants
 const firstObject = ref(null)
 const firstName = ref("");
@@ -82,8 +86,8 @@ async function Inspection() {
     isFetchingStats.value = true;
     try {
       const [first, second] = await Promise.all([
-        $fetch(`${metricApiRoute}stats?${pageId}=${firstSeasonSelected.value}`),
-        $fetch(`${metricApiRoute}stats?${pageId}=${secondSeasonSelected.value}`)
+        $fetch(`${seasonMetricApiRoute}stats?season_id=${firstSeasonSelected.value}`),
+        $fetch(`${seasonMetricApiRoute}stats?season_id=${secondSeasonSelected.value}`)
       ]);
       statsForFirst.value = first;
       statsForSecond.value = second;
@@ -161,11 +165,11 @@ onMounted(async () => {
           <div class="first-selects">
             <select v-model="firstSeasonSelected">
               <option disabled value="">Select</option>
-              <option v-for="value in list" :key="value">{{ value.season }}</option>
+              <option v-for="value in list" :key="value">{{ value.season_id }}</option>
             </select>
             <select v-model="secondSeasonSelected">
               <option disabled value="">Select</option>
-              <option v-for="value in list" :key="value">{{ value.season }}</option>
+              <option v-for="value in list" :key="value">{{ value.season_id }}</option>
             </select>
           </div>
         </div>
@@ -207,8 +211,11 @@ onMounted(async () => {
       </div>
       <div v-else-if="statsForFirst && statsForSecond">
         <div id="stats">
-            <CompareStats v-if="statsForFirst && statsForSecond"
+            <CompareStats v-if="statsForFirst && statsForSecond && id != 'Seasons'"
             :first-stats="statsForFirst" :first-name="firstName" :second-stats="statsForSecond" :second-name="secondName" :type="trimmedId"
+            />
+            <CompareSeasons v-else-if="statsForFirst && statsForSecond && id == 'Seasons'"
+            :first-stats="statsForFirst" :second-stats="statsForSecond" :first-name="firstSeasonSelectedName" :second-name="secondSeasonSelectedName"
             />
         </div>
       </div>

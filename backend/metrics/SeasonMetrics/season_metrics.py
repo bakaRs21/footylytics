@@ -9,7 +9,6 @@ router = APIRouter(prefix="/season-metrics", tags=["Season Metrics"])
 # QUERY FUNCTIONS 
 
 def get_season_aggregate_stats(db: Session, season_id: int):
-    """Get aggregate statistics for an entire season across all players"""
     stats = db.query(
         func.sum(PlayerSeason.goals_total).label("total_goals"),
         func.sum(PlayerSeason.goals_assists).label("total_assists"),
@@ -78,9 +77,9 @@ def get_team_ranking(db: Session, season_id: int):
 
 # ENDPOINTS 
 
-@router.get("/season-aggregate-stats")
+@router.get("/stats")
 def season_aggregate_stats(
-    season_id: int = Query(..., description="Season ID to get statistics for"),
+    season_id: int,
     db: Session = Depends(get_session)
 ):
     stats = get_season_aggregate_stats(db, season_id)
@@ -126,7 +125,7 @@ def season_aggregate_stats(
 
 @router.get("/team-ranking")
 def team_ranking(
-    season_id: int = Query(..., description="Season ID to get team ranking for"),
+    season_id: int,
     db: Session = Depends(get_session)
 ):
     rows = get_team_ranking(db, season_id)
@@ -165,17 +164,4 @@ def team_ranking(
     return {
         "season_id": season_id,
         "ranking": ranking_data
-    }
-
-
-@router.get("/stats")
-def get_season_stats(season_id: int, db: Session = Depends(get_session)):
-    """Get season stats in progress..."""
-    aggregate = season_aggregate_stats(season_id=season_id, db=db)
-    ranking = team_ranking(season_id=season_id, db=db)
-    
-    return {
-        "season_id": season_id,
-        "aggregate_stats": aggregate,
-        "team_ranking": ranking
     }
