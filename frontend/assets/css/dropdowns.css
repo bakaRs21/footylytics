@@ -1,0 +1,138 @@
+.dropdown-panel {
+  position: absolute;
+  z-index: 10;
+  width: 100%;
+  border-radius: 0.75rem;
+  background-color: #1a2332;
+  border: 1px solid #2d3a4a;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  overflow-y: auto;
+}
+
+
+.dropdown-option {
+  cursor: pointer;
+  padding: 0.5rem 0.75rem;
+  transition: background 0.2s;
+}
+
+.dropdown-option:hover {
+  background-color: #243044;
+}
+
+
+.panel-dropdown {
+  position: absolute;
+  top: calc(100%);
+  left: 0;
+  width: 100%;
+  z-index: 50;
+  border-radius: 0.5rem;
+  background-color: #1a2332;
+  border: 1px solid #2d3a4a;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+
+.panel-multiselect {
+  position: absolute;
+  top: calc(100%);
+  left: 0;
+  width: 100%;
+  z-index: 50;
+  border: 1px solid #374153;
+  border-radius: 10px;
+  background: #0b1220;
+  color: white;
+  box-shadow: 0 10px 24px rgba(0,0,0,0.35);
+  overflow: hidden;
+}
+
+
+.panel-filter {
+  display: flex;
+  position: absolute;
+  z-index: 10;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  max-width: 900px;
+  padding: 0.6rem 1rem;
+  background: #2a2a2a;
+  border: 1px solid #3d4249d2;
+  border-radius: 10px;
+}
+
+
+.panel-list {
+  max-height: 220px;
+  overflow: auto;
+  padding: 8px;
+}
+
+
+.panel-list-compact {
+  max-height: 120px;
+  overflow: auto;
+  padding: 4px;
+}
+
+
+.panel-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 6px;
+  cursor: pointer;
+  border-radius: 8px;
+}
+
+.panel-option:hover { background: rgba(255,255,255,0.06); }
+
+
+.panel-option-compact {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 6px;
+  cursor: pointer;
+  border-radius: 0.5rem;
+}
+
+.panel-option-compact:hover {
+  background-color: #243044;
+}
+
+
+.panel-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 10px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+
+
+.dropdown-ul {
+  position: absolute;
+  z-index: 10;
+  margin: 4px 0 0 0;
+  max-height: 16rem;
+  padding: 0;
+  width: 100%;
+  overflow-y: auto;
+  border-radius: 0.75rem;
+  background-color: #303030e3;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.dropdown-ul li {
+  cursor: pointer;
+  padding: 0.5rem 0.75rem;
+  background-color: #504e4ee7;
+  transition: background 0.2s;
+  list-style: none;
+}
+
+.dropdown-ul li:hover {
+  background-color: #666464e7;
+}

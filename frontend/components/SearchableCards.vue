@@ -114,25 +114,25 @@ const getItemId = (item) => {
 </script>
 <template>
     <div class="panel">
-        <div class="left">
+        <div class="left panel-left">
             <pre>Count: {{ count }}</pre>
         </div>
-        <button v-if="page !== 'season'" class="filter-toggle-btn" @click="filterOpen = !filterOpen">
+        <button v-if="page !== 'season'" class="filter-toggle-btn btn-filter" @click="filterOpen = !filterOpen">
             <Icon icon="mdi:filter-variant" />
             Filters
             <Icon icon="mdi:chevron-down" :class="{ 'chevron-open': filterOpen }" class="chevron" />
         </button>
-        <div class="right">
-            <input v-model="search" type="text" :placeholder="placeholder"/>
+        <div class="right panel-right">
+            <input v-model="search" type="text" :placeholder="placeholder" class="input-compact"/>
         </div>
     </div>
     <Transition name="filter-slide">
-        <div v-if="filterOpen" class="filter-drawer">
+        <div v-if="filterOpen" class="filter-drawer panel-filter">
             <div class="filter-group" v-for="filterGroup in availableFilters" :key="filterGroup.title">
-                <span class="filter-label">{{ filterGroup.title }} :</span>
+                <span class="filter-label label-filter">{{ filterGroup.title }} :</span>
                 <div class="filter-chips">
                     <button v-for="filter in filterGroup.value" :key="filter.value" 
-                        class="filter-chip" :class="{ active: selectedFilters.includes(filter.value) }" 
+                        class="filter-chip btn-chip" :class="{ active: selectedFilters.includes(filter.value) }" 
                         @click="filters(filter.value, filterGroup.title)"
                     >
                         {{ filter.name }}
@@ -140,8 +140,8 @@ const getItemId = (item) => {
                 </div>  
             </div>
             <div class="filter-group">
-                <span class="filter-label">Actions :</span>
-                <button class="filter-chip clear" @click="selectedFilters = []">Clear Filters</button>
+                <span class="filter-label label-filter">Actions :</span>
+                <button class="filter-chip btn-chip clear" @click="selectedFilters = []">Clear Filters</button>
             </div>
         </div>
     </Transition>
@@ -157,101 +157,16 @@ const getItemId = (item) => {
 </template>
 
 <style scoped>
-.panel {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 20px;
-}
 .left {
-    display: flex;
-    flex-shrink: 0;
     margin-left: 30px;
-}
-.right {
-    flex: 1;
-    display: flex;
-    justify-content: flex-end;
 }
 input {
     justify-content: flex-end;
     margin: 15px 0 15px 0;
-    padding: 8px 15px 8px 15px;
-    font-size: 13px;
-    background-color: #303030c4;
-    color: white;
-    border: 1px solid #3d4249d2;
-    border-radius: 10px;
-
 }
-input:focus {
-    outline: none;
-    border-color: #5a9bfca6;
-}
-
-.filter-toggle-btn {
-    display: flex;
-    align-items: center;
-    gap: 0.35rem;
-    padding: 6px 14px;
-    font-size: 12px;
-    font-weight: 600;
-    border-radius: 10px;
-    border: 1px solid #3d4249d2;
-    background: #303030c4;
-    color: #a0a0a0;
-    cursor: pointer;
-    transition: all 0.2s;
-}
-.filter-toggle-btn:hover { border-color: #5a9bfca6; color: #fff; }
 
 .chevron { transition: transform 0.3s; }
 .chevron-open { transform: rotate(180deg); }
-
-.filter-drawer {
-    display: flex;
-    position: absolute;
-    z-index: 10;
-    gap: 0.75rem;
-    flex-wrap: wrap;
-    max-width: 900px;
-    padding: 0.6rem 1rem;
-    background: #2a2a2a;
-    border: 1px solid #3d4249d2;
-    border-radius: 10px;
-}
-.filter-group {
-    display: flex;
-    flex-direction: column;
-    text-align: left;
-    gap: 7px;
-}
-
-.filter-label {
-    font-size: 11px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.6px;
-    color: #a0a0a0;
-}
-
-.filter-chips { display: flex; gap: 0.35rem; flex-wrap: wrap; }
-
-.filter-chip {
-    padding: 4px 12px;
-    font-size: 12px;
-    border-radius: 20px;
-    border: 1px solid #3d4249d2;
-    background: #333;
-    color: #a0a0a0;
-    cursor: pointer;
-    transition: all 0.2s;
-}
-.filter-chip:hover { border-color: #5a9bfca6; color: #fff; }
-.filter-chip.active { background: #5a9bfc2e; border-color: #5a9bfca6; color: #fff; }
-
-.filter-slide-enter-active, .filter-slide-leave-active { transition: all 0.25s ease; }
-.filter-slide-enter-from, .filter-slide-leave-to { opacity: 0; transform: translateY(-6px); }
 
 .clear { border-color: #a00; }
 </style>

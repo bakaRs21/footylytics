@@ -174,7 +174,7 @@ const metricGroups = computed(() => {
                 { key: 'biggest_draw_streak',  label: 'Draw Streak',  type: 'draw' },
                 { key: 'biggest_lose_streak',  label: 'Loss Streak',  type: 'loss',    lowerIsBetter: true }
             ]
-        }
+        },
     };
 });
 
@@ -281,8 +281,8 @@ onMounted(() => {
     </div>
     <div class="metrics-container">
         <div v-for="(group, groupKey) in metricGroups" :key="groupKey" class="metric-group">
-            <h3 class="group-title">
-                <span class="group-icon">
+            <h3 class="section-title">
+                <span class="section-icon">
                     <Icon :icon="group.icon" class="icon-lg"/>
                 </span>
                 {{ group.title }}
@@ -307,10 +307,9 @@ onMounted(() => {
                 </div>
             </div>
         </div>
-    </div>
-    <div v-if="type !== 'player' && competitors.some(c => c.lineups)" class="lineups-section">
+        <div v-if="type !== 'player' && competitors.some(c => c.lineups)" class="metric-group">
         <h3 class="section-title">
-            <span class="group-icon">
+            <span class="section-icon">
                 <Icon icon="openmoji:edit" class="icon-lg"/>
             </span>
             Formations
@@ -336,9 +335,9 @@ onMounted(() => {
             </div>
         </div>
     </div>
-    <div v-if="competitors.some(c => c.form)" class="form-section">
+    <div v-if="competitors.some(c => c.form)" class="metric-group">
         <h3 class="section-title">
-            <span class="group-icon">
+            <span class="section-icon">
                 <Icon icon="openmoji:chart-increasing" class="icon-lg"/>
             </span>
             Recent Form
@@ -356,28 +355,38 @@ onMounted(() => {
         </div>
         <p class="form-note">Latest match on the right</p>
     </div>
-    <div v-if="competitors.some(c => c.rawStats.total_penalties_scored !== undefined)" class="penalties-section">
+    <div v-if="competitors.some(c => c.rawStats.total_penalties_scored !== undefined)" class="metric-group">
         <h3 class="section-title">
-            <span class="group-icon">
+            <span class="section-icon">
                 <Icon icon="openmoji:goal-net" class="icon-lg"/>
             </span>
             Penalties
         </h3>
-        <div class="penalties-comparison">
-            <div v-for="comp in competitors" :key="comp.id" class="penalty-group">
-                <h4 class="column-header">{{ comp.name }}</h4>
-                <div class="penalty-stats">
-                    <div class="penalty-item success">
-                        <span class="penalty-value">{{ comp.rawStats.total_penalties_scored ?? 0 }}</span>
-                        <span class="penalty-label">Scored</span>
-                    </div>
-                    <div class="penalty-item missed">
-                        <span class="penalty-value">{{ comp.rawStats.total_penalties_missed ?? 0 }}</span>
-                        <span class="penalty-label">Missed</span>
-                    </div>
+        <div class="comparison-grid">
+            <div class="metric-row">
+                <div class="metric-value first success"
+                    :class="{ 'winner': isWinner(competitors[0].rawStats.total_penalties_scored, competitors[1].rawStats.total_penalties_scored, false) }">
+                    <span class="value">{{ competitors[0].rawStats.total_penalties_scored ?? 0 }}</span>
+                </div>
+                <div class="metric-label">Penalties Scored</div>
+                <div class="metric-value second success"
+                    :class="{ 'winner': isWinner(competitors[1].rawStats.total_penalties_scored, competitors[0].rawStats.total_penalties_scored, false) }">
+                    <span class="value">{{ competitors[1].rawStats.total_penalties_scored ?? 0 }}</span>
+                </div>
+            </div>
+            <div class="metric-row">
+                <div class="metric-value first danger"
+                    :class="{ 'winner': isWinner(competitors[0].rawStats.total_penalties_missed, competitors[1].rawStats.total_penalties_missed, true) }">
+                    <span class="value">{{ competitors[0].rawStats.total_penalties_missed ?? 0 }}</span>
+                </div>
+                <div class="metric-label">Penalties Missed</div>
+                <div class="metric-value second danger"
+                    :class="{ 'winner': isWinner(competitors[1].rawStats.total_penalties_missed, competitors[0].rawStats.total_penalties_missed, true) }">
+                    <span class="value">{{ competitors[1].rawStats.total_penalties_missed ?? 0 }}</span>
                 </div>
             </div>
         </div>
+    </div>
     </div>
 </div>
 <div v-else class="loading-state">

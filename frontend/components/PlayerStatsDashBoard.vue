@@ -47,106 +47,90 @@ function eraseStats() {
     <Icon icon="mdi:chevron-down"/>
 </div>
 <div v-if="showStats" class="dashboard-wrapper">
-    <div class="dashboard-grid" ref="dashboard">
-        <div class="card">
+    <div class="dashboard-grid grid-dashboard" ref="dashboard">
+        <div class="card-primary"  v-if="newStats.total_matches_played > 0 || newStats.total_minutes_played > 0 || newStats.rating !== null">
             <h3 class="card-title">Games</h3>
-            <div 
-            v-if="newStats.total_matches_played > 0 || newStats.total_minutes_played > 0 || newStats.rating !== null" 
-            class="card-content">
-                <div class="game-stat">
-                    <span class="stat-value green">{{ newStats.total_matches_played }}</span>
+            <div class="card-content flex-col-gap">
+                <div class="card-stat stat-details">
+                    <span class="stat-value text-green">{{ newStats.total_matches_played }}</span>
                     <span class="stat-label">Total Matches Played</span>
                 </div>
-                <div class="game-stat">
+                <div class="card-stat stat-details">
                     <span class="stat-value">{{ newStats.total_minutes_played }}</span>
                     <span class="stat-label">Total Minutes Played</span>
                 </div>
-                <div class="game-stat">
+                <div class="card-stat stat-details">
                     <span class="stat-value">{{ newStats.rating }}</span>
                     <span class="stat-label">Player Rating</span>
                 </div>
             </div>
-            <div v-else class="no-data">
-                No game data available for this season.
-            </div>
         </div>
-        <div class="card">
+        <div class="card-primary" v-if="newStats.total_goals > 0 || newStats.total_assists > 0 || newStats.total_shots > 0 || newStats.shots_on_target > 0" >
             <h3 class="card-title">Goals & Assists</h3>
-            <div 
-            v-if="newStats.total_goals > 0 || newStats.total_assists > 0 || newStats.total_shots > 0 || newStats.shots_on_target > 0" 
-            class="card-content">
+            <div class="card-content flex-col-gap">
                 <div class="card-stat">
-                    <Icon icon="mdi:soccer" class="goal-icon" />
-                    <div class="goal-details">
+                    <Ball class="goal-icon" />
+                    <div class="stat-details">
                         <span class="stat-value">{{ newStats.total_goals }}</span>
                         <span class="stat-label">Total Goals</span>
                     </div>
                 </div>
                 <div class="card-stat">
-                    <Icon icon="mdi:close" class="goal-icon" />
-                    <div class="goal-details">
+                    <XMark class="goal-icon" />
+                    <div class="stat-details">
                         <span class="stat-value">{{ newStats.total_assists }}</span>
                         <span class="stat-label">Total Assists</span>
                     </div>
                 </div>
                 <div class="card-stat">
-                    <Icon icon="mdi:target" class="goal-icon" />
-                    <div class="goal-details">
+                    <Goal class="goal-icon" />
+                    <div class="stat-details">
                         <span class="stat-value">{{ newStats.total_shots }}</span>
                         <span class="stat-label">Total Shots</span>
                     </div>
                 </div>
                 <div class="card-stat">
-                    <Icon icon="mdi:target" class="goal-icon" />
-                    <div class="goal-details">
+                    <Goal class="goal-icon" />
+                    <div class="stat-details">
                         <span class="stat-value">{{ newStats.shots_on_target }}</span>
                         <span class="stat-label">Shots on Target</span>
                     </div>
                 </div>
             </div>
-            <div v-else class="no-data">
-                No goal/shot data available for this season.
-            </div>
         </div>
-        <div class="card">
+        <div class="card-primary" v-if="newStats.total_tackles > 0 || newStats.tackles_blocks > 0 || newStats.tackles_interceptions > 0">
             <h3 class="card-title">Defensive Stats</h3>
-            <div v-if="newStats.total_tackles > 0 || newStats.tackles_blocks > 0 || newStats.tackles_interceptions > 0" class="card-content">
-                <div class="card-stat">
+            <div class="card-content flex-col-gap">
+                <div class="card-stat stat-details">
                     <span class="stat-value">{{ newStats.total_tackles }}</span>
                     <span class="stat-label">Total Tackles</span>
                 </div>
-                <div class="card-stat">
+                <div class="card-stat stat-details">
                     <span class="stat-value">{{ newStats.tackles_blocks }}</span>
                     <span class="stat-label">Blocks</span>
                 </div>
-                <div class="card-stat">
+                <div class="card-stat stat-details">
                     <span class="stat-value">{{ newStats.tackles_interceptions }}</span>
                     <span class="stat-label">Tackles & Interceptions</span>
                 </div>
             </div>
-            <div v-else class="no-data">
-                No defensive data available for this season.
-            </div>
         </div>
-        <div class="card">
+        <div class="card-primary" v-if="newStats.total_passes > 0 || newStats.key_passes > 0">
             <h3 class="card-title">Passing Stats</h3>
-            <div v-if="newStats.total_passes > 0 || newStats.key_passes > 0" class="card-content">
-                <div class="card-stat">
+            <div class="card-content flex-col-gap">
+                <div class="card-stat stat-details">
                     <span class="stat-value">{{ newStats.total_passes }}</span>
                     <span class="stat-label">Total Passes</span>
                 </div>
-                <div class="card-stat">
+                <div class="card-stat stat-details">
                     <span class="stat-value">{{ newStats.key_passes }}</span>
                     <span class="stat-label">Key Passes</span>
                 </div>
             </div>
-            <div v-else class="no-data">
-                No passing data available for this season.
-            </div>
         </div>
-        <div class="card">
+        <div class="card-primary" v-if="newStats.total_duels > 0 || newStats.duels_won > 0 || newStats.dribbles_success > 0 || newStats.dribbles_attempts > 0">
             <h3 class="card-title">Duels & Dribbles</h3>
-            <div v-if="newStats.total_duels > 0 || newStats.duels_won > 0 || newStats.dribbles_success > 0 || newStats.dribbles_attempts > 0" class="card-content">
+            <div class="card-content flex-col-gap">
                 <div class="card-stat">
                     <span class="stat-value">{{ newStats.total_duels }}</span>
                     <span class="stat-label">Total Duels</span>
@@ -164,13 +148,10 @@ function eraseStats() {
                     <span class="stat-label">Dribbles Attempts</span>
                 </div>
             </div>
-            <div v-else class="no-data">
-                No duels/dribbles data available for this season.
-            </div>
         </div>
-        <div class="card">
+        <div class="card-primary" v-if="newStats.red_cards > 0 || newStats.yellow_cards > 0 || newStats.fouls_committed > 0 || newStats.fouls_drawn > 0">
             <h3 class="card-title">Discipline</h3>
-            <div v-if="newStats.red_cards > 0 || newStats.yellow_cards > 0 || newStats.fouls_committed > 0 || newStats.fouls_drawn > 0" class="card-content">
+            <div class="card-content flex-col-gap">
                 <div class="card-stat">
                     <span class="stat-value red">{{ newStats.red_cards }}</span>
                     <span class="stat-label">Red Cards</span>
@@ -188,13 +169,10 @@ function eraseStats() {
                     <span class="stat-label">Fouls Drawn</span>
                 </div>
             </div>
-            <div v-else class="no-data">
-                No discipline data available for this season.
-            </div>
         </div>
-        <div class="card">
+        <div class="card-primary" v-if="newStats.penalties_scored > 0 || newStats.penalties_missed > 0 || newStats.penalties_won > 0">
             <h3 class="card-title">Penalties</h3>
-            <div v-if="newStats.penalties_scored > 0 || newStats.penalties_missed > 0 || newStats.penalties_won > 0" class="card-content">
+            <div class="card-content flex-col-gap">
                 <div class="card-stat">
                     <span class="stat-value green">{{ newStats.penalties_scored }}</span>
                     <span class="stat-label">Penalties Scored</span>
@@ -208,13 +186,10 @@ function eraseStats() {
                     <span class="stat-label">Penalties Won</span>
                 </div>
             </div>
-            <div v-else class="no-data">
-                No penalty data available for this season.
-            </div>
         </div>
-        <div class="card">
+        <div class="card-primary" v-if="newStats.goals_conceded > 0 || newStats.saves > 0 || newStats.penalties_saved > 0">
             <h3 class="card-title">Goalkeeper Stats</h3>
-            <div v-if="newStats.goals_conceded > 0 || newStats.saves > 0 || newStats.penalties_saved > 0" class="card-content">
+            <div class="card-content flex-col-gap">
                 <div class="card-stat">
                     <span class="stat-value">{{ newStats.goals_conceded }}</span>
                     <span class="stat-label">Goals Conceded</span>
@@ -227,9 +202,6 @@ function eraseStats() {
                     <span class="stat-value">{{ newStats.penalties_saved }}</span>
                     <span class="stat-label">Penalties Saved</span>
                 </div>
-            </div>
-            <div v-else class="no-data">
-                No goalkeeper data available for the player in selected season.
             </div>
         </div>
     </div>
@@ -251,26 +223,7 @@ function eraseStats() {
     margin: 0 auto;
 }
 
-.card {
-    background: #16162e59;
-    border: 1px solid rgba(61, 214, 140, 0.12);
-    border-radius: 10px;
-    padding: 1rem;
-    transition: transform 0.2s, border-color 0.2s;
-}
-.card:hover {
-    transform: translateY(-3px);
-    border-color: rgba(61, 214, 140, 0.35);
-}
 
-.card-title {
-    font-size: 1rem;
-    font-weight: 600;
-    margin-bottom: 0.75rem;
-    padding-bottom: 0.5rem;
-    border-bottom: 1px solid rgba(61, 214, 140, 0.2);
-}    
-.card-content { display: flex; flex-direction: column; gap: 0.5rem; }
 .no-data {
     text-align: center;
     padding: 1rem;
@@ -278,44 +231,13 @@ function eraseStats() {
     font-size: 0.85rem;
 }
 
-.stat-value {
-    font-size: 1.4rem;
-    font-weight: 700;
-    color: #e2e8f0;
-}
 .red { color: #ef4444; }
 .green { color: #22c55e; }
 .yellow { color: #eab308; }
 
-.stat-label {
-    font-size: 0.75rem;
-    color: #64748b;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-}
 
-.game-stat {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 0.6rem;
-    background: rgba(255,255,255,0.04);
-    border-radius: 6px;
-    border: 1px solid rgba(255,255,255,0.06);
-}
-
-.card-stat {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.75rem;
-    padding: 0.5rem 0.75rem;
-    background: rgba(255,255,255,0.04);
-    border-radius: 6px;
-    border: 1px solid rgba(255,255,255,0.06);
-}    
-.goal-icon    { font-size: 1.4rem;}
-.goal-details { display: flex; flex-direction: column; }
+.goal-icon    { font-size: 1.35rem; color: #94a3b8; flex-shrink: 0; }
+.stat-details { display: flex; flex-direction: column; min-width: 0; }
 
 @media (max-width: 840px) {
     .dashboard-wrapper { padding: 0.75rem; }

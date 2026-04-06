@@ -65,23 +65,23 @@ watch(keys, (newKeys) => {
 <template>
   <div class="component">
     <div class="input-wrapper">
-      <input class="type-input" :placeholder="'filter data'" v-model="search" v-on:focus="true" @click="() => action()"/>
-        <div v-if="open && selectedKeys.length === 0" class="icon">
-          <Icon icon="mdi:chevron-up" />
+      <input class="type-input input-data-selector" :placeholder="'filter data'" v-model="search" v-on:focus="true" @click="() => action()"/>
+        <div v-if="open && selectedKeys.length === 0" class="icon icon-positioned">
+          <svg class="svg" xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24"><path fill="none" stroke="#a9a9df" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m18 15l-6-6l-6 6"/></svg>
         </div>
-        <div v-else-if="!open && selectedKeys.length === 0" class="icon">
-          <Icon icon="mdi:chevron-down" />
+        <div v-else-if="!open && selectedKeys.length === 0" class="icon icon-positioned">
+          <svg class="svg" xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24"><path fill="none" stroke="#a9a9df" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m6 9l6 6l6-6"/></svg>
         </div>
-        <div v-else-if="open && selectedKeys.length > 0" class="icon icon-clickable" @click="() => filter()">
-          <Icon icon="mdi:check" />
+        <div v-else-if="open && selectedKeys.length > 0" class="icon icon-positioned clickable" @click="() => filter()">
+          <DoneArrow />
         </div>
-        <div v-else-if="!open && selectedKeys.length > 0" class="icon icon-clickable" @click="() => filter()">
-          <Icon icon="mdi:close" @click="() => clear()"/>
+        <div v-else-if="!open && selectedKeys.length > 0" class="icon icon-positioned clickable" @click="() => filter()">
+          <Close @click="() => clear()"/>
         </div>
     </div>
-    <div v-if="open" class="ds_panel">
-      <div class="ds_list">
-        <label v-for="option in filteredOptions" :key="option.raw" class="ds_option">
+    <div v-if="open" class="ds_panel panel-dropdown">
+      <div class="ds_list panel-list-compact">
+        <label v-for="option in filteredOptions" :key="option.raw" class="ds_option panel-option-compact">
           <input class="check-box" type="checkbox" :value="option.raw" v-model="selectedKeys" @click.stop/>
           <span class="option-label">{{ option.label }}</span>
         </label>
@@ -99,72 +99,6 @@ watch(keys, (newKeys) => {
   display: flex;
   align-items: center;
   width: 100%;
-}
-.type-input {
-    width: 100%; 
-    border-radius: 0.5rem;
-    border: none;
-    padding: 6px 36px 6px 12px;
-    background-color: #0f131b;
-    color: white;
-    transition: all 0.15s ease;
-    box-sizing: border-box;
-  }
-.type-input:focus {
-    outline: none;
-    border-color: #3b82f6;
-    box-shadow: 0 0 0 3px #4d576685;
-}
-.type-input::placeholder {
-    color: #8899aa;
-}
-.icon {
-    position: absolute; 
-    top: 50%; 
-    right: 0.5rem; 
-    transform: translateY(-50%);
-    pointer-events: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-.icon-clickable {
-  pointer-events: auto;
-  cursor: pointer;
-}
-.ds_panel {
-  position: absolute;
-  top: calc(100%);
-  left: 0;
-  width: 100%;
-  z-index: 50;
-  overflow-y: auto;
-  border-radius: 0.5rem;
-  background-color: #1a2332;
-  border: 1px solid #2d3a4a;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-}
-.ds_list {
-  max-height: 120px;
-  overflow: auto;
-  padding: 4px;
-}
-.ds_option {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 6px;
-  cursor: pointer;
-  border-radius: 0.5rem;
-}
-.ds_option:hover {
-  background-color: #243044;
-}
-.option-label {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  font-size: 0.8rem;
 }
 .check-box {
   max-width: 16px;

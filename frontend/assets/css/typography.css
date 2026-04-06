@@ -1,0 +1,104 @@
+.stat-value {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #e2e8f0;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.1;
+}
+
+
+.stat-value-lg {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #e2e8f0;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.1;
+}
+
+.stat-value-sm {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #e2e8f0;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.1;
+}
+
+
+.stat-label, .result-label, .goal-label, .streak-label, .penalty-label {
+  font-size: 0.75rem;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.header-text {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #e2e8f0;
+}
+
+.header-text-lg {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #e2e8f0;
+}
+
+
+.subtitle-text {
+  font-size: 0.75rem;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.subtitle-text-md {
+  font-size: 0.8rem;
+  color: #a0aec0;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+
+.text-ellipsis {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+
+.option-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 0.8rem;
+}
+
+
+.label-filter {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: #a0a0a0;
+}
+
+
+.text-green { color: #22c55e; }
+.text-red { color: #ef4444; }
+.text-yellow { color: #eab308; }
+.text-muted { color: #64748b; }
+.text-gray { color: #a0a0a0; }
+.text-light-gray { color: #dddddd; }
+.text-placeholder { color: #8899aa; }
+.text-light { color: #e2e8f0; }
+
+
+.text-normal { font-weight: 400; }
+.text-medium { font-weight: 500; }
+.text-semibold { font-weight: 600; }
+.text-bold { font-weight: 700; }
+
+
+.text-uppercase { text-transform: uppercase; }
+.text-capitalize { text-transform: capitalize; }
+.text-lowercase { text-transform: lowercase; }

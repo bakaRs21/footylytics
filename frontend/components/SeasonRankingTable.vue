@@ -142,18 +142,18 @@ function formClass(wins, draws, losses) {
                         </div>
                     </td>
                     <td class="col-num">{{ team.matches }}</td>
-                    <td class="col-num green">{{ team.wins }}</td>
-                    <td class="col-num muted">{{ team.draws }}</td>
-                    <td class="col-num red">{{ team.losses }}</td>
+                    <td class="col-num text-green">{{ team.wins }}</td>
+                    <td class="col-num text-muted">{{ team.draws }}</td>
+                    <td class="col-num text-red">{{ team.losses }}</td>
                     <td class="col-num">{{ team.goals_for }}</td>
                     <td class="col-num">{{ team.goals_against }}</td>
-                    <td class="col-num" :class="goalDiffClass(team.goal_difference)">{{ goalDiffLabel(team.goal_difference) }}</td>
+                    <td class="col-num" :class="`text-${goalDiffClass(team.goal_difference)}`">{{ goalDiffLabel(team.goal_difference) }}</td>
                     <td class="col-num col-pts">
                         <span class="pts-badge">{{ team.points }}</span>
                     </td>
-                    <td class="col-num muted">{{ team.points_per_match.toFixed(2) }}</td>
+                    <td class="col-num text-muted">{{ team.points_per_match.toFixed(2) }}</td>
                     <td class="col-num">
-                        <span class="wr-text" :class="team.win_rate_pct >= 50 ? 'green' : team.win_rate_pct >= 30 ? 'yellow' : 'red'">
+                        <span class="wr-text" :class="team.win_rate_pct >= 50 ? 'text-green' : team.win_rate_pct >= 30 ? 'text-yellow' : 'text-red'">
                             {{ team.win_rate_pct }}%
                         </span>
                     </td>
@@ -388,11 +388,6 @@ function formClass(wins, draws, losses) {
 }
 
 .wr-text { font-weight: 600; font-size: 0.82rem; }
-
-.green  { color: #22c55e; }
-.red    { color: #ef4444; }
-.yellow { color: #eab308; }
-.muted  { color: #64748b; }
 
 .Draws {
     rotate: 270deg;

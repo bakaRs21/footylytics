@@ -71,15 +71,15 @@ function clearStats() {
     </div>
     <div v-if="showStats" class="dashboard-wrapper">
         <div class="dashboard-grid" ref="dashboard">
-            <div class="card lineups-card">
+            <div class="card-primary">
                 <h3 class="card-title">Formations</h3>
-                <div v-if="lineups" class="lineups-content">
+                <div v-if="lineups" class="lineups-content flex-col-gap-sm">
                     <div v-for="(lineup, index) in lineups" :key="index" class="lineup-wrapper">
                         <div class="lineup-item" @click="toggleLineUp(index)">
                             <span class="formation">{{ lineup.formation }}</span>
                             <span class="played-count">{{ lineup.played }} matches</span>
-                            <span class="lineup-arrow"  :class="{ 'arrow-rotated': activeIndex === index }">
-                                <Icon icon="mdi:chevron-down" />
+                            <span class="lineup-arrow arrow-rotate"  :class="{ 'arrow-rotated': activeIndex === index }">
+                                <SmallArrowDown />
                             </span>
                         </div>
                         <div v-if="activeIndex === index" class="lineup-details">
@@ -91,7 +91,7 @@ function clearStats() {
                     <p>No lineup data available</p>
                 </div>
             </div>
-            <div class="card matches-card">
+            <div class="card-primary">
                 <h3 class="card-title">Matches Overview</h3>
                 <div class="matches-content">
                     <div class="stat-large">
@@ -117,45 +117,45 @@ function clearStats() {
                     </div>
                 </div>
             </div>
-            <div class="card goals-card">
+            <div class="card-primary">
                 <h3 class="card-title">Goals & Performance</h3>
                 <div class="goals-content">
                     <div class="goal-stat">
-                        <Icon icon="mdi:target" class="goal-icon" />
-                        <div class="goal-details">
+                        <Ball class="goal-icon" />
+                        <div class="flex-col">
                             <span class="goal-value">{{ newStats.total_goals_scored }}</span>
-                            <span class="goal-label">Goals Scored</span>
+                            <span class="stat-label">Goals Scored</span>
                         </div>
                     </div>
                     <div class="goal-stat">
-                        <Icon icon="mdi:target" class="goal-icon" />
-                        <div class="goal-details">
+                        <Goal class="goal-icon" />
+                        <div class="flex-col">
                             <span class="goal-value">{{ newStats.total_goals_conceded }}</span>
-                            <span class="goal-label">Goals Conceded</span>
+                            <span class="stat-label">Goals Conceded</span>
                         </div>
                     </div>
                     <div class="goal-stat">
-                        <Icon icon="mdi:shield" class="goal-icon" />
-                        <div class="goal-details">
+                        <Shield class="goal-icon" />
+                        <div class="flex-col">
                             <span class="goal-value">{{ newStats.total_clean_sheets }}</span>
-                            <span class="goal-label">Clean Sheets</span>
+                            <span class="stat-label">Clean Sheets</span>
                         </div>
                     </div>
                     <div class="goal-stat">
-                        <Icon icon="mdi:close" class="goal-icon" />
-                        <div class="goal-details">
+                        <XMark class="goal-icon" />
+                        <div class="flex-col">
                             <span class="goal-value">{{ newStats.total_failed_to_score }}</span>
-                            <span class="goal-label">Failed to Score</span>
+                            <span class="stat-label">Failed to Score</span>
                         </div>
                     </div>
                     <div class="penalties-section">
                         <h4 class="subsection-title">Penalties</h4>
                         <div class="penalty-stats">
-                            <div class="penalty-item">
+                            <div class="penalty-item success">
                                 <span class="penalty-value success">{{ newStats.total_penalties_scored }}</span>
                                 <span class="penalty-label">Scored</span>
                             </div>
-                            <div class="penalty-item">
+                            <div class="penalty-item missed">
                                 <span class="penalty-value missed">{{ newStats.total_penalties_missed }}</span>
                                 <span class="penalty-label">Missed</span>
                             </div>
@@ -163,34 +163,28 @@ function clearStats() {
                     </div>
                 </div>
             </div>
-            <div class="card streaks-card">
+            <div class="streaks-card card-primary">
                 <h3 class="card-title">Streaks</h3>
                 <div class="streaks-content">
-                    <div class="streak-item">
-                        <span class="streak-icon win">
-                            <Icon icon="openmoji:chart-increasing" />
-                        </span>
-                        <div class="streak-details">
+                    <div class="goal-stat">
+                        <span class="streak-icon win">📈</span>
+                        <div class="flex-col">
                             <span class="streak-value">{{ newStats.biggest_win_streak }}</span>
-                            <span class="streak-label">Biggest Win Streak</span>
+                            <span class="stat-label">Biggest Win Streak</span>
                         </div>
                     </div>
-                    <div class="streak-item">
-                        <span class="streak-icon draw">
-                            <Icon icon="mdi:minus" />
-                        </span>
-                        <div class="streak-details">
+                    <div class="goal-stat">
+                        <span class="streak-icon draw">➖</span>
+                        <div class="flex-col">
                             <span class="streak-value">{{ newStats.biggest_draw_streak }}</span>
-                            <span class="streak-label">Biggest Draw Streak</span>
+                            <span class="stat-label">Biggest Draw Streak</span>
                         </div>
                     </div>
-                    <div class="streak-item">
-                        <span class="streak-icon lose">
-                            <Icon icon="openmoji:chart-decreasing" />
-                        </span>
-                        <div class="streak-details">
+                    <div class="goal-stat">
+                        <span class="streak-icon lose">📉</span>
+                        <div class="flex-col">
                             <span class="streak-value">{{ newStats.biggest_lose_streak }}</span>
-                            <span class="streak-label">Biggest Loss Streak</span>
+                            <span class="stat-label">Biggest Loss Streak</span>
                         </div>
                     </div>
                 </div>
@@ -238,58 +232,21 @@ function clearStats() {
     margin: 0 auto;
 }
 
-.tooltip { position: relative; cursor: help; }
-.tooltip::after {
-    content: attr(data-tooltip);
-    position: absolute;
-    bottom: -30px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: #0c0c0c;
-    color: white;
-    padding: 6px 10px;
-    border-radius: 6px;
-    font-size: 0.85rem;
-    white-space: nowrap;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.2s ease;
-}
-.tooltip:hover::after { opacity: 1; }
-.arrow { margin: 0 0.5rem; cursor: pointer; }
+.arrow { margin: 0.5rem; cursor: pointer; }
 
-.card {
-    background: #16162e59;
-    border: 1px solid rgba(61, 214, 140, 0.12);
-    border-radius: 10px;
-    padding: 1rem;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.3);
-    transition: transform 0.2s, box-shadow 0.2s;
-}
-.card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 10px rgba(0,0,0,0.4);
-}
 .card-title {
     font-size: 1rem;
     font-weight: 600;
-    color: #fff;
+    color: #e2e8f0;
     margin-bottom: 0.75rem;
-    padding-bottom: 0.5rem;
-    border-bottom: 2px solid #3a3a3a;
+    padding-bottom: 0.65rem;
+    border-bottom: 1px solid rgba(61, 214, 140, 0.2);
 }
 .no-data {
     text-align: center;
     padding: 1rem;
     color: #666;
     font-size: 0.85rem;
-}
-
-.stat-label, .result-label, .goal-label, .streak-label, .penalty-label {
-    font-size: 0.8rem;
-    color: #a0a0a0;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
 }
 
 .streaks-card { grid-column: span 3; }
@@ -327,10 +284,11 @@ function clearStats() {
     flex-direction: column;
     align-items: center;
     padding: 0.75rem;
-    background: rgba(53, 50, 223, 0.199);
+    background: rgba(255, 255, 255, 0.04);
+    transition: background 0.2s, border-color 0.2s, transform 0.2s;
     border-radius: 6px;
 }
-.stat-value { font-size: 2rem; font-weight: 700; color: #4ade80; }
+.stat-large .stat-value { font-size: 2rem; }
 .result-breakdown {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -341,8 +299,15 @@ function clearStats() {
     flex-direction: column;
     align-items: center;
     padding: 0.6rem;
-    background: rgba(34, 32, 139, 0.199);
+    background: rgba(255, 255, 255, 0.04);
+    transition: background 0.2s, border-color 0.2s, transform 0.2s;
+    border: 1px solid rgba(255, 255, 255, 0.06);
     border-radius: 6px;
+}
+.result-item:hover {
+    background: rgba(61, 214, 140, 0.05);
+    border-color: rgba(61, 214, 140, 0.16);
+    transform: translateY(-2px);
 }
 .result-icon {
     width: 30px;
@@ -358,7 +323,7 @@ function clearStats() {
 .result-icon.win  { background: #22c55e; color: #fff; }
 .result-icon.draw { background: #eab308; color: #000; }
 .result-icon.lose { background: #ef4444; color: #fff; }
-.result-value { font-size: 1.2rem; font-weight: 600; color: #fff; }
+.result-value { font-size: 1.2rem; font-weight: 600; color: #e2e8f0; font-variant-numeric: tabular-nums; }
 
 .goals-content { display: flex; flex-direction: column; gap: 0.5rem; }
 .goal-stat {
@@ -366,13 +331,19 @@ function clearStats() {
     align-items: center;
     justify-content: center;
     gap: 0.75rem;
-    padding: 0.5rem;
-    background: rgba(53, 50, 223, 0.199);
-    border-radius: 6px;
+    padding: 0.75rem;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.04);
+    transition: background 0.2s, border-color 0.2s, transform 0.2s;
 }
-.goal-icon   { font-size: 1.5rem; }
-.goal-details { display: flex; flex-direction: column; }
-.goal-value  { font-size: 1.2rem; font-weight: 600; }
+.goal-stat:hover {
+    background: rgba(61, 214, 140, 0.05);
+    border-color: rgba(61, 214, 140, 0.16);
+    transform: translateX(2px);
+}
+.goal-icon { font-size: 1.35rem; color: #94a3b8; flex-shrink: 0; }
+.goal-value { font-size: 1.2rem; font-weight: 600; color: #e2e8f0; font-variant-numeric: tabular-nums; }
 
 .penalties-section {
     margin-top: 0.5rem;
@@ -397,12 +368,21 @@ function clearStats() {
     flex-direction: column;
     align-items: center;
     padding: 0.4rem;
-    background: rgba(34, 32, 139, 0.199);
+    background: rgba(255, 255, 255, 0.04);
+    transition: background 0.2s, transform 0.2s;
     border-radius: 6px;
 }
 .penalty-value          { font-size: 1.2rem; font-weight: 600; margin-bottom: 0.2rem; }
 .penalty-value.success  { color: #22c55e; }
+.penalty-item.success:hover {
+    background: rgba(61, 214, 140, 0.05);
+    transform: translateX(2px)
+ }
 .penalty-value.missed   { color: #ef4444; }
+.penalty-item.missed:hover { 
+    background: rgba(214, 61, 61, 0.05);
+    transform: translateX(2px)
+ }
 
 .streaks-content {
     display: flex;
@@ -416,12 +396,12 @@ function clearStats() {
     align-items: center;
     gap: 0.75rem;
     padding: 0.6rem 0.9rem;
-    background: rgba(34, 32, 139, 0.199);
+    background: rgba(255, 255, 255, 0.04);
+    transition: background 0.2s, border-color 0.2s, transform 0.2s;
     border-radius: 6px;
 }
-.streak-icon    { font-size: 1.5rem; }
-.streak-details { display: flex; flex-direction: column; }
-.streak-value   { font-size: 1.2rem; font-weight: 600; color: #fff; }
+.streak-icon { font-size: 1.5rem; }
+.streak-value { font-size: 1.2rem; font-weight: 600; color: #e2e8f0; font-variant-numeric: tabular-nums; }
 
 .form-section {
     padding-top: 0.75rem;

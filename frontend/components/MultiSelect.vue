@@ -67,14 +67,14 @@ function clear() {
 
 <template>
   <div class="msc" @mouseleave="close">
-    <div class="msc_input" @click="toggleOpen">
-      <span class="msc__text">{{ selectedLabels }}</span>
+    <div class="msc_input input-dropdown" @click="toggleOpen">
+      <span class="msc__text text-ellipsis">{{ selectedLabels }}</span>
       <span class="msc__chev">▾</span>
     </div>
 
-    <div v-if="open" class="msc_panel" @click.stop>
-      <div class="msc_list">
-        <label v-for="o in normalizedOptions" :key="o.key" class="msc_option">
+    <div v-if="open" class="msc_panel panel-multiselect" @click.stop>
+      <div class="msc_list panel-list">
+        <label v-for="o in normalizedOptions" :key="o.key" class="msc_option panel-option">
           <input
             type="checkbox"
             :checked="localSelected.includes(o.key)"
@@ -85,8 +85,8 @@ function clear() {
       </div>
 
       <div class="msc_actions">
-        <button class="msc_btn secondary" type="button" @click="clear">Clear</button>
-        <button class="msc_btn primary" type="button" @click="confirm">Confirm</button>
+        <button class="msc_btn secondary btn-secondary" type="button" @click="clear">Clear</button>
+        <button class="msc_btn primary btn-primary" type="button" @click="confirm">Confirm</button>
       </div>
     </div>
   </div>
@@ -98,81 +98,11 @@ function clear() {
   width: 260px;
   font-size: 14px;
 }
-.msc_input {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-
-  padding: 10px 12px;
-  border-radius: 10px;
-  border: 1px solid #374153;
-  background: #111822;
-  color: white;
-  cursor: pointer;
-}
-.msc_text {
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
-.msc_panel {
-  position: absolute;
-  top: calc(100%);
-  left: 0;
-  width: 100%;
-  z-index: 50;
-
-  border: 1px solid #374153;
-  border-radius: 10px;
-  background: #0b1220;
-  color: white;
-  box-shadow: 0 10px 24px rgba(0,0,0,0.35);
-  overflow: hidden;
-}
-.msc_list {
-  max-height: 220px;
-  overflow: auto;
-  padding: 8px;
-}
-.msc_option {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 6px;
-  cursor: pointer;
-  border-radius: 8px;
-}
-.msc_option:hover {
-  background: rgba(255,255,255,0.06);
-}
 .msc_actions {
   display: flex;
   justify-content: space-between;
   gap: 8px;
   padding: 10px;
   border-top: 1px solid rgba(255,255,255,0.08);
-}
-.msc_btn {
-  border: none;
-  border-radius: 8px;
-  padding: 8px 12px;
-  cursor: pointer;
-  font-weight: 600;
-}
-.msc_btn.primary {
-  background: #0369a1;
-  color: white;
-}
-.msc_btn.primary:hover {
-  background: #0284c7;
-}
-.msc_btn.secondary {
-  background: transparent;
-  color: #cbd5e1;
-  border: 1px solid rgba(255,255,255,0.18);
-}
-.msc_btn.secondary:hover {
-  background: rgba(255,255,255,0.06);
 }
 </style>

@@ -1,0 +1,119 @@
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.35rem 0.7rem;
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: #94a3b8;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
+  white-space: nowrap;
+}
+.btn:hover {
+  background: rgba(61, 214, 140, 0.07);
+  border-color: rgba(61, 214, 140, 0.25);
+  color: #e2e8f0;
+}
+
+.btn.active {
+  background: rgba(61, 214, 140, 0.12);
+  border-color: rgba(61, 214, 140, 0.4);
+  color: rgba(61, 214, 140, 0.95);
+}
+
+
+.btn-primary {
+  border: none;
+  border-radius: 8px;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-weight: 600;
+  background: #0369a1;
+  color: white;
+}
+.btn-primary:hover { background: #0284c7; }
+
+.btn-secondary {
+  border: none;
+  border-radius: 8px;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-weight: 600;
+  background: transparent;
+  color: #cbd5e1;
+  border: 1px solid rgba(255,255,255,0.18);
+}
+.btn-secondary:hover { background: rgba(255,255,255,0.06); }
+
+.btn-filter {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 6px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: 10px;
+  border: 1px solid #3d4249d2;
+  background: #303030c4;
+  color: #a0a0a0;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.btn-filter:hover {
+  border-color: #5a9bfca6;
+  color: #fff;
+}
+
+.btn-chip {
+  padding: 4px 12px;
+  font-size: 12px;
+  border-radius: 20px;
+  border: 1px solid #3d4249d2;
+  background: #333;
+  color: #a0a0a0;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.btn-chip:hover {
+  border-color: #5a9bfca6;
+  color: #fff;
+}
+
+.btn-chip.active {
+  background: #5a9bfc2e;
+  border-color: #5a9bfca6;
+  color: #fff;
+}
+
+.btn-chip.clear { border-color: #a00; }
+
+.btn-erase {
+  background-color: #421c1c;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  font-size: 16px;
+  padding: 10px 30px;
+  margin: 10px 0 0 0;
+  cursor: pointer;
+}
+.btn-erase:hover { background-color: #5a2525; }
+
+
+.btn-all-seasons {
+  background-color: #472828d8;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  font-size: 16px;
+  padding: 10px 20px;
+  margin: 0 0 0 15px;
+  cursor: pointer;
+}
+
+.btn-all-seasons:hover { background-color: #7a2929bd; }
+.btn-all-seasons:active { background-color: #a83232c4; }
