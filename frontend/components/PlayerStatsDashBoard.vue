@@ -1,4 +1,5 @@
 <script setup>
+import { Icon } from '@iconify/vue';
 import { computed, watch } from 'vue';
 
 const stats = defineModel({
@@ -41,9 +42,9 @@ function eraseStats() {
 
 <template>
 <div @click="showStats = !showStats" class="title-with-arrows tooltip" data-tooltip="Stats will be displayed here" >
-    <ArrowDown/>
+    <Icon icon="mdi:chevron-down"/>
     <h2 class="stats-h2">Player Statistics</h2> 
-    <ArrowDown/>
+    <Icon icon="mdi:chevron-down"/>
 </div>
 <div v-if="showStats" class="dashboard-wrapper">
     <div class="dashboard-grid" ref="dashboard">
@@ -75,28 +76,28 @@ function eraseStats() {
             v-if="newStats.total_goals > 0 || newStats.total_assists > 0 || newStats.total_shots > 0 || newStats.shots_on_target > 0" 
             class="card-content">
                 <div class="card-stat">
-                    <Ball class="goal-icon" />
+                    <Icon icon="mdi:soccer" class="goal-icon" />
                     <div class="goal-details">
                         <span class="stat-value">{{ newStats.total_goals }}</span>
                         <span class="stat-label">Total Goals</span>
                     </div>
                 </div>
                 <div class="card-stat">
-                    <XMark class="goal-icon" />
+                    <Icon icon="mdi:close" class="goal-icon" />
                     <div class="goal-details">
                         <span class="stat-value">{{ newStats.total_assists }}</span>
                         <span class="stat-label">Total Assists</span>
                     </div>
                 </div>
                 <div class="card-stat">
-                    <Goal class="goal-icon" />
+                    <Icon icon="mdi:target" class="goal-icon" />
                     <div class="goal-details">
                         <span class="stat-value">{{ newStats.total_shots }}</span>
                         <span class="stat-label">Total Shots</span>
                     </div>
                 </div>
                 <div class="card-stat">
-                    <Goal class="goal-icon" />
+                    <Icon icon="mdi:target" class="goal-icon" />
                     <div class="goal-details">
                         <span class="stat-value">{{ newStats.shots_on_target }}</span>
                         <span class="stat-label">Shots on Target</span>

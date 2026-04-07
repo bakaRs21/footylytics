@@ -1,4 +1,6 @@
 <script setup>
+import { Icon } from '@iconify/vue';
+
 const config = useRuntimeConfig()
 const {status, data: seasons, error } = await useFetch(`${config.public.apiBase}compare/Seasons`, {
   lazy: true,
@@ -11,7 +13,7 @@ const {status, data: seasons, error } = await useFetch(`${config.public.apiBase}
   <div>
     <div v-if="status === 'pending'">
       <h2 class="pending-design">Loading data... </h2>
-      <LoadingSvg />
+      <Icon icon="mdi:loading" />
     </div>
     <div v-else-if="error">
       Error: {{ error.message }}

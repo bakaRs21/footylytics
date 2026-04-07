@@ -10,7 +10,7 @@ const choices = ["Seasons", "Teams", "Players"]
     </div>
     <div class="card-margin">
         <div class="card-grid">
-          <div v-for="selection in choices" :key="index">
+          <div v-for="selection in choices" :key="selection">
               <NuxtLink :to="`/compare/${selection}`">
                 <card id="card">Compare {{ selection }}</card>
               </NuxtLink>

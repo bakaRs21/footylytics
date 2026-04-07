@@ -1,4 +1,6 @@
 <script setup>
+import { Icon } from '@iconify/vue'
+
 
 const props = defineProps({
     data: {
@@ -122,7 +124,9 @@ const parseFormation = computed(() => {
             <div class="players-row">
                 <div v-for="player in line.count" :key="player" class="player-dot">
                     <div class="tooltip" :data-tooltip="line.roles[player - 1]">
-                        <div class="player-icon">⚽</div>
+                        <div class="player-icon">
+                            <Icon icon="mdi:soccer" />
+                        </div>
                     </div> 
                 </div>
             </div>

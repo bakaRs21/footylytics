@@ -1,4 +1,5 @@
 <script setup>
+import { Icon } from '@iconify/vue';
 import { computed, watch } from 'vue';
 
 const stats = defineModel({
@@ -64,9 +65,9 @@ function clearStats() {
 <template>
 <div class="tsd-wrapper">
     <div @click="showStats = !showStats" class="title-with-arrows tooltip" data-tooltip="Show metric options to be selected" >
-        <ArrowDown />
+        <Icon icon="mdi:chevron-down" />
         <h2 class="stats-h2" id="stats"> Team Statistics </h2>
-        <ArrowDown />
+        <Icon icon="mdi:chevron-down" />
     </div>
     <div v-if="showStats" class="dashboard-wrapper">
         <div class="dashboard-grid" ref="dashboard">
@@ -78,7 +79,7 @@ function clearStats() {
                             <span class="formation">{{ lineup.formation }}</span>
                             <span class="played-count">{{ lineup.played }} matches</span>
                             <span class="lineup-arrow"  :class="{ 'arrow-rotated': activeIndex === index }">
-                                <SmallArrowDown />
+                                <Icon icon="mdi:chevron-down" />
                             </span>
                         </div>
                         <div v-if="activeIndex === index" class="lineup-details">
@@ -120,28 +121,28 @@ function clearStats() {
                 <h3 class="card-title">Goals & Performance</h3>
                 <div class="goals-content">
                     <div class="goal-stat">
-                        <Ball class="goal-icon" />
+                        <Icon icon="mdi:target" class="goal-icon" />
                         <div class="goal-details">
                             <span class="goal-value">{{ newStats.total_goals_scored }}</span>
                             <span class="goal-label">Goals Scored</span>
                         </div>
                     </div>
                     <div class="goal-stat">
-                        <Goal class="goal-icon" />
+                        <Icon icon="mdi:target" class="goal-icon" />
                         <div class="goal-details">
                             <span class="goal-value">{{ newStats.total_goals_conceded }}</span>
                             <span class="goal-label">Goals Conceded</span>
                         </div>
                     </div>
                     <div class="goal-stat">
-                        <Shield class="goal-icon" />
+                        <Icon icon="mdi:shield" class="goal-icon" />
                         <div class="goal-details">
                             <span class="goal-value">{{ newStats.total_clean_sheets }}</span>
                             <span class="goal-label">Clean Sheets</span>
                         </div>
                     </div>
                     <div class="goal-stat">
-                        <XMark class="goal-icon" />
+                        <Icon icon="mdi:close" class="goal-icon" />
                         <div class="goal-details">
                             <span class="goal-value">{{ newStats.total_failed_to_score }}</span>
                             <span class="goal-label">Failed to Score</span>
@@ -166,21 +167,27 @@ function clearStats() {
                 <h3 class="card-title">Streaks</h3>
                 <div class="streaks-content">
                     <div class="streak-item">
-                        <span class="streak-icon win">📈</span>
+                        <span class="streak-icon win">
+                            <Icon icon="openmoji:chart-increasing" />
+                        </span>
                         <div class="streak-details">
                             <span class="streak-value">{{ newStats.biggest_win_streak }}</span>
                             <span class="streak-label">Biggest Win Streak</span>
                         </div>
                     </div>
                     <div class="streak-item">
-                        <span class="streak-icon draw">➖</span>
+                        <span class="streak-icon draw">
+                            <Icon icon="mdi:minus" />
+                        </span>
                         <div class="streak-details">
                             <span class="streak-value">{{ newStats.biggest_draw_streak }}</span>
                             <span class="streak-label">Biggest Draw Streak</span>
                         </div>
                     </div>
                     <div class="streak-item">
-                        <span class="streak-icon lose">📉</span>
+                        <span class="streak-icon lose">
+                            <Icon icon="openmoji:chart-decreasing" />
+                        </span>
                         <div class="streak-details">
                             <span class="streak-value">{{ newStats.biggest_lose_streak }}</span>
                             <span class="streak-label">Biggest Loss Streak</span>

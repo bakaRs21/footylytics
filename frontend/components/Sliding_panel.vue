@@ -1,7 +1,5 @@
 <script setup>
-import LeftArrow from '~/components/Icons/Left_Arrow.vue';
-import RightArrow from '~/components/Icons/Right_Arrow.vue';
-
+import { Icon } from "@iconify/vue"
 import { ref, onMounted } from "vue"
 
 const props = defineProps({
@@ -55,7 +53,7 @@ onMounted(reset)
 </script>
 <template>
   <div class="slider">
-    <LeftArrow @click="prev"/>
+    <Icon icon="mdi:chevron-left" @click="prev"/>
     <div class="viewport">
       <div class="track" ref="track">
         <div v-for="(item, i) in items" :key="item.id" class="card" :class="{ active: i === 2 }">
@@ -64,7 +62,7 @@ onMounted(reset)
       </div>
     </div>
 
-    <RightArrow @click="next"/>
+    <Icon icon="mdi:chevron-right" @click="next"/>
   </div>
 </template>
 <style scoped>

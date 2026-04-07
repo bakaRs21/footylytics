@@ -1,4 +1,5 @@
 <script setup>
+import { Icon } from '@iconify/vue';
 import { ref, onMounted, watch } from 'vue';
 import { PLAYER_METRIC_CONFIGS } from '~/composables/useMetricConfig.js';
 const config = useRuntimeConfig()
@@ -123,7 +124,7 @@ onMounted(() => {
   <div class="stats">
     <div v-if="statsStatus === 'pending'">
       Loading player stats...
-      <Loading_svg />
+      <Icon icon="mdi:loading" />
     </div>
     <div v-else-if="statsError" class="error-message">
       Error loading stats: {{ statsError.message }}

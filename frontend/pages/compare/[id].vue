@@ -1,7 +1,8 @@
 <script setup>
+  import { Icon } from '@iconify/vue';
   import { ref, onMounted, watch } from 'vue';
-import CompareSeasons from '~/components/CompareSeasons.vue';
-import PageContent from '~/components/PageContent.vue';
+  import CompareSeasons from '~/components/CompareSeasons.vue';
+  import PageContent from '~/components/PageContent.vue';
 const config = useRuntimeConfig()
 const route = useRoute();
 const router = useRouter();
@@ -201,7 +202,7 @@ onMounted(async () => {
         {{ compareErrorMsg }}
       </div>
       <div v-else-if="isFetchingStats" class="loading-message">
-        Fetching stats... <LoadingSvg />
+        Fetching stats... <Icon icon="mdi:loading" />
       </div>
       <div v-else-if="statsErrorMsg" class="error-message">
         {{ statsErrorMsg }}

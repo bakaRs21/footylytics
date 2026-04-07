@@ -138,7 +138,6 @@ onMounted(() => {
 
 <template>
 <div v-if="competitors.length === 2" class="comparison-wrapper">
-
     <div class="comparison-header" ref="comparing">
         <div class="header-item first">
             <h2 class="entity-name">{{ firstName }}</h2>
@@ -150,7 +149,6 @@ onMounted(() => {
             <h2 class="entity-name">{{ secondName }}</h2>
         </div>
     </div>
-
     <div v-if="overallWinner" class="winner-banner" :class="overallWinner.winner">
         <div class="winner-label">
             <span v-if="overallWinner.winner === 'tie'" class="winner-title">
@@ -180,7 +178,6 @@ onMounted(() => {
             </div>
         </div>
     </div>
-
     <div class="metrics-container">
         <div v-for="(group, groupKey) in metricGroups" :key="groupKey" class="metric-group">
             <h3 class="group-title">
@@ -208,7 +205,6 @@ onMounted(() => {
             </div>
         </div>
     </div>
-
 </div>
 <div v-else class="loading-state">
     <p>Loading comparison...</p>

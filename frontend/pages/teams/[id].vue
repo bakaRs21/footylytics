@@ -2,6 +2,7 @@
   import { onMounted, ref, watch } from 'vue'
   import ColorThief from 'colorthief'
   import { TEAM_METRIC_CONFIGS } from '~/composables/useMetricConfig.js';
+import { Icon } from '@iconify/vue';
 const config = useRuntimeConfig()
 const route = useRoute()
 const router = useRouter()
@@ -117,7 +118,7 @@ onMounted(() => {
 </script>
 <template>
   <div v-if="teamInfoStatus === 'pending'">
-    Loading...
+    Loading... <Icon icon="mdi:loading" />
   </div>
   <div v-else-if="teamInfoError">
     Error: {{ teamInfoError.message }}
@@ -146,7 +147,7 @@ onMounted(() => {
     <div class="stats">
       <div v-if="statsStatus === 'pending'">
         Loading stats...
-        <Loading_svg />
+        <Icon icon="mdi:loading" />
       </div>
       <div v-else-if="statsError">
         Error loading stats: {{ statsError.message }}

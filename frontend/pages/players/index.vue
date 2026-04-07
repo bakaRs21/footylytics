@@ -1,4 +1,6 @@
 <script setup>
+import { Icon } from '@iconify/vue';
+
 const playerArray = ref([]);
 const page = "player";
 
@@ -13,7 +15,7 @@ const { pending: isLoading, data: players, error } = await useFetch(`${config.pu
   </div>
   <div v-if="isLoading">
     <h2 class="pending-design">Loading data... </h2>
-    <loading-svg />
+    <Icon icon="mdi:loading" />
   </div>
   <div v-else-if="error">
     Error: {{ error.message }}

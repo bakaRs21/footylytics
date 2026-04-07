@@ -1,4 +1,5 @@
 <script setup>
+import { Icon } from '@iconify/vue';
 
 const config = useRuntimeConfig()
 const { pending: isLoading, data: teams, error } = await useFetch(`${config.public.apiBase}teams/with-seasons`, {
@@ -12,7 +13,7 @@ const { pending: isLoading, data: teams, error } = await useFetch(`${config.publ
   </div>
   <div v-if="isLoading">
     <h2 class="pending-design">Loading data... </h2>
-    <loading-svg />
+    <Icon icon="mdi:loading" />
   </div>
   <div v-else-if="error">
     Error: {{ error.message }}

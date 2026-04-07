@@ -1,4 +1,5 @@
 <script setup>
+import { Icon } from '@iconify/vue';
 import { ref, onMounted } from 'vue';
 import SeasonRankingTable from '~/components/SeasonRankingTable.vue';
 import SeasonStats from '~/components/SeasonStats.vue';
@@ -50,7 +51,7 @@ onMounted(() => {
     {{ onMountedMsg }}
   </div>
   <div v-if="statsStatus === 'pending'">
-    Loading stats...
+    Loading stats... <Icon icon="mdi:loading" />
   </div>
   <div v-if="statsError">
     Error: {{ statsError }}

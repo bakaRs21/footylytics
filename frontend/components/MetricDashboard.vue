@@ -1,7 +1,7 @@
 <script setup>
 import { computed, ref, watch } from 'vue'
 import MultiSelect from './MultiSelect.vue'
-import { title } from 'process'
+import { Icon } from '@iconify/vue'
 
 const config = useRuntimeConfig()
 const apiBase = config.public.apiBase
@@ -232,9 +232,9 @@ async function scrollToDashboard() {
 
 <template>
   <div @click="showMetrics = !showMetrics" class="title-with-arrows tooltip" data-tooltip="Show metric options to be selected" >
-    <ArrowDown />
+    <Icon icon="mdi:chevron-down" />
       <h2 class="stats-h2" id="metrics"> Metrics </h2>
-    <ArrowDown />
+    <Icon icon="mdi:chevron-down" />
   </div>
   <div v-if="showMetrics">
     <section class="md" ref="dashboard">

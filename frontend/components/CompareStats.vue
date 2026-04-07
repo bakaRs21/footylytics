@@ -279,7 +279,6 @@ onMounted(() => {
             </div>
         </div>
     </div>
-
     <div class="metrics-container">
         <div v-for="(group, groupKey) in metricGroups" :key="groupKey" class="metric-group">
             <h3 class="group-title">
@@ -309,7 +308,6 @@ onMounted(() => {
             </div>
         </div>
     </div>
-
     <div v-if="type !== 'player' && competitors.some(c => c.lineups)" class="lineups-section">
         <h3 class="section-title">
             <span class="group-icon">
@@ -320,14 +318,13 @@ onMounted(() => {
         <div class="lineups-comparison">
             <div v-for="(comp, cIndex) in competitors" :key="comp.id" class="lineups-column">
                 <h4 class="column-header">{{ comp.name }}</h4>
-                
                 <div v-if="comp.lineups" class="lineups-list">
                     <div v-for="(lineup, lIndex) in comp.lineups" :key="`${comp.id}-${lIndex}`" class="lineup-wrapper">
                         <div class="lineup-item" @click="toggleLineup(cIndex, lIndex)">
                             <span class="formation">{{ lineup.formation }}</span>
                             <span class="played-count">{{ lineup.played }} matches</span>
                             <span class="lineup-arrow" :class="{ 'arrow-rotated': isLineupActive(cIndex, lIndex) }">
-                                <SmallArrowDown />
+                                <Icon icon="mdi:chevron-downkdkf" />
                             </span>
                         </div>
                         <div v-if="isLineupActive(cIndex, lIndex)" class="lineup-details">
@@ -339,7 +336,6 @@ onMounted(() => {
             </div>
         </div>
     </div>
-
     <div v-if="competitors.some(c => c.form)" class="form-section">
         <h3 class="section-title">
             <span class="group-icon">

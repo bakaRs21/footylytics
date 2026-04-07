@@ -1,4 +1,5 @@
 <script setup>
+import { Icon } from '@iconify/vue';
 import { ref, computed, watch } from 'vue';
 const props = defineProps({
     modelValue: {
@@ -61,13 +62,13 @@ watch(() => props.modelValue, val => {
     <div class="component">
         <input :placeholder="placeholder" v-model="search" @click="action"/>
         <div v-if="open && !optionSelected">
-            <svg class="svg" xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24"><path fill="none" stroke="#a9a9df" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m18 15l-6-6l-6 6"/></svg>
+            <Icon icon="mdi:check" />
         </div>
         <div v-else-if="!open && !optionSelected">
-            <svg class="svg" xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24"><path fill="none" stroke="#a9a9df" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m6 9l6 6l6-6"/></svg>
+            <Icon icon="mdi:magnify" />
         </div>
         <div v-else-if="optionSelected" class="svg-x" @click="erase">
-            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24"><defs><path id="SVG0kegTdID" fill="#a9a9df" d="M8 6.943L1.807.75L.75 1.807L6.943 8L.75 14.193l1.057 1.057L8 9.057l6.193 6.193l1.057-1.057L9.057 8l6.193-6.193L14.193.75z"/></defs><use fill-rule="evenodd" href="#SVG0kegTdID" transform="translate(4 4)"/></svg>
+            <Icon icon="mdi:close" />
         </div>
         <ul v-if="open" class="onOpen">
             <li v-for="option in filteredOptions" :key="option" @click="selectOption(option)">{{ option.name }}</li>
