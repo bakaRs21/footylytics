@@ -1,32 +1,33 @@
 <script setup lang="ts">
-
+const { t } = useI18n()
+const localePath = useLocalePath()
 </script>
 
 <template>
   <footer class="footer">
     <div class="footer-layout">
       <div class="div-1">
-        <p>Advanced football analytics platform for fans and analysts. Dive deep into stats, compare teams, and explore global football data.</p>
+        <p>{{ t('components.footer.description') }}</p>
       </div>
       <div class="footer-links">
         <div>
-          <h3 class="h3-footer">Features</h3>
+          <h3 class="h3-footer">{{ t('components.footer.features') }}</h3>
           <ul class="padding-fix">
-            <li class="footer-link"><NuxtLink to="/seasons">Seasons Comparison</NuxtLink></li>
-            <li class="footer-link"><NuxtLink to="/teams">Team Analysis</NuxtLink></li>
-            <li class="footer-link"><NuxtLink to="/players">Player Stats</NuxtLink></li>
+            <li class="footer-link"><NuxtLink :to="localePath('/seasons')">{{ t('components.footer.seasonsComparison') }}</NuxtLink></li>
+            <li class="footer-link"><NuxtLink :to="localePath('/teams')">{{ t('components.footer.teamAnalysis') }}</NuxtLink></li>
+            <li class="footer-link"><NuxtLink :to="localePath('/players')">{{ t('components.footer.playerStats') }}</NuxtLink></li>
           </ul>
         </div>
         <div>
-          <h3 class="h3-footer">Resources</h3>
+          <h3 class="h3-footer">{{ t('components.footer.resources') }}</h3>
           <ul class="padding-fix">
-            <li ><NuxtLink to="/documentation">Documentation</NuxtLink></li>
-            <li ><NuxtLink to="/manual">El Manuel</NuxtLink></li>
+            <li ><NuxtLink :to="localePath('/documentation')">{{ t('components.footer.documentation') }}</NuxtLink></li>
+            <li ><NuxtLink :to="localePath('/manual')">{{ t('components.footer.manual') }}</NuxtLink></li>
           </ul>
         </div>
       </div>
     <div>
-      <p>&copy; 2025 FootyLytics. All rights reserved.</p>
+      <p>{{ t('components.footer.copyright') }}</p>
     </div>
     </div>
   </footer>

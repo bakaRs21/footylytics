@@ -1,8 +1,9 @@
 <script setup>
-import { Icon } from '@iconify/vue';
-import { ref, onMounted } from 'vue';
-import SeasonRankingTable from '~/components/SeasonRankingTable.vue';
-import SeasonStats from '~/components/SeasonStats.vue';
+  import { Icon } from '@iconify/vue';
+  import { ref, onMounted } from 'vue';
+  import SeasonRankingTable from '~/components/SeasonRankingTable.vue';
+  import SeasonStats from '~/components/SeasonStats.vue';
+  const { t } = useI18n()
 const config = useRuntimeConfig()
 const route = useRoute()
 const selectedSeason = ref(` ${route.params.id} - ${Number(route.params.id) + 1} `)
@@ -13,8 +14,8 @@ const statsStatus = ref("")
 const statsError = ref("")
 const rankings = ref(null)
 const sections = [
-  { label: "Season Stats", anchor: "stats" },
-  { label: "Season Ranking", anchor: "metrics" },
+  { label: t("pages.seasons.sections.seasonStats"), anchor: "stats" },
+  { label: t("pages.seasons.sections.seasonRanking"), anchor: "metrics" },
 ]
 
 function Inspection() {
@@ -51,17 +52,17 @@ onMounted(() => {
     {{ onMountedMsg }}
   </div>
   <div v-if="statsStatus === 'pending'">
-    Loading stats... <Icon icon="mdi:loading" />
+    {{ t('common.loading') }} <Icon icon="mdi:loading" />
   </div>
   <div v-if="statsError">
     Error: {{ statsError }}
   </div>
   <div v-if="stats">
-    <h2 class="h1-design" id="stats">{{ selectedSeason }} Stats</h2>
+    <h2 class="h1-design" id="stats">{{ selectedSeason }} {{ t('statistics.labels.stats') }}</h2>
     <SeasonStats :data="stats" />
   </div>
   <div v-if="rankings">
-    <h2 class="h1-design" id="metrics">{{ selectedSeason }} Rankings</h2>
+    <h2 class="h1-design" id="metrics">{{ selectedSeason }} {{ t('statistics.labels.ranking') }}</h2>
     <SeasonRankingTable :teams="rankings" />
   </div>
 

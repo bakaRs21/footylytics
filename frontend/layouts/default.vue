@@ -1,6 +1,7 @@
 <template>
   <div class="main-wrapper">
-    <Header />
+    <Header>
+    </Header>
     <main class="content container">
       <NuxtPage />
     </main>

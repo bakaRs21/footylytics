@@ -2,6 +2,8 @@
 import { ref, computed } from 'vue';
 import { Icon } from '@iconify/vue';
 
+const { t } = useI18n()
+
 const props = defineProps({
     teams: {
         type: Array,
@@ -10,16 +12,16 @@ const props = defineProps({
 })
 
 const sortOptions = [
-    { key: 'points',           label: 'Points',           icon: 'material-symbols:trophy-outline',        dir: 'desc' },
-    { key: 'wins',             label: 'Wins',             icon: 'material-symbols:check-circle-outline',  dir: 'desc' },
-    { key: 'goal_difference',  label: 'Goal Difference',  icon: 'material-symbols:sports-score',          dir: 'desc' },
-    { key: 'goals_for',        label: 'Goals Scored',     icon: 'material-symbols:sports-soccer',         dir: 'desc' },
-    { key: 'goals_against',    label: 'Goals Conceded',   icon: 'material-symbols:cancel-outline',        dir: 'asc'  },
-    { key: 'matches',          label: 'Matches Played',   icon: 'material-symbols:event-note-outline',    dir: 'desc' },
-    { key: 'draws',            label: 'Draws',            icon: 'material-symbols:pause-circle-outline', dir: 'desc' },
-    { key: 'losses',           label: 'Losses',           icon: 'material-symbols:x-circle-outline',  dir: 'asc'  },
-    { key: 'win_rate_pct',     label: 'Win Rate %',       icon: 'material-symbols:percent',               dir: 'desc' },
-    { key: 'points_per_match', label: 'Points / Match',   icon: 'material-symbols:calculate-outline',     dir: 'desc' },
+    { key: 'points',           label: t('components.seasonRankingTable.points'),           icon: 'material-symbols:trophy-outline',        dir: 'desc' },
+    { key: 'wins',             label: t('components.seasonRankingTable.wins'),             icon: 'material-symbols:check-circle-outline',  dir: 'desc' },
+    { key: 'goal_difference',  label: t('components.seasonRankingTable.goalDifference'),  icon: 'material-symbols:sports-score',          dir: 'desc' },
+    { key: 'goals_for',        label: t('components.seasonRankingTable.goalsFor'),        icon: 'material-symbols:sports-soccer',         dir: 'desc' },
+    { key: 'goals_against',    label: t('components.seasonRankingTable.goalsAgainst'),    icon: 'material-symbols:cancel-outline',        dir: 'asc'  },
+    { key: 'matches',          label: t('components.seasonRankingTable.matchesPlayed'),   icon: 'material-symbols:event-note-outline',    dir: 'desc' },
+    { key: 'draws',            label: t('components.seasonRankingTable.draws'),           icon: 'material-symbols:pause-circle-outline', dir: 'desc' },
+    { key: 'losses',           label: t('components.seasonRankingTable.losses'),          icon: 'material-symbols:x-circle-outline',  dir: 'asc'  },
+    { key: 'win_rate_pct',     label: t('components.seasonRankingTable.winRate'),        icon: 'material-symbols:percent',               dir: 'desc' },
+    { key: 'points_per_match', label: t('components.seasonRankingTable.pointsPerMatch'), icon: 'material-symbols:calculate-outline',     dir: 'desc' },
 ]
 
 const activeSort = ref(sortOptions[0])
@@ -66,17 +68,17 @@ function formClass(wins, draws, losses) {
     <div class="ranking-header">
         <div class="ranking-title">
             <Icon icon="material-symbols:format-list-numbered" class="header-icon" />
-            <span>League Standings</span>
+            <span>{{ $t('components.seasonRankingTable.rank') }}</span>
         </div>
         <div class="team-count-pill">
             <Icon icon="material-symbols:groups-outline" />
-            {{ props.teams.ranking.length }} Teams
+            {{ props.teams.ranking.length }} {{ $t('components.searchableCards.teams') }}
         </div>
     </div>
     <div class="sort-bar">
         <span class="sort-label">
             <Icon icon="material-symbols:sort" />
-            Sort by
+            {{ $t('common.select') }}
         </span>
         <div class="sort-options">
             <button
@@ -101,17 +103,17 @@ function formClass(wins, draws, losses) {
             <thead>
                 <tr>
                     <th class="col-rank">#</th>
-                    <th class="col-team">Team</th>
-                    <th class="col-num" title="Matches Played">MP</th>
-                    <th class="col-num" title="Wins">W</th>
-                    <th class="col-num" title="Draws">D</th>
-                    <th class="col-num" title="Losses">L</th>
-                    <th class="col-num" title="Goals For">GF</th>
-                    <th class="col-num" title="Goals Against">GA</th>
-                    <th class="col-num" title="Goal Difference">GD</th>
-                    <th class="col-num col-pts" title="Points">Pts</th>
-                    <th class="col-num" title="Points per Match">P/M</th>
-                    <th class="col-num" title="Win Rate">W%</th>
+                    <th class="col-team">{{ $t('components.seasonRankingTable.team') }}</th>
+                    <th class="col-num" :title="$t('components.seasonRankingTable.matchesPlayed')">MP</th>
+                    <th class="col-num" :title="$t('components.seasonRankingTable.wins')">W</th>
+                    <th class="col-num" :title="$t('components.seasonRankingTable.draws')">D</th>
+                    <th class="col-num" :title="$t('components.seasonRankingTable.losses')">L</th>
+                    <th class="col-num" :title="$t('components.seasonRankingTable.goalsFor')">GF</th>
+                    <th class="col-num" :title="$t('components.seasonRankingTable.goalsAgainst')">GA</th>
+                    <th class="col-num" :title="$t('components.seasonRankingTable.goalDifference')">GD</th>
+                    <th class="col-num col-pts" :title="$t('components.seasonRankingTable.points')">Pts</th>
+                    <th class="col-num" :title="$t('components.seasonRankingTable.pointsPerMatch')">P/M</th>
+                    <th class="col-num" :title="$t('components.seasonRankingTable.winRate')">W%</th>
                 </tr>
             </thead>
             <tbody>

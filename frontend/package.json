@@ -10,6 +10,7 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "@nuxtjs/i18n": "^10.2.4",
     "@types/colorthief": "^2.6.0",
     "apexcharts": "^5.3.5",
     "colorthief": "^2.6.0",

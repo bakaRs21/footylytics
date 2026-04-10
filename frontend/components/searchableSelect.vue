@@ -61,10 +61,10 @@ watch(() => props.modelValue, val => {
 <template>
     <div class="component">
         <input :placeholder="placeholder" v-model="search" @click="action"/>
-        <div v-if="open && !optionSelected">
+        <div v-if="open && !optionSelected" class="svg">
             <Icon icon="mdi:check" />
         </div>
-        <div v-else-if="!open && !optionSelected">
+        <div v-else-if="!open && !optionSelected" class="svg">
             <Icon icon="mdi:magnify" />
         </div>
         <div v-else-if="optionSelected" class="svg-x" @click="erase">
@@ -103,7 +103,7 @@ input::placeholder {
 .svg {
     position: absolute; 
     top: 50%; 
-    right: 0.75rem; 
+    right: 0.85rem; 
     transform: translateY(-50%);
     pointer-events: none;
 }
@@ -111,7 +111,7 @@ input::placeholder {
     cursor: pointer;
     position: absolute; 
     top: 50%; 
-    right: 0.75rem; 
+    right: 0.85rem; 
     transform: translateY(-50%);
 }
 

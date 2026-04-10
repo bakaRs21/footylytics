@@ -1,6 +1,8 @@
 <script setup>
 import { ref, watch, computed } from 'vue';
 import { Icon } from '@iconify/vue';
+
+const { t } = useI18n()
 const config = useRuntimeConfig()
 const filterOpen = ref(false)
 const search = ref("");
@@ -13,7 +15,7 @@ const props = defineProps({
     },
     placeholder: {
         type: String,
-        default: "Search..."
+        default: undefined
     },
     enableLinks: {
         type: Boolean,
@@ -64,15 +66,15 @@ function filtersToArray(array, filterValue) {
 
 const availableFilters = computed(() => {
     if (props.page === 'season') {
-        return [{ title: 'No filters available', value: null }]
+        return [{ title: t('common.noFiltersAvailable'), value: null }]
     }
     if (props.page === 'team') {
-        return [{title: 'Seasons', value: availableSeasons.value.map(season => ({ name: season.season, value: season.season_id }))}];
+        return [{title: t('components.searchableCards.seasons'), value: availableSeasons.value.map(season => ({ name: season.season, value: season.season_id }))}];
     }
     if (props.page === 'player') {
         return [
-            { title: 'Seasons', value: availableSeasons.value.map(season => ({ name: season.season, value: season.season_id })) },
-            { title: "Teams", value: availableTeams.value.map(team => ({ name: team.name, value: team.team_id })) }
+            { title: t('components.searchableCards.seasons'), value: availableSeasons.value.map(season => ({ name: season.season, value: season.season_id })) },
+            { title: t('components.searchableCards.teams'), value: availableTeams.value.map(team => ({ name: team.name, value: team.team_id })) }
         ]
     }
 })
@@ -111,19 +113,23 @@ const getItemId = (item) => {
   const key = `${props.page}_id`
   return item[key]
 }
+
+const placeholderText = computed(() => {
+  return props.placeholder || t('components.searchableCards.searchPlaceholder')
+})
 </script>
 <template>
     <div class="panel">
         <div class="left panel-left">
-            <pre>Count: {{ count }}</pre>
+            <pre>{{ $t('common.search') }}: {{ count }}</pre>
         </div>
         <button v-if="page !== 'season'" class="filter-toggle-btn btn-filter" @click="filterOpen = !filterOpen">
             <Icon icon="mdi:filter-variant" />
-            Filters
+            {{ $t('common.filters') }}
             <Icon icon="mdi:chevron-down" :class="{ 'chevron-open': filterOpen }" class="chevron" />
         </button>
         <div class="right panel-right">
-            <input v-model="search" type="text" :placeholder="placeholder" class="input-compact"/>
+            <input v-model="search" type="text" :placeholder="placeholderText" class="input-compact"/>
         </div>
     </div>
     <Transition name="filter-slide">
@@ -140,8 +146,8 @@ const getItemId = (item) => {
                 </div>  
             </div>
             <div class="filter-group">
-                <span class="filter-label label-filter">Actions :</span>
-                <button class="filter-chip btn-chip clear" @click="selectedFilters = []">Clear Filters</button>
+                <span class="filter-label label-filter">{{ $t('common.select') }} :</span>
+                <button class="filter-chip btn-chip clear" @click="selectedFilters = []">{{ $t('common.clearFilters') }}</button>
             </div>
         </div>
     </Transition>
@@ -152,7 +158,7 @@ const getItemId = (item) => {
             <card v-else>{{ item.season }}</card>
         </NuxtLink>
         <card v-else v-for="itm in filteredItems" :key="getItemId(itm)">{{ itm.name }}</card>
-        <p v-if="filteredItems.length == 0">No items match {{ search }}</p>
+        <p v-if="filteredItems.length == 0">{{ $t('common.noData') }}</p>
     </div>
 </template>
 

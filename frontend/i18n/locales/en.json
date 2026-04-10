@@ -1,0 +1,378 @@
+{
+  "navigation": {
+    "home": "Home",
+    "compare": "Compare",
+    "seasons": "Seasons",
+    "teams": "Teams",
+    "players": "Players",
+    "documentation": "Documentation",
+    "manual": "Manual"
+  },
+  "common": {
+    "loading": "Loading data...",
+    "error": "Error",
+    "search": "Search",
+    "noData": "No data available",
+    "clearStats": "Clear statistics",
+    "clearFilters": "Clear Filters",
+    "cancel": "Cancel",
+    "close": "Close",
+    "select": "Select",
+    "filters": "Filters",
+    "noFiltersAvailable": "No filters available",
+    "selectSeason": "Select season",
+    "orDataFrom": "Or data from",
+    "allSeasons": "All seasons",
+    "metrics": "Metrics",
+    "outOf": "out of",
+    "noFormations": "No formations available"
+  },
+  "pages": {
+    "index": {
+      "title": "Premier League",
+      "subtitle": "Interactive Data Visualization",
+      "description": "Explore comprehensive statistics, compare performances, and discover insights from the world's most exciting football league",
+      "features": {
+        "compareStats": {
+          "title": "Compare Statistics",
+          "description": "Head-to-head comparison of teams, players, and seasons with detailed metrics"
+        },
+        "teamStatistics": {
+          "title": "Team Statistics",
+          "description": "Explore comprehensive team performance data and historical records"
+        },
+        "playerAnalysis": {
+          "title": "Player Analysis",
+          "description": "Dive into individual player stats, ratings, and achievements"
+        },
+        "seasonOverview": {
+          "title": "Season Overview",
+          "description": "Review complete season data and league standings"
+        }
+      },
+      "badges": {
+        "liveStatistics": "Live Statistics",
+        "visualAnalytics": "Visual Analytics",
+        "fastComparisons": "Fast Comparisons"
+      }
+    },
+    "compare": {
+      "title": "See the difference",
+      "subtitle": "Compare individual players, teams or seasons",
+      "compare": "Compare",
+      "compareSeasons": "Compare Seasons",
+      "compareTeams": "Compare Teams",
+      "comparePlayers": "Compare Players",
+      "sections": {
+        "selection": "Selection",
+        "statsComparison": "Comparison"
+      },
+      "compareErrorMessages": {
+        "selectBothSeasons": "Please select both seasons first.",
+        "selectBothTeams": "Please select both teams first.",
+        "selectBothPlayers": "Please select both players first.",
+        "sameSeason": "Cannot compare the same season.",
+        "sameTeam": "Cannot compare the same team.",
+        "samePlayer": "Cannot compare the same player.",
+        "selectBothTeamsAndSeason": "Please select both teams and their seasons.",
+        "selectBothPlayersAndSeason": "Please select both players and their seasons."
+      }
+    },
+    "teams": {
+      "title": "Teams Page",
+      "searchPlaceholder": "Search teams...",
+      "teamAnalysis": "Team Analysis",
+      "sections": {
+        "logo": "Team Logo",
+        "seasonSelection": "Season Selection",
+        "teamStats": "Team Statistics",
+        "metricsSelection": "Metric Selection"
+      }
+    },
+    "players": {
+      "title": "Players Page",
+      "searchPlaceholder": "Search players...",
+      "playerStats": "Player Statistics",
+      "sections": {
+        "playerInfo": "Player Information",
+        "seasonSelection": "Season Selection",
+        "playerStats": "Player Statistics",
+        "metricsSelection": "Metric Selection"
+      },
+      "errorMessages": {
+        "selectSeason": "Please select a season to view its statistics",
+        "noStats": "No statistics available for this season"
+      }
+    },
+    "seasons": {
+      "title": "Seasons Page",
+      "searchPlaceholder": "Search season",
+      "seasonComparison": "Season Comparison",
+      "sections": {
+        "seasonStats": "Season Statistics",
+        "seasonRanking": "League Table"
+      }
+    },
+    "documentation": {
+      "title": "Testing Area"
+    }
+  },
+  "components": {
+    "header": {
+      "home": "Home"
+    },
+    "footer": {
+      "description": "Advanced football analytics platform for fans and analysts. Dive deep into stats, compare teams, and explore global football data.",
+      "features": "Features",
+      "resources": "Resources",
+      "seasonsComparison": "Seasons Comparison",
+      "teamAnalysis": "Team Analysis",
+      "playerStats": "Player Stats",
+      "documentation": "Documentation",
+      "manual": "Manual",
+      "copyright": "© 2025 FootyLytics. All rights reserved."
+    },
+    "languageSwitcher": {
+      "english": "English",
+      "czech": "Čeština"
+    },
+    "teamStatsDashboard": {
+      "title": "Team Statistics",
+      "formations": "Formations",
+      "matchesOverview": "Matches Overview",
+      "goalsAndPerformance": "Goals & Performance",
+      "totalMatches": "Total Matches",
+      "wins": "Wins",
+      "draws": "Draws",
+      "losses": "Losses",
+      "goalsScored": "Goals Scored",
+      "goalsConceded": "Goals Conceded",
+      "cleanSheets": "Clean Sheets",
+      "failedToScore": "Failed to Score",
+      "penalties": "Penalties",
+      "penaltiesScored": "Scored",
+      "penaltiesMissed": "Missed",
+      "streaks": "Streaks",
+      "biggestWinStreak": "Biggest Win Streak",
+      "biggestDrawStreak": "Biggest Draw Streak",
+      "biggestLoseStreak": "Biggest Lose Streak",
+      "teamForm": "Team Form",
+      "latestMatchRight": "Latest match is on the right",
+      "played": "matches",
+      "matches": "matches",
+      "noLineupData": "No lineup data available"
+    },
+    "playerStatsDashboard": {
+      "title": "Player Statistics",
+      "games": "Games",
+      "totalMatchesPlayed": "Total Matches Played",
+      "totalMinutesPlayed": "Total Minutes Played",
+      "playerRating": "Player Rating",
+      "goalsAndAssists": "Goals & Assists",
+      "totalGoals": "Total Goals",
+      "totalAssists": "Total Assists",
+      "totalShots": "Total Shots",
+      "shotsOnTarget": "Shots on Target",
+      "defensiveStats": "Defensive Stats",
+      "totalTackles": "Total Tackles",
+      "blocks": "Blocks",
+      "tacklesAndInterceptions": "Tackles & Interceptions",
+      "passingStats": "Passing Stats",
+      "totalPasses": "Total Passes",
+      "keyPasses": "Key Passes",
+      "duelsAndDribbles": "Duels & Dribbles",
+      "totalDuels": "Total Duels",
+      "duelsWon": "Duels Won",
+      "dribblesSuccessful": "Dribbles Successful",
+      "dribblesAttempts": "Dribbles Attempts",
+      "discipline": "Discipline",
+      "redCards": "Red Cards",
+      "yellowCards": "Yellow Cards",
+      "foulsCommitted": "Fouls Committed",
+      "foulsDrawn": "Fouls Drawn",
+      "penalties": "Penalties",
+      "penaltiesScored": "Scored",
+      "penaltiesMissed": "Missed",
+      "penaltiesWon": "Won",
+      "goalkeeperStats": "Goalkeeper Stats",
+      "goalsConceded": "Goals Conceded",
+      "saves": "Saves",
+      "penaltiesSaved": "Penalties Saved"
+    },
+    "seasonStats": {
+      "overview": "Season Overview",
+      "players": "Players",
+      "appearances": "Appearances",
+      "goals": "Goals",
+      "assists": "Assists",
+      "totalShots": "Total Shots",
+      "totalPasses": "Total Passes",
+      "shooting": "Shooting",
+      "shotsOnTarget": "Shots on Target",
+      "shotAccuracy": "Shot Accuracy",
+      "passing": "Passing",
+      "keyPasses": "Key Passes",
+      "keyPassRate": "Key Pass Rate",
+      "duelsAndDribbles": "Duels & Dribbles",
+      "totalDuels": "Total Duels",
+      "duelsWon": "Duels Won",
+      "duelWinRate": "Duel Win Rate",
+      "dribbleAttempts": "Dribble Attempts",
+      "dribblesSuccessful": "Dribbles Successful",
+      "dribbleSuccessRate": "Dribble Success Rate",
+      "discipline": "Discipline",
+      "yellowCards": "Yellow Cards",
+      "redCards": "Red Cards",
+      "foulsCommitted": "Fouls Committed",
+      "foulsDrawn": "Fouls Drawn",
+      "penalties": "Penalties",
+      "penaltiesScored": "Scored",
+      "penaltiesMissed": "Missed",
+      "conversionRate": "Conversion Rate",
+      "defense": "Defense",
+      "totalTackles": "Total Tackles"
+    },
+    "compareStats": {
+      "gameTime": "Game Time",
+      "appearances": "Appearances",
+      "starts": "Starts",
+      "minutes": "Minutes",
+      "avgRating": "Avg Rating",
+      "attacking": "Attacking",
+      "goals": "Goals",
+      "assists": "Assists",
+      "totalShots": "Total Shots",
+      "shotsOnTarget": "Shots on Target",
+      "shotAccuracy": "Shot Accuracy",
+      "passing": "Passing",
+      "totalPasses": "Total Passes",
+      "keyPasses": "Key Passes",
+      "defensive": "Defensive",
+      "totalTackles": "Total Tackles",
+      "blocks": "Blocks",
+      "interceptions": "Interceptions",
+      "duels": "Duels & Dribbles",
+      "totalDuels": "Total Duels",
+      "duelsWon": "Duels Won",
+      "duelWinRate": "Duel Win Rate",
+      "dribbleAttempts": "Dribble Attempts",
+      "dribblesSuccessful": "Dribbles Successful",
+      "dribbleSuccessRate": "Dribble Success Rate",
+      "discipline": "Discipline",
+      "yellowCards": "Yellow Cards",
+      "redCards": "Red Cards",
+      "foulsCommitted": "Fouls Committed",
+      "foulsDrawn": "Fouls Drawn",
+      "penalties": "Penalties",
+      "penaltiesScored": "Scored",
+      "penaltiesMissed": "Missed",
+      "tie": "It's a Tie!",
+      "overallWinner": "Overall Winner",
+      "recentForm": "Recent Form",
+      "noForm": "No form data available",
+      "formNote": "Latest match on the right"
+    },
+    "compareSeasons": {
+      "seasonOverview": "Season Overview",
+      "totalPlayers": "Total Players",
+      "appearances": "Appearances",
+      "attacking": "Attacking",
+      "goals": "Goals",
+      "assists": "Assists",
+      "totalShots": "Total Shots",
+      "shotsOnTarget": "Shots on Target",
+      "shotAccuracy": "Shot Accuracy",
+      "passing": "Passing",
+      "totalPasses": "Total Passes",
+      "keyPasses": "Key Passes",
+      "duels": "Duels & Dribbles",
+      "totalDuels": "Total Duels",
+      "duelsWon": "Duels Won",
+      "duelWinRate": "Duel Win Rate",
+      "dribbleAttempts": "Dribble Attempts",
+      "dribblesSuccessful": "Dribbles Successful",
+      "dribbleSuccessRate": "Dribble Success Rate",
+      "defensive": "Defensive",
+      "totalTackles": "Total Tackles",
+      "discipline": "Discipline",
+      "yellowCards": "Yellow Cards",
+      "redCards": "Red Cards",
+      "foulsCommitted": "Fouls Committed",
+      "foulsDrawn": "Fouls Drawn",
+      "penalties": "Penalties",
+      "penaltiesScored": "Scored",
+      "penaltiesMissed": "Missed"
+    },
+    "searchableCards": {
+      "searchPlaceholder": "Search...",
+      "noFiltersAvailable": "No filters available",
+      "seasons": "Seasons",
+      "teams": "Teams"
+    },
+    "metricDashboard": {
+      "selectMetrics": "Select metrics…"
+    },
+    "seasonRankingTable": {
+      "matchesPlayed": "Matches Played",
+      "wins": "Wins",
+      "draws": "Draws",
+      "losses": "Losses",
+      "goalsFor": "Goals For",
+      "goalsAgainst": "Goals Against",
+      "goalDifference": "Goal Difference",
+      "points": "Points",
+      "pointsPerMatch": "Points per Match",
+      "winRate": "Win Rate",
+      "rank": "Rank",
+      "team": "Team"
+    },
+    "lineups": {
+      "formation": "Formation",
+      "players": "Players"
+    },
+    "pageContent": {
+      "title": "On this page"
+    }
+  },
+  "statistics": {
+    "labels": {
+      "goals": "Goals",
+      "assists": "Assists",
+      "totalShots": "Total Shots",
+      "shotsOnTarget": "Shots on Target",
+      "tackles": "Tackles",
+      "blocks": "Blocks",
+      "interceptions": "Interceptions",
+      "passes": "Passes",
+      "keyPasses": "Key Passes",
+      "duels": "Duels",
+      "duelsWon": "Duels Won",
+      "dribbles": "Dribbles",
+      "dribblesSuccessful": "Dribbles Successful",
+      "yellowCards": "Yellow Cards",
+      "redCards": "Red Cards",
+      "fouls": "Fouls",
+      "penalties": "Penalties",
+      "cleanSheets": "Clean Sheets",
+      "saves": "Saves",
+      "rating": "Rating",
+      "minutes": "Minutes",
+      "appearances": "Appearances",
+      "matches": "Matches",
+      "wins": "Wins",
+      "draws": "Draws",
+      "losses": "Losses",
+      "stats": "Stats",
+      "ranking": "Ranking"
+    },
+    "tooltips": {
+      "showStats": "Show stats",
+      "showMetricOptions": "Show metric options to be selected"
+    }
+  },
+  "errors": {
+    "loadingFailed": "Loading failed",
+    "noData": "No data available",
+    "tryAgain": "Try again"
+  }
+}

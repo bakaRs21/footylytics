@@ -1,7 +1,8 @@
 <script setup>
-import { Icon } from '@iconify/vue';
-import { ref, onMounted, watch } from 'vue';
-import { PLAYER_METRIC_CONFIGS } from '~/composables/useMetricConfig.js';
+  import { Icon } from '@iconify/vue';
+  import { ref, onMounted, watch } from 'vue';
+  import { PLAYER_METRIC_CONFIGS } from '~/composables/useMetricConfig.js';
+  const { t } = useI18n()
 const config = useRuntimeConfig()
 const route = useRoute()
 const router = useRouter()
@@ -14,10 +15,10 @@ const stats = ref({})
 const statsStatus = ref("")
 const statsError = ref("")
 const pageSections = [
-  { label: "Player Info", anchor: "top-section" },
-  { label: "Season Selection", anchor: "seasons" },
-  { label: "Player Statistics", anchor: "stats" },
-  { label: "Player Metrics", anchor: "metrics" },
+  { label: t("pages.players.sections.playerInfo"), anchor: "top-section" },
+  { label: t("pages.players.sections.seasonSelection"), anchor: "seasons" },
+  { label: t("pages.players.sections.playerStats"), anchor: "stats" },
+  { label: t("pages.players.sections.playerMetrics"), anchor: "metrics" },
 ]
 
 watch(() => stats.value, (newVal) => {
@@ -62,7 +63,7 @@ watch(() => selectedSeason.value, async (newVal) => {
 })
 async function Inspection() {
   if (!route.query.season) {
-    return onMountedMsg.value = "Please select a season to view the stats."
+    return onMountedMsg.value = $t("pages.players.errorMessages.selectSeason")
   }
   if (route.query.season === "all-seasons") {
     seasonParam.value = ""
@@ -105,10 +106,10 @@ onMounted(() => {
   </div>
   <div class="seasons">
     <div class="season-selection-heading">
-      <h3 id="seasons">Select a season : </h3>
+      <h3 id="seasons">{{ t('common.selectSeason') }} : </h3>
       <div class="all-seasons">
-        <h3 id="allS">Or data from</h3  >
-        <button class="all-seasons-button" @click="selectSeason(0)">All Seasons</button>
+        <h3 id="allS">{{ t('common.orDataFrom') }}</h3  >
+        <button class="all-seasons-button" @click="selectSeason(0)">{{ t('common.allSeasons') }}</button>
       </div>
     </div>
     <div class="player-seasons" v-if="!playerSeasonsError" >
@@ -123,11 +124,10 @@ onMounted(() => {
   </div>
   <div class="stats">
     <div v-if="statsStatus === 'pending'">
-      Loading player stats...
-      <Icon icon="mdi:loading" />
+      {{ t('common.loading') }} <Icon icon="mdi:loading" />
     </div>
     <div v-else-if="statsError" class="error-message">
-      Error loading stats: {{ statsError.message }}
+      {{ t('errors.loadingFailed') }}: {{ statsError.message }}
     </div>
     <div id="stats">
       <PlayerStatsDashBoard v-model="stats" />

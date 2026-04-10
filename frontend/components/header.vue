@@ -1,22 +1,27 @@
+<script setup>
+const { t } = useI18n()
+const localePath = useLocalePath()
+</script>
 <template>
     <header>
         <nav>
             <div class="navigation">
                 <div class="menu-bar">
                     <div class="logo-row">
-                        <NuxtLink to="/">
+                        <NuxtLink :to="localePath('/')">
                             <div class="logo-text">
-                                Go Home
+                                {{ t('navigation.home') }}
                             </div>
                         </NuxtLink>
+                        <LanguageSwitcher />
                     </div> 
                     <ul class="menu">
-                        <li><NuxtLink to="/compare">Compare</NuxtLink></li>
-                        <li><NuxtLink to="/seasons/">Seasons</NuxtLink></li>
-                        <li><NuxtLink to="/teams/">Teams</NuxtLink></li>
-                        <li><NuxtLink to="/players/">Players</NuxtLink></li>
-                        <li><NuxtLink to="/documentation" class="docs">Docs</NuxtLink></li>
-                        <li><NuxtLink to="/manual" class="manual">ElManuel</NuxtLink></li>
+                        <li><NuxtLink :to="localePath('/compare')">{{ t('navigation.compare') }}</NuxtLink></li>
+                        <li><NuxtLink :to="localePath('/seasons/')">{{ t('navigation.seasons') }}</NuxtLink></li>
+                        <li><NuxtLink :to="localePath('/teams/')">{{ t('navigation.teams') }}</NuxtLink></li>
+                        <li><NuxtLink :to="localePath('/players/')">{{ t('navigation.players') }}</NuxtLink></li>
+                        <li><NuxtLink :to="localePath('/documentation')" class="docs">{{ t('navigation.documentation') }}</NuxtLink></li>
+                        <li><NuxtLink :to="localePath('/manual')" class="manual">{{ t('navigation.manual') }}</NuxtLink></li>
                     </ul>
                 </div>
             </div>
@@ -107,6 +112,7 @@ header nav .menu-bar {
 header nav .logo-row {
   display: flex;
   align-items: center;
+  gap: 20px;
 }
 header nav .logo-row .logo-text {
   margin-left: 0.5rem; 

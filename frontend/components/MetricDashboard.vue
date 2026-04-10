@@ -3,13 +3,14 @@ import { computed, ref, watch } from 'vue'
 import MultiSelect from './MultiSelect.vue'
 import { Icon } from '@iconify/vue'
 
+const { t } = useI18n()
 const config = useRuntimeConfig()
 const apiBase = config.public.apiBase
 const showMetrics = ref(false)
 const dashboard = ref(null)
 
 const props = defineProps({
-  title: { type: String, default: 'Metrics' },
+  title: { type: String },
   metricOptions: { 
     type: Array, 
     required: true 
@@ -29,6 +30,7 @@ const props = defineProps({
   refetchOnSeasonChange: { type: Boolean, default: true },
 })
 
+const title = computed(() => props.title ?? t('components.metricDashboard.selectMetrics'))
 const selectedSeason = ref(props.initialSeason)
 const selectedMetricKeys = ref([...(props.initialMetricKeys ?? [])])
 
@@ -231,9 +233,9 @@ async function scrollToDashboard() {
 </script>
 
 <template>
-  <div @click="showMetrics = !showMetrics" class="title-with-arrows tooltip" data-tooltip="Show metric options to be selected" >
+  <div @click="showMetrics = !showMetrics" class="title-with-arrows tooltip" :data-tooltip="$t('statistics.tooltips.showMetricOptions')" >
     <Icon icon="mdi:chevron-down" />
-      <h2 class="stats-h2" id="metrics"> Metrics </h2>
+      <h2 class="stats-h2" id="metrics"> {{ $t('components.metricDashboard.selectMetrics') }} </h2>
     <Icon icon="mdi:chevron-down" />
   </div>
   <div v-if="showMetrics">
@@ -243,16 +245,16 @@ async function scrollToDashboard() {
           <MultiSelect
             :options="normalizedMetricOptions"
             v-model="selectedMetricKeys"
-            placeholder="Select metrics…"
-            confirmText="Confirm"
+            :placeholder="$t('components.metricDashboard.selectMetrics')"
+            :confirmText="$t('common.select')"
             @confirm="onConfirm"
           />
         </div>
 
         <div class="md__right">
-          <div class="md__seasonLabel">filter to season</div>
+          <div class="md__seasonLabel">{{ $t('pages.teams.sections.seasonSelection') }}</div>
           <select v-model="selectedSeason" class="md__seasonSelect">
-            <option value="all-seasons">all seasons</option>
+            <option value="all-seasons">{{ $t('pages.documentation.title') }}</option>
             <option v-for="s in seasons" :key="s" :value="s">{{ s }}</option>
           </select>
         </div>
@@ -260,10 +262,10 @@ async function scrollToDashboard() {
 
       <div class="md__body">
         <p v-if="error" class="md__error">{{ error }}</p>
-        <p v-else-if="loading" class="md__loading">Fetching metrics…</p>
+        <p v-else-if="loading" class="md__loading">{{ $t('common.loading') }}</p>
 
         <div v-else-if="!rows.length" class="md__empty">
-          Select metrics and press <strong>Confirm</strong>.
+          {{ $t('components.metricDashboard.selectMetrics') }} {{ $t('common.select') }} <strong>{{ $t('common.select') }}</strong>.
         </div>
 
         <div v-else class="md__grid">
@@ -274,7 +276,7 @@ async function scrollToDashboard() {
             >
               <h4 class="md__cardTitle">{{ card.title }}</h4>
               <div v-if="!card.hasData" class="md__noData">
-                Make sure to confirm your selection
+                {{ $t('common.noData') }}
               </div>
               <DashboardCard v-else
                 :chartOptions="card.allowedCharts"

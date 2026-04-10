@@ -1,0 +1,379 @@
+{
+  "navigation": {
+    "home": "Domů",
+    "compare": "Porovnat",
+    "seasons": "Sezóny",
+    "teams": "Týmy",
+    "players": "Hráči",
+    "documentation": "Dokumentace",
+    "manual": "Manuál"
+  },
+  "common": {
+    "loading": "Načítání dat...",
+    "error": "Chyba",
+    "search": "Hledat",
+    "noData": "Nejsou dostupná data",
+    "clearStats": "Vymazat statistiky",
+    "clearFilters": "Vymazat filtry",
+    "cancel": "Zrušit",
+    "close": "Zavřít",
+    "select": "Vybrat",
+    "filters": "Filtry",
+    "noFiltersAvailable": "Nejsou dostupné žádné filtry",
+    "selectSeason": "Vyberte sezonu",
+    "orDataFrom": "Nebo data z",
+    "allSeasons": "Všech sezon",
+    "metrics": "Metrik",
+    "outOf": "z",
+    "noFormations": "Nejsou dostupné žádné formace"
+  },
+  "pages": {
+    "index": {
+      "title": "Premier League",
+      "subtitle": "Interaktivní vizualizace dat",
+      "description": "Prozkoumejte komplexní statistiky, porovnávejte výkony a objevujte poznatky z nejpopulárnější fotbalové ligy na světě",
+      "features": {
+        "compareStats": {
+          "title": "Porovnat statistiky",
+          "description": "Přímé porovnání týmů, hráčů a sezón s podrobnými metrikami"
+        },
+        "teamStatistics": {
+          "title": "Statistiky týmů",
+          "description": "Prozkoumejte komplexní data o výkonu týmů a historické záznamy"
+        },
+        "playerAnalysis": {
+          "title": "Analýza hráčů",
+          "description": "Ponořte se do statistik jednotlivých hráčů, hodnocení a dosažení"
+        },
+        "seasonOverview": {
+          "title": "Přehled sezony",
+          "description": "Zobrazit úplná data sezony a tabulky ligy"
+        }
+      },
+      "badges": {
+        "liveStatistics": "Živé statistiky",
+        "visualAnalytics": "Vizuální analýza",
+        "fastComparisons": "Rychlá porovnání"
+      }
+    },
+    "compare": {
+      "title": "Podívejte se na rozdíl",
+      "subtitle": "Porovnávejte jednotlivé hráče, týmy nebo sezony",
+      "compare": "Porovnat",
+      "compareSeasons": "Porovnat sezony",
+      "compareTeams": "Porovnat týmy",
+      "comparePlayers": "Porovnat hráče",
+      "sections": {
+        "selection": "Výběr pro porovnání",
+        "statsComparison": "Porovnání statistik"
+      },
+      "compareErrorMessages": {
+        "selectBothSeasons": "Nejprve vyberte obě sezony pro porovnání",
+        "selectBothTeams": "Nejprve vyberte oba týmy pro porovnání",
+        "selectBothPlayers": "Nejprve vyberte oba hráče pro porovnání",
+        "sameSeason": "Nelze porovnat stejnou sezonu",
+        "sameTeam": "Nelze porovnat stejný tým",
+        "samePlayer": "Nelze porovnat stejného hráče",
+        "selectBothTeamsAndSeason": "Nejprve vyberte oba týmy a sezony pro porovnání",
+        "selectBothPlayersAndSeason": "Nejprve vyberte oba hráče a sezony pro porovnání"
+      }
+    },
+    "teams": {
+      "title": "Stránka týmů",
+      "searchPlaceholder": "Hledat týmy...",
+      "teamAnalysis": "Analýza týmů",
+      "sections": {
+        "logo": "Logo Týmu",
+        "seasonSelection": "Výběr sezony",
+        "teamStats": "Přehled statistik",
+        "metricsSelection": "Výběr metrik"
+      }
+    },
+    "players": {
+      "title": "Stránka hráčů",
+      "searchPlaceholder": "Hledat hráče...",
+      "playerStats": "Statistiky hráčů",
+      "sections": {
+        "playerInfo": "Informace o hráči",
+        "seasonSelection": "Výběr sezony",
+        "playerStats": "Přehled statistik",
+        "metricsSelection": "Výběr metrik"
+      },
+      "errorMessages": {
+        "selectSeason": "Nejprve vyberte sezonu pro zobrazení statistik hráče",
+        "noStats": "Nejsou dostupné žádné statistiky pro tento hráč a sezonu"
+      }
+    },
+    "seasons": {
+      "title": "Stránka sezón",
+      "searchPlaceholder": "Hledat sezonu",
+      "seasonComparison": "Porovnání sezón",
+      "sections": {
+        "seasonStats": "Statistiky sezony",
+        "seasonRanking": "Tabulka ligy"
+      }
+    },
+    "documentation": {
+      "title": "Dokumentace"
+    }
+  },
+  "components": {
+    "header": {
+      "home": "Domů"
+    },
+    "footer": {
+      "description": "Pokročilá platforma pro analýzu fotbalu pro fanoušky a analytiky. Ponořte se hluboko do statistik, porovnávejte týmy a prozkoumávejte globální fotbalová data.",
+      "features": "Funkce",
+      "resources": "Zdroje",
+      "seasonsComparison": "Porovnání sezón",
+      "teamAnalysis": "Analýza týmů",
+      "playerStats": "Statistiky hráčů",
+      "documentation": "Dokumentace",
+      "manual": "Manuál",
+      "copyright": "© 2025 FootyLytics. Všechna práva vyhrazena."
+    },
+    "languageSwitcher": {
+      "english": "English",
+      "czech": "Čeština"
+    },
+    "teamStatsDashboard": {
+      "title": "Statistiky týmu",
+      "formations": "Formace",
+      "matchesOverview": "Přehled zápasů",
+      "goalsAndPerformance": "Góly a výkon",
+      "totalMatches": "Celkem zápasů",
+      "wins": "Výhry",
+      "draws": "Remízy",
+      "losses": "Porážky",
+      "goalsScored": "Vstřelené góly",
+      "goalsConceded": "Obdržené góly",
+      "cleanSheets": "Čistá konta",
+      "failedToScore": "Bez gólu",
+      "penalties": "Penalty",
+      "penaltiesScored": "Vstřelené",
+      "penaltiesMissed": "Neproměněné",
+      "streaks": "Série",
+      "biggestWinStreak": "Největší série výher",
+      "biggestDrawStreak": "Největší série remíz",
+      "biggestLoseStreak": "Největší série porážek",
+      "teamForm": "Forma týmu",
+      "latestMatchRight": "Poslední zápas je vpravo",
+      "played": "zápasů",
+      "matches": "zápasů",
+      "noLineupData": "Nejsou dostupná data o formacích"
+    },
+    "playerStatsDashboard": {
+      "title": "Statistiky hráče",
+      "games": "Zápasy",
+      "totalMatchesPlayed": "Celkem odehraných zápasů",
+      "totalMinutesPlayed": "Celkem minut",
+      "playerRating": "Průměrné hodnocení",
+      "goalsAndAssists": "Góly a asistence",
+      "totalGoals": "Celkem gólů",
+      "totalAssists": "Celkem asistencí",
+      "totalShots": "Celkem střel",
+      "shotsOnTarget": "Střely na bránu",
+      "defensiveStats": "Obranné statistiky",
+      "totalTackles": "Celkem zákroků",
+      "blocks": "Blokace",
+      "tacklesAndInterceptions": "Zákroky a přerušení",
+      "passingStats": "Statistiky přihrávek",
+      "totalPasses": "Celkem přihrávek",
+      "keyPasses": "Klíčové přihrávky",
+      "duelsAndDribbles": "Duely a driblování",
+      "totalDuels": "Celkem duelů",
+      "duelsWon": "Vyhraných duelů",
+      "dribblesSuccessful": "Úspěšné driblování",
+      "dribblesAttempts": "Pokusy na dribling",
+      "discipline": "Disciplína",
+      "redCards": "Červené karty",
+      "yellowCards": "Žluté karty",
+      "foulsCommitted": "Provedené fauly",
+      "foulsDrawn": "Získané fauly",
+      "penalties": "Penalty",
+      "penaltiesScored": "Vstřelené",
+      "penaltiesMissed": "Neproměněné",
+      "penaltiesWon": "Získané",
+      "goalkeeperStats": "Statistiky brankáře",
+      "goalsConceded": "Obdržené góly",
+      "saves": "Zákroky",
+      "penaltiesSaved": "Záchrany penalt"
+    },
+    "seasonStats": {
+      "overview": "Přehled sezony",
+      "players": "Hráči",
+      "appearances": "Odehrané zápasy",
+      "goals": "Góly",
+      "assists": "Asistence",
+      "totalShots": "Celkem střel",
+      "totalPasses": "Celkem přihrávek",
+      "shooting": "Střelba",
+      "shotsOnTarget": "Střely na bránu",
+      "shotAccuracy": "Přesnost střel",
+      "passing": "Přihrávky",
+      "keyPasses": "Klíčové přihrávky",
+      "keyPassRate": "Procento klíčových přihrávek",
+      "duelsAndDribbles": "Duely a driblování",
+      "totalDuels": "Celkem duelů",
+      "duelsWon": "Vyhraných duelů",
+      "duelWinRate": "Procento vyhraných duelů",
+      "dribbleAttempts": "Pokusy na dribling",
+      "dribblesSuccessful": "Úspěšné driblování",
+      "dribbleSuccessRate": "Procento úspěšného driblování",
+      "discipline": "Disciplína",
+      "yellowCards": "Žluté karty",
+      "redCards": "Červené karty",
+      "foulsCommitted": "Provedené fauly",
+      "foulsDrawn": "Získané fauly",
+      "penalties": "Penalty",
+      "penaltiesScored": "Vstřelené",
+      "penaltiesMissed": "Neproměněné",
+      "conversionRate": "Procento konverzí",
+      "defense": "Obrana",
+      "totalTackles": "Celkem zákroků"
+    },
+    "compareStats": {
+      "gameTime": "Čas ve hře",
+      "appearances": "Odehrané zápasy",
+      "starts": "Základní sestavy",
+      "minutes": "Minuty",
+      "avgRating": "Průměrné hodnocení",
+      "attacking": "Útočení",
+      "goals": "Góly",
+      "assists": "Asistence",
+      "totalShots": "Celkem střel",
+      "shotsOnTarget": "Střely na bránu",
+      "shotAccuracy": "Přesnost střel",
+      "passing": "Přihrávky",
+      "totalPasses": "Celkem přihrávek",
+      "keyPasses": "Klíčové přihrávky",
+      "defensive": "Obranné",
+      "totalTackles": "Celkem zákroků",
+      "blocks": "Blokace",
+      "interceptions": "Přerušení",
+      "duels": "Duely a driblování",
+      "totalDuels": "Celkem duelů",
+      "duelsWon": "Vyhraných duelů",
+      "duelWinRate": "Procento vyhraných duelů",
+      "dribbleAttempts": "Pokusy na dribling",
+      "dribblesSuccessful": "Úspěšné driblování",
+      "dribbleSuccessRate": "Procento úspěšného driblování",
+      "discipline": "Disciplína",
+      "yellowCards": "Žluté karty",
+      "redCards": "Červené karty",
+      "foulsCommitted": "Provedené fauly",
+      "foulsDrawn": "Získané fauly",
+      "penalties": "Penalty",
+      "penaltiesScored": "Vstřelené Penalty",
+      "penaltiesMissed": "Neproměněné Penalty",
+      "tie": "Je to remíza!",
+      "overallWinner": "Celkový vítěz",
+      "recentForm": "Poslední forma",
+      "noForm": "Nejsou dostupná data o formě",
+      "formNote": "Poslední zápas je vpravo"
+    },
+    "compareSeasons": {
+      "seasonOverview": "Přehled sezony",
+      "totalPlayers": "Celkem hráčů",
+      "appearances": "Odehrané zápasy",
+      "attacking": "Útočení",
+      "goals": "Góly",
+      "assists": "Asistence",
+      "totalShots": "Celkem střel",
+      "shotsOnTarget": "Střely na bránu",
+      "shotAccuracy": "Přesnost střel",
+      "passing": "Přihrávky",
+      "totalPasses": "Celkem přihrávek",
+      "keyPasses": "Klíčové přihrávky",
+      "duels": "Duely a driblování",
+      "totalDuels": "Celkem duelů",
+      "duelsWon": "Vyhraných duelů",
+      "duelWinRate": "Procento vyhraných duelů",
+      "dribbleAttempts": "Pokusy na dribling",
+      "dribblesSuccessful": "Úspěšné driblování",
+      "dribbleSuccessRate": "Procento úspěšného driblování",
+      "defensive": "Obranné",
+      "totalTackles": "Celkem zákroků",
+      "discipline": "Disciplína",
+      "yellowCards": "Žluté karty",
+      "redCards": "Červené karty",
+      "foulsCommitted": "Provedené fauly",
+      "foulsDrawn": "Získané fauly",
+      "penalties": "Penalty",
+      "penaltiesScored": "Vstřelené",
+      "penaltiesMissed": "Neproměněné"
+    },
+    "searchableCards": {
+      "searchPlaceholder": "Hledat...",
+      "noFiltersAvailable": "Nejsou dostupné žádné filtry",
+      "seasons": "Sezony",
+      "teams": "Týmy"
+    },
+    "metricDashboard": {
+      "title": " ",
+      "selectMetrics": "Vybrat metriky…"
+    },
+    "seasonRankingTable": {
+      "matchesPlayed": "Odehrané zápasy",
+      "wins": "Výhry",
+      "draws": "Remízy",
+      "losses": "Porážky",
+      "goalsFor": "Vstřelené góly",
+      "goalsAgainst": "Obdržené góly",
+      "goalDifference": "Rozdíl gólů",
+      "points": "Body",
+      "pointsPerMatch": "Body za zápas",
+      "winRate": "Procento výher",
+      "rank": "Pozice",
+      "team": "Tým"
+    },
+    "lineups": {
+      "formation": "Formace",
+      "players": "Hráči"
+    },
+    "pageContent": {
+      "title": "Na této stránce"
+    }
+  },
+  "statistics": {
+    "labels": {
+      "goals": "Góly",
+      "assists": "Asistence",
+      "totalShots": "Celkem střel",
+      "shotsOnTarget": "Střely na bránu",
+      "tackles": "Zákroky",
+      "blocks": "Blokace",
+      "interceptions": "Přerušení",
+      "passes": "Přihrávky",
+      "keyPasses": "Klíčové přihrávky",
+      "duels": "Duely",
+      "duelsWon": "Vyhraných duelů",
+      "dribbles": "Driblování",
+      "dribblesSuccessful": "Úspěšné driblování",
+      "yellowCards": "Žluté karty",
+      "redCards": "Červené karty",
+      "fouls": "Fauly",
+      "penalties": "Penalty",
+      "cleanSheets": "Čistá konta",
+      "saves": "Zákroky",
+      "rating": "Hodnocení",
+      "minutes": "Minuty",
+      "appearances": "Odehrané zápasy",
+      "matches": "Zápasy",
+      "wins": "Výhry",
+      "draws": "Remízy",
+      "losses": "Porážky",
+      "stats": "Statistiky",
+      "ranking": "Pořadí"
+    },
+    "tooltips": {
+      "showStats": "Zobrazit statistiky",
+      "showMetricOptions": "Zobrazit možnosti výběru metrik"
+    }
+  },
+  "errors": {
+    "loadingFailed": "Načítání selhalo",
+    "noData": "Nejsou dostupná data",
+    "tryAgain": "Zkusit znovu"
+  }
+}

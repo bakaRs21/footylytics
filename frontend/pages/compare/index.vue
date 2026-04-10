@@ -1,18 +1,23 @@
 <script setup>
+const { t } = useI18n()
 
-const choices = ["Seasons", "Teams", "Players"]
+const compareOptions = [
+  { key: 'Seasons', label: t('pages.compare.compareSeasons') },
+  { key: 'Teams', label: t('pages.compare.compareTeams') },
+  { key: 'Players', label: t('pages.compare.comparePlayers') }
+]
 </script>
 
 <template>
     <div class="page-heading">
-        <h1 class="h1-design">See the difference</h1>
-        <h3>Compare individual players, teams or seasons</h3>
+        <h1 class="h1-design">{{ $t('pages.compare.title') }}</h1>
+        <h3>{{ $t('pages.compare.subtitle') }}</h3>
     </div>
     <div class="card-margin">
         <div class="card-grid">
-          <div v-for="selection in choices" :key="selection">
-              <NuxtLink :to="`/compare/${selection}`">
-                <card id="card">Compare {{ selection }}</card>
+          <div v-for="option in compareOptions" :key="option.key">
+              <NuxtLink :to="`/compare/${option.key}`">
+                <card id="card">{{ option.label }}</card>
               </NuxtLink>
           </div>
         </div>

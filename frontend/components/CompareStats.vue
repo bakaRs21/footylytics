@@ -1,6 +1,8 @@
 <script setup>
 import { computed, ref, toRaw, onMounted } from 'vue';
 import {Icon} from '@iconify/vue';
+
+const { t } = useI18n()
 const comparing = ref(null);
 
 const props = defineProps({
@@ -83,96 +85,96 @@ const metricGroups = computed(() => {
     if (props.type === 'player') {
         return {
             games: {
-                title: 'Game Time',
+                title: t('components.compareStats.gameTime'),
                 icon: 'openmoji:stopwatch',
                 metrics: [
-                    { key: 'total_matches_played', label: 'Appearances',   type: 'number' },
-                    { key: 'games_lineups',         label: 'Starts',        type: 'number' },
-                    { key: 'total_minutes_played',  label: 'Minutes',       type: 'number' },
-                    { key: 'rating',                label: 'Avg Rating',    type: 'success' },
+                    { key: 'total_matches_played', label: t('components.compareStats.appearances'),   type: 'number' },
+                    { key: 'games_lineups',         label: t('components.compareStats.starts'),        type: 'number' },
+                    { key: 'total_minutes_played',  label: t('components.compareStats.minutes'),       type: 'number' },
+                    { key: 'rating',                label: t('components.compareStats.avgRating'),    type: 'success' },
                 ]
             },
             attacking: {
-                title: 'Attacking',
+                title: t('components.compareStats.attacking'),
                 icon: 'openmoji:soccer-ball',
                 metrics: [
-                    { key: 'total_goals',       label: 'Goals',         type: 'success' },
-                    { key: 'total_assists',      label: 'Assists',       type: 'success' },
-                    { key: 'total_shots',        label: 'Shots',         type: 'number' },
-                    { key: 'shots_on_target',    label: 'On Target',     type: 'success' },
-                    { key: 'dribbles_success',   label: 'Dribbles Won',  type: 'success' },
-                    { key: 'dribbles_attempts',  label: 'Dribble Attempts', type: 'number' },
+                    { key: 'total_goals',       label: t('components.compareStats.goals'),         type: 'success' },
+                    { key: 'total_assists',      label: t('components.compareStats.assists'),       type: 'success' },
+                    { key: 'total_shots',        label: t('components.compareStats.totalShots'),         type: 'number' },
+                    { key: 'shots_on_target',    label: t('components.compareStats.shotsOnTarget'),     type: 'success' },
+                    { key: 'dribbles_success',   label: t('components.compareStats.dribblesSuccessful'),  type: 'success' },
+                    { key: 'dribbles_attempts',  label: t('components.compareStats.dribbleAttempts'), type: 'number' },
                 ]
             },
             passing: {
-                title: 'Passing',
+                title: t('components.compareStats.passing'),
                 icon: 'openmoji:bullseye',
                 metrics: [
-                    { key: 'total_passes',   label: 'Total Passes',  type: 'number' },
-                    { key: 'key_passes',     label: 'Key Passes',    type: 'success' },
-                    { key: 'pass_accuracy',  label: 'Accuracy %',    type: 'success' },
+                    { key: 'total_passes',   label: t('components.compareStats.totalPasses'),  type: 'number' },
+                    { key: 'key_passes',     label: t('components.compareStats.keyPasses'),    type: 'success' },
+                    { key: 'pass_accuracy',  label: t('components.compareStats.shotAccuracy'),    type: 'success' },
                 ]
             },
             defensive: {
-                title: 'Defensive',
+                title: t('components.compareStats.defensive'),
                 icon: 'openmoji:shield',
                 metrics: [
-                    { key: 'total_tackles',         label: 'Tackles',           type: 'number' },
-                    { key: 'tackles_interceptions', label: 'Interceptions',     type: 'success' },
-                    { key: 'tackles_blocks',        label: 'Blocks',            type: 'success' },
-                    { key: 'total_duels',           label: 'Duels',             type: 'number' },
-                    { key: 'duels_won',             label: 'Duels Won',         type: 'success' },
+                    { key: 'total_tackles',         label: t('components.compareStats.totalTackles'),           type: 'number' },
+                    { key: 'tackles_interceptions', label: t('components.compareStats.interceptions'),     type: 'success' },
+                    { key: 'tackles_blocks',        label: t('components.compareStats.blocks'),            type: 'success' },
+                    { key: 'total_duels',           label: t('components.compareStats.duels'),             type: 'number' },
+                    { key: 'duels_won',             label: t('components.compareStats.duelsWon'),         type: 'success' },
                 ]
             },
             discipline: {
-                title: 'Discipline',
+                title: t('components.compareStats.discipline'),
                 icon: 'openmoji:warning',
                 metrics: [
-                    { key: 'fouls_committed',  label: 'Fouls Committed',  type: 'danger',  lowerIsBetter: true },
-                    { key: 'fouls_drawn',      label: 'Fouls Drawn',      type: 'success' },
-                    { key: 'yellow_cards',     label: 'Yellow Cards',     type: 'warning', lowerIsBetter: true },
-                    { key: 'red_cards',        label: 'Red Cards',        type: 'danger',  lowerIsBetter: true },
+                    { key: 'fouls_committed',  label: t('components.compareStats.foulsCommitted'),  type: 'danger',  lowerIsBetter: true },
+                    { key: 'fouls_drawn',      label: t('components.compareStats.foulsDrawn'),      type: 'success' },
+                    { key: 'yellow_cards',     label: t('components.compareStats.yellowCards'),     type: 'warning', lowerIsBetter: true },
+                    { key: 'red_cards',        label: t('components.compareStats.redCards'),        type: 'danger',  lowerIsBetter: true },
                 ]
             },
             goalkeeper: {
-                title: 'Goalkeeper',
+                title: t('components.playerStatsDashboard.goalkeeperStats'),
                 icon: 'openmoji:gloves',
                 metrics: [
-                    { key: 'saves',           label: 'Saves',            type: 'success' },
-                    { key: 'goals_conceded',  label: 'Goals Conceded',   type: 'danger',  lowerIsBetter: true },
-                    { key: 'penalties_saved', label: 'Penalties Saved',  type: 'success' },
+                    { key: 'saves',           label: t('components.playerStatsDashboard.saves'),            type: 'success' },
+                    { key: 'goals_conceded',  label: t('components.playerStatsDashboard.goalsConceded'),   type: 'danger',  lowerIsBetter: true },
+                    { key: 'penalties_saved', label: t('components.playerStatsDashboard.penaltiesSaved'),  type: 'success' },
                 ]
             }
         };
     }
     return {
         matches: {
-            title: 'Matches Overview',
+            title: t('components.teamStatsDashboard.matchesOverview'),
             icon: 'openmoji:soccer-ball',
             metrics: [
-                { key: 'total_matches_played', label: 'Matches Played', type: 'number' },
-                { key: 'total_wins',           label: 'Wins',           type: 'win' },
-                { key: 'total_draws',          label: 'Draws',          type: 'draw' },
-                { key: 'total_losses',         label: 'Losses',         type: 'loss',    lowerIsBetter: true }
+                { key: 'total_matches_played', label: t('components.teamStatsDashboard.totalMatches'), type: 'number' },
+                { key: 'total_wins',           label: t('components.teamStatsDashboard.wins'),           type: 'win' },
+                { key: 'total_draws',          label: t('components.teamStatsDashboard.draws'),          type: 'draw' },
+                { key: 'total_losses',         label: t('components.teamStatsDashboard.losses'),         type: 'loss',    lowerIsBetter: true }
             ]
         },
         goals: {
-            title: 'Goals & Performance',
+            title: t('components.teamStatsDashboard.goalsAndPerformance'),
             icon: 'openmoji:goal-net',
             metrics: [
-                { key: 'total_goals_scored',    label: 'Goals Scored',    type: 'success' },
-                { key: 'total_goals_conceded',  label: 'Goals Conceded',  type: 'danger',  lowerIsBetter: true },
-                { key: 'total_clean_sheets',    label: 'Clean Sheets',    type: 'success' },
-                { key: 'total_failed_to_score', label: 'Failed to Score', type: 'danger',  lowerIsBetter: true }
+                { key: 'total_goals_scored',    label: t('components.teamStatsDashboard.goalsScored'),    type: 'success' },
+                { key: 'total_goals_conceded',  label: t('components.teamStatsDashboard.goalsConceded'),  type: 'danger',  lowerIsBetter: true },
+                { key: 'total_clean_sheets',    label: t('components.teamStatsDashboard.cleanSheets'),    type: 'success' },
+                { key: 'total_failed_to_score', label: t('components.teamStatsDashboard.failedToScore'), type: 'danger',  lowerIsBetter: true }
             ]
         },
         streaks: {
-            title: 'Streaks',
+            title: t('components.teamStatsDashboard.streaks'),
             icon: 'openmoji:chart-increasing',
             metrics: [
-                { key: 'biggest_win_streak',   label: 'Win Streak',   type: 'win' },
-                { key: 'biggest_draw_streak',  label: 'Draw Streak',  type: 'draw' },
-                { key: 'biggest_lose_streak',  label: 'Loss Streak',  type: 'loss',    lowerIsBetter: true }
+                { key: 'biggest_win_streak',   label: t('components.teamStatsDashboard.biggestWinStreak'),   type: 'win' },
+                { key: 'biggest_draw_streak',  label: t('components.teamStatsDashboard.biggestDrawStreak'),  type: 'draw' },
+                { key: 'biggest_lose_streak',  label: t('components.teamStatsDashboard.biggestLoseStreak'),  type: 'loss',    lowerIsBetter: true }
             ]
         },
     };
@@ -248,16 +250,16 @@ onMounted(() => {
         <div class="winner-label">
             <span v-if="overallWinner.winner === 'tie'" class="winner-title">
                 <span><Icon icon="openmoji:handshake" class="icon-md"/></span>
-                <span>It's a Tie!</span>
+                <span>{{ t('components.compareStats.tie') }}</span>
             </span>
             <span v-else class="winner-title">
                 <span><Icon icon="openmoji:crown" class="icon-lg" /> </span>
-                <span>Overall Winner: </span>
+                <span>{{ t('components.compareStats.overallWinner') }}: </span>
                 <strong>{{ overallWinner.winner === 'first' ? overallWinner.firstName : overallWinner.secondName }}</strong>
             </span>
             <span class="winner-subtitle">
                 {{ overallWinner.firstWins }}W vs {{ overallWinner.secondWins }}W
-                out of {{ overallWinner.total }} metrics
+                {{ t('common.outOf') }} {{ overallWinner.total }} {{ t('common.metrics') }}
             </span>
         </div>
         <div class="winner-bar-track">
@@ -312,7 +314,7 @@ onMounted(() => {
             <span class="section-icon">
                 <Icon icon="openmoji:edit" class="icon-lg"/>
             </span>
-            Formations
+            {{ t('components.teamStatsDashboard.formations') }}
         </h3>
         <div class="lineups-comparison">
             <div v-for="(comp, cIndex) in competitors" :key="comp.id" class="lineups-column">
@@ -321,7 +323,7 @@ onMounted(() => {
                     <div v-for="(lineup, lIndex) in comp.lineups" :key="`${comp.id}-${lIndex}`" class="lineup-wrapper">
                         <div class="lineup-item" @click="toggleLineup(cIndex, lIndex)">
                             <span class="formation">{{ lineup.formation }}</span>
-                            <span class="played-count">{{ lineup.played }} matches</span>
+                            <span class="played-count">{{ t('statistics.labels.matches') }}: {{ lineup.played }}</span>
                             <span class="lineup-arrow" :class="{ 'arrow-rotated': isLineupActive(cIndex, lIndex) }">
                                 <Icon icon="mdi:chevron-downkdkf" />
                             </span>
@@ -331,7 +333,7 @@ onMounted(() => {
                         </div>
                     </div>
                 </div>
-                <div v-else class="no-data">No formations available</div>
+                <div v-else class="no-data">{{ t('common.noFormations') }}</div>
             </div>
         </div>
     </div>
@@ -340,7 +342,7 @@ onMounted(() => {
             <span class="section-icon">
                 <Icon icon="openmoji:chart-increasing" class="icon-lg"/>
             </span>
-            Recent Form
+            {{ t('components.compareStats.recentForm') }}
         </h3>
         <div class="form-comparison">
             <div v-for="comp in competitors" :key="comp.id" class="form-column">
@@ -350,17 +352,17 @@ onMounted(() => {
                         {{ result }}
                     </div>
                 </div>
-                <div v-else class="no-data">No form data</div>
+                <div v-else class="no-data">{{ t('components.compareStats.noForm') }}</div>
             </div>
         </div>
-        <p class="form-note">Latest match on the right</p>
+        <p class="form-note">{{ t('components.compareStats.formNote') }}</p>
     </div>
     <div v-if="competitors.some(c => c.rawStats.total_penalties_scored !== undefined)" class="metric-group">
         <h3 class="section-title">
             <span class="section-icon">
                 <Icon icon="openmoji:goal-net" class="icon-lg"/>
             </span>
-            Penalties
+            {{ t('components.compareStats.penalties') }}
         </h3>
         <div class="comparison-grid">
             <div class="metric-row">
@@ -368,7 +370,7 @@ onMounted(() => {
                     :class="{ 'winner': isWinner(competitors[0].rawStats.total_penalties_scored, competitors[1].rawStats.total_penalties_scored, false) }">
                     <span class="value">{{ competitors[0].rawStats.total_penalties_scored ?? 0 }}</span>
                 </div>
-                <div class="metric-label">Penalties Scored</div>
+                <div class="metric-label">{{ t('components.compareStats.penaltiesScored') }}</div>
                 <div class="metric-value second success"
                     :class="{ 'winner': isWinner(competitors[1].rawStats.total_penalties_scored, competitors[0].rawStats.total_penalties_scored, false) }">
                     <span class="value">{{ competitors[1].rawStats.total_penalties_scored ?? 0 }}</span>
@@ -379,7 +381,7 @@ onMounted(() => {
                     :class="{ 'winner': isWinner(competitors[0].rawStats.total_penalties_missed, competitors[1].rawStats.total_penalties_missed, true) }">
                     <span class="value">{{ competitors[0].rawStats.total_penalties_missed ?? 0 }}</span>
                 </div>
-                <div class="metric-label">Penalties Missed</div>
+                <div class="metric-label">{{ t('components.compareStats.penaltiesMissed') }}</div>
                 <div class="metric-value second danger"
                     :class="{ 'winner': isWinner(competitors[1].rawStats.total_penalties_missed, competitors[0].rawStats.total_penalties_missed, true) }">
                     <span class="value">{{ competitors[1].rawStats.total_penalties_missed ?? 0 }}</span>
@@ -390,6 +392,6 @@ onMounted(() => {
     </div>
 </div>
 <div v-else class="loading-state">
-        <p>Loading comparison...</p>
+        <p>{{ t('common.loading') }}</p>
 </div>
 </template>

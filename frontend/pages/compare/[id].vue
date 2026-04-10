@@ -3,6 +3,7 @@
   import { ref, onMounted, watch } from 'vue';
   import CompareSeasons from '~/components/CompareSeasons.vue';
   import PageContent from '~/components/PageContent.vue';
+  const { t } = useI18n()
 const config = useRuntimeConfig()
 const route = useRoute();
 const router = useRouter();
@@ -43,8 +44,8 @@ const statsForFirst = ref(null);
 const statsForSecond = ref(null);
 // page content sections
 const sections = [
-  {label: "Selection", anchor: "top-section"},
-  {label: "Stats comparison", anchor: "stats"}
+  {label: t("pages.compare.sections.selection"), anchor: "top-section"},
+  {label: t("pages.compare.sections.statsComparison"), anchor: "stats"}
 ]
 
 watch([firstObject, secondObject, firstSeasonSelected, secondSeasonSelected], async ([newFirst, newSecond, newFirstSeason, newSecondSeason], [oldFirst, oldSecond]) => {
@@ -77,11 +78,11 @@ async function Inspection() {
   statsErrorMsg.value = "";
   if (id.value === "Seasons") {
     if (!firstSeasonSelected.value|| !secondSeasonSelected.value ) {
-      compareErrorMsg.value = "Please select both seasons.";
+      compareErrorMsg.value = t(`pages.compare.compareErrorMessages.selectBothSeasons`);
       return;
     }
     if (firstSeasonSelected.value === secondSeasonSelected.value) {
-      compareErrorMsg.value = "Cannot compare the same season. Please select different seasons.";
+      compareErrorMsg.value = t(`pages.compare.compareErrorMessages.sameSeason`);
       return;
     }
     isFetchingStats.value = true;
@@ -100,13 +101,13 @@ async function Inspection() {
     return; 
   }
   if (!firstId.value || !secondId.value) {
-    compareErrorMsg.value = `Please select both ${errorMsgId} first.`;
+    compareErrorMsg.value = t(`pages.compare.compareErrorMessages.selectBoth${errorMsgId.charAt(0).toUpperCase() + errorMsgId.slice(1)}`);
     firstSeasons.value = "";
     secondSeasons.value = "";
     return;
   }
   if (firstId.value === secondId.value) {
-    compareErrorMsg.value = `Cannot compare the same ${errorMsgId}. Please select different ${errorMsgId}.`;
+    compareErrorMsg.value = t(`pages.compare.compareErrorMessages.same${errorMsgId.charAt(0).toUpperCase() + errorMsgId.slice(1)}`);
     return;
   }
   if (!firstSeasons.value || !secondSeasons.value) {
@@ -128,7 +129,7 @@ async function Inspection() {
     }
   }
   if (!route.query.first || !route.query.second || !route.query.firstSeason || !route.query.secondSeason) {
-    compareErrorMsg.value = `Please select both ${errorMsgId} and their seasons.`;
+    compareErrorMsg.value = t(`pages.compare.compareErrorMessages.selectBoth${errorMsgId.charAt(0).toUpperCase() + errorMsgId.slice(1)}AndSeason`);
     return;
   }
   const firstSeasonParam = firstSeasonSelected.value === "all-seasons" ? "" : `&season_id=${firstSeasonSelected.value}`
@@ -156,7 +157,7 @@ onMounted(async () => {
 
 <template>
   <div class="page-heading">
-        <h1 class ="h1-design" id="top-section">Comparing {{ id }}</h1>
+        <h1 class ="h1-design" id="top-section">{{ $t(`pages.compare.compare${id}`) }}</h1>
     </div>
     <div v-if="listError">
       Error fetching {{ id }} : {{ listError.message }}
@@ -165,11 +166,11 @@ onMounted(async () => {
         <div v-if="id == 'Seasons'" class="option-items">
           <div class="first-selects">
             <select v-model="firstSeasonSelected">
-              <option disabled value="">Select</option>
+              <option disabled value="">{{ t(`common.selectSeason`) }}</option>
               <option v-for="value in list" :key="value">{{ value.season_id }}</option>
             </select>
             <select v-model="secondSeasonSelected">
-              <option disabled value="">Select</option>
+              <option disabled value="">{{ t(`common.selectSeason`) }}</option>
               <option v-for="value in list" :key="value">{{ value.season_id }}</option>
             </select>
           </div>
@@ -185,13 +186,13 @@ onMounted(async () => {
           </div>
           <div class="season-selects" v-if="firstId && secondId">
             <select v-model="firstSeasonSelected">
-              <option disabled value="">Select season</option>
-              <option value="all-seasons">all seasons</option>
+              <option disabled value="">{{  t(`common.selectSeason`)  }}</option>
+              <option value="all-seasons">{{ t(`common.allSeasons`) }}</option>
               <option v-for="value in firstSeasons" :key="value">{{ value }}</option>
             </select>
             <select v-model="secondSeasonSelected">
-              <option disabled value="">Select season</option>
-              <option value="all-seasons">all seasons</option>
+              <option disabled value="">{{ t(`common.selectSeason`) }}</option>
+              <option value="all-seasons">{{ t(`common.allSeasons`) }}</option>
               <option v-for="value in secondSeasons" :key="value">{{ value }}</option>
              </select>
           </div>
@@ -208,7 +209,7 @@ onMounted(async () => {
         {{ statsErrorMsg }}
       </div>
       <div v-else-if="firstSeasonSelected && secondSeasonSelected && !statsForFirst && !statsForSecond">
-        No stats available for the selected seasons.
+        {{ t(`common.noData`) }}
       </div>
       <div v-else-if="statsForFirst && statsForSecond">
         <div id="stats">

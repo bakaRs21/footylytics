@@ -4,6 +4,7 @@ import { defineNuxtConfig } from "nuxt/config";
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
+  modules: [ '@nuxtjs/i18n' ],
   components: [
     { 
       path: "~/components",
@@ -19,6 +20,14 @@ export default defineNuxtConfig({
   plugins: [
     { src: "~/plugins/apexcharts.client.ts", mode: "client" },
   ],
+  i18n: {
+    defaultLocale: 'en',
+    locales: [
+      { code: 'en', name: 'English', language: 'en-US', file: 'en.json' },
+      { code: 'cs', name: 'Čeština', language: 'cs-CZ', file: 'cs.json' },
+    ],
+    skipSettingLocaleOnNavigate: false,
+  },
   ssr: true,
   runtimeConfig: {
     public: {
@@ -35,5 +44,5 @@ export default defineNuxtConfig({
         } 
       }
     },
-  }
+  },
 })

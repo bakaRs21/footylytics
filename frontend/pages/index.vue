@@ -1,31 +1,32 @@
 <script setup>
 import { Icon } from '@iconify/vue';
+const { t } = useI18n()
 
 const features = [
     {
-        title: 'Compare Stats',
-        description: 'Head-to-head comparison of teams, players, and seasons with detailed metrics',
+        title: t('pages.index.features.compareStats.title'),
+        description: t('pages.index.features.compareStats.description'),
         icon: 'openmoji:chart-increasing',
         link: '/compare',
         color: '#3b82f6'
     },
     {
-        title: 'Team Statistics',
-        description: 'Explore comprehensive team performance data and historical records',
+        title: t('pages.index.features.teamStatistics.title'),
+        description: t('pages.index.features.teamStatistics.description'),
         icon: 'openmoji:soccer-ball',
         link: '/teams',
         color: '#22c55e'
     },
     {
-        title: 'Player Analysis',
-        description: 'Dive into individual player stats, ratings, and achievements',
+        title: t('pages.index.features.playerAnalysis.title'),
+        description: t('pages.index.features.playerAnalysis.description'),
         icon: 'openmoji:trophy',
         link: '/players',
         color: '#f59e0b'
     },
     {
-        title: 'Season Overview',
-        description: 'Review complete season data and league standings',
+        title: t('pages.index.features.seasonOverview.title'),
+        description: t('pages.index.features.seasonOverview.description'),
         icon: 'openmoji:calendar',
         link: '/seasons',
         color: '#ef4444'
@@ -36,13 +37,12 @@ const features = [
 <template>
     <div class="index-wrapper">
         <div class="index-headings">
-            <h1 class="h1-design">Premier League</h1>
+            <h1 class="h1-design">{{ t('pages.index.title') }}</h1>
             <h2 class="text-green text-semibold">
-                Interactive Data Visualization
+                {{ t('pages.index.subtitle') }}
             </h2>
             <p class="text-gray subheader-text">
-                Explore comprehensive statistics, compare performances, and discover insights 
-                from the world's most exciting football league
+                {{ t('pages.index.description') }}
             </p>
         </div>
 
@@ -70,15 +70,15 @@ const features = [
         <div class="flex-center gap-xl stat-badges">
             <div class="stat-badge">
                 <Icon icon="openmoji:fire" class="icon-md" />
-                <span>Live Statistics</span>
+                <span>{{ t('pages.index.badges.liveStatistics') }}</span>
             </div>
             <div class="stat-badge">
                 <Icon icon="openmoji:chart-increasing" class="icon-md" />
-                <span>Visual Analytics</span>
+                <span>{{ t('pages.index.badges.visualAnalytics') }}</span>
             </div>
             <div class="stat-badge">
-                <Icon icon="openmoji:lightning-bolt" class="icon-md" />
-                <span>Fast Comparisons</span>
+                <Icon icon="emojione-v1:lightning-mood" class="icon-md" />
+                <span>{{ t('pages.index.badges.fastComparisons') }}</span>
             </div>
         </div>
     </div>

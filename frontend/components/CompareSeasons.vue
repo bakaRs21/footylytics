@@ -2,6 +2,7 @@
 import { computed, ref, toRaw, onMounted } from 'vue';
 import { Icon } from '@iconify/vue';
 
+const { t } = useI18n()
 const comparing = ref(null);
 
 const props = defineProps({
@@ -26,72 +27,72 @@ const competitors = computed(() => {
     return [c1, c2];
 });
 
-const metricGroups = {
+const metricGroups = computed(() => ({
     overview: {
-        title: 'Season Overview',
+        title: t('components.compareSeasons.seasonOverview'),
         icon: 'openmoji:soccer-ball',
         metrics: [
-            { key: 'total_players',            label: 'Total Players',  type: 'number' },
-            { key: 'total_player_appearances', label: 'Appearances',    type: 'number' },
+            { key: 'total_players',            label: t('components.compareSeasons.totalPlayers'),  type: 'number' },
+            { key: 'total_player_appearances', label: t('components.compareSeasons.appearances'),    type: 'number' },
         ]
     },
     attacking: {
-        title: 'Attacking',
+        title: t('components.compareSeasons.attacking'),
         icon: 'openmoji:goal-net',
         metrics: [
-            { key: 'total_goals',           label: 'Goals',            type: 'success' },
-            { key: 'total_assists',         label: 'Assists',          type: 'success' },
-            { key: 'total_shots',           label: 'Total Shots',      type: 'number'  },
-            { key: 'total_shots_on_target', label: 'Shots on Target',  type: 'success' },
-            { key: 'shot_accuracy_pct',     label: 'Shot Accuracy %',  type: 'success' },
+            { key: 'total_goals',           label: t('components.compareSeasons.goals'),            type: 'success' },
+            { key: 'total_assists',         label: t('components.compareSeasons.assists'),          type: 'success' },
+            { key: 'total_shots',           label: t('components.compareSeasons.totalShots'),      type: 'number'  },
+            { key: 'total_shots_on_target', label: t('components.compareSeasons.shotsOnTarget'),  type: 'success' },
+            { key: 'shot_accuracy_pct',     label: t('components.compareSeasons.shotAccuracy'),  type: 'success' },
         ]
     },
     passing: {
-        title: 'Passing',
+        title: t('components.compareSeasons.passing'),
         icon: 'openmoji:bullseye',
         metrics: [
-            { key: 'total_passes',     label: 'Total Passes', type: 'number'  },
-            { key: 'total_key_passes', label: 'Key Passes',   type: 'success' },
+            { key: 'total_passes',     label: t('components.compareSeasons.totalPasses'), type: 'number'  },
+            { key: 'total_key_passes', label: t('components.compareSeasons.keyPasses'),   type: 'success' },
         ]
     },
     duels: {
-        title: 'Duels & Dribbles',
+        title: t('components.compareSeasons.duels'),
         icon: 'openmoji:collision',
         metrics: [
-            { key: 'total_duels',              label: 'Total Duels',         type: 'number'  },
-            { key: 'total_duels_won',          label: 'Duels Won',           type: 'success' },
-            { key: 'duel_win_rate_pct',        label: 'Duel Win Rate %',     type: 'success' },
-            { key: 'total_dribbles_attempts',  label: 'Dribble Attempts',    type: 'number'  },
-            { key: 'total_dribbles_success',   label: 'Dribbles Successful', type: 'success' },
-            { key: 'dribble_success_rate_pct', label: 'Dribble Success %',   type: 'success' },
+            { key: 'total_duels',              label: t('components.compareSeasons.totalDuels'),         type: 'number'  },
+            { key: 'total_duels_won',          label: t('components.compareSeasons.duelsWon'),           type: 'success' },
+            { key: 'duel_win_rate_pct',        label: t('components.compareSeasons.duelWinRate'),     type: 'success' },
+            { key: 'total_dribbles_attempts',  label: t('components.compareSeasons.dribbleAttempts'),    type: 'number'  },
+            { key: 'total_dribbles_success',   label: t('components.compareSeasons.dribblesSuccessful'), type: 'success' },
+            { key: 'dribble_success_rate_pct', label: t('components.compareSeasons.dribbleSuccessRate'),   type: 'success' },
         ]
     },
     defensive: {
-        title: 'Defensive',
+        title: t('components.compareSeasons.defensive'),
         icon: 'openmoji:shield',
         metrics: [
-            { key: 'total_tackles', label: 'Tackles', type: 'success' },
+            { key: 'total_tackles', label: t('components.compareSeasons.totalTackles'), type: 'success' },
         ]
     },
     discipline: {
-        title: 'Discipline',
+        title: t('components.compareSeasons.discipline'),
         icon: 'openmoji:warning',
         metrics: [
-            { key: 'total_yellow_cards',    label: 'Yellow Cards',    type: 'warning', lowerIsBetter: true },
-            { key: 'total_red_cards',       label: 'Red Cards',       type: 'danger',  lowerIsBetter: true },
-            { key: 'total_fouls_committed', label: 'Fouls Committed', type: 'danger',  lowerIsBetter: true },
-            { key: 'total_fouls_drawn',     label: 'Fouls Drawn',     type: 'success' },
+            { key: 'total_yellow_cards',    label: t('components.compareSeasons.yellowCards'),    type: 'warning', lowerIsBetter: true },
+            { key: 'total_red_cards',       label: t('components.compareSeasons.redCards'),       type: 'danger',  lowerIsBetter: true },
+            { key: 'total_fouls_committed', label: t('components.compareSeasons.foulsCommitted'), type: 'danger',  lowerIsBetter: true },
+            { key: 'total_fouls_drawn',     label: t('components.compareSeasons.foulsDrawn'),     type: 'success' },
         ]
     },
     penalties: {
-        title: 'Penalties',
+        title: t('components.compareSeasons.penalties'),
         icon: 'openmoji:bullseye',
         metrics: [
-            { key: 'total_penalties_scored', label: 'Penalties Scored', type: 'success' },
-            { key: 'total_penalties_missed', label: 'Penalties Missed', type: 'danger',  lowerIsBetter: true },
+            { key: 'total_penalties_scored', label: t('components.compareSeasons.penaltiesScored'), type: 'success' },
+            { key: 'total_penalties_missed', label: t('components.compareSeasons.penaltiesMissed'), type: 'danger',  lowerIsBetter: true },
         ]
     },
-};
+}));
 
 function isWinner(val, opponentVal, lowerIsBetter = false) {
     const num1 = parseFloat(val) || 0;

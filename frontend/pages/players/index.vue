@@ -1,7 +1,7 @@
 <script setup>
 import { Icon } from '@iconify/vue';
 
-const playerArray = ref([]);
+const { t } = useI18n()
 const page = "player";
 
 const config = useRuntimeConfig()
@@ -11,16 +11,16 @@ const { pending: isLoading, data: players, error } = await useFetch(`${config.pu
 </script>
 <template>
     <div class="page-heading"> 
-    <h1 class="h1-design">Players Page</h1>
+    <h1 class="h1-design">{{ $t('pages.players.title') }}</h1>
   </div>
   <div v-if="isLoading">
-    <h2 class="pending-design">Loading data... </h2>
+    <h2 class="pending-design">{{ $t('common.loading') }}</h2>
     <Icon icon="mdi:loading" />
   </div>
   <div v-else-if="error">
-    Error: {{ error.message }}
+    {{ $t('common.error') }}: {{ error.message }}
   </div>
   <div v-else>
-    <SearchableCards :enable-links="true" :items="players" :page="page" placeholder="Search players..."/>
+    <SearchableCards :enable-links="true" :items="players" :page="page" :placeholder="$t('pages.players.searchPlaceholder')"/>
   </div>
 </template>

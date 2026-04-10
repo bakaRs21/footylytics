@@ -1,9 +1,10 @@
 <script setup>
+const { t } = useI18n()
 </script>
 
 <template>
   <h1 class="h1-design">
-    Testing Area
+    {{ $t('pages.documentation.title') }}
   </h1>
 </template>
 

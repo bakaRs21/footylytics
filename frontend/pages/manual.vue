@@ -1,13 +1,14 @@
 <script setup>
 import { ref, computed } from 'vue';
 
+const { t } = useI18n()
 const activeTab = ref('teams');
 
 const tabs = [
-  { id: 'teams', label: 'Team Pages' },
-  { id: 'players', label: 'Player Pages' },
-  { id: 'seasons', label: 'Season Pages' },
-  { id: 'compare', label: 'Compare Pages' },
+  { id: 'teams', label: t('pages.teams.title') },
+  { id: 'players', label: t('pages.players.title') },
+  { id: 'seasons', label: t('pages.seasons.title') },
+  { id: 'compare', label: t('pages.compare.title') },
 ];
 
 const pageSections = computed(() => {
@@ -68,7 +69,7 @@ const pageSections = computed(() => {
 
 <template>
     <div class="page-heading">
-      <h1 class="h1-design">User Manual</h1>
+      <h1 class="h1-design">{{ $t('navigation.manual') }}</h1>
       <p class="subtitle">Complete guide to using the Premier League Statistics Explorer</p>
     </div>
     <div class="manual-container">

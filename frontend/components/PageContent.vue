@@ -1,4 +1,6 @@
 <script setup>
+const { t } = useI18n()
+
 const props = defineProps({
     pageSections: {
         type: Array,
@@ -23,7 +25,7 @@ async function scrollTo(anchor) {
 </script>
 <template>
     <nav class="pg">
-        <p class="pg-title">On this page </p>
+        <p class="pg-title">{{ $t('components.pageContent.title') }}</p>
         <ul>
             <li v-for="section in pageSections" :key="section.anchor" @click="scrollTo(section.anchor)" class="pg-section">
                 {{  section.label }}

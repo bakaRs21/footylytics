@@ -252,11 +252,14 @@ select {
     align-items: center;
     margin-bottom: 1rem;
 }
-.tooltip { position: relative; cursor: help; }
+.tooltip { 
+  position: relative; 
+  cursor: help; 
+}
 .tooltip::after {
     content: attr(data-tooltip);
     position: absolute;
-    bottom: -30px;
+    bottom: -10px;
     left: 50%;
     transform: translateX(-50%);
     background: #703b3b28;
