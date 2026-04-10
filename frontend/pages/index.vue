@@ -1,6 +1,7 @@
 <script setup>
 import { Icon } from '@iconify/vue';
 const { t } = useI18n()
+const localePath = useLocalePath()
 
 const features = [
     {
@@ -50,7 +51,7 @@ const features = [
             <NuxtLink 
                 v-for="(feature, index) in features" 
                 :key="index"
-                :to="feature.link"
+                :to="localePath(`/${feature.link}`)"
                 class="card-base feature-card"
                 :style="{ '--card-color': feature.color }"
             >

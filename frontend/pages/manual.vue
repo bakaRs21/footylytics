@@ -2,6 +2,7 @@
 import { ref, computed } from 'vue';
 
 const { t } = useI18n()
+const localePath = useLocalePath()
 const activeTab = ref('teams');
 
 const tabs = [
@@ -1200,7 +1201,7 @@ const pageSections = computed(() => {
         </div>
 
         <div class="back-link">
-            <NuxtLink to="/" class="back-btn">← Back to home</NuxtLink>
+            <NuxtLink :to="localePath('/')" class="back-btn">← Back to home</NuxtLink>
         </div>
     </div>
 

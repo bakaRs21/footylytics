@@ -119,7 +119,7 @@ onMounted(() => {
 </script>
 <template>
   <div v-if="teamInfoStatus === 'pending'">
-    Loading... <Icon icon="mdi:loading" />
+    {{ t('common.loading') }} <Icon icon="mdi:loading" />
   </div>
   <div v-else-if="teamInfoError">
     Error: {{ teamInfoError.message }}
@@ -147,7 +147,7 @@ onMounted(() => {
     </div>
     <div class="stats">
       <div v-if="statsStatus === 'pending'">
-        {{ t('pages.teams.loadingStats') }}
+        {{ t('common.loading') }}
         <Icon icon="mdi:loading" />
       </div>
       <div v-else-if="statsError">

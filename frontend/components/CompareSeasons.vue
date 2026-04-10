@@ -107,7 +107,7 @@ const overallWinner = computed(() => {
     let firstWins = 0;
     let secondWins = 0;
 
-    Object.values(metricGroups).forEach(group => {
+    Object.values(metricGroups.value).forEach(group => {
         group.metrics.forEach(metric => {
             const v1 = c1.rawStats[metric.key];
             const v2 = c2.rawStats[metric.key];
@@ -158,7 +158,7 @@ onMounted(() => {
             </span>
             <span v-else class="winner-title">
                 <Icon icon="openmoji:crown" class="icon-lg" />
-                <span>Overall Winner: </span>
+                <span>{{ t('components.compareStats.overallWinner') }}: </span>
                 <strong>{{ overallWinner.winner === 'first' ? overallWinner.firstName : overallWinner.secondName }}</strong>
             </span>
             <span class="winner-subtitle">

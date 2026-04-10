@@ -1,5 +1,6 @@
 <script setup>
 const { t } = useI18n()
+const localePath = useLocalePath()
 
 const compareOptions = [
   { key: 'Seasons', label: t('pages.compare.compareSeasons') },
@@ -16,7 +17,7 @@ const compareOptions = [
     <div class="card-margin">
         <div class="card-grid">
           <div v-for="option in compareOptions" :key="option.key">
-              <NuxtLink :to="`/compare/${option.key}`">
+              <NuxtLink :to="localePath(`/compare/${option.key}`)">
                 <card id="card">{{ option.label }}</card>
               </NuxtLink>
           </div>

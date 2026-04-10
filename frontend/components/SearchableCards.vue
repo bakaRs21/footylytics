@@ -3,6 +3,7 @@ import { ref, watch, computed } from 'vue';
 import { Icon } from '@iconify/vue';
 
 const { t } = useI18n()
+const localePath = useLocalePath()
 const config = useRuntimeConfig()
 const filterOpen = ref(false)
 const search = ref("");
@@ -153,7 +154,7 @@ const placeholderText = computed(() => {
     </Transition>
     <hr />
     <div class="cards">
-        <NuxtLink v-if="enableLinks" v-for="item in filteredItems" :key="getItemId(item)"  :to="`/${page}s/${getItemId(item)}`">
+        <NuxtLink v-if="enableLinks" v-for="item in filteredItems" :key="getItemId(item)"  :to="localePath(`/${page}s/${getItemId(item)}`)">
             <card v-if="page !== 'season'">{{ item.name }}</card>
             <card v-else>{{ item.season }}</card>
         </NuxtLink>

@@ -6,7 +6,7 @@ const { t } = useI18n()
 
 const props = defineProps({
     teams: {
-        type: Array,
+        type: Object,
         required: true,
     }
 })
