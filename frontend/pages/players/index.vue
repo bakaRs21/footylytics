@@ -1,7 +1,6 @@
 <script setup>
 import { Icon } from '@iconify/vue';
 
-const { t } = useI18n()
 const page = "player";
 
 const config = useRuntimeConfig()

@@ -1,5 +1,4 @@
 <script setup>
-const { t } = useI18n()
 const localePath = useLocalePath()
 </script>
 <template>
@@ -10,18 +9,18 @@ const localePath = useLocalePath()
                     <div class="logo-row">
                         <NuxtLink :to="localePath('/')">
                             <div class="logo-text">
-                                {{ t('navigation.home') }}
+                                {{ $t('navigation.home') }}
                             </div>
                         </NuxtLink>
                         <LanguageSwitcher />
                     </div> 
                     <ul class="menu">
-                        <li><NuxtLink :to="localePath('/compare')">{{ t('navigation.compare') }}</NuxtLink></li>
-                        <li><NuxtLink :to="localePath('/seasons/')">{{ t('navigation.seasons') }}</NuxtLink></li>
-                        <li><NuxtLink :to="localePath('/teams/')">{{ t('navigation.teams') }}</NuxtLink></li>
-                        <li><NuxtLink :to="localePath('/players/')">{{ t('navigation.players') }}</NuxtLink></li>
-                        <li><NuxtLink :to="localePath('/documentation')" class="docs">{{ t('navigation.documentation') }}</NuxtLink></li>
-                        <li><NuxtLink :to="localePath('/manual')" class="manual">{{ t('navigation.manual') }}</NuxtLink></li>
+                        <li><NuxtLink :to="localePath('/compare')">{{ $t('navigation.compare') }}</NuxtLink></li>
+                        <li><NuxtLink :to="localePath('/seasons/')">{{ $t('navigation.seasons') }}</NuxtLink></li>
+                        <li><NuxtLink :to="localePath('/teams/')">{{ $t('navigation.teams') }}</NuxtLink></li>
+                        <li><NuxtLink :to="localePath('/players/')">{{ $t('navigation.players') }}</NuxtLink></li>
+                        <li><NuxtLink :to="localePath('/documentation')" class="docs">{{ $t('navigation.documentation') }}</NuxtLink></li>
+                        <li><NuxtLink :to="localePath('/manual')" class="manual">{{ $t('navigation.manual') }}</NuxtLink></li>
                     </ul>
                 </div>
             </div>

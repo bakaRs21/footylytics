@@ -250,16 +250,16 @@ onMounted(() => {
         <div class="winner-label">
             <span v-if="overallWinner.winner === 'tie'" class="winner-title">
                 <span><Icon icon="openmoji:handshake" class="icon-md"/></span>
-                <span>{{ t('components.compareStats.tie') }}</span>
+                <span>{{ $t('components.compareStats.tie') }}</span>
             </span>
             <span v-else class="winner-title">
                 <span><Icon icon="openmoji:crown" class="icon-lg" /> </span>
-                <span>{{ t('components.compareStats.overallWinner') }}: </span>
+                <span>{{ $t('components.compareStats.overallWinner') }}: </span>
                 <strong>{{ overallWinner.winner === 'first' ? overallWinner.firstName : overallWinner.secondName }}</strong>
             </span>
             <span class="winner-subtitle">
                 {{ overallWinner.firstWins }}W vs {{ overallWinner.secondWins }}W
-                {{ t('common.outOf') }} {{ overallWinner.total }} {{ t('common.metrics') }}
+                {{ $t('common.outOf') }} {{ overallWinner.total }} {{ $t('common.metrics') }}
             </span>
         </div>
         <div class="winner-bar-track">
@@ -314,7 +314,7 @@ onMounted(() => {
             <span class="section-icon">
                 <Icon icon="openmoji:edit" class="icon-lg"/>
             </span>
-            {{ t('components.teamStatsDashboard.formations') }}
+            {{ $t('components.teamStatsDashboard.formations') }}
         </h3>
         <div class="lineups-comparison">
             <div v-for="(comp, cIndex) in competitors" :key="comp.id" class="lineups-column">
@@ -323,7 +323,7 @@ onMounted(() => {
                     <div v-for="(lineup, lIndex) in comp.lineups" :key="`${comp.id}-${lIndex}`" class="lineup-wrapper">
                         <div class="lineup-item" @click="toggleLineup(cIndex, lIndex)">
                             <span class="formation">{{ lineup.formation }}</span>
-                            <span class="played-count">{{ t('statistics.labels.matches') }}: {{ lineup.played }}</span>
+                            <span class="played-count">{{ $t('statistics.labels.matches') }}: {{ lineup.played }}</span>
                             <span class="lineup-arrow" :class="{ 'arrow-rotated': isLineupActive(cIndex, lIndex) }">
                                 <Icon icon="mdi:chevron-downkdkf" />
                             </span>
@@ -333,7 +333,7 @@ onMounted(() => {
                         </div>
                     </div>
                 </div>
-                <div v-else class="no-data">{{ t('common.noFormations') }}</div>
+                <div v-else class="no-data">{{ $t('common.noFormations') }}</div>
             </div>
         </div>
     </div>
@@ -342,7 +342,7 @@ onMounted(() => {
             <span class="section-icon">
                 <Icon icon="openmoji:chart-increasing" class="icon-lg"/>
             </span>
-            {{ t('components.compareStats.recentForm') }}
+            {{ $t('components.compareStats.recentForm') }}
         </h3>
         <div class="form-comparison">
             <div v-for="comp in competitors" :key="comp.id" class="form-column">
@@ -352,17 +352,17 @@ onMounted(() => {
                         {{ result }}
                     </div>
                 </div>
-                <div v-else class="no-data">{{ t('components.compareStats.noForm') }}</div>
+                <div v-else class="no-data">{{ $t('components.compareStats.noForm') }}</div>
             </div>
         </div>
-        <p class="form-note">{{ t('components.compareStats.formNote') }}</p>
+        <p class="form-note">{{ $t('components.compareStats.formNote') }}</p>
     </div>
     <div v-if="competitors.some(c => c.rawStats.total_penalties_scored !== undefined)" class="metric-group">
         <h3 class="section-title">
             <span class="section-icon">
                 <Icon icon="openmoji:goal-net" class="icon-lg"/>
             </span>
-            {{ t('components.compareStats.penalties') }}
+            {{ $t('components.compareStats.penalties') }}
         </h3>
         <div class="comparison-grid">
             <div class="metric-row">
@@ -370,7 +370,7 @@ onMounted(() => {
                     :class="{ 'winner': isWinner(competitors[0].rawStats.total_penalties_scored, competitors[1].rawStats.total_penalties_scored, false) }">
                     <span class="value">{{ competitors[0].rawStats.total_penalties_scored ?? 0 }}</span>
                 </div>
-                <div class="metric-label">{{ t('components.compareStats.penaltiesScored') }}</div>
+                <div class="metric-label">{{ $t('components.compareStats.penaltiesScored') }}</div>
                 <div class="metric-value second success"
                     :class="{ 'winner': isWinner(competitors[1].rawStats.total_penalties_scored, competitors[0].rawStats.total_penalties_scored, false) }">
                     <span class="value">{{ competitors[1].rawStats.total_penalties_scored ?? 0 }}</span>
@@ -381,7 +381,7 @@ onMounted(() => {
                     :class="{ 'winner': isWinner(competitors[0].rawStats.total_penalties_missed, competitors[1].rawStats.total_penalties_missed, true) }">
                     <span class="value">{{ competitors[0].rawStats.total_penalties_missed ?? 0 }}</span>
                 </div>
-                <div class="metric-label">{{ t('components.compareStats.penaltiesMissed') }}</div>
+                <div class="metric-label">{{ $t('components.compareStats.penaltiesMissed') }}</div>
                 <div class="metric-value second danger"
                     :class="{ 'winner': isWinner(competitors[1].rawStats.total_penalties_missed, competitors[0].rawStats.total_penalties_missed, true) }">
                     <span class="value">{{ competitors[1].rawStats.total_penalties_missed ?? 0 }}</span>
@@ -392,6 +392,6 @@ onMounted(() => {
     </div>
 </div>
 <div v-else class="loading-state">
-        <p>{{ t('common.loading') }}</p>
+        <p>{{ $t('common.loading') }}</p>
 </div>
 </template>

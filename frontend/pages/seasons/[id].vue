@@ -52,17 +52,17 @@ onMounted(() => {
     {{ onMountedMsg }}
   </div>
   <div v-if="statsStatus === 'pending'">
-    {{ t('common.loading') }} <Icon icon="mdi:loading" />
+    {{ $t('common.loading') }} <Icon icon="mdi:loading" />
   </div>
   <div v-if="statsError">
     Error: {{ statsError }}
   </div>
   <div v-if="stats">
-    <h2 class="h1-design" id="stats">{{ selectedSeason }} {{ t('statistics.labels.stats') }}</h2>
+    <h2 class="h1-design" id="stats">{{ selectedSeason }} {{ $t('statistics.labels.stats') }}</h2>
     <SeasonStats :data="stats" />
   </div>
   <div v-if="rankings">
-    <h2 class="h1-design" id="metrics">{{ selectedSeason }} {{ t('statistics.labels.ranking') }}</h2>
+    <h2 class="h1-design" id="metrics">{{ selectedSeason }} {{ $t('statistics.labels.ranking') }}</h2>
     <SeasonRankingTable :teams="rankings" />
   </div>
 

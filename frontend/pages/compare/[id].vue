@@ -166,11 +166,11 @@ onMounted(async () => {
         <div v-if="id == 'Seasons'" class="option-items">
           <div class="first-selects">
             <select v-model="firstSeasonSelected">
-              <option disabled value="">{{ t(`common.selectSeason`) }}</option>
+              <option disabled value="">{{ $t(`common.selectSeason`) }}</option>
               <option v-for="value in list" :key="value">{{ value.season_id }}</option>
             </select>
             <select v-model="secondSeasonSelected">
-              <option disabled value="">{{ t(`common.selectSeason`) }}</option>
+              <option disabled value="">{{ $t(`common.selectSeason`) }}</option>
               <option v-for="value in list" :key="value">{{ value.season_id }}</option>
             </select>
           </div>
@@ -186,13 +186,13 @@ onMounted(async () => {
           </div>
           <div class="season-selects" v-if="firstId && secondId">
             <select v-model="firstSeasonSelected">
-              <option disabled value="">{{  t(`common.selectSeason`)  }}</option>
-              <option value="all-seasons">{{ t(`common.allSeasons`) }}</option>
+              <option disabled value="">{{  $t(`common.selectSeason`)  }}</option>
+              <option value="all-seasons">{{ $t(`common.allSeasons`) }}</option>
               <option v-for="value in firstSeasons" :key="value">{{ value }}</option>
             </select>
             <select v-model="secondSeasonSelected">
-              <option disabled value="">{{ t(`common.selectSeason`) }}</option>
-              <option value="all-seasons">{{ t(`common.allSeasons`) }}</option>
+              <option disabled value="">{{ $t(`common.selectSeason`) }}</option>
+              <option value="all-seasons">{{ $t(`common.allSeasons`) }}</option>
               <option v-for="value in secondSeasons" :key="value">{{ value }}</option>
              </select>
           </div>
@@ -209,7 +209,7 @@ onMounted(async () => {
         {{ statsErrorMsg }}
       </div>
       <div v-else-if="firstSeasonSelected && secondSeasonSelected && !statsForFirst && !statsForSecond">
-        {{ t(`common.noData`) }}
+        {{ $t(`common.noData`) }}
       </div>
       <div v-else-if="statsForFirst && statsForSecond">
         <div id="stats">

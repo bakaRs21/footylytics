@@ -92,7 +92,7 @@ watch(() => selectedSeason.value, async (newVal) => {
 })
 async function Inspection() {
   if (!route.query.season) {
-    return onMountedMsg.value = $t("pages.players.errorMessages.selectSeason")
+    return onMountedMsg.value = t("pages.players.errorMessages.selectSeason")
   }
   if (route.query.season === "all-seasons") {
     seasonParam.value = ""
@@ -119,7 +119,7 @@ onMounted(() => {
 </script>
 <template>
   <div v-if="teamInfoStatus === 'pending'">
-    {{ t('common.loading') }} <Icon icon="mdi:loading" />
+    {{ $t('common.loading') }} <Icon icon="mdi:loading" />
   </div>
   <div v-else-if="teamInfoError">
     Error: {{ teamInfoError.message }}
@@ -133,10 +133,10 @@ onMounted(() => {
     </div>
     <div class="seasons">
       <div class="season-selection-heading">
-        <h3 id="seasons">{{ t('common.selectSeason') }}: </h3>
+        <h3 id="seasons">{{ $t('common.selectSeason') }}: </h3>
         <div class="all-seasons">
-          <h3 id="allS">{{ t('common.orDataFrom') }}</h3  >
-          <button class="all-seasons-button" @click="seasonSelected(0)">{{ t('common.allSeasons') }}</button>
+          <h3 id="allS">{{ $t('common.orDataFrom') }}</h3  >
+          <button class="all-seasons-button" @click="seasonSelected(0)">{{ $t('common.allSeasons') }}</button>
         </div>
       </div>
       <div class="team-seasons">
@@ -147,7 +147,7 @@ onMounted(() => {
     </div>
     <div class="stats">
       <div v-if="statsStatus === 'pending'">
-        {{ t('common.loading') }}
+        {{ $t('common.loading') }}
         <Icon icon="mdi:loading" />
       </div>
       <div v-else-if="statsError">

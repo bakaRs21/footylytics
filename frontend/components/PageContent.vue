@@ -1,5 +1,4 @@
 <script setup>
-const { t } = useI18n()
 
 const props = defineProps({
     pageSections: {
@@ -14,12 +13,6 @@ async function scrollTo(anchor) {
     const element = document.getElementById(anchor);
     if (!element) return;
     element.scrollIntoView({ behavior: 'smooth', block: 'start'})
-
-    requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-            element.scrollIntoView({ behavior: 'smooth', block: 'start'})
-        })
-    })
 }
 
 </script>

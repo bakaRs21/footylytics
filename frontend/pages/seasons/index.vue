@@ -1,7 +1,6 @@
 <script setup>
 import { Icon } from '@iconify/vue';
 
-const { t } = useI18n()
 const config = useRuntimeConfig()
 const {status, data: seasons, error } = await useFetch(`${config.public.apiBase}compare/Seasons`, {
   lazy: true,

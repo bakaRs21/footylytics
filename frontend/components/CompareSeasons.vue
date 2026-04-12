@@ -158,7 +158,7 @@ onMounted(() => {
             </span>
             <span v-else class="winner-title">
                 <Icon icon="openmoji:crown" class="icon-lg" />
-                <span>{{ t('components.compareStats.overallWinner') }}: </span>
+                <span>{{ $t('components.compareStats.overallWinner') }}: </span>
                 <strong>{{ overallWinner.winner === 'first' ? overallWinner.firstName : overallWinner.secondName }}</strong>
             </span>
             <span class="winner-subtitle">

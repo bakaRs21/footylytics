@@ -1,7 +1,6 @@
 <script setup>
 import { Icon } from '@iconify/vue';
 import { computed, watch } from 'vue';
-const { t } = useI18n()
 
 const stats = defineModel({
     type: Object ?? null,
@@ -65,15 +64,15 @@ function clearStats() {
 
 <template>
 <div class="tsd-wrapper">
-    <div @click="showStats = !showStats" class="title-with-arrows tooltip" :data-tooltip="t('statistics.tooltips.showStats')" >
+    <div @click="showStats = !showStats" class="title-with-arrows tooltip" :data-tooltip="$t('statistics.tooltips.showStats')" >
         <Icon icon="mdi:chevron-down" />
-        <h2 class="stats-h2" id="stats">{{ t('components.teamStatsDashboard.title') }}</h2>
+        <h2 class="stats-h2" id="stats">{{ $t('components.teamStatsDashboard.title') }}</h2>
         <Icon icon="mdi:chevron-down" />
     </div>
     <div v-if="showStats" class="dashboard-wrapper">
         <div class="dashboard-grid" ref="dashboard">
             <div class="card-primary">
-                <h3 class="card-title">{{ t('components.teamStatsDashboard.formations') }}</h3>
+                <h3 class="card-title">{{ $t('components.teamStatsDashboard.formations') }}</h3>
                 <div v-if="lineups" class="lineups-content flex-col-gap-sm">
                     <div v-for="(lineup, index) in lineups" :key="index" class="lineup-wrapper">
                         <div class="lineup-item" @click="toggleLineUp(index)">
@@ -89,114 +88,114 @@ function clearStats() {
                     </div>
                 </div>
                 <div v-else class="no-data">
-                    <p>{{ t('components.teamStatsDashboard.noLineupData') }}</p>
+                    <p>{{ $t('components.teamStatsDashboard.noLineupData') }}</p>
                 </div>
             </div>
             <div class="card-primary">
-                <h3 class="card-title">{{ t('components.teamStatsDashboard.matchesOverview') }}</h3>
+                <h3 class="card-title">{{ $t('components.teamStatsDashboard.matchesOverview') }}</h3>
                 <div class="matches-content">
                     <div class="stat-large">
                         <span class="stat-value">{{ newStats.total_matches_played }}</span>
-                        <span class="stat-label">{{ t('components.teamStatsDashboard.totalMatches') }}</span>
+                        <span class="stat-label">{{ $t('components.teamStatsDashboard.totalMatches') }}</span>
                     </div>
                     <div class="result-breakdown">
                         <div class="result-item">
                             <span class="result-icon win">W</span>
                             <span class="result-value">{{ newStats.total_wins }}</span>
-                            <span class="result-label">{{ t('components.teamStatsDashboard.wins') }}</span>
+                            <span class="result-label">{{ $t('components.teamStatsDashboard.wins') }}</span>
                         </div>
                         <div class="result-item">
                             <span class="result-icon draw">D</span>
                             <span class="result-value">{{ newStats.total_draws }}</span>
-                            <span class="result-label">{{ t('components.teamStatsDashboard.draws') }}</span>
+                            <span class="result-label">{{ $t('components.teamStatsDashboard.draws') }}</span>
                         </div>
                         <div class="result-item">
                             <span class="result-icon lose">L</span>
                             <span class="result-value">{{ newStats.total_losses }}</span>
-                            <span class="result-label">{{ t('components.teamStatsDashboard.losses') }}</span>
+                            <span class="result-label">{{ $t('components.teamStatsDashboard.losses') }}</span>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="card-primary">
-                <h3 class="card-title">{{ t('components.teamStatsDashboard.goalsAndPerformance') }}</h3>
+                <h3 class="card-title">{{ $t('components.teamStatsDashboard.goalsAndPerformance') }}</h3>
                 <div class="goals-content">
                     <div class="goal-stat">
                         <Ball class="goal-icon" />
                         <div class="flex-col">
                             <span class="goal-value">{{ newStats.total_goals_scored }}</span>
-                            <span class="stat-label">{{ t('components.teamStatsDashboard.goalsScored') }}</span>
+                            <span class="stat-label">{{ $t('components.teamStatsDashboard.goalsScored') }}</span>
                         </div>
                     </div>
                     <div class="goal-stat">
                         <Goal class="goal-icon" />
                         <div class="flex-col">
                             <span class="goal-value">{{ newStats.total_goals_conceded }}</span>
-                            <span class="stat-label">{{ t('components.teamStatsDashboard.goalsConceded') }}</span>
+                            <span class="stat-label">{{ $t('components.teamStatsDashboard.goalsConceded') }}</span>
                         </div>
                     </div>
                     <div class="goal-stat">
                         <Shield class="goal-icon" />
                         <div class="flex-col">
                             <span class="goal-value">{{ newStats.total_clean_sheets }}</span>
-                            <span class="stat-label">{{ t('components.teamStatsDashboard.cleanSheets') }}</span>
+                            <span class="stat-label">{{ $t('components.teamStatsDashboard.cleanSheets') }}</span>
                         </div>
                     </div>
                     <div class="goal-stat">
                         <XMark class="goal-icon" />
                         <div class="flex-col">
                             <span class="goal-value">{{ newStats.total_failed_to_score }}</span>
-                            <span class="stat-label">{{ t('components.teamStatsDashboard.failedToScore') }}</span>
+                            <span class="stat-label">{{ $t('components.teamStatsDashboard.failedToScore') }}</span>
                         </div>
                     </div>
                     <div class="penalties-section">
-                        <h4 class="subsection-title">{{ t('components.teamStatsDashboard.penalties') }}</h4>
+                        <h4 class="subsection-title">{{ $t('components.teamStatsDashboard.penalties') }}</h4>
                         <div class="penalty-stats">
                             <div class="penalty-item success">
                                 <span class="penalty-value success">{{ newStats.total_penalties_scored }}</span>
-                                <span class="penalty-label">{{ t('components.teamStatsDashboard.penaltiesScored') }}</span>
+                                <span class="penalty-label">{{ $t('components.teamStatsDashboard.penaltiesScored') }}</span>
                             </div>
                             <div class="penalty-item missed">
                                 <span class="penalty-value missed">{{ newStats.total_penalties_missed }}</span>
-                                <span class="penalty-label">{{ t('components.teamStatsDashboard.penaltiesMissed') }}</span>
+                                <span class="penalty-label">{{ $t('components.teamStatsDashboard.penaltiesMissed') }}</span>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="streaks-card card-primary">
-                <h3 class="card-title">{{ t('components.teamStatsDashboard.streaks') }}</h3>
+                <h3 class="card-title">{{ $t('components.teamStatsDashboard.streaks') }}</h3>
                 <div class="streaks-content">
                     <div class="goal-stat">
                         <span class="streak-icon win">📈</span>
                         <div class="flex-col">
                             <span class="streak-value">{{ newStats.biggest_win_streak }}</span>
-                            <span class="stat-label">{{ t('components.teamStatsDashboard.biggestWinStreak') }}</span>
+                            <span class="stat-label">{{ $t('components.teamStatsDashboard.biggestWinStreak') }}</span>
                         </div>
                     </div>
                     <div class="goal-stat">
                         <span class="streak-icon draw">➖</span>
                         <div class="flex-col">
                             <span class="streak-value">{{ newStats.biggest_draw_streak }}</span>
-                            <span class="stat-label">{{ t('components.teamStatsDashboard.biggestDrawStreak') }}</span>
+                            <span class="stat-label">{{ $t('components.teamStatsDashboard.biggestDrawStreak') }}</span>
                         </div>
                     </div>
                     <div class="goal-stat">
                         <span class="streak-icon lose">📉</span>
                         <div class="flex-col">
                             <span class="streak-value">{{ newStats.biggest_lose_streak }}</span>
-                            <span class="stat-label">{{ t('components.teamStatsDashboard.biggestLoseStreak') }}</span>
+                            <span class="stat-label">{{ $t('components.teamStatsDashboard.biggestLoseStreak') }}</span>
                         </div>
                     </div>
                 </div>
                 <div v-if="formArray" class="form-section">
-                    <h4 class="subsection-title">{{ t('components.teamStatsDashboard.teamForm') }}</h4>
+                    <h4 class="subsection-title">{{ $t('components.teamStatsDashboard.teamForm') }}</h4>
                     <div class="form-display">
                         <div v-for="(result, index) in formArray" :key="index" :class="['form-badge', result.toLowerCase()]">
                             {{ result }}
                         </div>
                     </div>
-                    <p class="form-note">{{ t('components.teamStatsDashboard.latestMatchRight') }}</p>
+                    <p class="form-note">{{ $t('components.teamStatsDashboard.latestMatchRight') }}</p>
                 </div>
             </div>
         </div>

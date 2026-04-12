@@ -1,5 +1,4 @@
-<script setup lang="ts">
-const { t } = useI18n()
+<script setup>
 const localePath = useLocalePath()
 </script>
 
@@ -7,27 +6,27 @@ const localePath = useLocalePath()
   <footer class="footer">
     <div class="footer-layout">
       <div class="div-1">
-        <p>{{ t('components.footer.description') }}</p>
+        <p>{{ $t('components.footer.description') }}</p>
       </div>
       <div class="footer-links">
         <div>
-          <h3 class="h3-footer">{{ t('components.footer.features') }}</h3>
+          <h3 class="h3-footer">{{ $t('components.footer.features') }}</h3>
           <ul class="padding-fix">
-            <li class="footer-link"><NuxtLink :to="localePath('/seasons')">{{ t('components.footer.seasonsComparison') }}</NuxtLink></li>
-            <li class="footer-link"><NuxtLink :to="localePath('/teams')">{{ t('components.footer.teamAnalysis') }}</NuxtLink></li>
-            <li class="footer-link"><NuxtLink :to="localePath('/players')">{{ t('components.footer.playerStats') }}</NuxtLink></li>
+            <li class="footer-link"><NuxtLink :to="localePath('/seasons')">{{ $t('components.footer.seasonsComparison') }}</NuxtLink></li>
+            <li class="footer-link"><NuxtLink :to="localePath('/teams')">{{ $t('components.footer.teamAnalysis') }}</NuxtLink></li>
+            <li class="footer-link"><NuxtLink :to="localePath('/players')">{{ $t('components.footer.playerStats') }}</NuxtLink></li>
           </ul>
         </div>
         <div>
-          <h3 class="h3-footer">{{ t('components.footer.resources') }}</h3>
+          <h3 class="h3-footer">{{ $t('components.footer.resources') }}</h3>
           <ul class="padding-fix">
-            <li ><NuxtLink :to="localePath('/documentation')">{{ t('components.footer.documentation') }}</NuxtLink></li>
-            <li ><NuxtLink :to="localePath('/manual')">{{ t('components.footer.manual') }}</NuxtLink></li>
+            <li ><NuxtLink :to="localePath('/documentation')">{{ $t('components.footer.documentation') }}</NuxtLink></li>
+            <li ><NuxtLink :to="localePath('/manual')">{{ $t('components.footer.manual') }}</NuxtLink></li>
           </ul>
         </div>
       </div>
     <div>
-      <p>{{ t('components.footer.copyright') }}</p>
+      <p>{{ $t('components.footer.copyright') }}</p>
     </div>
     </div>
   </footer>

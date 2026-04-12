@@ -1,5 +1,6 @@
 <script setup>
 import { ref, computed } from 'vue';
+import { Icon } from '@iconify/vue';
 
 const { t } = useI18n()
 const localePath = useLocalePath()
@@ -9,58 +10,58 @@ const tabs = [
   { id: 'teams', label: t('pages.teams.title') },
   { id: 'players', label: t('pages.players.title') },
   { id: 'seasons', label: t('pages.seasons.title') },
-  { id: 'compare', label: t('pages.compare.title') },
+  { id: 'compare', label: t('manual.compare.title') },
 ];
 
 const pageSections = computed(() => {
   const sections = [
-    { label: 'Manual Selection', anchor: 'manual-selection' }
+    { label: t('manual.sections.manualSelection'), anchor: 'manual-selection' }
   ];
   if (activeTab.value === 'teams') {
     sections.push(
-      { label: 'Teams Overview', anchor: 'teams-overview' },
-      { label: 'Teams Index Page', anchor: 'teams-index' },
-      { label: 'Individual Team Page', anchor: 'individual-team' },
-      { label: 'Team Logo Section', anchor: 'team-logo' },
-      { label: 'Season Selection', anchor: 'season-selection' },
-      { label: 'Team Statistics', anchor: 'team-statistics' },
-      { label: 'Metrics Dashboard', anchor: 'metrics-dashboard' },
-      { label: 'Navigation & Tips', anchor: 'navigation-tips' }
+      { label: t('manual.sections.teamsOverview'), anchor: 'teams-overview' },
+      { label: t('manual.sections.teamsIndexPage'), anchor: 'teams-index' },
+      { label: t('manual.sections.individualTeamPage'), anchor: 'individual-team' },
+      { label: t('manual.sections.teamLogoSection'), anchor: 'team-logo' },
+      { label: t('manual.sections.seasonSelection'), anchor: 'season-selection' },
+      { label: t('manual.sections.teamStatistics'), anchor: 'team-statistics' },
+      { label: t('manual.sections.metricsDashboard'), anchor: 'metrics-dashboard' },
+      { label: t('manual.sections.navigationTips'), anchor: 'navigation-tips' }
     );
   } else if (activeTab.value === 'players') {
     sections.push(
-      { label: 'Players Overview', anchor: 'players-overview' },
-      { label: 'Players Index Page', anchor: 'players-index' },
-      { label: 'Individual Player Page', anchor: 'individual-player' },
-      { label: 'Player Information', anchor: 'player-information' },
-      { label: 'Season Selection', anchor: 'player-season-selection' },
-      { label: 'Player Statistics', anchor: 'player-statistics' },
-      { label: 'Player Metrics', anchor: 'player-metrics' },
-      { label: 'Color Coding', anchor: 'color-coding' }
+      { label: t('manual.sections.playersOverview'), anchor: 'players-overview' },
+      { label: t('manual.sections.playersIndexPage'), anchor: 'players-index' },
+      { label: t('manual.sections.individualPlayerPage'), anchor: 'individual-player' },
+      { label: t('manual.sections.playerInformation'), anchor: 'player-information' },
+      { label: t('manual.sections.playerSeasonSelection'), anchor: 'player-season-selection' },
+      { label: t('manual.sections.playerStatistics'), anchor: 'player-statistics' },
+      { label: t('manual.sections.playerMetrics'), anchor: 'player-metrics' },
+      { label: t('manual.sections.colorCoding'), anchor: 'color-coding' }
     );
   } else if (activeTab.value === 'seasons') {
     sections.push(
-      { label: 'Seasons Overview', anchor: 'seasons-overview' },
-      { label: 'Seasons Index Page', anchor: 'seasons-index' },
-      { label: 'Individual Season Page', anchor: 'individual-season' },
-      { label: 'Season Stats Section', anchor: 'season-stats-section' },
-      { label: 'Season Ranking', anchor: 'season-ranking' },
-      { label: 'Navigation', anchor: 'season-navigation' },
-      { label: 'Usage Tips', anchor: 'usage-tips' }
+      { label: t('manual.sections.seasonsOverview'), anchor: 'seasons-overview' },
+      { label: t('manual.sections.seasonsIndexPage'), anchor: 'seasons-index' },
+      { label: t('manual.sections.individualSeasonPage'), anchor: 'individual-season' },
+      { label: t('manual.sections.seasonStatsSection'), anchor: 'season-stats-section' },
+      { label: t('manual.sections.seasonRanking'), anchor: 'season-ranking' },
+      { label: t('manual.sections.seasonNavigation'), anchor: 'season-navigation' },
+      { label: t('manual.sections.usageTips'), anchor: 'usage-tips' }
     );
   } else if (activeTab.value === 'compare') {
     sections.push(
-      { label: 'Compare Overview', anchor: 'compare-overview' },
-      { label: 'Compare Index', anchor: 'compare-index' },
-      { label: 'Pages Structure', anchor: 'pages-structure' },
-      { label: 'Season Comparison', anchor: 'season-comparison' },
-      { label: 'Team Comparison', anchor: 'team-comparison' },
-      { label: 'Player Comparison', anchor: 'player-comparison' },
-      { label: 'Navigation Features', anchor: 'navigation-features' },
-      { label: 'Visual Design', anchor: 'visual-design' },
-      { label: 'Advanced Tips', anchor: 'advanced-tips' },
-      { label: 'Troubleshooting', anchor: 'troubleshooting' },
-      { label: 'Quick Reference', anchor: 'quick-reference' }
+      { label: t('manual.sections.compareOverview'), anchor: 'compare-overview' },
+      { label: t('manual.sections.compareIndex'), anchor: 'compare-index' },
+      { label: t('manual.sections.pagesStructure'), anchor: 'pages-structure' },
+      { label: t('manual.sections.seasonComparison'), anchor: 'season-comparison' },
+      { label: t('manual.sections.teamComparison'), anchor: 'team-comparison' },
+      { label: t('manual.sections.playerComparison'), anchor: 'player-comparison' },
+      { label: t('manual.sections.navigationFeatures'), anchor: 'navigation-features' },
+      { label: t('manual.sections.visualDesign'), anchor: 'visual-design' },
+      { label: t('manual.sections.advancedTips'), anchor: 'advanced-tips' },
+      { label: t('manual.sections.troubleshooting'), anchor: 'troubleshooting' },
+      { label: t('manual.sections.quickReference'), anchor: 'quick-reference' }
     );
   }
 
@@ -69,1143 +70,1185 @@ const pageSections = computed(() => {
 </script>
 
 <template>
-    <div class="page-heading">
-      <h1 class="h1-design">{{ $t('navigation.manual') }}</h1>
-      <p class="subtitle">Complete guide to using the Premier League Statistics Explorer</p>
-    </div>
-    <div class="manual-container">
-        <div class="tab-navigation" id="manual-selection">
-            <button
-                v-for="tab in tabs"
-                :key="tab.id"
-                @click="activeTab = tab.id"
-                :class="['tab-btn', { active: activeTab === tab.id }]"
-            >
-                {{ tab.label }}
-            </button>
-        </div>
-
-        <!-- TEAMS MANUAL -->
-        <div v-show="activeTab === 'teams'" class="manual-content">
-            <h2 id="teams-overview">Team Pages Overview</h2>
-            <p class="lead">
-                The Team Pages provide a comprehensive interface to explore Premier League teams, their seasonal performance, 
-                detailed statistics, and advanced metrics.
-            </p>
-
-            <section id="teams-index">
-                <h3>Teams Index Page</h3>
-                <p><strong>URL:</strong> <code>/teams</code></p>
-                
-                <h4>Search & Filter</h4>
-                <ul>
-                    <li><strong>Search Bar:</strong> Type team names to filter the list in real-time (case-insensitive)</li>
-                    <li><strong>Filters Button:</strong> Click to reveal filter options:
-                        <ul>
-                            <li><strong>Seasons:</strong> Filter teams by the seasons they participated in</li>
-                            <li>Multiple filters can be active simultaneously</li>
-                            <li><strong>Clear Filters:</strong> Remove all active selections</li>
-                        </ul>
-                    </li>
-                    <li><strong>Item Counter:</strong> Shows current count of displayed teams in top-left</li>
-                </ul>
-
-                <h4>Team Cards</h4>
-                <p>Click any team card to navigate to that team's detailed page with statistics and metrics.</p>
-            </section>
-
-            <section id="individual-team">
-                <h3>Individual Team Page</h3>
-                <p><strong>URL:</strong> <code>/teams/[team_id]</code></p>
-                
-                <h4 id="team-logo">1. Team Logo Section</h4>
-                <ul>
-                    <li>Displays team logo and name</li>
-                    <li>Background uses team colors extracted from the logo</li>
-                    <li>Diagonal stripe pattern with dynamic color adjustment</li>
-                </ul>
-
-                <h4 id="season-selection">2. Season Selection</h4>
-                <ul>
-                    <li><strong>Season Cards:</strong> Click any season to load statistics for that specific period</li>
-                    <li><strong>All Seasons Button:</strong> Aggregates data from all seasons the team participated in</li>
-                    <li>Selected season updates the URL and triggers automatic statistics loading</li>
-                </ul>
-
-                <h4 id="team-statistics">3. Team Statistics Dashboard</h4>
-                <p>Click the header to expand/collapse. Provides comprehensive statistics:</p>
-                
-                <ul>
-                    <li><strong>Formations Card:</strong> Shows all formations used with match counts
-                        <ul>
-                            <li>Click any formation to see detailed lineup information</li>
-                            <li>Expandable with smooth animation</li>
-                        </ul>
-                    </li>
-                    <li><strong>Matches Overview:</strong> Total matches, wins (W), draws (D), losses (L)</li>
-                    <li><strong>Goals & Performance:</strong> Goals scored/conceded, clean sheets, penalties</li>
-                    <li><strong>Streaks:</strong> Biggest win/draw/loss streaks and team form badges (W/D/L)</li>
-                    <li><strong>Clear Stats Button:</strong> Removes statistics display and resets view</li>
-                </ul>
-
-                <h4 id="metrics-dashboard">4. Metrics Dashboard</h4>
-                <p>Advanced metrics with customizable visualizations:</p>
-                
-                <ul>
-                    <li><strong>Metric Selection:</strong>
-                        <ul>
-                            <li>Use multi-select dropdown to choose metrics</li>
-                            <li>Click "Confirm" to load selected metrics</li>
-                        </ul>
-                    </li>
-                    <li><strong>Season Filter:</strong> Filter metrics by "all seasons" or specific season</li>
-                    <li><strong>Chart Types:</strong> Switch between Bar, Line, Pie, and Donut charts</li>
-                    <li><strong>Shared Graphs:</strong> Some metrics combine into grouped visualizations</li>
-                </ul>
-            </section>
-
-            <section id="navigation-tips">
-                <h3>Navigation & Tips</h3>
-                <ul>
-                    <li><strong>Page Navigator:</strong> Fixed sidebar on right with quick links to sections</li>
-                    <li><strong>Auto-scroll:</strong> Page automatically scrolls to loaded content</li>
-                    <li><strong>Hover Effects:</strong> Cards lift and highlight on hover</li>
-                    <li><strong>Responsive:</strong> Adapts to desktop (multi-column) and mobile (stacked) layouts</li>
-                </ul>
-            </section>
-        </div>
-
-        <!-- PLAYERS MANUAL -->
-        <div v-show="activeTab === 'players'" class="manual-content">
-            <h2 id="players-overview">Player Pages Overview</h2>
-            <p class="lead">
-                The Player Pages allow you to explore individual player statistics, performance metrics, 
-                and career data across multiple teams and seasons.
-            </p>
-
-            <section id="players-index">
-                <h3>Players Index Page</h3>
-                <p><strong>URL:</strong> <code>/players</code></p>
-                
-                <h4>Search & Filter</h4>
-                <ul>
-                    <li><strong>Search Bar:</strong> Type player names to filter the list in real-time</li>
-                    <li><strong>Filters Button:</strong> Access multiple filter options:
-                        <ul>
-                            <li><strong>Seasons:</strong> Filter players by seasons they participated in</li>
-                            <li><strong>Teams:</strong> Filter players by teams they played for</li>
-                            <li>Multiple filters from both categories can be active</li>
-                            <li><strong>Clear Filters:</strong> Remove all active selections</li>
-                        </ul>
-                    </li>
-                    <li><strong>Item Counter:</strong> Displays current count of visible players</li>
-                </ul>
-
-                <h4>Player Cards</h4>
-                <p>Click any player card to view detailed statistics and performance metrics.</p>
-            </section>
-
-            <section id="individual-player">
-                <h3>Individual Player Page</h3>
-                <p><strong>URL:</strong> <code>/players/[player_id]</code></p>
-                
-                <h4 id="player-information">1. Player Information</h4>
-                <ul>
-                    <li>Player name displayed prominently</li>
-                    <li><strong>Info Table:</strong> Shows player details (nationality, position, etc.)</li>
-                    <li>Hover effects on table rows for better readability</li>
-                </ul>
-
-                <h4 id="player-season-selection">2. Season Selection</h4>
-                <ul>
-                    <li><strong>Season Cards:</strong> Click to load statistics for specific seasons</li>
-                    <li><strong>All Seasons Button:</strong> View aggregated career statistics</li>
-                    <li>Automatic data loading when season is selected</li>
-                </ul>
-
-                <h4 id="player-statistics">3. Player Statistics Dashboard</h4>
-                <p>Click header to expand/collapse. Eight comprehensive categories:</p>
-                
-                <ul>
-                    <li><strong>Games:</strong>
-                        <ul>
-                            <li>Total matches played</li>
-                            <li>Total minutes played</li>
-                            <li>Player rating</li>
-                        </ul>
-                    </li>
-                    <li><strong>Goals & Assists:</strong>
-                        <ul>
-                            <li>Total goals and assists</li>
-                            <li>Total shots and shots on target</li>
-                        </ul>
-                    </li>
-                    <li><strong>Defensive Stats:</strong>
-                        <ul>
-                            <li>Total tackles</li>
-                            <li>Blocks and interceptions</li>
-                        </ul>
-                    </li>
-                    <li><strong>Passing Stats:</strong>
-                        <ul>
-                            <li>Total passes</li>
-                            <li>Key passes</li>
-                        </ul>
-                    </li>
-                    <li><strong>Duels & Dribbles:</strong>
-                        <ul>
-                            <li>Total duels and duels won</li>
-                            <li>Dribble attempts and successful dribbles</li>
-                        </ul>
-                    </li>
-                    <li><strong>Discipline:</strong>
-                        <ul>
-                            <li>Red cards (red text)</li>
-                            <li>Yellow cards (yellow text)</li>
-                            <li>Fouls committed and drawn</li>
-                        </ul>
-                    </li>
-                    <li><strong>Penalties:</strong>
-                        <ul>
-                            <li>Penalties scored (green text)</li>
-                            <li>Penalties missed (red text)</li>
-                            <li>Penalties won</li>
-                        </ul>
-                    </li>
-                    <li><strong>Goalkeeper Stats:</strong>
-                        <ul>
-                            <li>Goals conceded</li>
-                            <li>Saves</li>
-                            <li>Penalties saved</li>
-                            <li>Shows "No data" if player is not a goalkeeper</li>
-                        </ul>
-                    </li>
-                </ul>
-
-                <p><strong>Note:</strong> Each card shows "No data available" if the player has no statistics in that category for the selected season.</p>
-
-                <h4 id="player-metrics">4. Player Metrics Dashboard</h4>
-                <ul>
-                    <li><strong>Metric Selection:</strong> Multi-select dropdown for choosing advanced metrics</li>
-                    <li><strong>Season Filter:</strong> Apply to specific season or all seasons</li>
-                    <li><strong>Chart Visualizations:</strong> Multiple chart types for data analysis</li>
-                    <li><strong>Clear Stats:</strong> Reset and clear all loaded statistics</li>
-                </ul>
-            </section>
-
-            <section id="color-coding">
-                <h3>Color Coding</h3>
-                <ul>
-                    <li><strong>Green:</strong> Positive stats (goals, wins, successful actions)</li>
-                    <li><strong>Red:</strong> Negative stats (cards, missed penalties, losses)</li>
-                    <li><strong>Yellow:</strong> Warning stats (yellow cards)</li>
-                </ul>
-            </section>
-        </div>
-
-        <!-- SEASONS MANUAL -->
-        <div v-show="activeTab === 'seasons'" class="manual-content">
-            <h2 id="seasons-overview">Season Pages Overview</h2>
-            <p class="lead">
-                The Season Pages provide a comprehensive view of entire Premier League seasons, 
-                including aggregate statistics and league standings.
-            </p>
-
-            <section id="seasons-index">
-                <h3>Seasons Index Page</h3>
-                <p><strong>URL:</strong> <code>/seasons</code></p>
-                
-                <h4>Features</h4>
-                <ul>
-                    <li><strong>Search Bar:</strong> Filter seasons by year</li>
-                    <li><strong>Season Cards:</strong> Each card represents a season (e.g., "2006-2007")</li>
-                    <li>Click any season card to view detailed statistics and rankings</li>
-                    <li><strong>Note:</strong> Filters are not available on season pages (seasons only filter)</li>
-                </ul>
-            </section>
-
-            <section id="individual-season">
-                <h3>Individual Season Page</h3>
-                <p><strong>URL:</strong> <code>/seasons/[season_id]</code></p>
-                
-                <h4 id="season-stats-section">1. Season Stats Section</h4>
-                <p>Comprehensive aggregate statistics for the entire season:</p>
-                
-                <ul>
-                    <li><strong>Season Header:</strong>
-                        <ul>
-                            <li>Season year displayed prominently</li>
-                            <li>Total players count</li>
-                            <li>Total player appearances</li>
-                        </ul>
-                    </li>
-                    <li><strong>Overview Cards (Top Row):</strong>
-                        <ul>
-                            <li>Total Goals</li>
-                            <li>Total Assists</li>
-                            <li>Total Shots</li>
-                            <li>Total Passes</li>
-                        </ul>
-                    </li>
-                </ul>
-
-                <h4>Detailed Statistics Cards:</h4>
-                
-                <ul>
-                    <li><strong>Shooting:</strong>
-                        <ul>
-                            <li>Total shots and shots on target</li>
-                            <li>Shot accuracy percentage with progress bar</li>
-                        </ul>
-                    </li>
-                    <li><strong>Passing:</strong>
-                        <ul>
-                            <li>Total passes and key passes</li>
-                            <li>Key pass rate percentage with progress bar</li>
-                        </ul>
-                    </li>
-                    <li><strong>Duels & Dribbles:</strong>
-                        <ul>
-                            <li>Total duels and duels won</li>
-                            <li>Duel win rate percentage</li>
-                            <li>Dribble attempts and successful dribbles</li>
-                            <li>Dribble success rate percentage</li>
-                        </ul>
-                    </li>
-                    <li><strong>Discipline:</strong>
-                        <ul>
-                            <li>Yellow cards (yellow icon and text)</li>
-                            <li>Red cards (red icon and text)</li>
-                            <li>Fouls committed and drawn</li>
-                        </ul>
-                    </li>
-                    <li><strong>Penalties:</strong>
-                        <ul>
-                            <li>Penalties scored and missed</li>
-                            <li>Conversion rate percentage with progress bar</li>
-                        </ul>
-                    </li>
-                    <li><strong>Defense:</strong>
-                        <ul>
-                            <li>Total tackles</li>
-                        </ul>
-                    </li>
-                </ul>
-
-                <h4 id="season-ranking">2. Season Ranking Section</h4>
-                <p>Interactive league standings table with advanced sorting:</p>
-                
-                <ul>
-                    <li><strong>Table Header:</strong>
-                        <ul>
-                            <li>"League Standings" title</li>
-                            <li>Team count badge</li>
-                        </ul>
-                    </li>
-                    <li><strong>Sort Options (10 sorting criteria):</strong>
-                        <ul>
-                            <li><strong>Points:</strong> Total points (default)</li>
-                            <li><strong>Wins:</strong> Number of victories</li>
-                            <li><strong>Goal Difference:</strong> Goals for minus goals against</li>
-                            <li><strong>Goals Scored:</strong> Total goals for</li>
-                            <li><strong>Goals Conceded:</strong> Total goals against</li>
-                            <li><strong>Matches Played:</strong> Total matches</li>
-                            <li><strong>Draws:</strong> Number of draws</li>
-                            <li><strong>Losses:</strong> Number of defeats</li>
-                            <li><strong>Win Rate %:</strong> Percentage of matches won</li>
-                            <li><strong>Points / Match:</strong> Average points per match</li>
-                        </ul>
-                    </li>
-                    <li><strong>Sorting:</strong>
-                        <ul>
-                            <li>Click any sort button to apply</li>
-                            <li>Click again to reverse order (ascending/descending)</li>
-                            <li>Active sort highlighted with green accent</li>
-                            <li>Arrow icon shows current direction</li>
-                        </ul>
-                    </li>
-                </ul>
-
-                <h4>Ranking Table Columns:</h4>
-                <ul>
-                    <li><strong>#:</strong> Rank position
-                        <ul>
-                            <li>🏆 Gold trophy for 1st place</li>
-                            <li>🏆 Silver trophy for 2nd place</li>
-                            <li>🏆 Bronze trophy for 3rd place</li>
-                        </ul>
-                    </li>
-                    <li><strong>Team:</strong> Team name with form bar indicator</li>
-                    <li><strong>MP:</strong> Matches played</li>
-                    <li><strong>W:</strong> Wins (green)</li>
-                    <li><strong>D:</strong> Draws (muted)</li>
-                    <li><strong>L:</strong> Losses (red)</li>
-                    <li><strong>GF:</strong> Goals for</li>
-                    <li><strong>GA:</strong> Goals against</li>
-                    <li><strong>GD:</strong> Goal difference (color-coded: green positive, red negative)</li>
-                    <li><strong>Pts:</strong> Total points (highlighted badge)</li>
-                    <li><strong>P/M:</strong> Points per match (decimal)</li>
-                    <li><strong>W%:</strong> Win rate percentage (color-coded: green ≥50%, yellow ≥30%, red <30%)</li>
-                </ul>
-
-                <h4>Visual Features:</h4>
-                <ul>
-                    <li><strong>Form Bars:</strong> Visual indicator under team names showing win rate
-                        <ul>
-                            <li>Green: ≥60% win rate (great form)</li>
-                            <li>Yellow: 40-59% win rate (good form)</li>
-                            <li>Orange: 20-39% win rate (poor form)</li>
-                            <li>Red: <20% win rate (bad form)</li>
-                        </ul>
-                    </li>
-                    <li><strong>Top 3 Highlighting:</strong> 1st, 2nd, and 3rd place rows have subtle background colors</li>
-                    <li><strong>Hover Effects:</strong> Rows highlight on hover for better readability</li>
-                    <li><strong>Responsive Table:</strong> Scrollable on mobile devices</li>
-                </ul>
-            </section>
-
-            <section id="season-navigation">
-                <h3>Navigation</h3>
-                <ul>
-                    <li><strong>Page Content Navigator:</strong> Fixed sidebar with quick links to:
-                        <ul>
-                            <li>Season Stats</li>
-                            <li>Season Ranking</li>
-                        </ul>
-                    </li>
-                    <li><strong>Smooth Scrolling:</strong> Click section links for smooth navigation</li>
-                </ul>
-            </section>
-
-            <section id="usage-tips">
-                <h3>Usage Tips</h3>
-                <ul>
-                    <li><strong>Compare Teams:</strong> Use different sort options to compare team performance</li>
-                    <li><strong>Defensive Analysis:</strong> Sort by "Goals Conceded" to find best defenses</li>
-                    <li><strong>Attacking Analysis:</strong> Sort by "Goals Scored" to find top attacking teams</li>
-                    <li><strong>Efficiency:</strong> Use "Points / Match" or "Win Rate %" for performance consistency</li>
-                    <li><strong>Form Analysis:</strong> Visual form bars show team quality at a glance</li>
-                </ul>
-            </section>
-        </div>
-
-        <!-- COMPARE MANUAL -->
-        <div v-show="activeTab === 'compare'" class="manual-content">
-            <h2 id="compare-overview">Compare Pages - Complete Guide</h2>
-            <p class="lead">
-                The Compare Pages provide powerful head-to-head comparison tools for analyzing players, teams, 
-                or entire seasons side-by-side. Use advanced metrics and visualizations to discover performance 
-                differences and identify statistical winners.
-            </p>
-
-            <section id="compare-index">
-                <h3>Compare Index Page</h3>
-                <p><strong>URL:</strong> <code>/compare</code></p>
-                
-                <h4>Overview</h4>
-                <p>The main compare page presents three comparison options as large, clickable cards:</p>
-                <ul>
-                    <li><strong>Compare Seasons:</strong> Analyze entire Premier League seasons</li>
-                    <li><strong>Compare Teams:</strong> Head-to-head team performance analysis</li>
-                    <li><strong>Compare Players:</strong> Direct player-to-player statistical comparison</li>
-                </ul>
-                
-                <h4>Getting Started</h4>
-                <ol>
-                    <li>Click on any of the three comparison type cards</li>
-                    <li>You'll be taken to the dedicated comparison interface for that category</li>
-                    <li>Select your items to compare and view detailed statistical breakdowns</li>
-                </ol>
-            </section>
-
-            <section id="pages-structure">
-                <h3>Comparison Pages Structure</h3>
-                <p><strong>URLs:</strong></p>
-                <ul>
-                    <li><code>/compare/Seasons</code> - Season comparisons</li>
-                    <li><code>/compare/Teams</code> - Team comparisons</li>
-                    <li><code>/compare/Players</code> - Player comparisons</li>
-                </ul>
-
-                <h4>Page Layout</h4>
-                <p>All comparison pages follow a consistent structure with two main sections:</p>
-                <ol>
-                    <li><strong>Selection Area</strong> (top) - Choose what to compare</li>
-                    <li><strong>Stats Comparison</strong> (bottom) - View detailed statistical breakdown</li>
-                </ol>
-            </section>
-
-            <section id="season-comparison">
-                <h3>Season Comparison</h3>
-                <p><strong>URL:</strong> <code>/compare/Seasons</code></p>
-
-                <h4>Step 1: Select Seasons</h4>
-                <ul>
-                    <li><strong>Two Dropdown Menus:</strong> Side-by-side season selectors</li>
-                    <li><strong>Left Dropdown:</strong> Select first season (e.g., "2006")</li>
-                    <li><strong>Right Dropdown:</strong> Select second season (e.g., "2010")</li>
-                    <li>Both dropdowns list all available seasons from 2006-2018</li>
-                </ul>
-
-                <h4>Selection Rules</h4>
-                <ul>
-                    <li>❌ <strong>Cannot select the same season twice</strong> - Error: "Cannot compare the same season"</li>
-                    <li>✅ Must select both seasons before stats will load</li>
-                    <li>Selections update the URL query parameters automatically</li>
-                </ul>
-
-                <h4>Step 2: View Comparison Results</h4>
-                <p>Once both seasons are selected, the page displays:</p>
-
-                <h5>A. Comparison Header</h5>
-                <ul>
-                    <li><strong>Layout:</strong> First Season | VS Badge | Second Season</li>
-                    <li>Season names displayed as "YYYY-YYYY" format (e.g., "2006-2007")</li>
-                    <li>Purple gradient styling with prominent "VS" badge in the center</li>
-                </ul>
-
-                <h5>B. Overall Winner Banner</h5>
-                <p>Displays the overall statistical winner based on all compared metrics:</p>
-                <ul>
-                    <li><strong>Winner Announcement:</strong>
-                        <ul>
-                            <li>👑 <strong>"Overall Winner: [Season Name]"</strong> if one season dominates</li>
-                            <li>🤝 <strong>"It's a Tie!"</strong> if both seasons are statistically equal</li>
-                        </ul>
-                    </li>
-                    <li><strong>Win Breakdown:</strong> Shows "XW vs YW out of Z metrics"
-                        <ul>
-                            <li>X = number of metrics the first season wins</li>
-                            <li>Y = number of metrics the second season wins</li>
-                            <li>Z = total number of comparable metrics</li>
-                        </ul>
-                    </li>
-                    <li><strong>Visual Progress Bar:</strong>
-                        <ul>
-                            <li>Two-color bar showing percentage dominance</li>
-                            <li>Left side (blue) = first season's percentage</li>
-                            <li>Right side (purple) = second season's percentage</li>
-                            <li>Percentages displayed if each side is >15% wide</li>
-                        </ul>
-                    </li>
-                    <li><strong>Banner Color:</strong>
-                        <ul>
-                            <li>Gold/yellow tint if there's a clear winner</li>
-                            <li>Neutral if it's a tie</li>
-                        </ul>
-                    </li>
-                </ul>
-
-                <h5>C. Metrics Comparison Grid</h5>
-                <p>Organized into 7 statistical categories, each with its own icon and metrics:</p>
-
-                <div class="metric-category">
-                    <h6>⚽ Season Overview</h6>
-                    <ul>
-                        <li><strong>Total Players:</strong> Number of players who appeared in the season</li>
-                        <li><strong>Appearances:</strong> Total player appearances across all matches</li>
-                    </ul>
-                </div>
-
-                <div class="metric-category">
-                    <h6>🎯 Attacking</h6>
-                    <ul>
-                        <li><strong>Goals:</strong> Total goals scored (higher is better)</li>
-                        <li><strong>Assists:</strong> Total assists provided (higher is better)</li>
-                        <li><strong>Total Shots:</strong> All shot attempts</li>
-                        <li><strong>Shots on Target:</strong> Accurate shots (higher is better)</li>
-                        <li><strong>Shot Accuracy %:</strong> Percentage of shots on target (higher is better)</li>
-                    </ul>
-                </div>
-
-                <div class="metric-category">
-                    <h6>🎯 Passing</h6>
-                    <ul>
-                        <li><strong>Total Passes:</strong> All passes attempted</li>
-                        <li><strong>Key Passes:</strong> Passes leading to shots (higher is better)</li>
-                    </ul>
-                </div>
-
-                <div class="metric-category">
-                    <h6>💥 Duels & Dribbles</h6>
-                    <ul>
-                        <li><strong>Total Duels:</strong> All 1v1 contests</li>
-                        <li><strong>Duels Won:</strong> Successful duels (higher is better)</li>
-                        <li><strong>Duel Win Rate %:</strong> Success percentage (higher is better)</li>
-                        <li><strong>Dribble Attempts:</strong> All dribble tries</li>
-                        <li><strong>Dribbles Successful:</strong> Completed dribbles (higher is better)</li>
-                        <li><strong>Dribble Success %:</strong> Completion rate (higher is better)</li>
-                    </ul>
-                </div>
-
-                <div class="metric-category">
-                    <h6>🛡️ Defensive</h6>
-                    <ul>
-                        <li><strong>Tackles:</strong> Total tackles made (higher is better)</li>
-                    </ul>
-                </div>
-
-                <div class="metric-category">
-                    <h6>⚠️ Discipline</h6>
-                    <ul>
-                        <li><strong>Yellow Cards:</strong> Total yellow cards (lower is better) ⚠️</li>
-                        <li><strong>Red Cards:</strong> Total red cards (lower is better) 🔴</li>
-                        <li><strong>Fouls Committed:</strong> Total fouls (lower is better) 🔴</li>
-                        <li><strong>Fouls Drawn:</strong> Fouls won (higher is better)</li>
-                    </ul>
-                </div>
-
-                <div class="metric-category">
-                    <h6>⚽ Penalties</h6>
-                    <ul>
-                        <li><strong>Penalties Scored:</strong> Successful penalties (higher is better)</li>
-                        <li><strong>Penalties Missed:</strong> Failed penalties (lower is better) 🔴</li>
-                    </ul>
-                </div>
-
-                <h5>Reading the Comparison Grid</h5>
-                <ul>
-                    <li><strong>Layout:</strong> Each metric row shows:
-                        <pre>First Value | Metric Label | Second Value</pre>
-                    </li>
-                    <li><strong>Winner Highlighting:</strong>
-                        <ul>
-                            <li>🏆 <strong>Bold/highlighted value</strong> = winner for that metric</li>
-                            <li>Regular styling = lower/equal value</li>
-                        </ul>
-                    </li>
-                    <li><strong>Color Coding:</strong>
-                        <ul>
-                            <li><span style="color: #22c55e;">🟢 Green</span> = positive/success metrics (goals, assists, saves)</li>
-                            <li><span style="color: #ef4444;">🔴 Red</span> = negative metrics (cards, fouls, missed penalties)</li>
-                            <li><span style="color: #eab308;">🟡 Yellow</span> = warning metrics (yellow cards)</li>
-                            <li>White = neutral metrics (total counts)</li>
-                        </ul>
-                    </li>
-                    <li><strong>Missing Data:</strong> Shows "-" if data unavailable for that metric</li>
-                </ul>
-
-                <h4>Understanding "Lower is Better" Metrics</h4>
-                <p>Some metrics favor lower values (marked with 🔴 above):</p>
-                <ul>
-                    <li>Yellow Cards, Red Cards, Fouls Committed, Penalties Missed</li>
-                    <li>The season with the <em>lower</em> value wins these comparisons</li>
-                    <li>Example: 50 fouls beats 75 fouls</li>
-                </ul>
-            </section>
-
-            <section id="team-comparison">
-                <h3>Team Comparison</h3>
-                <p><strong>URL:</strong> <code>/compare/Teams</code></p>
-
-                <h4>Step 1: Select Teams</h4>
-                <ul>
-                    <li><strong>Two Searchable Dropdowns:</strong> Side-by-side team selectors</li>
-                    <li><strong>How to Use:</strong>
-                        <ol>
-                            <li>Click the left dropdown to select the first team</li>
-                            <li>Type to filter/search team names in real-time</li>
-                            <li>Click a team from the filtered list to select</li>
-                            <li>Selected team name appears in the input field</li>
-                            <li>❌ Click the X icon to clear selection and start over</li>
-                            <li>Repeat for the right dropdown to select second team</li>
-                        </ol>
-                    </li>
-                    <li><strong>Visual Indicators:</strong>
-                        <ul>
-                            <li>🔽 Down arrow = dropdown closed, click to open</li>
-                            <li>🔼 Up arrow = dropdown open, showing options</li>
-                            <li>❌ X icon = selection made, click to clear</li>
-                        </ul>
-                    </li>
-                </ul>
-
-                <h4>Step 2: Select Seasons</h4>
-                <p><strong>After both teams are selected</strong>, two new dropdowns appear below:</p>
-                <ul>
-                    <li><strong>Season Selectors:</strong> One for each team
-                        <ul>
-                            <li>Shows only seasons that team participated in</li>
-                            <li>Option: "all seasons" - aggregates all available data for that team</li>
-                            <li>Individual seasons listed chronologically</li>
-                        </ul>
-                    </li>
-                    <li><strong>Independent Seasons:</strong>
-                        <ul>
-                            <li>Each team can have a different season selected</li>
-                            <li>Example: Compare Team A in 2008 vs Team B in 2015</li>
-                            <li>Or compare Team A's 2010 season vs their "all seasons" aggregate</li>
-                        </ul>
-                    </li>
-                </ul>
-
-                <h4>Selection Rules</h4>
-                <ul>
-                    <li>❌ <strong>Cannot compare a team with itself</strong> - Error: "Cannot compare the same team"</li>
-                    <li>✅ Must select both teams AND their respective seasons</li>
-                    <li>Selections persist in URL (shareable link)</li>
-                </ul>
-
-                <h4>Step 3: View Comparison Results</h4>
-
-                <h5>A. Comparison Header</h5>
-                <ul>
-                    <li><strong>Layout:</strong> Team 1 Name | VS | Team 2 Name</li>
-                    <li>Team names displayed prominently</li>
-                    <li>VS badge centered between teams</li>
-                </ul>
-
-                <h5>B. Overall Winner Banner</h5>
-                <p>Same structure as season comparison:</p>
-                <ul>
-                    <li>👑 Winner announcement or 🤝 Tie declaration</li>
-                    <li>Win count breakdown (e.g., "15W vs 12W out of 27 metrics")</li>
-                    <li>Dual-color percentage bar showing dominance</li>
-                </ul>
-
-                <h5>C. Team Metrics Comparison</h5>
-                <p>Organized into 3 main categories:</p>
-
-                <div class="metric-category">
-                    <h6>⚽ Matches Overview</h6>
-                    <ul>
-                        <li><strong>Matches Played:</strong> Total matches</li>
-                        <li><strong>Wins:</strong> Victories (higher is better) 🟢</li>
-                        <li><strong>Draws:</strong> Draw results</li>
-                        <li><strong>Losses:</strong> Defeats (lower is better) 🔴</li>
-                    </ul>
-                </div>
-
-                <div class="metric-category">
-                    <h6>🎯 Goals & Performance</h6>
-                    <ul>
-                        <li><strong>Goals Scored:</strong> Total goals for (higher is better) 🟢</li>
-                        <li><strong>Goals Conceded:</strong> Total goals against (lower is better) 🔴</li>
-                        <li><strong>Clean Sheets:</strong> Matches without conceding (higher is better) 🟢</li>
-                        <li><strong>Failed to Score:</strong> Goalless matches (lower is better) 🔴</li>
-                    </ul>
-                </div>
-
-                <div class="metric-category">
-                    <h6>📈 Streaks</h6>
-                    <ul>
-                        <li><strong>Win Streak:</strong> Longest consecutive wins (higher is better) 🟢</li>
-                        <li><strong>Draw Streak:</strong> Longest consecutive draws</li>
-                        <li><strong>Loss Streak:</strong> Longest consecutive losses (lower is better) 🔴</li>
-                    </ul>
-                </div>
-
-                <h5>D. Formations Section</h5>
-                <p>Shows tactical formations used by each team:</p>
-                <ul>
-                    <li><strong>Side-by-Side Columns:</strong> One column per team</li>
-                    <li><strong>Formation List:</strong> All formations used (e.g., "4-4-2", "4-3-3")</li>
-                    <li><strong>Match Count:</strong> Number of matches each formation was used</li>
-                    <li><strong>Expandable Details:</strong>
-                        <ul>
-                            <li>Click any formation row to expand</li>
-                            <li>Shows detailed lineup information</li>
-                            <li>🔽 Arrow rotates 180° when expanded</li>
-                            <li>Click again to collapse</li>
-                        </ul>
-                    </li>
-                </ul>
-
-                <h5>E. Recent Form Section</h5>
-                <p>Visual representation of recent match results:</p>
-                <ul>
-                    <li><strong>Side-by-Side Display:</strong> One column per team</li>
-                    <li><strong>Form Badges:</strong> Sequence of W/D/L letters
-                        <ul>
-                            <li><span style="background: #22c55e; padding: 2px 6px; border-radius: 3px;">W</span> = Win (green badge)</li>
-                            <li><span style="background: #eab308; padding: 2px 6px; border-radius: 3px;">D</span> = Draw (yellow badge)</li>
-                            <li><span style="background: #ef4444; padding: 2px 6px; border-radius: 3px;">L</span> = Loss (red badge)</li>
-                        </ul>
-                    </li>
-                    <li><strong>Reading Direction:</strong> Latest match is on the RIGHT</li>
-                    <li><strong>Hover Effect:</strong> Badges scale up 15% on hover</li>
-                </ul>
-
-                <h5>F. Penalties Section</h5>
-                <p>Penalty kick statistics for each team:</p>
-                <ul>
-                    <li><strong>Two Columns:</strong> One per team</li>
-                    <li><strong>Scored:</strong> Successful penalties (green text)</li>
-                    <li><strong>Missed:</strong> Failed penalties (red text)</li>
-                </ul>
-            </section>
-
-            <section id="player-comparison">
-                <h3>Player Comparison</h3>
-                <p><strong>URL:</strong> <code>/compare/Players</code></p>
-
-                <h4>Step 1: Select Players</h4>
-                <ul>
-                    <li><strong>Two Searchable Dropdowns:</strong> Identical to team selection</li>
-                    <li><strong>Search Functionality:</strong>
-                        <ul>
-                            <li>Type player names to filter list instantly</li>
-                            <li>Case-insensitive search</li>
-                            <li>Matches partial names</li>
-                        </ul>
-                    </li>
-                    <li><strong>Clear Selection:</strong> Click X to reset and choose different player</li>
-                </ul>
-
-                <h4>Step 2: Select Seasons</h4>
-                <p>After both players are selected:</p>
-                <ul>
-                    <li><strong>Season Dropdowns Appear:</strong> One for each player</li>
-                    <li><strong>Season Options:</strong>
-                        <ul>
-                            <li>"all seasons" - career aggregated stats</li>
-                            <li>Individual seasons the player participated in</li>
-                        </ul>
-                    </li>
-                    <li><strong>Mix and Match:</strong>
-                        <ul>
-                            <li>Compare Player A's 2012 season vs Player B's entire career</li>
-                            <li>Or compare same season for both players</li>
-                            <li>Complete flexibility in time period selection</li>
-                        </ul>
-                    </li>
-                </ul>
-
-                <h4>Selection Rules</h4>
-                <ul>
-                    <li>❌ <strong>Cannot compare a player with themselves</strong></li>
-                    <li>✅ Must select both players and their seasons</li>
-                    <li>URL updates with all selections for sharing</li>
-                </ul>
-
-                <h4>Step 3: View Comparison Results</h4>
-
-                <h5>A. Comparison Header</h5>
-                <ul>
-                    <li>Player 1 Name | VS | Player 2 Name</li>
-                    <li>Clean, prominent display</li>
-                </ul>
-
-                <h5>B. Overall Winner Banner</h5>
-                <ul>
-                    <li>Calculates winner across ALL player metrics (6 categories)</li>
-                    <li>Shows total wins breakdown</li>
-                    <li>Percentage dominance bar</li>
-                </ul>
-
-                <h5>C. Player Metrics Comparison</h5>
-                <p>Organized into 6 comprehensive categories:</p>
-
-                <div class="metric-category">
-                    <h6>⏱️ Game Time</h6>
-                    <ul>
-                        <li><strong>Appearances:</strong> Total matches played</li>
-                        <li><strong>Starts:</strong> Matches started in lineup (higher is better)</li>
-                        <li><strong>Minutes:</strong> Total playing time (higher is better)</li>
-                        <li><strong>Avg Rating:</strong> Performance rating (higher is better) 🟢</li>
-                    </ul>
-                </div>
-
-                <div class="metric-category">
-                    <h6>⚽ Attacking</h6>
-                    <ul>
-                        <li><strong>Goals:</strong> Total goals scored (higher is better) 🟢</li>
-                        <li><strong>Assists:</strong> Goals assisted (higher is better) 🟢</li>
-                        <li><strong>Shots:</strong> Total shot attempts</li>
-                        <li><strong>On Target:</strong> Accurate shots (higher is better) 🟢</li>
-                        <li><strong>Dribbles Won:</strong> Successful dribbles (higher is better) 🟢</li>
-                        <li><strong>Dribble Attempts:</strong> Total dribble tries</li>
-                    </ul>
-                </div>
-
-                <div class="metric-category">
-                    <h6>🎯 Passing</h6>
-                    <ul>
-                        <li><strong>Total Passes:</strong> All passes attempted</li>
-                        <li><strong>Key Passes:</strong> Passes leading to shots (higher is better) 🟢</li>
-                        <li><strong>Accuracy %:</strong> Pass completion rate (higher is better) 🟢</li>
-                    </ul>
-                </div>
-
-                <div class="metric-category">
-                    <h6>🛡️ Defensive</h6>
-                    <ul>
-                        <li><strong>Tackles:</strong> Total tackles made</li>
-                        <li><strong>Interceptions:</strong> Passes intercepted (higher is better) 🟢</li>
-                        <li><strong>Blocks:</strong> Shots/passes blocked (higher is better) 🟢</li>
-                        <li><strong>Duels:</strong> Total 1v1 contests</li>
-                        <li><strong>Duels Won:</strong> Successful duels (higher is better) 🟢</li>
-                    </ul>
-                </div>
-
-                <div class="metric-category">
-                    <h6>⚠️ Discipline</h6>
-                    <ul>
-                        <li><strong>Fouls Committed:</strong> Fouls given (lower is better) 🔴</li>
-                        <li><strong>Fouls Drawn:</strong> Fouls won (higher is better) 🟢</li>
-                        <li><strong>Yellow Cards:</strong> Cautions received (lower is better) 🟡</li>
-                        <li><strong>Red Cards:</strong> Dismissals (lower is better) 🔴</li>
-                    </ul>
-                </div>
-
-                <div class="metric-category">
-                    <h6>🧤 Goalkeeper</h6>
-                    <ul>
-                        <li><strong>Saves:</strong> Shots saved (higher is better) 🟢</li>
-                        <li><strong>Goals Conceded:</strong> Goals allowed (lower is better) 🔴</li>
-                        <li><strong>Penalties Saved:</strong> Penalties stopped (higher is better) 🟢</li>
-                        <li><em>Note: Shows "-" for non-goalkeepers</em></li>
-                    </ul>
-                </div>
-
-                <h5>D. Penalties Section</h5>
-                <p>If either player has penalty data:</p>
-                <ul>
-                    <li>Side-by-side columns</li>
-                    <li>Scored (green) vs Missed (red)</li>
-                    <li>Shows 0 if no data available</li>
-                </ul>
-            </section>
-
-            <section id="navigation-features">
-                <h3>Navigation & Interface Features</h3>
-
-                <h4>Page Content Navigator</h4>
-                <ul>
-                    <li><strong>Fixed Sidebar:</strong> Right side of screen</li>
-                    <li><strong>Quick Links:</strong>
-                        <ul>
-                            <li>"Selection" - jumps to selection area</li>
-                            <li>"Stats comparison" - jumps to results</li>
-                        </ul>
-                    </li>
-                    <li><strong>Smooth Scrolling:</strong> Animated transitions between sections</li>
-                </ul>
-
-                <h4>Auto-Scroll Behavior</h4>
-                <ul>
-                    <li>When stats load, page automatically scrolls to comparison results</li>
-                    <li>80px offset from top for comfortable viewing</li>
-                    <li>Smooth animation prevents jarring jumps</li>
-                </ul>
-
-                <h4>URL Query Parameters</h4>
-                <p>All selections are stored in URL for easy sharing:</p>
-                <ul>
-                    <li><strong>Teams/Players:</strong>
-                        <ul>
-                            <li><code>?first=[ID]&second=[ID]</code> - selected items</li>
-                            <li><code>&firstSeason=[YEAR]&secondSeason=[YEAR]</code> - seasons</li>
-                        </ul>
-                    </li>
-                    <li><strong>Seasons:</strong>
-                        <ul>
-                            <li><code>?firstSeason=[YEAR]&secondSeason=[YEAR]</code></li>
-                        </ul>
-                    </li>
-                    <li><strong>Shareable Links:</strong> Copy URL to share exact comparison</li>
-                    <li><strong>Bookmarkable:</strong> URL maintains comparison on reload</li>
-                </ul>
-
-                <h4>Loading States</h4>
-                <ul>
-                    <li><strong>"Fetching stats..."</strong> - appears while loading data</li>
-                    <li>Loading spinner SVG animation</li>
-                    <li>Replaces content area until data arrives</li>
-                </ul>
-
-                <h4>Error Messages</h4>
-                <ul>
-                    <li><strong>"Please select both [items] first"</strong> - incomplete selection</li>
-                    <li><strong>"Cannot compare the same [item]"</strong> - duplicate selection</li>
-                    <li><strong>"Please select both [items] and their seasons"</strong> - missing season</li>
-                    <li><strong>"Error fetching stats: [details]"</strong> - API/network error</li>
-                    <li><strong>"No stats available"</strong> - valid selection but no data</li>
-                </ul>
-            </section>
-
-            <section id="visual-design">
-                <h3>Visual Design Elements</h3>
-
-                <h4>Winner Highlighting</h4>
-                <ul>
-                    <li><strong>Bold/Enhanced Styling:</strong> Winner values stand out</li>
-                    <li><strong>Subtle Background:</strong> Light glow on winning metrics</li>
-                    <li><strong>Color Coding:</strong> Type-specific colors (success/danger/warning)</li>
-                    <li><strong>No Highlight:</strong> If values are equal (tie)</li>
-                </ul>
-
-                <h4>Hover Effects</h4>
-                <ul>
-                    <li><strong>Metric Rows:</strong> Subtle highlight on hover</li>
-                    <li><strong>Formation Items:</strong> Background change indicates clickability</li>
-                    <li><strong>Form Badges:</strong> Scale up 15% on hover</li>
-                    <li><strong>Dropdowns:</strong> Options highlight in darker shade</li>
-                </ul>
-
-                <h4>Responsive Design</h4>
-                <ul>
-                    <li><strong>Desktop (>840px):</strong>
-                        <ul>
-                            <li>Side-by-side layouts maintained</li>
-                            <li>Wide comparison grids</li>
-                            <li>All sections fully visible</li>
-                        </ul>
-                    </li>
-                    <li><strong>Mobile (<840px):</strong>
-                        <ul>
-                            <li>Stacked layouts for better readability</li>
-                            <li>Dropdowns become full-width</li>
-                            <li>Metrics stack vertically</li>
-                            <li>Touch-friendly targets</li>
-                        </ul>
-                    </li>
-                </ul>
-            </section>
-
-            <section id="advanced-tips">
-                <h3>Advanced Tips & Strategies</h3>
-
-                <h4>Effective Comparison Strategies</h4>
-                <ul>
-                    <li><strong>Era Comparison:</strong> Compare early seasons (2006-2009) vs modern seasons (2015-2018)</li>
-                    <li><strong>Team Evolution:</strong> Compare same team across different seasons</li>
-                    <li><strong>Player Peak Analysis:</strong> Compare player's best season vs career average ("all seasons")</li>
-                    <li><strong>Positional Comparison:</strong> Compare players in same position (both forwards, etc.)</li>
-                    <li><strong>Style Analysis:</strong> Use formation data to understand tactical differences</li>
-                </ul>
-
-                <h4>Interpreting Results</h4>
-                <ul>
-                    <li><strong>Context Matters:</strong>
-                        <ul>
-                            <li>Higher minutes doesn't always mean better player (could be lack of alternatives)</li>
-                            <li>More fouls committed might indicate aggressive defensive style</li>
-                            <li>Clean sheets depend on entire team defense, not just one player</li>
-                        </ul>
-                    </li>
-                    <li><strong>Look for Patterns:</strong>
-                        <ul>
-                            <li>Does one player excel in multiple attacking categories?</li>
-                            <li>Is a team consistently winning discipline metrics (fewer cards)?</li>
-                            <li>Which season had better overall passing efficiency?</li>
-                        </ul>
-                    </li>
-                    <li><strong>Use Multiple Comparisons:</strong>
-                        <ul>
-                            <li>Compare 3+ items by doing multiple comparisons</li>
-                            <li>Example: A vs B, then B vs C, then A vs C</li>
-                            <li>Build a fuller picture of relative strengths</li>
-                        </ul>
-                    </li>
-                </ul>
-
-                <h4>Sharing & Collaboration</h4>
-                <ul>
-                    <li><strong>Copy URL:</strong> Share exact comparison with others</li>
-                    <li><strong>Screenshot Results:</strong> Overall winner banner is perfect for sharing</li>
-                    <li><strong>Bookmark Favorites:</strong> Save interesting comparisons for later</li>
-                </ul>
-
-                <h4>Performance Notes</h4>
-                <ul>
-                    <li><strong>Fast Loading:</strong> Parallel API requests fetch both items simultaneously</li>
-                    <li><strong>Error Recovery:</strong> If one item fails, error message explains which one</li>
-                    <li><strong>Smart Caching:</strong> Season lists cached after first load</li>
-                </ul>
-            </section>
-
-            <section id="troubleshooting">
-                <h3>Troubleshooting</h3>
-
-                <h4>Stats Not Loading?</h4>
-                <ol>
-                    <li>Verify both items are selected (check both dropdowns)</li>
-                    <li>Ensure both seasons are selected</li>
-                    <li>Check that selections are different (no duplicate items)</li>
-                    <li>Look for error messages - they explain the issue</li>
-                    <li>Try refreshing the page</li>
-                </ol>
-
-                <h4>Dropdown Not Working?</h4>
-                <ul>
-                    <li>Click directly on the input field</li>
-                    <li>If nothing appears, check for error messages</li>
-                    <li>Try clearing selection (X icon) and reselecting</li>
-                    <li>Refresh page if dropdown seems stuck</li>
-                </ul>
-
-                <h4>Some Metrics Show "-"?</h4>
-                <ul>
-                    <li>This is normal - not all players/teams have all data types</li>
-                    <li>Goalkeeper stats only exist for goalkeepers</li>
-                    <li>Some older seasons may have incomplete data</li>
-                </ul>
-
-                <h4>Shared Link Not Working?</h4>
-                <ul>
-                    <li>Ensure entire URL was copied (including query parameters after ?)</li>
-                    <li>Check that IDs in URL are valid (items might have been deleted)</li>
-                    <li>Try manually reselecting items if URL fails</li>
-                </ul>
-            </section>
-
-            <section>
-                <h3>Keyboard Shortcuts & Accessibility</h3>
-                <ul>
-                    <li><strong>Tab:</strong> Navigate between dropdowns and selections</li>
-                    <li><strong>Enter:</strong> Open dropdown when focused</li>
-                    <li><strong>Type:</strong> Filter options in open dropdown</li>
-                    <li><strong>Up/Down Arrows:</strong> Navigate dropdown options (limited support)</li>
-                    <li><strong>Click/Tap:</strong> Primary interaction method</li>
-                </ul>
-            </section>
-
-            <section id="quick-reference">
-                <h3>Quick Reference Summary</h3>
-                
-                <h4>Season Comparison</h4>
-                <ul>
-                    <li>✅ Simple dropdown selection</li>
-                    <li>✅ 7 metric categories</li>
-                    <li>✅ Overall statistical winner</li>
-                </ul>
-
-                <h4>Team Comparison</h4>
-                <ul>
-                    <li>✅ Searchable team selection</li>
-                    <li>✅ Independent season choice per team</li>
-                    <li>✅ Formation and form analysis</li>
-                    <li>✅ 3 metric categories + formations + form</li>
-                </ul>
-
-                <h4>Player Comparison</h4>
-                <ul>
-                    <li>✅ Searchable player selection</li>
-                    <li>✅ Independent season choice per player</li>
-                    <li>✅ 6 comprehensive metric categories</li>
-                    <li>✅ Goalkeeper-specific stats</li>
-                </ul>
-
-                <h4>Universal Features</h4>
-                <ul>
-                    <li>✅ Overall winner calculation</li>
-                    <li>✅ Visual percentage dominance bar</li>
-                    <li>✅ Shareable URLs</li>
-                    <li>✅ Auto-scroll to results</li>
-                    <li>✅ Responsive mobile design</li>
-                    <li>✅ Color-coded metrics</li>
-                    <li>✅ Hover effects and interactions</li>
-                </ul>
-            </section>
-        </div>
-
-        <div class="back-link">
-            <NuxtLink :to="localePath('/')" class="back-btn">← Back to home</NuxtLink>
-        </div>
+  <div class="page-heading">
+    <h1 class="h1-design">{{ $t('navigation.manual') }}</h1>
+    <p class="subtitle">{{ $t('manual.subtitle') }}</p>
+  </div>
+  <div class="manual-container">
+    <div class="tab-navigation" id="manual-selection">
+      <button
+        v-for="tab in tabs"
+        :key="tab.id"
+        @click="activeTab = tab.id"
+        :class="['tab-btn', { active: activeTab === tab.id }]"
+      >
+        {{ tab.label }}
+      </button>
     </div>
 
-    <PageContent :page-sections="pageSections" />
+    <!-- TEAMS MANUAL -->
+    <div v-show="activeTab === 'teams'" class="manual-content">
+      <h2 id="teams-overview">{{ $t('manual.sections.teamsOverview') }}</h2>
+      <p class="lead">{{ $t('manual.teams.overview') }}</p>
+
+      <section id="teams-index">
+        <h3>{{ $t('manual.sections.teamsIndexPage') }}</h3>
+        <p><strong>URL:</strong> <code>{{ $t('manual.teams.indexUrl') }}</code></p>
+
+        <h4>{{ $t('manual.teams.searchFilter') }}</h4>
+        <ul>
+          <li><strong>{{ $t('manual.teams.searchBar') }}:</strong> {{ $t('manual.teams.searchBarDesc') }}</li>
+          <li><strong>{{ $t('manual.teams.filtersButton') }}:</strong> {{ $t('manual.teams.filtersButtonDesc') }}
+            <ul>
+              <li><strong>{{ $t('manual.teams.seasonFilter') }}:</strong> {{ $t('manual.teams.seasonFilterDesc') }}</li>
+              <li>{{ $t('manual.teams.multipleFilters') }}</li>
+              <li><strong>{{ $t('manual.teams.clearFilters') }}:</strong> {{ $t('manual.teams.clearFiltersDesc') }}</li>
+            </ul>
+          </li>
+          <li><strong>{{ $t('manual.teams.itemCounter') }}:</strong> {{ $t('manual.teams.itemCounterDesc') }}</li>
+        </ul>
+
+        <h4>{{ $t('manual.teams.teamCards') }}</h4>
+        <p>{{ $t('manual.teams.teamCardsDesc') }}</p>
+      </section>
+
+      <section id="individual-team">
+        <h3>{{ $t('manual.sections.individualTeamPage') }}</h3>
+        <p><strong>URL:</strong> <code>{{ $t('manual.teams.individualTeamUrl') }}</code></p>
+
+        <h4 id="team-logo">{{ $t('manual.teams.logoSection') }}</h4>
+        <ul>
+          <li>{{ $t('manual.teams.logoDisplay') }}</li>
+          <li>{{ $t('manual.teams.logoBackground') }}</li>
+          <li>{{ $t('manual.teams.logoPattern') }}</li>
+        </ul>
+
+        <h4 id="season-selection">{{ $t('manual.teams.seasonSelectionHeading') }}</h4>
+        <ul>
+          <li><strong>{{ $t('manual.teams.seasonCards') }}:</strong> {{ $t('manual.teams.seasonCardsDesc') }}</li>
+          <li><strong>{{ $t('manual.teams.allSeasonsButton') }}:</strong> {{ $t('manual.teams.allSeasonsButtonDesc') }}</li>
+          <li>{{ $t('manual.teams.selectedSeason') }}</li>
+        </ul>
+
+        <h4 id="team-statistics">{{ $t('manual.teams.statsDashboardHeading') }}</h4>
+        <p>{{ $t('manual.teams.statsHeader') }}</p>
+        <ul>
+          <li><strong>{{ $t('manual.teams.formationsCard') }}:</strong> {{ $t('manual.teams.formationsCardDesc') }}
+            <ul>
+              <li>{{ $t('manual.teams.formationClick') }}</li>
+              <li>{{ $t('manual.teams.formationExpandable') }}</li>
+            </ul>
+          </li>
+          <li><strong>{{ $t('manual.teams.matchesOverview') }}:</strong> {{ $t('manual.teams.matchesOverviewDesc') }}</li>
+          <li><strong>{{ $t('manual.teams.goalsPerformance') }}:</strong> {{ $t('manual.teams.goalsPerformanceDesc') }}</li>
+          <li><strong>{{ $t('manual.teams.streaks') }}:</strong> {{ $t('manual.teams.streaksDesc') }}</li>
+          <li><strong>{{ $t('manual.teams.clearStatsButton') }}:</strong> {{ $t('manual.teams.clearStatsButtonDesc') }}</li>
+        </ul>
+
+        <h4 id="metrics-dashboard">{{ $t('manual.teams.metricsDashboardHeading') }}</h4>
+        <p>{{ $t('manual.teams.metricsAdvanced') }}</p>
+        <ul>
+          <li><strong>{{ $t('manual.teams.metricSelection') }}:</strong>
+            <ul>
+              <li>{{ $t('manual.teams.metricSelectionDesc') }}</li>
+              <li>{{ $t('manual.teams.metricConfirm') }}</li>
+            </ul>
+          </li>
+          <li><strong>{{ $t('manual.teams.seasonMetricFilter') }}:</strong> {{ $t('manual.teams.seasonMetricFilterDesc') }}</li>
+          <li><strong>{{ $t('manual.teams.chartTypes') }}:</strong> {{ $t('manual.teams.chartTypesDesc') }}</li>
+          <li><strong>{{ $t('manual.teams.sharedGraphs') }}:</strong> {{ $t('manual.teams.sharedGraphsDesc') }}</li>
+        </ul>
+      </section>
+
+      <section id="navigation-tips">
+        <h3>{{ $t('manual.sections.navigationTips') }}</h3>
+        <ul>
+          <li><strong>{{ $t('manual.teams.pageNavigator') }}:</strong> {{ $t('manual.teams.pageNavigatorDesc') }}</li>
+          <li><strong>{{ $t('manual.teams.autoScroll') }}:</strong> {{ $t('manual.teams.autoScrollDesc') }}</li>
+          <li><strong>{{ $t('manual.teams.hoverEffects') }}:</strong> {{ $t('manual.teams.hoverEffectsDesc') }}</li>
+          <li><strong>{{ $t('manual.teams.responsive') }}:</strong> {{ $t('manual.teams.responsiveDesc') }}</li>
+        </ul>
+      </section>
+    </div>
+
+    <!-- PLAYERS MANUAL -->
+    <div v-show="activeTab === 'players'" class="manual-content">
+      <h2 id="players-overview">{{ $t('manual.sections.playersOverview') }}</h2>
+      <p class="lead">{{ $t('manual.players.overview') }}</p>
+
+      <section id="players-index">
+        <h3>{{ $t('manual.sections.playersIndexPage') }}</h3>
+        <p><strong>URL:</strong> <code>{{ $t('manual.players.indexUrl') }}</code></p>
+
+        <h4>{{ $t('manual.teams.searchFilter') }}</h4>
+        <ul>
+          <li><strong>{{ $t('manual.teams.searchBar') }}:</strong> {{ $t('manual.players.searchPlaceholder') }}</li>
+          <li><strong>{{ $t('manual.teams.filtersButton') }}:</strong> {{ $t('manual.teams.filtersButtonDesc') }}
+            <ul>
+              <li><strong>{{ $t('manual.teams.seasonFilter') }}:</strong> {{ $t('manual.teams.seasonFilterDesc') }}</li>
+              <li><strong>{{ $t('manual.players.teamFilter') }}:</strong> {{ $t('manual.players.teamFilterDesc') }}</li>
+              <li>{{ $t('manual.teams.multipleFilters') }}</li>
+              <li><strong>{{ $t('manual.teams.clearFilters') }}:</strong> {{ $t('manual.teams.clearFiltersDesc') }}</li>
+            </ul>
+          </li>
+          <li><strong>{{ $t('manual.teams.itemCounter') }}:</strong> {{ $t('manual.teams.itemCounterDesc') }}</li>
+        </ul>
+
+        <h4>{{ $t('manual.teams.teamCards') }}</h4>
+        <p>{{ $t('manual.teams.teamCardsDesc') }}</p>
+      </section>
+
+      <section id="individual-player">
+        <h3>{{ $t('manual.sections.individualPlayerPage') }}</h3>
+        <p><strong>URL:</strong> <code>/players/[player_id]</code></p>
+
+        <h4 id="player-information">{{ $t('manual.players.playerInfoHeading') }}</h4>
+        <ul>
+          <li>{{ $t('manual.players.playerName') }}</li>
+          <li><strong>{{ $t('manual.players.infoTable') }}:</strong> {{ $t('manual.players.infoTableDesc') }}</li>
+          <li>{{ $t('manual.players.hoverRows') }}</li>
+        </ul>
+
+        <h4 id="player-season-selection">{{ $t('manual.players.playerSeasonSelectionHeading') }}</h4>
+        <ul>
+          <li><strong>{{ $t('manual.players.playerSeasonCards') }}:</strong> {{ $t('manual.players.playerSeasonCardsDesc') }}</li>
+          <li><strong>{{ $t('manual.players.playerAllSeasons') }}:</strong> {{ $t('manual.players.playerAllSeasonsDesc') }}</li>
+          <li>{{ $t('manual.players.playerAutoLoad') }}</li>
+        </ul>
+
+        <h4 id="player-statistics">{{ $t('manual.players.playerStatsHeading') }}</h4>
+        <p>{{ $t('manual.players.playerStatsExpand') }}</p>
+        <ul>
+          <li><strong>{{ $t('manual.players.games') }}:</strong>
+            <ul><li>{{ $t('manual.players.gamesDesc') }}</li></ul>
+          </li>
+          <li><strong>{{ $t('manual.players.goalsAssists') }}:</strong>
+            <ul><li>{{ $t('manual.players.goalsAssistsDesc') }}</li></ul>
+          </li>
+          <li><strong>{{ $t('manual.players.defensiveStats') }}:</strong>
+            <ul><li>{{ $t('manual.players.defensiveStatsDesc') }}</li></ul>
+          </li>
+          <li><strong>{{ $t('manual.players.passingStats') }}:</strong>
+            <ul><li>{{ $t('manual.players.passingStatsDesc') }}</li></ul>
+          </li>
+          <li><strong>{{ $t('manual.teams.streaks') }}:</strong>
+            <ul><li>{{ $t('manual.players.duelsDesc') }}</li></ul>
+          </li>
+          <li><strong>{{ $t('manual.teams.discipline') }}:</strong>
+            <ul><li>{{ $t('manual.players.disciplineDesc') }}</li></ul>
+          </li>
+          <li><strong>{{ $t('manual.players.penalties') }}:</strong>
+            <ul><li>{{ $t('manual.players.penaltiesDesc') }}</li></ul>
+          </li>
+          <li><strong>{{ $t('manual.players.goalkeeperStats') }}:</strong>
+            <ul><li>{{ $t('manual.players.goalkeeperStatsDesc') }}</li></ul>
+          </li>
+        </ul>
+
+        <p><strong>{{ $t('manual.players.noDataCategory') }}:</strong> {{ $t('manual.players.noDataCategoryDesc') }}</p>
+
+        <h4 id="player-metrics">{{ $t('manual.players.playerMetricsHeading') }}</h4>
+        <ul>
+          <li><strong>{{ $t('manual.players.playerMetricMulti') }}:</strong> {{ $t('manual.players.playerMetricMultiDesc') }}</li>
+          <li><strong>{{ $t('manual.players.playerMetricSeason') }}:</strong> {{ $t('manual.players.playerMetricSeasonDesc') }}</li>
+          <li><strong>{{ $t('manual.players.playerMetricChart') }}:</strong> {{ $t('manual.players.playerMetricChartDesc') }}</li>
+          <li><strong>{{ $t('manual.players.playerClearStats') }}:</strong> {{ $t('manual.players.playerClearStatsDesc') }}</li>
+        </ul>
+      </section>
+
+      <section id="color-coding">
+        <h3>{{ $t('manual.sections.colorCoding') }}</h3>
+        <ul>
+          <li><strong>{{ $t('manual.players.colorGreen') }}:</strong> {{ $t('manual.players.colorGreenDesc') }}</li>
+          <li><strong>{{ $t('manual.players.colorRed') }}:</strong> {{ $t('manual.players.colorRedDesc') }}</li>
+          <li><strong>{{ $t('manual.players.colorYellow') }}:</strong> {{ $t('manual.players.colorYellowDesc') }}</li>
+        </ul>
+      </section>
+    </div>
+
+    <!-- SEASONS MANUAL -->
+    <div v-show="activeTab === 'seasons'" class="manual-content">
+      <h2 id="seasons-overview">{{ $t('manual.sections.seasonsOverview') }}</h2>
+      <p class="lead">{{ $t('manual.seasons.overview') }}</p>
+
+      <section id="seasons-index">
+        <h3>{{ $t('manual.sections.seasonsIndexPage') }}</h3>
+        <p><strong>URL:</strong> <code>{{ $t('manual.seasons.indexUrl') }}</code></p>
+
+        <h4>{{ $t('manual.seasons.features') }}</h4>
+        <ul>
+          <li><strong>{{ $t('manual.seasons.searchSeason') }}:</strong> {{ $t('manual.seasons.searchSeasonDesc') }}</li>
+          <li><strong>{{ $t('manual.seasons.seasonCards') }}:</strong> {{ $t('manual.seasons.seasonCardsDesc') }}</li>
+          <li>{{ $t('manual.seasons.seasonClick') }}</li>
+          <li><strong>{{ $t('manual.seasons.noSeasonFilters') }}:</strong> {{ $t('manual.seasons.noSeasonFiltersDesc') }}</li>
+        </ul>
+      </section>
+
+      <section id="individual-season">
+        <h3>{{ $t('manual.sections.individualSeasonPage') }}</h3>
+        <p><strong>URL:</strong> <code>/seasons/[season_id]</code></p>
+
+        <h4 id="season-stats-section">{{ $t('manual.seasons.statsHeading') }}</h4>
+        <p>{{ $t('manual.seasons.statsComprehensive') }}</p>
+        <ul>
+          <li><strong>{{ $t('manual.seasons.seasonHeader') }}:</strong>
+            <ul>
+              <li>{{ $t('manual.seasons.seasonHeaderContent').split(',')[0] }}</li>
+              <li>{{ $t('manual.seasons.seasonHeaderContent').split(',')[1] }}</li>
+              <li>{{ $t('manual.seasons.seasonHeaderContent').split(',')[2] }}</li>
+            </ul>
+          </li>
+          <li><strong>{{ $t('manual.seasons.overviewCards') }}:</strong>
+            <ul>
+              <li>{{ $t('manual.seasons.overviewCardsContent').split(',')[0] }}</li>
+              <li>{{ $t('manual.seasons.overviewCardsContent').split(',')[1] }}</li>
+              <li>{{ $t('manual.seasons.overviewCardsContent').split(',')[2] }}</li>
+              <li>{{ $t('manual.seasons.overviewCardsContent').split(',')[3] }}</li>
+            </ul>
+          </li>
+        </ul>
+
+        <h4>{{ $t('manual.seasons.detailedStats') }}</h4>
+        <ul>
+          <li><strong>{{ $t('manual.seasons.shooting') }}:</strong>
+            <ul><li>{{ $t('manual.seasons.shootingDesc') }}</li></ul>
+          </li>
+          <li><strong>{{ $t('manual.seasons.passing') }}:</strong>
+            <ul><li>{{ $t('manual.seasons.passingDesc') }}</li></ul>
+          </li>
+          <li><strong>{{ $t('manual.players.duelsDesc') }}:</strong>
+            <ul><li>{{ $t('manual.seasons.duelsDesc') }}</li></ul>
+          </li>
+          <li><strong>{{ $t('manual.teams.discipline') }}:</strong>
+            <ul><li>{{ $t('manual.seasons.disciplineDesc') }}</li></ul>
+          </li>
+          <li><strong>{{ $t('manual.players.penalties') }}:</strong>
+            <ul><li>{{ $t('manual.seasons.penaltiesDesc') }}</li></ul>
+          </li>
+          <li><strong>{{ $t('manual.seasons.defense') }}:</strong>
+            <ul><li>{{ $t('manual.seasons.defenseDesc') }}</li></ul>
+          </li>
+        </ul>
+
+        <h4 id="season-ranking">{{ $t('manual.sections.seasonRanking') }}</h4>
+        <p>{{ $t('manual.seasons.rankingInteractive') }}</p>
+
+        <ul>
+          <li><strong>{{ $t('manual.seasons.tableHeader') }}:</strong>
+            <ul>
+              <li>{{ $t('manual.seasons.tableHeaderContent').split(',')[0] }}</li>
+              <li>{{ $t('manual.seasons.tableHeaderContent').split(',')[1] }}</li>
+            </ul>
+          </li>
+          <li><strong>{{ $t('manual.seasons.sortOptions') }}:</strong>
+            <ul>
+              <li><strong>{{ $t('manual.seasons.sortPoints') }}:</strong> {{ $t('manual.seasons.sortPointsDesc') }}</li>
+              <li><strong>{{ $t('manual.seasons.sortWins') }}:</strong> {{ $t('manual.seasons.sortWinsDesc') }}</li>
+              <li><strong>{{ $t('manual.seasons.sortGoalDiff') }}:</strong> {{ $t('manual.seasons.sortGoalDiffDesc') }}</li>
+              <li><strong>{{ $t('manual.seasons.sortGoalsScored') }}:</strong> {{ $t('manual.seasons.sortGoalsScoredDesc') }}</li>
+              <li><strong>{{ $t('manual.seasons.sortGoalsConceded') }}:</strong> {{ $t('manual.seasons.sortGoalsConcededDesc') }}</li>
+              <li><strong>{{ $t('manual.seasons.sortMatches') }}:</strong> {{ $t('manual.seasons.sortMatchesDesc') }}</li>
+              <li><strong>{{ $t('manual.seasons.sortDraws') }}:</strong> {{ $t('manual.seasons.sortDrawsDesc') }}</li>
+              <li><strong>{{ $t('manual.seasons.sortLosses') }}:</strong> {{ $t('manual.seasons.sortLossesDesc') }}</li>
+              <li><strong>{{ $t('manual.seasons.sortWinRate') }}:</strong> {{ $t('manual.seasons.sortWinRateDesc') }}</li>
+              <li><strong>{{ $t('manual.seasons.sortPtsMatch') }}:</strong> {{ $t('manual.seasons.sortPtsMatchDesc') }}</li>
+            </ul>
+          </li>
+          <li><strong>{{ $t('manual.seasons.sorting') }}:</strong>
+            <ul>
+              <li>{{ $t('manual.seasons.sortingDesc').split(',')[0] }}</li>
+              <li>{{ $t('manual.seasons.sortingDesc').split(',')[1] }}</li>
+              <li>{{ $t('manual.seasons.sortingDesc').split(',')[2] }}</li>
+              <li>{{ $t('manual.seasons.sortingDesc').split(',')[3] }}</li>
+            </ul>
+          </li>
+        </ul>
+
+        <!-- Ranking Table Columns -->
+        <h4>{{ $t('manual.seasons.rankingTableColumns') }}</h4>
+        <ul>
+          <!-- colRank: trophy icons replacing 🏆🥈🥉 -->
+          <li>
+            <strong>{{ $t('manual.seasons.colRank') }}:</strong> {{ $t('manual.seasons.colRankDesc') }}
+            <ul>
+              <li>
+                <Icon icon="mdi:trophy" class="icon-gold" />
+                {{ $t('manual.seasons.topHighlightDesc').split(',')[0] }}
+              </li>
+              <li>
+                <Icon icon="mdi:trophy" class="icon-silver" />
+                {{ $t('manual.seasons.topHighlightDesc').split(',')[1] }}
+              </li>
+              <li>
+                <Icon icon="mdi:trophy" class="icon-bronze" />
+                {{ $t('manual.seasons.topHighlightDesc').split(',')[2] }}
+              </li>
+            </ul>
+          </li>
+          <li><strong>{{ $t('manual.seasons.colTeam') }}:</strong> {{ $t('manual.seasons.colTeamDesc') }}</li>
+          <li><strong>{{ $t('manual.seasons.colMP') }}:</strong> {{ $t('manual.seasons.colMPDesc') }}</li>
+          <li><strong>{{ $t('manual.seasons.colW') }}:</strong> {{ $t('manual.seasons.colWDesc') }}</li>
+          <li><strong>{{ $t('manual.seasons.colD') }}:</strong> {{ $t('manual.seasons.colDDesc') }}</li>
+          <li><strong>{{ $t('manual.seasons.colL') }}:</strong> {{ $t('manual.seasons.colLDesc') }}</li>
+          <li><strong>{{ $t('manual.seasons.colGF') }}:</strong> {{ $t('manual.seasons.colGFDesc') }}</li>
+          <li><strong>{{ $t('manual.seasons.colGA') }}:</strong> {{ $t('manual.seasons.colGADesc') }}</li>
+          <li><strong>{{ $t('manual.seasons.colGD') }}:</strong> {{ $t('manual.seasons.colGDDesc') }}</li>
+          <li><strong>{{ $t('manual.seasons.colPts') }}:</strong> {{ $t('manual.seasons.colPtsDesc') }}</li>
+          <li><strong>{{ $t('manual.seasons.colPM') }}:</strong> {{ $t('manual.seasons.colPMDesc') }}</li>
+          <li><strong>{{ $t('manual.seasons.colWPct') }}:</strong> {{ $t('manual.seasons.colWPctDesc') }}</li>
+        </ul>
+
+        <h4>{{ $t('manual.seasons.visualFeatures') }}</h4>
+        <ul>
+          <li><strong>{{ $t('manual.seasons.formBars') }}:</strong> {{ $t('manual.seasons.formBarsDesc') }}
+            <ul>
+              <li>{{ $t('manual.seasons.formGreen') }}</li>
+              <li>{{ $t('manual.seasons.formYellow') }}</li>
+              <li>{{ $t('manual.seasons.formOrange') }}</li>
+              <li>{{ $t('manual.seasons.formRed') }}</li>
+            </ul>
+          </li>
+          <li><strong>{{ $t('manual.seasons.topHighlight') }}:</strong> {{ $t('manual.seasons.topHighlightDesc') }}</li>
+          <li><strong>{{ $t('manual.teams.hoverEffects') }}:</strong> {{ $t('manual.seasons.hoverRowsDesc') }}</li>
+          <li><strong>{{ $t('manual.seasons.responsiveTable') }}:</strong> {{ $t('manual.seasons.responsiveTableDesc') }}</li>
+        </ul>
+      </section>
+
+      <section id="season-navigation">
+        <h3>{{ $t('manual.sections.seasonNavigation') }}</h3>
+        <ul>
+          <li><strong>{{ $t('manual.seasons.navigationSeasonNav') }}:</strong> {{ $t('manual.seasons.navigationSeasonNavDesc') }}</li>
+        </ul>
+      </section>
+
+      <section id="usage-tips">
+        <h3>{{ $t('manual.sections.usageTips') }}</h3>
+        <ul>
+          <li><strong>{{ $t('manual.seasons.compareTeams') }}:</strong> {{ $t('manual.seasons.compareTeamsDesc') }}</li>
+          <li><strong>{{ $t('manual.seasons.defensiveAnalysis') }}:</strong> {{ $t('manual.seasons.defensiveAnalysisDesc') }}</li>
+          <li><strong>{{ $t('manual.seasons.attackingAnalysis') }}:</strong> {{ $t('manual.seasons.attackingAnalysisDesc') }}</li>
+          <li><strong>{{ $t('manual.seasons.efficiency') }}:</strong> {{ $t('manual.seasons.efficiencyDesc') }}</li>
+          <li><strong>{{ $t('manual.seasons.formAnalysis') }}:</strong> {{ $t('manual.seasons.formAnalysisDesc') }}</li>
+        </ul>
+      </section>
+    </div>
+
+    <!-- COMPARE MANUAL -->
+    <div v-show="activeTab === 'compare'" class="manual-content">
+      <h2 id="compare-overview">{{ $t('manual.sections.compareOverview') }}</h2>
+      <p class="lead">{{ $t('manual.compare.overview') }}</p>
+
+      <section id="compare-index">
+        <h3>{{ $t('manual.sections.compareIndex') }}</h3>
+        <p><strong>URL:</strong> <code>{{ $t('manual.compare.indexUrl') }}</code></p>
+
+        <h4>{{ $t('manual.compare.indexOverview') }}</h4>
+        <ul>
+          <li><strong>{{ $t('manual.compare.compareSeasonsFull') }}:</strong> {{ $t('manual.compare.compareSeasonFullDesc') }}</li>
+          <li><strong>{{ $t('manual.compare.compareTeamsFull') }}:</strong> {{ $t('manual.compare.compareTeamsFullDesc') }}</li>
+          <li><strong>{{ $t('manual.compare.comparePlayersFull') }}:</strong> {{ $t('manual.compare.comparePlayersFullDesc') }}</li>
+        </ul>
+
+        <h4>{{ $t('manual.compare.gettingStarted') }}</h4>
+        <ol>
+          <li>{{ $t('manual.compare.step1') }}</li>
+          <li>{{ $t('manual.compare.step2') }}</li>
+          <li>{{ $t('manual.compare.step3') }}</li>
+        </ol>
+      </section>
+
+      <section id="pages-structure">
+        <h3>{{ $t('manual.sections.pagesStructure') }}</h3>
+        <p><strong>{{ $t('manual.compare.structureUrls') }}:</strong></p>
+        <ul>
+          <li><code>{{ $t('manual.compare.urlSeasonComp') }}</code> - {{ $t('manual.compare.urlSeasonCompDesc') }}</li>
+          <li><code>{{ $t('manual.compare.urlTeamComp') }}</code> - {{ $t('manual.compare.urlTeamCompDesc') }}</li>
+          <li><code>{{ $t('manual.compare.urlPlayerComp') }}</code> - {{ $t('manual.compare.urlPlayerCompDesc') }}</li>
+        </ul>
+
+        <h4>{{ $t('manual.compare.pageLayout') }}</h4>
+        <p>{{ $t('manual.compare.layoutConsistent') }}</p>
+        <ol>
+          <li><strong>{{ $t('manual.compare.layoutSelection') }}</strong></li>
+          <li><strong>{{ $t('manual.compare.layoutStats') }}</strong></li>
+        </ol>
+      </section>
+
+      <!-- SEASON COMPARISON -->
+      <section id="season-comparison">
+        <h3>{{ $t('manual.sections.seasonComparison') }}</h3>
+        <p><strong>URL:</strong> <code>{{ $t('manual.compare.seasonUrl') }}</code></p>
+
+        <h4>{{ $t('manual.compare.step1SelectSeasons') }}</h4>
+        <ul>
+          <li><strong>{{ $t('manual.compare.twoDropdowns') }}:</strong> {{ $t('manual.compare.twoDropdownsDesc') }}</li>
+          <li><strong>{{ $t('manual.compare.leftDropdown') }}:</strong> {{ $t('manual.compare.leftDropdownDesc') }}</li>
+          <li><strong>{{ $t('manual.compare.rightDropdown') }}:</strong> {{ $t('manual.compare.rightDropdownDesc') }}</li>
+          <li>{{ $t('manual.compare.bothSeasons') }}</li>
+        </ul>
+
+        <!-- Selection Rules — ❌ / ✅ replaced with Icons -->
+        <h4>{{ $t('manual.compare.selectionRules') }}</h4>
+        <ul>
+          <li>
+            <Icon icon="mdi:close-circle" class="icon-error" />
+            <strong>{{ $t('manual.compare.sameSeasonError') }}</strong> — {{ $t('manual.compare.sameSeasonErrorMsg') }}
+          </li>
+          <li>
+            <Icon icon="mdi:check-circle" class="icon-success" />
+            {{ $t('manual.compare.selectBothSeasons') }}
+          </li>
+          <li>{{ $t('manual.compare.urlParams') }}</li>
+        </ul>
+
+        <h4>{{ $t('manual.compare.step2ViewResults') }}</h4>
+        <p>{{ $t('manual.compare.onceBothSelected') }}</p>
+
+        <h5>{{ $t('manual.compare.comparisonHeader') }}</h5>
+        <ul>
+          <li><strong>{{ $t('manual.compare.headerLayout') }}:</strong> {{ $t('manual.compare.headerFormat') }}</li>
+          <li>{{ $t('manual.compare.headerStyling') }}</li>
+        </ul>
+
+        <h5>{{ $t('manual.compare.winnerBanner') }}</h5>
+        <p>{{ $t('manual.compare.winnerDisplay') }}</p>
+        <ul>
+          <li><strong>{{ $t('manual.compare.winnerAnnouncement') }}:</strong>
+            <ul>
+              <!-- 👑 replaced with crown icon -->
+              <li>
+                <Icon icon="mdi:crown" class="icon-gold" />
+                <strong>{{ $t('manual.compare.winnerText') }}</strong>
+              </li>
+              <!-- 🤝 replaced with handshake icon -->
+              <li>
+                <Icon icon="mdi:handshake" class="icon-muted" />
+                <strong>{{ $t('manual.compare.tieText') }}</strong>
+              </li>
+            </ul>
+          </li>
+          <li><strong>{{ $t('manual.compare.winBreakdown') }}:</strong>
+            <ul>
+              <li>{{ $t('manual.compare.winMetric1') }}</li>
+              <li>{{ $t('manual.compare.winMetric2') }}</li>
+              <li>{{ $t('manual.compare.winMetric3') }}</li>
+            </ul>
+          </li>
+          <li><strong>{{ $t('manual.compare.visualBar') }}:</strong>
+            <ul>
+              <li>{{ $t('manual.compare.barDesc') }}</li>
+              <li>{{ $t('manual.compare.barLeft') }}</li>
+              <li>{{ $t('manual.compare.barRight') }}</li>
+              <li>{{ $t('manual.compare.barPercentages') }}</li>
+            </ul>
+          </li>
+          <li><strong>{{ $t('manual.compare.bannerColor') }}:</strong>
+            <ul>
+              <li>{{ $t('manual.compare.bannerWinner') }}</li>
+              <li>{{ $t('manual.compare.bannerTie') }}</li>
+            </ul>
+          </li>
+        </ul>
+
+        <h5>{{ $t('manual.compare.metricsGrid') }}</h5>
+        <p>{{ $t('manual.compare.gridOrganized') }}</p>
+
+        <!-- ⚽ Season Overview -->
+        <div class="metric-category">
+          <h6>
+            <Icon icon="mdi:soccer" class="icon-category" />
+            {{ $t('manual.compare.seasonOverview') }}
+          </h6>
+          <ul>
+            <li>{{ $t('manual.compare.seasonOverviewDesc') }}</li>
+          </ul>
+        </div>
+
+        <!-- 🎯 Attacking -->
+        <div class="metric-category">
+          <h6>
+            <Icon icon="mdi:target" class="icon-category" />
+            {{ $t('manual.compare.attacking') }}
+          </h6>
+          <ul>
+            <li>{{ $t('manual.compare.attackingDesc') }}</li>
+          </ul>
+        </div>
+
+        <!-- 🎯 Passing -->
+        <div class="metric-category">
+          <h6>
+            <Icon icon="mdi:arrow-decision" class="icon-category" />
+            {{ $t('manual.compare.passing') }}
+          </h6>
+          <ul>
+            <li>{{ $t('manual.compare.passingDesc') }}</li>
+          </ul>
+        </div>
+
+        <!-- 💥 Duels & Dribbles -->
+        <div class="metric-category">
+          <h6>
+            <Icon icon="mdi:lightning-bolt" class="icon-category" />
+            {{ $t('manual.compare.duelsDribbles') }}
+          </h6>
+          <ul>
+            <li>{{ $t('manual.compare.duelsDribblesDesc') }}</li>
+          </ul>
+        </div>
+
+        <!-- 🛡️ Defensive -->
+        <div class="metric-category">
+          <h6>
+            <Icon icon="mdi:shield-half-full" class="icon-category" />
+            {{ $t('manual.compare.defensive') }}
+          </h6>
+          <ul>
+            <li>{{ $t('manual.compare.defensiveDesc') }}</li>
+          </ul>
+        </div>
+
+        <!-- ⚠️ Discipline -->
+        <div class="metric-category">
+          <h6>
+            <Icon icon="mdi:card-account-details" class="icon-category" />
+            {{ $t('manual.compare.discipline') }}
+          </h6>
+          <ul>
+            <li>{{ $t('manual.compare.disciplineDesc') }}</li>
+          </ul>
+        </div>
+
+        <!-- ⚽ Penalties -->
+        <div class="metric-category">
+          <h6>
+            <Icon icon="mdi:soccer-field" class="icon-category" />
+            {{ $t('manual.compare.penaltiesComp') }}
+          </h6>
+          <ul>
+            <li>{{ $t('manual.compare.penaltiesCompDesc') }}</li>
+          </ul>
+        </div>
+
+        <!-- Reading the Grid -->
+        <h5>{{ $t('manual.compare.readingGrid') }}</h5>
+        <ul>
+          <li><strong>{{ $t('manual.compare.layoutMetric') }}:</strong>
+            <pre>First Value | Metric Label | Second Value</pre>
+          </li>
+          <li><strong>{{ $t('manual.compare.winnerHighlight') }}:</strong>
+            <ul>
+              <!-- 🏆 replaced -->
+              <li>
+                <Icon icon="mdi:trophy" class="icon-gold" />
+                <strong>{{ $t('manual.compare.boldHighlight') }}</strong>
+              </li>
+              <li>{{ $t('manual.compare.regularStyling') }}</li>
+            </ul>
+          </li>
+          <li><strong>{{ $t('manual.compare.colorCoding') }}:</strong>
+            <ul>
+              <!-- 🟢 🔴 🟡 replaced with colored circle icons -->
+              <li>
+                <Icon icon="mdi:circle" class="icon-success" />
+                <span style="color: #22c55e;">{{ $t('manual.compare.codeGreen') }}</span>
+              </li>
+              <li>
+                <Icon icon="mdi:circle" class="icon-error" />
+                <span style="color: #ef4444;">{{ $t('manual.compare.codeRed') }}</span>
+              </li>
+              <li>
+                <Icon icon="mdi:circle" class="icon-warning" />
+                <span style="color: #eab308;">{{ $t('manual.compare.codeYellow') }}</span>
+              </li>
+              <li>{{ $t('manual.compare.codeWhite') }}</li>
+            </ul>
+          </li>
+          <li><strong>{{ $t('manual.compare.missingData') }}:</strong> {{ $t('manual.compare.missingDataDesc') }}</li>
+        </ul>
+
+        <!-- Lower is Better -->
+        <h4>{{ $t('manual.compare.lowerBetter') }}</h4>
+        <p>
+          <Icon icon="mdi:arrow-down-bold" class="icon-warning" />
+          {{ $t('manual.compare.lowerMetrics') }}
+        </p>
+        <ul>
+          <li>{{ $t('manual.compare.lowerExamples') }}</li>
+          <li>{{ $t('manual.compare.lowerWins') }}</li>
+          <li>{{ $t('manual.compare.lowerExample') }}</li>
+        </ul>
+      </section>
+
+      <!-- TEAM COMPARISON -->
+      <section id="team-comparison">
+        <h3>{{ $t('manual.sections.teamComparison') }}</h3>
+        <p><strong>URL:</strong> <code>{{ $t('manual.compare.teamUrl') }}</code></p>
+
+        <h4>{{ $t('manual.compare.step1SelectTeams') }}</h4>
+        <ul>
+          <li><strong>{{ $t('manual.compare.twoSearchableDropdowns') }}:</strong> {{ $t('manual.compare.twoSearchableDesc') }}</li>
+          <li><strong>{{ $t('manual.compare.howToUse') }}:</strong>
+            <ol>
+              <li>{{ $t('manual.compare.useStep1') }}</li>
+              <li>{{ $t('manual.compare.useStep2') }}</li>
+              <li>{{ $t('manual.compare.useStep3') }}</li>
+              <li>{{ $t('manual.compare.useStep4') }}</li>
+              <li>
+                <!-- ❌ replaced -->
+                <Icon icon="mdi:close-circle" class="icon-error" />
+                {{ $t('manual.compare.useStep5') }}
+              </li>
+              <li>{{ $t('manual.compare.useStep6') }}</li>
+            </ol>
+          </li>
+          <!-- Visual Indicators: ⬇️ ⬆️ ❌ replaced -->
+          <li><strong>{{ $t('manual.compare.visualIndicators') }}:</strong>
+            <ul>
+              <li>
+                <Icon icon="mdi:chevron-down" class="icon-muted" />
+                {{ $t('manual.compare.indicatorDown') }}
+              </li>
+              <li>
+                <Icon icon="mdi:chevron-up" class="icon-muted" />
+                {{ $t('manual.compare.indicatorUp') }}
+              </li>
+              <li>
+                <Icon icon="mdi:close" class="icon-muted" />
+                {{ $t('manual.compare.indicatorX') }}
+              </li>
+            </ul>
+          </li>
+        </ul>
+
+        <h4>{{ $t('manual.compare.step2SelectSeasons') }}</h4>
+        <p><strong>{{ $t('manual.compare.afterTeamsSelected') }}</strong></p>
+        <ul>
+          <li><strong>{{ $t('manual.compare.seasonSelectors') }}:</strong>
+            <ul>
+              <li>{{ $t('manual.compare.seasonShowsOnly') }}</li>
+              <li>{{ $t('manual.compare.seasonOption') }}</li>
+              <li>{{ $t('manual.compare.seasonIndividual') }}</li>
+            </ul>
+          </li>
+          <li><strong>{{ $t('manual.compare.independentSeasons') }}:</strong>
+            <ul>
+              <li>{{ $t('manual.compare.eachTeamDesc') }}</li>
+              <li>{{ $t('manual.compare.exampleComp') }}</li>
+              <li>{{ $t('manual.compare.exampleOr') }}</li>
+            </ul>
+          </li>
+        </ul>
+
+        <!-- Selection Rules -->
+        <h4>{{ $t('manual.compare.teamSelectionRules') }}</h4>
+        <ul>
+          <li>
+            <Icon icon="mdi:close-circle" class="icon-error" />
+            <strong>{{ $t('manual.compare.cantCompareTeam') }}</strong> — {{ $t('manual.compare.cantCompareTeamMsg') }}
+          </li>
+          <li>
+            <Icon icon="mdi:check-circle" class="icon-success" />
+            {{ $t('manual.compare.selectBothTeams') }}
+          </li>
+          <li>{{ $t('manual.compare.urlTeamSelect') }}</li>
+        </ul>
+
+        <h4>{{ $t('manual.compare.step3ViewTeamResults') }}</h4>
+
+        <h5>{{ $t('manual.compare.teamComparisonHeader') }}</h5>
+        <ul>
+          <li><strong>{{ $t('manual.compare.teamHeaderLayout') }}:</strong> {{ $t('manual.compare.teamHeaderNames') }}</li>
+          <li>{{ $t('manual.compare.vsBadge') }}</li>
+        </ul>
+
+        <h5>{{ $t('manual.compare.teamWinnerBanner') }}</h5>
+        <p>{{ $t('manual.compare.sameAsSeasonComp') }}</p>
+        <ul>
+          <li>
+            <!-- 👑 / 🤝 replaced -->
+            <Icon icon="mdi:crown" class="icon-gold" />
+            {{ $t('manual.compare.teamWinnerBadge') }}
+          </li>
+          <li>{{ $t('manual.compare.teamWinCount') }}</li>
+          <li>{{ $t('manual.compare.teamDualColor') }}</li>
+        </ul>
+
+        <h5>{{ $t('manual.compare.teamMetrics') }}</h5>
+        <p>{{ $t('manual.compare.organized3') }}</p>
+
+        <!-- ⚽ Matches Overview -->
+        <div class="metric-category">
+          <h6>
+            <Icon icon="mdi:soccer" class="icon-category" />
+            {{ $t('manual.compare.matchesOverview') }}
+          </h6>
+          <ul>
+            <li>{{ $t('manual.compare.matchesOverviewDesc') }}</li>
+          </ul>
+        </div>
+
+        <!-- 🎯 Goals & Performance -->
+        <div class="metric-category">
+          <h6>
+            <Icon icon="mdi:target" class="icon-category" />
+            {{ $t('manual.compare.goalsPerformance') }}
+          </h6>
+          <ul>
+            <li>{{ $t('manual.compare.goalsPerformanceDesc') }}</li>
+          </ul>
+        </div>
+
+        <!-- 📈 Streaks -->
+        <div class="metric-category">
+          <h6>
+            <Icon icon="mdi:trending-up" class="icon-category" />
+            {{ $t('manual.compare.streaks') }}
+          </h6>
+          <ul>
+            <li>{{ $t('manual.compare.streaksDesc') }}</li>
+          </ul>
+        </div>
+
+        <!-- Formations Section -->
+        <h5>{{ $t('manual.compare.formationsSection') }}</h5>
+        <p>{{ $t('manual.compare.tacticalsFormations') }}</p>
+        <ul>
+          <li><strong>{{ $t('manual.compare.sideColumns') }}:</strong> {{ $t('manual.compare.sideColumnsDesc') }}</li>
+          <li><strong>{{ $t('manual.compare.formationList') }}:</strong> {{ $t('manual.compare.formationListDesc') }}</li>
+          <li><strong>{{ $t('manual.compare.matchFormationCount') }}:</strong> {{ $t('manual.compare.matchFormationCountDesc') }}</li>
+          <li><strong>{{ $t('manual.compare.expandable') }}:</strong>
+            <ul>
+              <li>{{ $t('manual.compare.expandableDesc') }}</li>
+              <li>{{ $t('manual.compare.showsLineup') }}</li>
+              <li>
+                <!-- 🔽 replaced -->
+                <Icon icon="mdi:chevron-down" class="icon-muted" />
+                {{ $t('manual.compare.arrowRotates') }}
+              </li>
+              <li>{{ $t('manual.compare.clickCollapse') }}</li>
+            </ul>
+          </li>
+        </ul>
+
+        <!-- Recent Form Section -->
+        <h5>{{ $t('manual.compare.recentForm') }}</h5>
+        <p>{{ $t('manual.compare.visualForm') }}</p>
+        <ul>
+          <li><strong>{{ $t('manual.compare.sideDisplay') }}:</strong> {{ $t('manual.compare.sideDisplayDesc') }}</li>
+          <li><strong>{{ $t('manual.compare.formBadges') }}:</strong>
+            <ul>
+              <li><span style="background: #22c55e; padding: 2px 6px; border-radius: 3px;">W</span> {{ $t('manual.compare.winBadge') }}</li>
+              <li><span style="background: #eab308; padding: 2px 6px; border-radius: 3px;">D</span> {{ $t('manual.compare.drawBadge') }}</li>
+              <li><span style="background: #ef4444; padding: 2px 6px; border-radius: 3px;">L</span> {{ $t('manual.compare.lossBadge') }}</li>
+            </ul>
+          </li>
+          <li><strong>{{ $t('manual.compare.readingDirection') }}:</strong> {{ $t('manual.compare.readingDirectionDesc') }}</li>
+          <li><strong>{{ $t('manual.compare.hoverScale') }}:</strong> {{ $t('manual.compare.hoverScaleDesc') }}</li>
+        </ul>
+
+        <!-- Penalties Section -->
+        <h5>{{ $t('manual.compare.penaltiesSection') }}</h5>
+        <p>{{ $t('manual.compare.penaltyKicks') }}</p>
+        <ul>
+          <li><strong>{{ $t('manual.compare.twoTeamColumns') }}:</strong> {{ $t('manual.compare.twoTeamColumnsDesc') }}</li>
+          <li><strong>{{ $t('manual.compare.penaltyScored') }}:</strong> {{ $t('manual.compare.penaltyScoredDesc') }}</li>
+          <li><strong>{{ $t('manual.compare.penaltyMissed') }}:</strong> {{ $t('manual.compare.penaltyMissedDesc') }}</li>
+        </ul>
+      </section>
+
+      <!-- PLAYER COMPARISON -->
+      <section id="player-comparison">
+        <h3>{{ $t('manual.sections.playerComparison') }}</h3>
+        <p><strong>URL:</strong> <code>{{ $t('manual.compare.playerUrl') }}</code></p>
+
+        <h4>{{ $t('manual.compare.step1SelectPlayers') }}</h4>
+        <ul>
+          <li><strong>{{ $t('manual.compare.twoSearchablePlayers') }}:</strong> {{ $t('manual.compare.twoSearchablePlayersDesc') }}</li>
+          <li><strong>{{ $t('manual.compare.searchFunctionality') }}:</strong>
+            <ul>
+              <li>{{ $t('manual.compare.typeNames') }}</li>
+              <li>{{ $t('manual.compare.caseInsensitive') }}</li>
+              <li>{{ $t('manual.compare.partialNames') }}</li>
+            </ul>
+          </li>
+          <li><strong>{{ $t('manual.compare.clearSelection') }}:</strong> {{ $t('manual.compare.clearSelectionDesc') }}</li>
+        </ul>
+
+        <h4>{{ $t('manual.compare.step2PlayerSeasons') }}</h4>
+        <p>{{ $t('manual.compare.afterPlayersSelected') }}</p>
+        <ul>
+          <li><strong>{{ $t('manual.compare.seasonDropsAppear') }}:</strong> {{ $t('manual.compare.onePerPlayer') }}</li>
+          <li><strong>{{ $t('manual.compare.seasonOptionsPlayer') }}:</strong>
+            <ul>
+              <li>{{ $t('manual.compare.allSeasonsCareer') }}</li>
+              <li>{{ $t('manual.compare.individualSeasonsPlayer') }}</li>
+            </ul>
+          </li>
+          <li><strong>{{ $t('manual.compare.mixAndMatch') }}:</strong>
+            <ul>
+              <li>{{ $t('manual.compare.playerMix1') }}</li>
+              <li>{{ $t('manual.compare.playerMix2') }}</li>
+              <li>{{ $t('manual.compare.playerMix3') }}</li>
+            </ul>
+          </li>
+        </ul>
+
+        <!-- Selection Rules -->
+        <h4>{{ $t('manual.compare.playerSelectionRules') }}</h4>
+        <ul>
+          <li>
+            <Icon icon="mdi:close-circle" class="icon-error" />
+            <strong>{{ $t('manual.compare.cantCompareSelf') }}</strong>
+          </li>
+          <li>
+            <Icon icon="mdi:check-circle" class="icon-success" />
+            {{ $t('manual.compare.selectBothPlayers') }}
+          </li>
+          <li>{{ $t('manual.compare.urlPlayerSelect') }}</li>
+        </ul>
+
+        <h4>{{ $t('manual.compare.step3ViewPlayerResults') }}</h4>
+
+        <h5>{{ $t('manual.compare.playerComparisonHeader') }}</h5>
+        <ul>
+          <li>{{ $t('manual.compare.playerHeaderLayout') }}</li>
+          <li>{{ $t('manual.compare.cleanDisplay') }}</li>
+        </ul>
+
+        <h5>{{ $t('manual.compare.playerWinnerBanner') }}</h5>
+        <ul>
+          <li>{{ $t('manual.compare.calculatesAcross') }}</li>
+          <li>{{ $t('manual.compare.totalWins') }}</li>
+          <li>{{ $t('manual.compare.percentageDom') }}</li>
+        </ul>
+
+        <h5>{{ $t('manual.compare.playerMetricsComp') }}</h5>
+        <p>{{ $t('manual.compare.organized6') }}</p>
+
+        <!-- ⏱️ Game Time -->
+        <div class="metric-category">
+          <h6>
+            <Icon icon="mdi:timer-outline" class="icon-category" />
+            {{ $t('manual.compare.gameTime') }}
+          </h6>
+          <ul>
+            <li>{{ $t('manual.compare.gameTimeDesc') }}</li>
+          </ul>
+        </div>
+
+        <!-- ⚽ Attacking -->
+        <div class="metric-category">
+          <h6>
+            <Icon icon="mdi:soccer" class="icon-category" />
+            {{ $t('manual.compare.attackingPlayer') }}
+          </h6>
+          <ul>
+            <li>{{ $t('manual.compare.attackingPlayerDesc') }}</li>
+          </ul>
+        </div>
+
+        <!-- 🎯 Passing -->
+        <div class="metric-category">
+          <h6>
+            <Icon icon="mdi:target" class="icon-category" />
+            {{ $t('manual.compare.passingPlayer') }}
+          </h6>
+          <ul>
+            <li>{{ $t('manual.compare.passingPlayerDesc') }}</li>
+          </ul>
+        </div>
+
+        <!-- 🛡️ Defensive -->
+        <div class="metric-category">
+          <h6>
+            <Icon icon="mdi:shield-half-full" class="icon-category" />
+            {{ $t('manual.compare.defensivePlayer') }}
+          </h6>
+          <ul>
+            <li>{{ $t('manual.compare.defensivePlayerDesc') }}</li>
+          </ul>
+        </div>
+
+        <!-- ⚠️ Discipline -->
+        <div class="metric-category">
+          <h6>
+            <Icon icon="mdi:card-account-details" class="icon-category" />
+            {{ $t('manual.compare.disciplinePlayer') }}
+          </h6>
+          <ul>
+            <li>{{ $t('manual.compare.disciplinePlayerDesc') }}</li>
+          </ul>
+        </div>
+
+        <!-- 🧤 Goalkeeper -->
+        <div class="metric-category">
+          <h6>
+            <Icon icon="mdi:handball" class="icon-category" />
+            {{ $t('manual.compare.goalkeeper') }}
+          </h6>
+          <ul>
+            <li>{{ $t('manual.compare.goalkeeperDesc') }}</li>
+          </ul>
+        </div>
+
+        <!-- Penalties -->
+        <h5>{{ $t('manual.compare.penaltiesPlayer') }}</h5>
+        <p>{{ $t('manual.compare.ifEither') }}</p>
+        <ul>
+          <li>{{ $t('manual.compare.penaltySideBySide') }}</li>
+          <li>{{ $t('manual.compare.penaltyScoredGreen') }}</li>
+          <li>{{ $t('manual.compare.penaltyZero') }}</li>
+        </ul>
+      </section>
+
+      <!-- NAVIGATION FEATURES -->
+      <section id="navigation-features">
+        <h3>{{ $t('manual.sections.navigationFeatures') }}</h3>
+
+        <h4>{{ $t('manual.compare.pageContentNavigator') }}</h4>
+        <ul>
+          <li><strong>{{ $t('manual.compare.fixedSidebar') }}:</strong> {{ $t('manual.compare.fixedSidebarDesc') }}</li>
+          <li><strong>{{ $t('manual.compare.quickLinks') }}:</strong>
+            <ul>
+              <li>{{ $t('manual.compare.linkSelection') }}</li>
+              <li>{{ $t('manual.compare.linkStats') }}</li>
+            </ul>
+          </li>
+          <li><strong>{{ $t('manual.compare.smoothScroll') }}:</strong> {{ $t('manual.compare.smoothScrollDesc') }}</li>
+        </ul>
+
+        <h4>{{ $t('manual.compare.urlStructure') }}</h4>
+        <p>{{ $t('manual.compare.urlPreserves') }}</p>
+        <ul>
+          <li><strong>{{ $t('manual.compare.urlTeams') }}</strong></li>
+          <li><strong>{{ $t('manual.compare.urlPlayers') }}</strong></li>
+          <li><strong>{{ $t('manual.compare.urlSeasons') }}</strong></li>
+          <li><strong>{{ $t('manual.compare.shareableLinks') }}:</strong> {{ $t('manual.compare.shareableLinkDesc') }}</li>
+          <li><strong>{{ $t('manual.compare.bookmarkable') }}:</strong> {{ $t('manual.compare.bookmarkableDesc') }}</li>
+        </ul>
+
+        <h4>{{ $t('manual.compare.loadingStates') }}</h4>
+        <ul>
+          <li><strong>{{ $t('manual.compare.fetchingStats') }}</strong></li>
+          <li>{{ $t('manual.compare.loadingSpinner') }}</li>
+          <li>{{ $t('manual.compare.replacesContent') }}</li>
+        </ul>
+
+        <h4>{{ $t('manual.compare.errorMessages') }}</h4>
+        <ul>
+          <li><strong>{{ $t('manual.compare.selectBothMsg') }}</strong></li>
+          <li><strong>{{ $t('manual.compare.cantCompareMsg') }}</strong></li>
+          <li><strong>{{ $t('manual.compare.selectBothSeasonMsg') }}</strong></li>
+          <li><strong>{{ $t('manual.compare.errorFetchMsg') }}</strong></li>
+          <li><strong>{{ $t('manual.compare.noStatsMsg') }}</strong></li>
+        </ul>
+      </section>
+
+      <!-- VISUAL DESIGN -->
+      <section id="visual-design">
+        <h3>{{ $t('manual.sections.visualDesign') }}</h3>
+
+        <h4>{{ $t('manual.compare.winnerHighlighting') }}</h4>
+        <ul>
+          <li><strong>{{ $t('manual.compare.boldEnhanced') }}:</strong> {{ $t('manual.compare.boldEnhancedDesc') }}</li>
+          <li><strong>{{ $t('manual.compare.subtleBackground') }}:</strong> {{ $t('manual.compare.subtleBackgroundDesc') }}</li>
+          <li><strong>{{ $t('manual.compare.typeColors') }}:</strong> {{ $t('manual.compare.typeColorsDesc') }}</li>
+          <li><strong>{{ $t('manual.compare.noHighlight') }}:</strong> {{ $t('manual.compare.noHighlightDesc') }}</li>
+        </ul>
+
+        <h4>{{ $t('manual.compare.hoverEffects') }}</h4>
+        <ul>
+          <li><strong>{{ $t('manual.compare.hoverMetric') }}:</strong> {{ $t('manual.compare.hoverMetricDesc') }}</li>
+          <li><strong>{{ $t('manual.compare.hoverFormation') }}:</strong> {{ $t('manual.compare.hoverFormationDesc') }}</li>
+          <li><strong>{{ $t('manual.compare.hoverBadges') }}:</strong> {{ $t('manual.compare.hoverBadgesDesc') }}</li>
+          <li><strong>{{ $t('manual.compare.hoverDropdowns') }}:</strong> {{ $t('manual.compare.hoverDropdownsDesc') }}</li>
+        </ul>
+
+        <h4>{{ $t('manual.compare.responsiveDesign') }}</h4>
+        <ul>
+          <li><strong>{{ $t('manual.compare.desktop') }}:</strong> {{ $t('manual.compare.desktopDesc') }}</li>
+          <li><strong>{{ $t('manual.compare.mobile') }}:</strong> {{ $t('manual.compare.mobileDesc') }}</li>
+        </ul>
+      </section>
+
+      <!-- ADVANCED TIPS -->
+      <section id="advanced-tips">
+        <h3>{{ $t('manual.sections.advancedTips') }}</h3>
+
+        <h4>{{ $t('manual.compare.effectiveComparison') }}</h4>
+        <ul>
+          <li><strong>{{ $t('manual.compare.eraComparison') }}:</strong> {{ $t('manual.compare.eraComparisonDesc') }}</li>
+          <li><strong>{{ $t('manual.compare.teamEvolution') }}:</strong> {{ $t('manual.compare.teamEvolutionDesc') }}</li>
+          <li><strong>{{ $t('manual.compare.playerPeak') }}:</strong> {{ $t('manual.compare.playerPeakDesc') }}</li>
+          <li><strong>{{ $t('manual.compare.positionalComparison') }}:</strong> {{ $t('manual.compare.positionalComparisonDesc') }}</li>
+          <li><strong>{{ $t('manual.compare.styleAnalysis') }}:</strong> {{ $t('manual.compare.styleAnalysisDesc') }}</li>
+        </ul>
+
+        <h4>{{ $t('manual.compare.interpretingResults') }}</h4>
+        <ul>
+          <li><strong>{{ $t('manual.compare.contextMatters') }}:</strong>
+            <ul>
+              <li>{{ $t('manual.compare.contextMinutes') }}</li>
+              <li>{{ $t('manual.compare.contextFouls') }}</li>
+              <li>{{ $t('manual.compare.contextCleanSheets') }}</li>
+            </ul>
+          </li>
+          <li><strong>{{ $t('manual.compare.lookPatterns') }}:</strong>
+            <ul>
+              <li>{{ $t('manual.compare.patternAttack') }}</li>
+              <li>{{ $t('manual.compare.patternDiscipline') }}</li>
+              <li>{{ $t('manual.compare.patternPassing') }}</li>
+            </ul>
+          </li>
+          <li><strong>{{ $t('manual.compare.useMultiple') }}:</strong>
+            <ul>
+              <li>{{ $t('manual.compare.multipleDesc') }}</li>
+              <li>{{ $t('manual.compare.multipleExample') }}</li>
+              <li>{{ $t('manual.compare.multipleFuller') }}</li>
+            </ul>
+          </li>
+        </ul>
+
+        <h4>{{ $t('manual.compare.sharingCollaboration') }}</h4>
+        <ul>
+          <li><strong>{{ $t('manual.compare.copyUrl') }}:</strong> {{ $t('manual.compare.copyUrlDesc') }}</li>
+          <li><strong>{{ $t('manual.compare.screenshot') }}:</strong> {{ $t('manual.compare.screenshotDesc') }}</li>
+          <li><strong>{{ $t('manual.compare.bookmarkFavorites') }}:</strong> {{ $t('manual.compare.bookmarkFavoritesDesc') }}</li>
+        </ul>
+
+        <h4>{{ $t('manual.compare.performanceNotes') }}</h4>
+        <ul>
+          <li><strong>{{ $t('manual.compare.fastLoading') }}:</strong> {{ $t('manual.compare.fastLoadingDesc') }}</li>
+        </ul>
+      </section>
+
+      <!-- TROUBLESHOOTING -->
+      <section id="troubleshooting">
+        <h3>{{ $t('manual.sections.troubleshooting') }}</h3>
+
+        <h4>Stats Not Loading?</h4>
+        <ol>
+          <li>Verify both items are selected (check both dropdowns)</li>
+          <li>Ensure both seasons are selected</li>
+          <li>Check that selections are different (no duplicate items)</li>
+          <li>Look for error messages - they explain the issue</li>
+          <li>Try refreshing the page</li>
+        </ol>
+
+        <h4>Dropdown Not Working?</h4>
+        <ul>
+          <li>Click directly on the input field</li>
+          <li>If nothing appears, check for error messages</li>
+          <li>Try clearing selection (<Icon icon="mdi:close" class="icon-muted" /> icon) and reselecting</li>
+          <li>Refresh page if dropdown seems stuck</li>
+        </ul>
+
+        <h4>Some Metrics Show "-"?</h4>
+        <ul>
+          <li>This is normal - not all players/teams have all data types</li>
+          <li>Goalkeeper stats only exist for goalkeepers</li>
+          <li>Some older seasons may have incomplete data</li>
+        </ul>
+
+        <h4>Shared Link Not Working?</h4>
+        <ul>
+          <li>Ensure entire URL was copied (including query parameters after ?)</li>
+          <li>Check that IDs in URL are valid (items might have been deleted)</li>
+          <li>Try manually reselecting items if URL fails</li>
+        </ul>
+      </section>
+
+      <!-- KEYBOARD SHORTCUTS -->
+      <section id="keyboard-shortcuts">
+        <h3>{{ $t('manual.sections.keyboardShortcuts') }}</h3>
+        <ul>
+          <li><strong>Tab:</strong> Navigate between dropdowns and selections</li>
+          <li><strong>Enter:</strong> Open dropdown when focused</li>
+          <li><strong>Type:</strong> Filter options in open dropdown</li>
+          <li><strong>Up/Down Arrows:</strong> Navigate dropdown options (limited support)</li>
+          <li><strong>Click/Tap:</strong> Primary interaction method</li>
+        </ul>
+      </section>
+
+      <!-- QUICK REFERENCE -->
+      <section id="quick-reference">
+        <h3>{{ $t('manual.sections.quickReference') }}</h3>
+
+        <h4>{{ $t('manual.sections.seasonComparison') }}</h4>
+        <ul>
+          <li>
+            <Icon icon="mdi:check-circle" class="icon-success" />
+            {{ $t('manual.compare.twoDropdowns') }}
+          </li>
+          <li>
+            <Icon icon="mdi:check-circle" class="icon-success" />
+            {{ $t('manual.compare.gridOrganized') }}
+          </li>
+          <li>
+            <Icon icon="mdi:check-circle" class="icon-success" />
+            {{ $t('manual.compare.winnerBanner') }}
+          </li>
+        </ul>
+
+        <h4>{{ $t('manual.sections.teamComparison') }}</h4>
+        <ul>
+          <li>
+            <Icon icon="mdi:check-circle" class="icon-success" />
+            {{ $t('manual.compare.twoSearchableDropdowns') }}
+          </li>
+          <li>
+            <Icon icon="mdi:check-circle" class="icon-success" />
+            {{ $t('manual.compare.independentSeasons') }}
+          </li>
+          <li>
+            <Icon icon="mdi:check-circle" class="icon-success" />
+            {{ $t('manual.compare.formationsSection') }}
+          </li>
+          <li>
+            <Icon icon="mdi:check-circle" class="icon-success" />
+            {{ $t('manual.compare.organized3') }}
+          </li>
+        </ul>
+
+        <h4>{{ $t('manual.sections.playerComparison') }}</h4>
+        <ul>
+          <li>
+            <Icon icon="mdi:check-circle" class="icon-success" />
+            {{ $t('manual.compare.twoSearchablePlayers') }}
+          </li>
+          <li>
+            <Icon icon="mdi:check-circle" class="icon-success" />
+            {{ $t('manual.compare.mixAndMatch') }}
+          </li>
+          <li>
+            <Icon icon="mdi:check-circle" class="icon-success" />
+            {{ $t('manual.compare.organized6') }}
+          </li>
+          <li>
+            <Icon icon="mdi:check-circle" class="icon-success" />
+            {{ $t('manual.compare.goalkeeper') }}
+          </li>
+        </ul>
+
+        <h4>Universal Features</h4>
+        <ul>
+          <li><Icon icon="mdi:check-circle" class="icon-success" /> {{ $t('manual.compare.winnerBanner') }}</li>
+          <li><Icon icon="mdi:check-circle" class="icon-success" /> {{ $t('manual.compare.visualBar') }}</li>
+          <li><Icon icon="mdi:check-circle" class="icon-success" /> {{ $t('manual.compare.shareableLinks') }}</li>
+          <li><Icon icon="mdi:check-circle" class="icon-success" /> {{ $t('manual.compare.smoothScroll') }}</li>
+          <li><Icon icon="mdi:check-circle" class="icon-success" /> {{ $t('manual.compare.responsiveDesign') }}</li>
+          <li><Icon icon="mdi:check-circle" class="icon-success" /> {{ $t('manual.compare.colorCoding') }}</li>
+          <li><Icon icon="mdi:check-circle" class="icon-success" /> {{ $t('manual.compare.hoverEffects') }}</li>
+        </ul>
+      </section>
+    </div>
+
+    <div class="back-link">
+      <NuxtLink :to="localePath('/')" class="back-btn">← Back to home</NuxtLink>
+    </div>
+  </div>
+  <PageContent :page-sections="pageSections" />
 </template>
 
 <style scoped>

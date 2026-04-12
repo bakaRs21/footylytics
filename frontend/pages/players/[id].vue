@@ -18,7 +18,7 @@ const pageSections = [
   { label: t("pages.players.sections.playerInfo"), anchor: "top-section" },
   { label: t("pages.players.sections.seasonSelection"), anchor: "seasons" },
   { label: t("pages.players.sections.playerStats"), anchor: "stats" },
-  { label: t("pages.players.sections.playerMetrics"), anchor: "metrics" },
+  { label: t("pages.players.sections.metricsSelection"), anchor: "metrics" },
 ]
 
 watch(() => stats.value, (newVal) => {
@@ -63,7 +63,7 @@ watch(() => selectedSeason.value, async (newVal) => {
 })
 async function Inspection() {
   if (!route.query.season) {
-    return onMountedMsg.value = $t("pages.players.errorMessages.selectSeason")
+    return onMountedMsg.value = t("pages.players.errorMessages.selectSeason")
   }
   if (route.query.season === "all-seasons") {
     seasonParam.value = ""
@@ -106,10 +106,10 @@ onMounted(() => {
   </div>
   <div class="seasons">
     <div class="season-selection-heading">
-      <h3 id="seasons">{{ t('common.selectSeason') }} : </h3>
+      <h3 id="seasons">{{ $t('common.selectSeason') }} : </h3>
       <div class="all-seasons">
-        <h3 id="allS">{{ t('common.orDataFrom') }}</h3  >
-        <button class="all-seasons-button" @click="selectSeason(0)">{{ t('common.allSeasons') }}</button>
+        <h3 id="allS">{{ $t('common.orDataFrom') }}</h3  >
+        <button class="all-seasons-button" @click="selectSeason(0)">{{ $t('common.allSeasons') }}</button>
       </div>
     </div>
     <div class="player-seasons" v-if="!playerSeasonsError" >
@@ -124,10 +124,10 @@ onMounted(() => {
   </div>
   <div class="stats">
     <div v-if="statsStatus === 'pending'">
-      {{ t('common.loading') }} <Icon icon="mdi:loading" />
+      {{ $t('common.loading') }} <Icon icon="mdi:loading" />
     </div>
     <div v-else-if="statsError" class="error-message">
-      {{ t('errors.loadingFailed') }}: {{ statsError.message }}
+      {{ $t('errors.loadingFailed') }}: {{ statsError.message }}
     </div>
     <div id="stats">
       <PlayerStatsDashBoard v-model="stats" />

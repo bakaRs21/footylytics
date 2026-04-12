@@ -2,7 +2,6 @@
 import { Icon } from '@iconify/vue';
 import { computed, watch } from 'vue';
 
-const { t } = useI18n()
 
 const stats = defineModel({
     type: Object,

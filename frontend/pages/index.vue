@@ -38,12 +38,12 @@ const features = [
 <template>
     <div class="index-wrapper">
         <div class="index-headings">
-            <h1 class="h1-design">{{ t('pages.index.title') }}</h1>
+            <h1 class="h1-design">{{ $t('pages.index.title') }}</h1>
             <h2 class="text-green text-semibold">
-                {{ t('pages.index.subtitle') }}
+                {{ $t('pages.index.subtitle') }}
             </h2>
             <p class="text-gray subheader-text">
-                {{ t('pages.index.description') }}
+                {{ $t('pages.index.description') }}
             </p>
         </div>
 
@@ -71,15 +71,15 @@ const features = [
         <div class="flex-center gap-xl stat-badges">
             <div class="stat-badge">
                 <Icon icon="openmoji:fire" class="icon-md" />
-                <span>{{ t('pages.index.badges.liveStatistics') }}</span>
+                <span>{{ $t('pages.index.badges.liveStatistics') }}</span>
             </div>
             <div class="stat-badge">
                 <Icon icon="openmoji:chart-increasing" class="icon-md" />
-                <span>{{ t('pages.index.badges.visualAnalytics') }}</span>
+                <span>{{ $t('pages.index.badges.visualAnalytics') }}</span>
             </div>
             <div class="stat-badge">
                 <Icon icon="emojione-v1:lightning-mood" class="icon-md" />
-                <span>{{ t('pages.index.badges.fastComparisons') }}</span>
+                <span>{{ $t('pages.index.badges.fastComparisons') }}</span>
             </div>
         </div>
     </div>

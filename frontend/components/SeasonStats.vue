@@ -1,8 +1,6 @@
 <script setup>
 import { Icon } from '@iconify/vue';
 
-const { t } = useI18n()
-
 const props = defineProps({
     data: {
         type: Object,
@@ -16,7 +14,7 @@ const props = defineProps({
     <div class="season-header">
         <div class="season-title">
             <Icon icon="material-symbols:trophy-outline" class="header-icon" />
-            <span>{{ $t('components.seasonStats.overview') }} {{ props.data.season_id }}</span>
+            <span>{{ $t('components.seasonStats.overview') }}</span>
         </div>
         <div class="season-meta">
             <span class="meta-pill">
