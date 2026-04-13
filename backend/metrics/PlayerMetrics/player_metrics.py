@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException, Query
 from requests import Session
 from Database import get_session
-from scripts.models_updated import Player, PlayerSeason
+from scripts.models_updated import Player, PlayerSeason, Team
 from sqlalchemy import func
 
 router = APIRouter(prefix="/player-metrics", tags=["Player Metrics"])
@@ -85,6 +85,7 @@ def get_basic_player_stats(db: Session, player_id: int | None = None, season_id:
     if season_id:
         player_season = (
             db.query(PlayerSeason)
+            .join(Team, Team.team_id == PlayerSeason.team_id)
             .filter(PlayerSeason.player_id == player_id, PlayerSeason.season_id == season_id)
             .first()
         )
@@ -98,6 +99,7 @@ def get_basic_player_stats(db: Session, player_id: int | None = None, season_id:
             "market_value": player_season.market_value,
             "position": player_season.position,
             "team_id": player_season.team_id,
+            'team_name': player_season.team.name if player_season.team else None,
             "total_matches_played": player_season.games_appearences or 0,
             "total_minutes_played": player_season.games_minutes or 0,
             "rating": round(player_season.games_rating, 1) if player_season.games_rating is not None else None,

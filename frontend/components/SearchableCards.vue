@@ -56,7 +56,6 @@ function filters(filterValue, type) {
     }
 }
 function filtersToArray(array, filterValue) {
-    console.log('filter added/removed:', filterValue)
     if (array.value.includes(filterValue)) {
         array.value.splice(array.value.indexOf(filterValue), 1)
         selectedFilters.value.splice(selectedFilters.value.indexOf(filterValue), 1)
@@ -86,6 +85,11 @@ const availableFilters = computed(() => {
     }
 })
 
+const sortDir = ref('asc')
+function toggleSort() {
+    sortDir.value = sortDir.value === 'asc' ? 'desc' : 'asc'
+}
+
 const filteredItems = computed(() => {
     let items = props.items
 
@@ -99,7 +103,12 @@ const filteredItems = computed(() => {
             item.teams?.some(team => selectedTeams.value.includes(team.team_id))
         )
     }
-
+    items.sort((a, b) => {
+        const nameA = props.page === 'season' ? a.season : a.name
+        const nameB = props.page === 'season' ? b.season : b.name
+        const comparison = nameA.localeCompare(nameB)
+        return sortDir.value === 'asc' ? comparison : -comparison
+    })
     if (!search.value.trim()) return items
     const searchLower = search.value.toLowerCase().trim()
     items = items.filter((item) => {
@@ -134,6 +143,11 @@ const placeholderText = computed(() => {
             <Icon icon="mdi:filter-variant" />
             {{ $t('common.filters') }}
             <Icon icon="mdi:chevron-down" :class="{ 'chevron-open': filterOpen }" class="chevron" />
+        </button>
+        <button v-if="page !== 'season'" class="filter-toggle-btn btn-filter" @click="toggleSort">
+            <Icon icon="mdi:sort-ascending" />
+            {{ $t('common.sort') }}
+            <Icon :icon="sortDir === 'asc' ? 'material-symbols:arrow-upward' : 'material-symbols:arrow-downward'" class="chevron" />
         </button>
         <div class="right panel-right">
             <input v-model="search" type="text" :placeholder="placeholderText" class="input-compact"/>

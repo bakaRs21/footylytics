@@ -19,6 +19,7 @@
     "close": "Zavřít",
     "select": "Vybrat",
     "filters": "Filtry",
+    "sort": "Řadit",
     "noFiltersAvailable": "Nejsou dostupné žádné filtry",
     "selectSeason": "Vyberte sezonu",
     "orDataFrom": "Nebo data z",
@@ -164,6 +165,8 @@
     },
     "playerStatsDashboard": {
       "title": "Statistiky hráče",
+      "playerSeasonInfo1": "V sezoně",
+      "playerSeasonInfo2": "Hrál za tým",
       "games": "Zápasy",
       "totalMatchesPlayed": "Celkem odehraných zápasů",
       "totalMinutesPlayed": "Celkem minut",

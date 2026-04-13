@@ -19,6 +19,7 @@
     "close": "Close",
     "select": "Select",
     "filters": "Filters",
+    "sort": "Sort",
     "noFiltersAvailable": "No filters available",
     "selectSeason": "Select season",
     "orDataFrom": "Or data from",
@@ -164,6 +165,8 @@
     },
     "playerStatsDashboard": {
       "title": "Player Statistics",
+      "playerSeasonInfo1": "In the season",
+      "playerSeasonInfo2": "Played for",
       "games": "Games",
       "totalMatchesPlayed": "Total Matches Played",
       "totalMinutesPlayed": "Total Minutes Played",

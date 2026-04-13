@@ -48,6 +48,17 @@ function eraseStats() {
     <Icon icon="mdi:chevron-down"/>
 </div>
 <div v-if="showStats" class="dashboard-wrapper">
+    <div class="stats-info card-primary">
+        <span v-if="stats?.season_id" style="display: flex; gap: 0.5rem;">
+            <span class="stats-sub-heading">{{ $t('components.playerStatsDashboard.playerSeasonInfo1') }}</span>
+            <span class="stats-sub-heading-value">{{ stats?.season_id }}</span>
+        </span>
+        <span class="stats-sub-heading">{{ $t('components.playerStatsDashboard.playerSeasonInfo2') }}</span>
+        <span v-if="Array.isArray(stats.team_name)">
+            <span class="stats-sub-heading-value">{{ stats.team_name.join(', ') }}</span>
+        </span>
+        <span v-else class="stats-sub-heading-value">{{ stats?.team_name }}</span>
+    </div>
     <div class="dashboard-grid grid-dashboard" ref="dashboard">
         <div class="card-primary"  v-if="newStats.total_matches_played > 0 || newStats.total_minutes_played > 0 || newStats.rating !== null">
             <h3 class="card-title">{{ $t('components.playerStatsDashboard.games') }}</h3>
@@ -230,6 +241,18 @@ function eraseStats() {
     padding: 1rem;
     color: #666;
     font-size: 0.85rem;
+}
+
+.stats-info {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+}
+.stats-sub-heading {
+    color: #7984a7;
 }
 
 .red { color: #ef4444; }

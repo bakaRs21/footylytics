@@ -11,6 +11,7 @@ const pageParam = 'player_id'
 const onMountedMsg = ref("")
 const selectedSeason = ref("")
 const seasonParam = ref("")
+const teams_to_stats = ref([])
 const stats = ref({})
 const statsStatus = ref("")
 const statsError = ref("")
@@ -51,6 +52,13 @@ function formatKey(key) {
 
 async function selectSeason(season) {
   selectedSeason.value = season
+  
+  if (season === 0) {
+    const teams = playerSeasons.value.map(s => s.team_name).filter((v, i, a) => a.indexOf(v) === i)
+    teams_to_stats.value = teams
+  } else {
+    teams_to_stats.value = []
+  }
 }
 watch(() => selectedSeason.value, async (newVal) => {
   seasonParam.value = ""
@@ -76,6 +84,9 @@ async function Inspection() {
   try {
     const data = await $fetch(`${config.public.apiBase}player-metrics/basic-stats?player_id=${id.value}${seasonParam.value}`)
     stats.value = data
+    if (teams_to_stats.value.length > 0) {
+      stats.value.team_name = teams_to_stats.value
+    }
     statsStatus.value = ""
   } catch (error) {
     statsError.value = error.message
@@ -113,8 +124,8 @@ onMounted(() => {
       </div>
     </div>
     <div class="player-seasons" v-if="!playerSeasonsError" >
-      <div v-for="(val, key) in filterKyes(playerSeasons)" :key="key" @click="() => selectSeason(val)">
-        <Card>{{ val }}</Card>
+      <div v-for="(item, index) in playerSeasons" :key="index" @click="() => selectSeason(item.season)">
+        <Card>{{ item.season }}</Card>
       </div>
     </div>
     <div v-else-if="playerSeasonsError" class="error-message">

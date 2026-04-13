@@ -1,3 +1,5 @@
+from collections import defaultdict
+
 from sqlalchemy import Integer, func
 from scripts.models_updated import Player, PlayerSeason, Season, Nation, Team
 from typing import List
@@ -18,14 +20,24 @@ async def players(limita, session: Session) -> List[Player]:
     # Get seasons for a specific player
 def player_seasons(player_id: int, session: Session):
     try:
-        seasons = (session.query(Season.season)
+        seasons = (session.query(Season.season, PlayerSeason.player_id, Team.name, Team.team_id)
                   .join(PlayerSeason, PlayerSeason.season_id == Season.season_id)
+                  .join(Team, PlayerSeason.team_id == Team.team_id)
                   .filter(PlayerSeason.player_id == player_id)
+                  .order_by(Season.season)
                   .all())
         if not seasons:
             raise ValueError(f"Player with id {player_id} not found")
-        flat_seasons = [s[0] for s in seasons]
-        return flat_seasons
+
+        return [
+            {   
+                'player_id': player_id,
+                'season': season,
+                'team_name': team_name,
+                'team_id': team_id
+            }
+            for season, player_id, team_name, team_id in seasons
+        ]
     finally:
         session.close()
 

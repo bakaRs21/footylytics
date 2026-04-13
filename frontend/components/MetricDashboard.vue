@@ -117,6 +117,7 @@ async function fetchSelectedMetrics() {
         }
 
         const data = await $fetch(url.toString())
+        console.log('fetched data from: ', url.toString())
         return [metricKey, data]
       })
     )
@@ -250,11 +251,10 @@ async function scrollToDashboard() {
             @confirm="onConfirm"
           />
         </div>
-
         <div class="md__right">
           <div class="md__seasonLabel">{{ $t('pages.teams.sections.seasonSelection') }}</div>
           <select v-model="selectedSeason" class="md__seasonSelect">
-            <option value="all-seasons">{{ $t('pages.documentation.title') }}</option>
+            <option value="all-seasons">{{ $t('common.allSeasons') }}</option>
             <option v-for="s in seasons" :key="s" :value="s">{{ s }}</option>
           </select>
         </div>
@@ -302,7 +302,7 @@ async function scrollToDashboard() {
 .md__top {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
   gap: 14px;
   width: 100%;
 }
@@ -314,7 +314,7 @@ async function scrollToDashboard() {
 
 .md__right {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   gap: 10px;
 }
 
@@ -323,7 +323,6 @@ async function scrollToDashboard() {
   color: #a0aec0;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  padding-top: 10px;
 }
 
 .md__seasonSelect {
