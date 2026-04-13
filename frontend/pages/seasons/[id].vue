@@ -36,7 +36,6 @@ async function fetchData() {
     stats.value = first
     rankings.value = second
     statsStatus.value = ""
-    console.log("rankings", rankings.value)
   } catch (error) {
     statsError.value = error.message
     statsStatus.value = "error"

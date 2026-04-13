@@ -3,7 +3,7 @@
     <Header>
     </Header>
     <main class="content container">
-      <slot />
+      <NuxtPage />
     </main>
     <Footer />
   </div>
