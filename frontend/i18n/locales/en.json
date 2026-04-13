@@ -114,7 +114,7 @@
       }
     },
     "documentation": {
-      "title": "Testing Area"
+      "title": "Documentation"
     }
   },
   "components": {
@@ -367,7 +367,8 @@
     },
     "tooltips": {
       "showStats": "Show stats",
-      "showMetricOptions": "Show metric options to be selected"
+      "showMetricOptions": "Show metric options to be selected",
+      "showPageContent": "Show page content"
     }
   },
   "errors": {

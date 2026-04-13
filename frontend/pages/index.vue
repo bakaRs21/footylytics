@@ -36,22 +36,19 @@ const features = [
 </script>
 
 <template>
-    <div class="index-wrapper">
-        <div class="index-headings">
-            <h1 class="h1-design">{{ $t('pages.index.title') }}</h1>
-            <h2 class="text-green text-semibold">
-                {{ $t('pages.index.subtitle') }}
-            </h2>
-            <p class="text-gray subheader-text">
-                {{ $t('pages.index.description') }}
-            </p>
-        </div>
-
-        <div class="grid-auto-fit feature-cards-links">
-            <NuxtLink 
-                v-for="(feature, index) in features" 
+    <div class="index-headings">
+        <h1 class="h1-design">{{ $t('pages.index.title') }}</h1>
+        <h2 class="text-green text-semibold">
+            {{ $t('pages.index.subtitle') }}
+        </h2>
+        <p class="text-gray subheader-text">
+            {{ $t('pages.index.description') }}
+        </p>
+    </div>
+    <div class="grid-auto-fit feature-cards-links">
+            <NuxtLink v-for="(feature, index) in features" 
                 :key="index"
-                :to="localePath(`/${feature.link}`)"
+                :to="localePath(feature.link)"
                 class="card-base feature-card"
                 :style="{ '--card-color': feature.color }"
             >
@@ -66,30 +63,24 @@ const features = [
                     <Icon icon="openmoji:right-arrow" />
                 </div>
             </NuxtLink>
+    </div>
+    <div class="flex-center gap-xl stat-badges">
+        <div class="stat-badge">
+            <Icon icon="openmoji:fire" class="icon-md" />
+            <span>{{ $t('pages.index.badges.liveStatistics') }}</span>
         </div>
-
-        <div class="flex-center gap-xl stat-badges">
-            <div class="stat-badge">
-                <Icon icon="openmoji:fire" class="icon-md" />
-                <span>{{ $t('pages.index.badges.liveStatistics') }}</span>
-            </div>
-            <div class="stat-badge">
-                <Icon icon="openmoji:chart-increasing" class="icon-md" />
-                <span>{{ $t('pages.index.badges.visualAnalytics') }}</span>
-            </div>
-            <div class="stat-badge">
-                <Icon icon="emojione-v1:lightning-mood" class="icon-md" />
-                <span>{{ $t('pages.index.badges.fastComparisons') }}</span>
-            </div>
+        <div class="stat-badge">
+            <Icon icon="openmoji:chart-increasing" class="icon-md" />
+            <span>{{ $t('pages.index.badges.visualAnalytics') }}</span>
+        </div>
+        <div class="stat-badge">
+            <Icon icon="emojione-v1:lightning-mood" class="icon-md" />
+            <span>{{ $t('pages.index.badges.fastComparisons') }}</span>
         </div>
     </div>
 </template>
 
 <style scoped>
-.index-wrapper {
-    min-height: calc(100vh - 200px); 
-    padding: 2rem 1rem;
-}
 .index-headings {
     text-align: center; 
     margin-bottom: 3rem; 

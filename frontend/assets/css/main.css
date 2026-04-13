@@ -8,17 +8,30 @@ body, .main-wrapper {
   color: #ffffff;
 }
 html {
-  background: linear-gradient(180deg,rgb(18, 18, 37) 19%, rgb(48, 52, 56) 100%);
-  background-repeat: no-repeat;
-  background-attachment: fixed;
+  background: none;
+  background-size: cover;
+  height: 100%;
 }
-html, body {
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(180deg,rgb(18, 18, 37) 19%, rgb(48, 52, 56) 100%);
+}
+
+body {
     height: 100%;
 }
+
 .main-wrapper > main,
 .main-wrapper > .content {
     flex: 1 1 auto;
 }
+.main-wrapper > footer {
+    flex-shrink: 0;
+}
+
 
 h1, h2, h3 {
   font-family: inherit;

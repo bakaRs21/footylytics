@@ -35,26 +35,35 @@ const localePath = useLocalePath()
 <style scoped>
 .footer {
   display: flex;
-  margin-top: auto;
+  flex-direction: column;
   padding: 0; 
   background-color: rgba(22, 29, 39, 0.7);  
   color: #e5e7eb;  
   text-align: center;
   border-top: 1px solid #374151;
+  width: 100%;
 }
 .footer-layout {
   max-width: 80rem;
+  width: 100%;
   margin-left: auto;
   margin-right: auto;
+  padding: 1.5rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 .footer-links {
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
+  flex-wrap: wrap;
+  gap: 1rem;
 }
-@media (max-width: 280px) {
+@media (max-width: 480px) {
   .footer-links {
     flex-direction: column;
+    align-items: center;
     gap: 0.1rem;
   }
 }

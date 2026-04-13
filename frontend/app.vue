@@ -3,6 +3,9 @@ const { finalizePendingLocaleChange } = useI18n()
 const onBeforeEnter = async () => {
     await finalizePendingLocaleChange()
 }
+useHead({
+  meta: [{ name: 'viewport', content: 'width=device-width, initial-scale=1' }]
+})
 </script>
 <template>
     <NuxtLayout>

@@ -48,14 +48,15 @@ const selectedFilters = ref([])
 const selectedSeasons = ref([])
 const selectedTeams = ref([])
 function filters(filterValue, type) {
-    if (type === 'Seasons') {
+    if (type === t('components.searchableCards.seasons')) {
         filtersToArray(selectedSeasons, filterValue)
     }
-    if (type === 'Teams') {
+    if (type === t('components.searchableCards.teams')) {
         filtersToArray(selectedTeams, filterValue)
     }
 }
 function filtersToArray(array, filterValue) {
+    console.log('filter added/removed:', filterValue)
     if (array.value.includes(filterValue)) {
         array.value.splice(array.value.indexOf(filterValue), 1)
         selectedFilters.value.splice(selectedFilters.value.indexOf(filterValue), 1)
@@ -63,6 +64,11 @@ function filtersToArray(array, filterValue) {
         array.value.push(filterValue)
         selectedFilters.value.push(filterValue)
     }
+}
+function clearFilters() {
+    selectedFilters.value = []
+    selectedSeasons.value = []
+    selectedTeams.value = []
 }
 
 const availableFilters = computed(() => {
@@ -148,7 +154,7 @@ const placeholderText = computed(() => {
             </div>
             <div class="filter-group">
                 <span class="filter-label label-filter">{{ $t('common.select') }} :</span>
-                <button class="filter-chip btn-chip clear" @click="selectedFilters = []">{{ $t('common.clearFilters') }}</button>
+                <button class="filter-chip btn-chip clear" @click="clearFilters">{{ $t('common.clearFilters') }}</button>
             </div>
         </div>
     </Transition>

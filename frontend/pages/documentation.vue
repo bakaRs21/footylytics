@@ -6,6 +6,7 @@ const { t } = useI18n()
   <h1 class="h1-design">
     {{ $t('pages.documentation.title') }}
   </h1>
+  
 </template>
 
 <style scoped>
