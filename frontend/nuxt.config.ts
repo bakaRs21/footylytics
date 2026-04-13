@@ -37,7 +37,7 @@ export default defineNuxtConfig({
   vite: {
     server: {
       proxy: {
-        "/api" : {
+      "/api/" : {
           target: process.env.NUXT_PUBLIC_API_BASE,
           changeOrigin: true,
           secure: false,

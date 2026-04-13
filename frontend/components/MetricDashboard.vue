@@ -109,7 +109,8 @@ async function fetchSelectedMetrics() {
       (selectedMetricKeys.value ?? []).map(async (metricKey) => {
         const endpoint = endpointForMetricKey(metricKey)
         if (!endpoint) return [metricKey, null]
-        const url = new URL(endpoint, apiBase)
+        let fullUrl = `${apiBase}${endpoint}`
+        const url = new URL(fullUrl)
         url.searchParams.set(props.itemParamName, String(props.itemId))
 
         if (selectedSeason.value && selectedSeason.value !== 'all-seasons') {
