@@ -25,6 +25,7 @@ const pageSections = computed(() => {
       { label: t('manual.sections.teamLogoSection'), anchor: 'team-logo' },
       { label: t('manual.sections.seasonSelection'), anchor: 'season-selection' },
       { label: t('manual.sections.teamStatistics'), anchor: 'team-statistics' },
+      { label: t('manual.sections.teamMatches'), anchor: 'team-matches' },
       { label: t('manual.sections.metricsDashboard'), anchor: 'metrics-dashboard' },
       { label: t('manual.sections.navigationTips'), anchor: 'navigation-tips' }
     );
@@ -46,6 +47,7 @@ const pageSections = computed(() => {
       { label: t('manual.sections.individualSeasonPage'), anchor: 'individual-season' },
       { label: t('manual.sections.seasonStatsSection'), anchor: 'season-stats-section' },
       { label: t('manual.sections.seasonRanking'), anchor: 'season-ranking' },
+      { label: t('manual.sections.seasonMatches'), anchor: 'season-matches' },
       { label: t('manual.sections.seasonNavigation'), anchor: 'season-navigation' },
       { label: t('manual.sections.usageTips'), anchor: 'usage-tips' }
     );
@@ -145,6 +147,27 @@ const pageSections = computed(() => {
           <li><strong>{{ $t('manual.teams.clearStatsButton') }}:</strong> {{ $t('manual.teams.clearStatsButtonDesc') }}</li>
         </ul>
 
+        <h4 id="team-matches">{{ $t('manual.teams.matchesDashboardHeading') }}</h4>
+        <p>{{ $t('manual.teams.matchesOverview') }}</p>
+        <ul>
+          <li><strong>{{ $t('manual.teams.venueFilter') }}:</strong> {{ $t('manual.teams.venueFilterDesc') }}</li>
+          <li><strong>{{ $t('manual.teams.refereeFilter') }}:</strong> {{ $t('manual.teams.refereeFilterDesc') }}</li>
+          <li><strong>{{ $t('manual.teams.matchesTable') }}:</strong> {{ $t('manual.teams.matchesTableDesc') }}</li>
+          <li><strong>{{ $t('manual.teams.matchColumns') }}:</strong>
+            <ul>
+              <li>{{ $t('manual.teams.colDate') }}: {{ $t('manual.teams.colDateDesc') }}</li>
+              <li>{{ $t('manual.teams.colRound') }}: {{ $t('manual.teams.colRoundDesc') }}</li>
+              <li>{{ $t('manual.teams.colTeams') }}: {{ $t('manual.teams.colTeamsDesc') }}</li>
+              <li>{{ $t('manual.teams.colScore') }}: {{ $t('manual.teams.colScoreDesc') }}</li>
+              <li>{{ $t('manual.teams.colVenue') }}: {{ $t('manual.teams.colVenueDesc') }}</li>
+              <li>{{ $t('manual.teams.colReferee') }}: {{ $t('manual.teams.colRefereeDesc') }}</li>
+              <li>{{ $t('manual.teams.colStatus') }}: {{ $t('manual.teams.colStatusDesc') }}</li>
+            </ul>
+          </li>
+        </ul>
+      </section>
+
+      <section id="metrics-dashboard">
         <h4 id="metrics-dashboard">{{ $t('manual.teams.metricsDashboardHeading') }}</h4>
         <p>{{ $t('manual.teams.metricsAdvanced') }}</p>
         <ul>
@@ -159,7 +182,6 @@ const pageSections = computed(() => {
           <li><strong>{{ $t('manual.teams.sharedGraphs') }}:</strong> {{ $t('manual.teams.sharedGraphsDesc') }}</li>
         </ul>
       </section>
-
       <section id="navigation-tips">
         <h3>{{ $t('manual.sections.navigationTips') }}</h3>
         <ul>
@@ -170,7 +192,6 @@ const pageSections = computed(() => {
         </ul>
       </section>
     </div>
-
     <!-- PLAYERS MANUAL -->
     <div v-show="activeTab === 'players'" class="manual-content">
       <h2 id="players-overview">{{ $t('manual.sections.playersOverview') }}</h2>
@@ -265,7 +286,6 @@ const pageSections = computed(() => {
         </ul>
       </section>
     </div>
-
     <!-- SEASONS MANUAL -->
     <div v-show="activeTab === 'seasons'" class="manual-content">
       <h2 id="seasons-overview">{{ $t('manual.sections.seasonsOverview') }}</h2>
@@ -364,10 +384,8 @@ const pageSections = computed(() => {
           </li>
         </ul>
 
-        <!-- Ranking Table Columns -->
         <h4>{{ $t('manual.seasons.rankingTableColumns') }}</h4>
         <ul>
-          <!-- colRank: trophy icons replacing 🏆🥈🥉 -->
           <li>
             <strong>{{ $t('manual.seasons.colRank') }}:</strong> {{ $t('manual.seasons.colRankDesc') }}
             <ul>
@@ -414,6 +432,28 @@ const pageSections = computed(() => {
         </ul>
       </section>
 
+      <section id="season-matches">
+        <h3>{{ $t('manual.sections.seasonMatches') }}</h3>
+        <p>{{ $t('manual.seasons.matchesDescription') }}</p>
+        <ul>
+          <li><strong>{{ $t('manual.seasons.expandMatches') }}:</strong> {{ $t('manual.seasons.expandMatchesDesc') }}</li>
+          <li><strong>{{ $t('manual.seasons.teamFilter') }}:</strong> {{ $t('manual.seasons.teamFilterDesc') }}</li>
+          <li><strong>{{ $t('manual.seasons.refereeFilter') }}:</strong> {{ $t('manual.seasons.refereeFilterDesc') }}</li>
+          <li><strong>{{ $t('manual.seasons.matchesDisplayed') }}:</strong> {{ $t('manual.seasons.matchesDisplayedDesc') }}</li>
+          <li><strong>{{ $t('manual.seasons.matchTableColumns') }}:</strong>
+            <ul>
+              <li>{{ $t('manual.seasons.dateColumn') }}: {{ $t('manual.seasons.dateColumnDesc') }}</li>
+              <li>{{ $t('manual.seasons.roundColumn') }}: {{ $t('manual.seasons.roundColumnDesc') }}</li>
+              <li>{{ $t('manual.seasons.teamsColumn') }}: {{ $t('manual.seasons.teamsColumnDesc') }}</li>
+              <li>{{ $t('manual.seasons.scoreColumn') }}: {{ $t('manual.seasons.scoreColumnDesc') }}</li>
+              <li>{{ $t('manual.seasons.venueColumn') }}: {{ $t('manual.seasons.venueColumnDesc') }}</li>
+              <li>{{ $t('manual.seasons.refereeColumn') }}: {{ $t('manual.seasons.refereeColumnDesc') }}</li>
+              <li>{{ $t('manual.seasons.statusColumn') }}: {{ $t('manual.seasons.statusColumnDesc') }}</li>
+            </ul>
+          </li>
+        </ul>
+      </section>
+
       <section id="season-navigation">
         <h3>{{ $t('manual.sections.seasonNavigation') }}</h3>
         <ul>
@@ -432,7 +472,6 @@ const pageSections = computed(() => {
         </ul>
       </section>
     </div>
-
     <!-- COMPARE MANUAL -->
     <div v-show="activeTab === 'compare'" class="manual-content">
       <h2 id="compare-overview">{{ $t('manual.sections.compareOverview') }}</h2>
@@ -474,7 +513,6 @@ const pageSections = computed(() => {
         </ol>
       </section>
 
-      <!-- SEASON COMPARISON -->
       <section id="season-comparison">
         <h3>{{ $t('manual.sections.seasonComparison') }}</h3>
         <p><strong>URL:</strong> <code>{{ $t('manual.compare.seasonUrl') }}</code></p>
@@ -487,7 +525,6 @@ const pageSections = computed(() => {
           <li>{{ $t('manual.compare.bothSeasons') }}</li>
         </ul>
 
-        <!-- Selection Rules — ❌ / ✅ replaced with Icons -->
         <h4>{{ $t('manual.compare.selectionRules') }}</h4>
         <ul>
           <li>
@@ -515,12 +552,10 @@ const pageSections = computed(() => {
         <ul>
           <li><strong>{{ $t('manual.compare.winnerAnnouncement') }}:</strong>
             <ul>
-              <!-- 👑 replaced with crown icon -->
               <li>
                 <Icon icon="mdi:crown" class="icon-gold" />
                 <strong>{{ $t('manual.compare.winnerText') }}</strong>
               </li>
-              <!-- 🤝 replaced with handshake icon -->
               <li>
                 <Icon icon="mdi:handshake" class="icon-muted" />
                 <strong>{{ $t('manual.compare.tieText') }}</strong>
@@ -553,7 +588,6 @@ const pageSections = computed(() => {
         <h5>{{ $t('manual.compare.metricsGrid') }}</h5>
         <p>{{ $t('manual.compare.gridOrganized') }}</p>
 
-        <!-- ⚽ Season Overview -->
         <div class="metric-category">
           <h6>
             <Icon icon="mdi:soccer" class="icon-category" />
@@ -564,7 +598,6 @@ const pageSections = computed(() => {
           </ul>
         </div>
 
-        <!-- 🎯 Attacking -->
         <div class="metric-category">
           <h6>
             <Icon icon="mdi:target" class="icon-category" />
@@ -575,7 +608,6 @@ const pageSections = computed(() => {
           </ul>
         </div>
 
-        <!-- 🎯 Passing -->
         <div class="metric-category">
           <h6>
             <Icon icon="mdi:arrow-decision" class="icon-category" />
@@ -586,7 +618,6 @@ const pageSections = computed(() => {
           </ul>
         </div>
 
-        <!-- 💥 Duels & Dribbles -->
         <div class="metric-category">
           <h6>
             <Icon icon="mdi:lightning-bolt" class="icon-category" />
@@ -597,7 +628,6 @@ const pageSections = computed(() => {
           </ul>
         </div>
 
-        <!-- 🛡️ Defensive -->
         <div class="metric-category">
           <h6>
             <Icon icon="mdi:shield-half-full" class="icon-category" />
@@ -608,7 +638,6 @@ const pageSections = computed(() => {
           </ul>
         </div>
 
-        <!-- ⚠️ Discipline -->
         <div class="metric-category">
           <h6>
             <Icon icon="mdi:card-account-details" class="icon-category" />
@@ -619,7 +648,6 @@ const pageSections = computed(() => {
           </ul>
         </div>
 
-        <!-- ⚽ Penalties -->
         <div class="metric-category">
           <h6>
             <Icon icon="mdi:soccer-field" class="icon-category" />
@@ -630,7 +658,6 @@ const pageSections = computed(() => {
           </ul>
         </div>
 
-        <!-- Reading the Grid -->
         <h5>{{ $t('manual.compare.readingGrid') }}</h5>
         <ul>
           <li><strong>{{ $t('manual.compare.layoutMetric') }}:</strong>
@@ -638,7 +665,6 @@ const pageSections = computed(() => {
           </li>
           <li><strong>{{ $t('manual.compare.winnerHighlight') }}:</strong>
             <ul>
-              <!-- 🏆 replaced -->
               <li>
                 <Icon icon="mdi:trophy" class="icon-gold" />
                 <strong>{{ $t('manual.compare.boldHighlight') }}</strong>
@@ -648,7 +674,6 @@ const pageSections = computed(() => {
           </li>
           <li><strong>{{ $t('manual.compare.colorCoding') }}:</strong>
             <ul>
-              <!-- 🟢 🔴 🟡 replaced with colored circle icons -->
               <li>
                 <Icon icon="mdi:circle" class="icon-success" />
                 <span style="color: #22c55e;">{{ $t('manual.compare.codeGreen') }}</span>
@@ -667,7 +692,6 @@ const pageSections = computed(() => {
           <li><strong>{{ $t('manual.compare.missingData') }}:</strong> {{ $t('manual.compare.missingDataDesc') }}</li>
         </ul>
 
-        <!-- Lower is Better -->
         <h4>{{ $t('manual.compare.lowerBetter') }}</h4>
         <p>
           <Icon icon="mdi:arrow-down-bold" class="icon-warning" />
@@ -680,7 +704,6 @@ const pageSections = computed(() => {
         </ul>
       </section>
 
-      <!-- TEAM COMPARISON -->
       <section id="team-comparison">
         <h3>{{ $t('manual.sections.teamComparison') }}</h3>
         <p><strong>URL:</strong> <code>{{ $t('manual.compare.teamUrl') }}</code></p>
@@ -695,14 +718,12 @@ const pageSections = computed(() => {
               <li>{{ $t('manual.compare.useStep3') }}</li>
               <li>{{ $t('manual.compare.useStep4') }}</li>
               <li>
-                <!-- ❌ replaced -->
                 <Icon icon="mdi:close-circle" class="icon-error" />
                 {{ $t('manual.compare.useStep5') }}
               </li>
               <li>{{ $t('manual.compare.useStep6') }}</li>
             </ol>
           </li>
-          <!-- Visual Indicators: ⬇️ ⬆️ ❌ replaced -->
           <li><strong>{{ $t('manual.compare.visualIndicators') }}:</strong>
             <ul>
               <li>
@@ -740,7 +761,6 @@ const pageSections = computed(() => {
           </li>
         </ul>
 
-        <!-- Selection Rules -->
         <h4>{{ $t('manual.compare.teamSelectionRules') }}</h4>
         <ul>
           <li>
@@ -766,7 +786,6 @@ const pageSections = computed(() => {
         <p>{{ $t('manual.compare.sameAsSeasonComp') }}</p>
         <ul>
           <li>
-            <!-- 👑 / 🤝 replaced -->
             <Icon icon="mdi:crown" class="icon-gold" />
             {{ $t('manual.compare.teamWinnerBadge') }}
           </li>
@@ -777,7 +796,6 @@ const pageSections = computed(() => {
         <h5>{{ $t('manual.compare.teamMetrics') }}</h5>
         <p>{{ $t('manual.compare.organized3') }}</p>
 
-        <!-- ⚽ Matches Overview -->
         <div class="metric-category">
           <h6>
             <Icon icon="mdi:soccer" class="icon-category" />
@@ -788,7 +806,6 @@ const pageSections = computed(() => {
           </ul>
         </div>
 
-        <!-- 🎯 Goals & Performance -->
         <div class="metric-category">
           <h6>
             <Icon icon="mdi:target" class="icon-category" />
@@ -798,8 +815,6 @@ const pageSections = computed(() => {
             <li>{{ $t('manual.compare.goalsPerformanceDesc') }}</li>
           </ul>
         </div>
-
-        <!-- 📈 Streaks -->
         <div class="metric-category">
           <h6>
             <Icon icon="mdi:trending-up" class="icon-category" />
@@ -809,8 +824,6 @@ const pageSections = computed(() => {
             <li>{{ $t('manual.compare.streaksDesc') }}</li>
           </ul>
         </div>
-
-        <!-- Formations Section -->
         <h5>{{ $t('manual.compare.formationsSection') }}</h5>
         <p>{{ $t('manual.compare.tacticalsFormations') }}</p>
         <ul>
@@ -822,7 +835,6 @@ const pageSections = computed(() => {
               <li>{{ $t('manual.compare.expandableDesc') }}</li>
               <li>{{ $t('manual.compare.showsLineup') }}</li>
               <li>
-                <!-- 🔽 replaced -->
                 <Icon icon="mdi:chevron-down" class="icon-muted" />
                 {{ $t('manual.compare.arrowRotates') }}
               </li>
@@ -830,8 +842,6 @@ const pageSections = computed(() => {
             </ul>
           </li>
         </ul>
-
-        <!-- Recent Form Section -->
         <h5>{{ $t('manual.compare.recentForm') }}</h5>
         <p>{{ $t('manual.compare.visualForm') }}</p>
         <ul>
@@ -846,8 +856,6 @@ const pageSections = computed(() => {
           <li><strong>{{ $t('manual.compare.readingDirection') }}:</strong> {{ $t('manual.compare.readingDirectionDesc') }}</li>
           <li><strong>{{ $t('manual.compare.hoverScale') }}:</strong> {{ $t('manual.compare.hoverScaleDesc') }}</li>
         </ul>
-
-        <!-- Penalties Section -->
         <h5>{{ $t('manual.compare.penaltiesSection') }}</h5>
         <p>{{ $t('manual.compare.penaltyKicks') }}</p>
         <ul>
@@ -856,8 +864,6 @@ const pageSections = computed(() => {
           <li><strong>{{ $t('manual.compare.penaltyMissed') }}:</strong> {{ $t('manual.compare.penaltyMissedDesc') }}</li>
         </ul>
       </section>
-
-      <!-- PLAYER COMPARISON -->
       <section id="player-comparison">
         <h3>{{ $t('manual.sections.playerComparison') }}</h3>
         <p><strong>URL:</strong> <code>{{ $t('manual.compare.playerUrl') }}</code></p>
@@ -893,8 +899,6 @@ const pageSections = computed(() => {
             </ul>
           </li>
         </ul>
-
-        <!-- Selection Rules -->
         <h4>{{ $t('manual.compare.playerSelectionRules') }}</h4>
         <ul>
           <li>
@@ -909,7 +913,6 @@ const pageSections = computed(() => {
         </ul>
 
         <h4>{{ $t('manual.compare.step3ViewPlayerResults') }}</h4>
-
         <h5>{{ $t('manual.compare.playerComparisonHeader') }}</h5>
         <ul>
           <li>{{ $t('manual.compare.playerHeaderLayout') }}</li>
@@ -925,8 +928,6 @@ const pageSections = computed(() => {
 
         <h5>{{ $t('manual.compare.playerMetricsComp') }}</h5>
         <p>{{ $t('manual.compare.organized6') }}</p>
-
-        <!-- ⏱️ Game Time -->
         <div class="metric-category">
           <h6>
             <Icon icon="mdi:timer-outline" class="icon-category" />
@@ -936,8 +937,6 @@ const pageSections = computed(() => {
             <li>{{ $t('manual.compare.gameTimeDesc') }}</li>
           </ul>
         </div>
-
-        <!-- ⚽ Attacking -->
         <div class="metric-category">
           <h6>
             <Icon icon="mdi:soccer" class="icon-category" />
@@ -947,8 +946,6 @@ const pageSections = computed(() => {
             <li>{{ $t('manual.compare.attackingPlayerDesc') }}</li>
           </ul>
         </div>
-
-        <!-- 🎯 Passing -->
         <div class="metric-category">
           <h6>
             <Icon icon="mdi:target" class="icon-category" />
@@ -958,8 +955,6 @@ const pageSections = computed(() => {
             <li>{{ $t('manual.compare.passingPlayerDesc') }}</li>
           </ul>
         </div>
-
-        <!-- 🛡️ Defensive -->
         <div class="metric-category">
           <h6>
             <Icon icon="mdi:shield-half-full" class="icon-category" />
@@ -980,8 +975,6 @@ const pageSections = computed(() => {
             <li>{{ $t('manual.compare.disciplinePlayerDesc') }}</li>
           </ul>
         </div>
-
-        <!-- 🧤 Goalkeeper -->
         <div class="metric-category">
           <h6>
             <Icon icon="mdi:handball" class="icon-category" />
@@ -991,8 +984,6 @@ const pageSections = computed(() => {
             <li>{{ $t('manual.compare.goalkeeperDesc') }}</li>
           </ul>
         </div>
-
-        <!-- Penalties -->
         <h5>{{ $t('manual.compare.penaltiesPlayer') }}</h5>
         <p>{{ $t('manual.compare.ifEither') }}</p>
         <ul>
@@ -1001,8 +992,6 @@ const pageSections = computed(() => {
           <li>{{ $t('manual.compare.penaltyZero') }}</li>
         </ul>
       </section>
-
-      <!-- NAVIGATION FEATURES -->
       <section id="navigation-features">
         <h3>{{ $t('manual.sections.navigationFeatures') }}</h3>
 
@@ -1044,8 +1033,6 @@ const pageSections = computed(() => {
           <li><strong>{{ $t('manual.compare.noStatsMsg') }}</strong></li>
         </ul>
       </section>
-
-      <!-- VISUAL DESIGN -->
       <section id="visual-design">
         <h3>{{ $t('manual.sections.visualDesign') }}</h3>
 
@@ -1071,8 +1058,6 @@ const pageSections = computed(() => {
           <li><strong>{{ $t('manual.compare.mobile') }}:</strong> {{ $t('manual.compare.mobileDesc') }}</li>
         </ul>
       </section>
-
-      <!-- ADVANCED TIPS -->
       <section id="advanced-tips">
         <h3>{{ $t('manual.sections.advancedTips') }}</h3>
 
@@ -1122,8 +1107,6 @@ const pageSections = computed(() => {
           <li><strong>{{ $t('manual.compare.fastLoading') }}:</strong> {{ $t('manual.compare.fastLoadingDesc') }}</li>
         </ul>
       </section>
-
-      <!-- TROUBLESHOOTING -->
       <section id="troubleshooting">
         <h3>{{ $t('manual.sections.troubleshooting') }}</h3>
 
@@ -1158,8 +1141,6 @@ const pageSections = computed(() => {
           <li>Try manually reselecting items if URL fails</li>
         </ul>
       </section>
-
-      <!-- KEYBOARD SHORTCUTS -->
       <section id="keyboard-shortcuts">
         <h3>{{ $t('manual.sections.keyboardShortcuts') }}</h3>
         <ul>
@@ -1170,8 +1151,6 @@ const pageSections = computed(() => {
           <li><strong>Click/Tap:</strong> Primary interaction method</li>
         </ul>
       </section>
-
-      <!-- QUICK REFERENCE -->
       <section id="quick-reference">
         <h3>{{ $t('manual.sections.quickReference') }}</h3>
 
@@ -1230,7 +1209,6 @@ const pageSections = computed(() => {
             {{ $t('manual.compare.goalkeeper') }}
           </li>
         </ul>
-
         <h4>Universal Features</h4>
         <ul>
           <li><Icon icon="mdi:check-circle" class="icon-success" /> {{ $t('manual.compare.winnerBanner') }}</li>

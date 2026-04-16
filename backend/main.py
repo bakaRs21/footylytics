@@ -7,9 +7,10 @@ from scripts.schema_updated import TableEnum
 from Database import Base, engine, get_session
 from fastapi import APIRouter
 from scripts import users as users_data
-from scripts import teamData as team_data
-from scripts import seasons as seasons_data
+from scripts import teamsData as team_data
+from scripts import seasonsData as seasons_data
 from scripts import playersData as players_data
+from scripts import refereesData as referee_data
 from scripts.load_from_csv import run_loader_once, run_loader_periodically
 from metrics.PlayerMetrics import player_metrics, playerM_options
 from metrics.TeamMetrics import metric_options, team_metrics
@@ -47,6 +48,7 @@ compare = APIRouter(prefix="/compare", tags=["Compare Page"])
 seasons = APIRouter(prefix="/seasons", tags=["Seasons Page"])
 teams = APIRouter(prefix="/teams", tags=["Teams Page"])
 players = APIRouter(prefix="/players", tags=["Players Page"])
+referees = APIRouter(prefix="/referees", tags=["Referees"])
 
 app.add_middleware(
     CORSMiddleware,
@@ -126,6 +128,9 @@ async def get_team_seasons(team_id: int, db: Session = Depends(get_session)):
 async def get_team_stats(team_id: int, season_id: int | None = None, db: Session = Depends(get_session)):
     return await team_data.team_stats_from_season(team_id, season_id, db)
 
+@teams.get("/{team_id}/matches/{season_id}")
+async def get_team_matches(team_id: int, season_id: int, db: Session = Depends(get_session)):
+    return await team_data.team_matches(team_id, season_id, db)
 
 # from players page
 @players.get("/with-seasons-teams")
@@ -149,11 +154,20 @@ async def get_player_stats(player_id: int, season_id: int | None = None, db: Ses
 def get_teams_in_season(season_id: int, db: Session = Depends(get_session)):
     return team_data.teams_from_season(season_id, db)
 
+@seasons.get("/{season_id}/matches")
+def get_matches_in_season(season_id: int, db: Session = Depends(get_session)):
+    return seasons_data.get_matches_in_season(season_id, db)
+
+@referees.get("")
+def get_referees(db: Session = Depends(get_session)):
+    return referee_data.get_referees(db)
+
 app.include_router(seasons)
 app.include_router(common)
 app.include_router(compare)
 app.include_router(teams)
 app.include_router(players)
+app.include_router(referees)
 app.include_router(season_metrics.router)
 app.include_router(player_metrics.router)
 app.include_router(playerM_options.router)

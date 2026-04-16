@@ -247,7 +247,7 @@ def run_loader_once(db: Session):
     base = Path(__file__).resolve().parent.parent  # backend/
     teams_csv = base / "datasets" / "Teams_2010-2024.csv"
     players_csv = base / "datasets" / "Players_2010-2024.csv"
-    matches_csv = base / "datasets" / "All_Matches_2010-2024.csv"
+    matches_csv = base / "datasets" / "All_Matches_2010-2024_cleaned.csv"
 
     Base.metadata.create_all(bind=engine)  # ensure tables exist
 

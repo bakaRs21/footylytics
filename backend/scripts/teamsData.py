@@ -1,5 +1,5 @@
 from typing import List, Optional
-from scripts.models_updated import Team, TeamSeason, Season
+from scripts.models_updated import Team, TeamSeason, Season, Match
 from sqlalchemy.orm import Session, joinedload
 
     #get all teams
@@ -74,5 +74,18 @@ async def teams_with_seasons(session: Session):
             }
             for team in teams
         ]
+    finally:
+        session.close()
+
+async def team_matches(team_id: int, season_id: int, session: Session):
+    try:
+        matches = (session.query(Match)
+                   .filter(((Match.home_team_id == team_id) | (Match.away_team_id == team_id)))
+                )
+        if season_id:
+            matches = matches.filter(Match.season_id == season_id).all()
+        if not matches:
+            raise ValueError(f"Matches for team with id {team_id} in season with id {season_id} not found")
+        return matches
     finally:
         session.close()

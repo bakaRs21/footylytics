@@ -63,7 +63,6 @@ function clearStats() {
 </script>
 
 <template>
-<div class="tsd-wrapper">
     <div @click="showStats = !showStats" class="title-with-arrows tooltip" :data-tooltip="$t('statistics.tooltips.showStats')" >
         <Icon icon="mdi:chevron-down" />
         <h2 class="stats-h2" id="stats">{{ $t('components.teamStatsDashboard.title') }}</h2>
@@ -201,14 +200,9 @@ function clearStats() {
         </div>
         <button class="eraseStatsButton" @click="clearStats">Clear Stats</button>
     </div>
-</div>
 </template>
 
 <style scoped>
-.tsd-wrapper {
-    padding-bottom: 20px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.281);
-}
 .dashboard-wrapper {
     width: 100%;
     margin-top: 10px;

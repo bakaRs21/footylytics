@@ -95,16 +95,26 @@ li {
   border-bottom: 1px solid rgba(255, 255, 255, 0.281);
 }
 .stats {
-  margin-bottom: 70px;
+  margin-bottom: 100px;
+  padding-bottom: 40px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.281);
+}
+.matches {
+  margin-bottom: 100px;
+  padding-bottom: 40px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.281);
 }
 .metrics {
   margin-bottom: 100px;
+  padding-bottom: 40px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.281);
 }
 
 #top-section,
 #seasons,
 #stats,
 #manual-selection,
+#matches,
 #metrics,
 #teams-overview,
 #teams-index,

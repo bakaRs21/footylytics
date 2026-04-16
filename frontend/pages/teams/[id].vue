@@ -11,15 +11,20 @@ const id = ref(route.params.id || "")
 const pageParam = 'team_id'
 const selectedSeason = ref("")
 const seasonParam = ref("")
+const matchesSeasonParam = ref("")
 const onMountedMsg = ref("")
 const stats = ref({})
 const statsStatus = ref("")
 const statsError = ref("")
+const matches = ref([])
+const referees = ref([])
+const showMatches = ref(false)
 const showMetrics = ref(false)
 const sections = [
   { label: t("pages.teams.sections.logo"), anchor: "top-section" },
   { label: t("pages.teams.sections.seasonSelection"), anchor: "seasons" },
   { label: t("pages.teams.sections.teamStats"), anchor: "stats" },
+  { label: t("pages.teams.sections.matches"), anchor: "matches" },
   { label: t("pages.teams.sections.metricsSelection"), anchor: "metrics" },
 ]
 watch(() => stats.value, (newVal) => {
@@ -81,30 +86,45 @@ watch(() => teamInfo.value.logo, () => {
 function seasonSelected(season) {
   selectedSeason.value = season;
 }
-watch(() => selectedSeason.value, async (newVal) => {
+watch(() => selectedSeason.value, async (newSeason) => {
   seasonParam.value = ""
-  if (newVal === 0) {
+  if (newSeason === 0) {
     await router.replace({ query: { ...route.query, season: 'all-seasons' } })
-  } else {
-    await router.replace({ query: { ...route.query, season: newVal} })
+  } else if (newSeason) {
+    await router.replace({ query: { ...route.query, season: newSeason} })
   }
   await Inspection()
 })
+watch(() => matchesSeasonParam.value, async (newMatchesSeason) => {
+  if (newMatchesSeason) {
+    await router.replace({ query: { ...route.query, matchesSeason: newMatchesSeason} })
+    await Inspection()
+  }
+})
 async function Inspection() {
-  if (!route.query.season) {
-    return onMountedMsg.value = t("pages.players.errorMessages.selectSeason")
+  if (!route.query.season || !route.query.matchesSeason) {
+    onMountedMsg.value = t("pages.players.errorMessages.selectSeason")
   }
   if (route.query.season === "all-seasons") {
     seasonParam.value = ""
-  } else if (route.query.season) {
+  }
+  if (route.query.season) {
     seasonParam.value = `&season_id=${route.query.season}`
   }
   onMountedMsg.value = ""
   statsStatus.value = "pending"
   statsError.value = ""
   try {
-    const data = await $fetch(`${config.public.apiBase}team-metrics/basic-stats?team_id=${id.value}${seasonParam.value}`)
-    stats.value = data
+    if (route.query.matchesSeason) {
+      const matchData = await $fetch(`${config.public.apiBase}teams/${id.value}/matches/${route.query.matchesSeason}`)
+      const refereesData = await $fetch(`${config.public.apiBase}referees`)
+      matches.value = matchData
+      referees.value = refereesData
+    }
+    if (route.query.season) {
+      const data = await $fetch(`${config.public.apiBase}team-metrics/basic-stats?team_id=${id.value}${seasonParam.value}`)
+      stats.value = data
+    }
     statsStatus.value = ""
   } catch (error) {
     statsError.value = error.message
@@ -155,6 +175,21 @@ onMounted(() => {
       </div>
       <div>
         <TeamStatsDashoBoard v-model="stats"/>
+      </div>
+    </div>
+    <div class="matches">
+      <div @click="showMatches = !showMatches" class="title-with-arrows" style="cursor: pointer;">
+        <Icon icon="mdi:chevron-down" />
+        <h2 id="matches">{{ $t('pages.teams.sections.matches') }}</h2>
+        <Icon icon="mdi:chevron-down" />
+      </div>
+      <div class="seasons" v-if="showMatches" style="margin-bottom: 50px;">
+        <div class="team-seasons">
+          <Card v-for="season in teamSeasons" :key="season" @click="() => matchesSeasonParam = season">{{ season }}</Card>
+        </div>
+      </div>
+      <div v-if="showMatches && matches.length > 0">
+        <MatchesDashboard :matches="matches" :referees="referees" :page="'team'" />
       </div>
     </div>
     <div class="metrics">

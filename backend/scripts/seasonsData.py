@@ -1,5 +1,5 @@
 from typing import Optional
-from scripts.models_updated import Season
+from scripts.models_updated import Season, Match
 from typing import List
 from sqlalchemy.orm import Session
 
@@ -39,3 +39,11 @@ def get_season(season_id: int, session: Session) -> Optional[Season]:
     finally:
         session.close()
 
+def get_matches_in_season(season_id: int, session: Session):
+    try:
+        matches = session.query(Match).filter(Match.season_id == season_id).all()
+        if not matches:
+            raise ValueError(f"Matches for season with id {season_id} not found")
+        return matches
+    finally:
+        session.close()

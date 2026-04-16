@@ -272,7 +272,7 @@ function formClass(wins, draws, losses) {
 .table-scroll {
     overflow-x: auto;
     border-radius: 10px;
-    border: 1px solid rgba(61, 214, 140, 0.12);
+    border: 1px solid rgba(61, 214, 140, 0.35);
     backdrop-filter: blur(10px);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
 }
