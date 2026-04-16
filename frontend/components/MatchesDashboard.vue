@@ -147,15 +147,17 @@ const filteredMatches = computed(() => {
 })
 
 const teamStats = computed(() => {
-    if (selectedTeamId.value === null) return { wins: 0, losses: 0 }
+    const teamId = props.page === 'team' ? focalTeamId.value : selectedTeamId.value
+    if (teamId === null) return { wins: 0, losses: 0 }
+    
     let wins = 0
     let losses = 0
 
     for (const match of filteredMatches.value) {
         if (match.goals_home === null || match.goals_away === null) continue
 
-        const isHome = match.home_team_id === selectedTeamId.value
-        const isAway = match.away_team_id === selectedTeamId.value
+        const isHome = match.home_team_id === teamId
+        const isAway = match.away_team_id === teamId
 
         if (isHome) {
             if (match.goals_home > match.goals_away) wins++
@@ -207,7 +209,7 @@ const teamStats = computed(() => {
         </div>
       <span class="subtitle-text" style="margin-left: auto;">
         {{ filteredMatches.length }} matches
-        <span v-if="selectedTeamId">
+        <span v-if="(page === 'season' && selectedTeamId) || page === 'team'">
             <span style="color: lightgreen;">{{ teamStats.wins }}W</span>
             <span style="color: red;">{{ teamStats.losses }}L</span>
         </span>
