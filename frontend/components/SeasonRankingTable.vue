@@ -268,7 +268,6 @@ function formClass(wins, draws, losses) {
 .sort-btn-icon  { font-size: 0.9rem; }
 .sort-dir-icon  { font-size: 0.85rem; margin-left: 0.1rem; }
 
-/* ── Table scroll wrapper ── */
 .table-scroll {
     overflow-x: auto;
     border-radius: 10px;
@@ -277,7 +276,6 @@ function formClass(wins, draws, losses) {
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
 }
 
-/* ── Table ── */
 .ranking-table {
     width: 100%;
     border-collapse: collapse;
@@ -345,7 +343,6 @@ function formClass(wins, draws, losses) {
 .rank-trophy.silver { color: #94a3b8; }
 .rank-trophy.bronze { color: #c07842; }
 
-/* ── Team cell ── */
 .team-cell {
     display: flex;
     flex-direction: column;
@@ -372,7 +369,6 @@ function formClass(wins, draws, losses) {
 .form-poor  .form-fill { background: rgba(251, 146, 60,  0.85); }
 .form-bad   .form-fill { background: rgba(239, 68,  68,  0.8);  }
 
-/* ── Points badge ── */
 .col-pts { font-weight: 700; }
 
 .pts-badge {

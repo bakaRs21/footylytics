@@ -1,6 +1,6 @@
 <script setup>
 import { computed, ref, watch } from 'vue'
-import MultiSelect from './MultiSelect.vue'
+import MultiSelect from './ForStats/MultiSelect.vue'
 import { Icon } from '@iconify/vue'
 
 const { t } = useI18n()

@@ -10,43 +10,43 @@ from scripts.models_updated import (
     Player, TeamSeason, PlayerSeason, Match
 )
 
-def to_int(v: Any) -> Optional[int]:
+def to_int(val: Any) -> Optional[int]:
     try:
-        if v in (None, "", "None"):
+        if val in (None, "", "None"):
             return None
-        return int(float(str(v)))
+        return int(float(str(val)))
     except ValueError:
         return None
 
-def to_float(v: Any) -> Optional[float]:
+def to_float(val: Any) -> Optional[float]:
     try:
-        if v in (None, "", "None"):
+        if val in (None, "", "None"):
             return None
-        s = str(v).replace("%", "").strip()
+        s = str(val).replace("%", "").strip()
         return float(s)
     except ValueError:
         return None
 
-def to_bool(v: Any) -> Optional[bool]:
-    if v in (None, "", "None"):
+def to_bool(val: Any) -> Optional[bool]:
+    if val in (None, "", "None"):
         return None
-    s = str(v).strip().lower()
-    if s in ("true", "t", "1", "yes", "y"):
+    str_val = str(val).strip().lower()
+    if str_val in ("true", "t", "1", "yes", "y"):
         return True
-    if s in ("false", "f", "0", "no", "n"):
+    if str_val in ("false", "f", "0", "no", "n"):
         return False
     return None
 
 def height_to_meters(raw: Any) -> Optional[float]:
     if raw in (None, "", "None"):
         return None
-    s = str(raw)
-    if re.match(r"^\d\.\d+$", s):
+    str_raw = str(raw)
+    if re.match(r"^\d\.\d+$", str_raw):
         try:
-            return float(s)
+            return float(str_raw)
         except ValueError:
             return None
-    digits = re.findall(r"\d+", s)
+    digits = re.findall(r"\d+", str_raw)
     if digits:
         try:
             cm = int(digits[0])
@@ -55,13 +55,12 @@ def height_to_meters(raw: Any) -> Optional[float]:
             return None
     return None
 
-TEAM_SEASON_FIELDS = {c.name for c in TeamSeason.__table__.columns if c.name not in ("team_id", "season_id")}
-PLAYER_SEASON_FIELDS = {c.name for c in PlayerSeason.__table__.columns if c.name not in ("player_id", "season_id", "team_id")}
-MATCH_FIELDS = {c.name for c in Match.__table__.columns}
+TEAM_SEASON_FIELDS = {col.name for col in TeamSeason.__table__.columns if col.name not in ("team_id", "season_id")}
+PLAYER_SEASON_FIELDS = {col.name for col in PlayerSeason.__table__.columns if col.name not in ("player_id", "season_id", "team_id")}
+MATCH_FIELDS = {col.name for col in Match.__table__.columns}
 
 
 def load_teams_and_seasons(teams_csv: Path, db: Session):
-    # First pass: Seasons and Teams with cached existing IDs
     with teams_csv.open(newline="", encoding="utf-8") as f:
         reader = csv.DictReader(f)
         existing_seasons = {sid for (sid,) in db.query(Season.season_id).all()}
@@ -83,7 +82,6 @@ def load_teams_and_seasons(teams_csv: Path, db: Session):
                 existing_teams.add(team_id)
         db.commit()
 
-    # Second pass: TeamSeason (composite PK check uses tuple in PK order)
     with teams_csv.open(newline="", encoding="utf-8") as f:
         reader = csv.DictReader(f)
         for row in reader:
@@ -94,20 +92,19 @@ def load_teams_and_seasons(teams_csv: Path, db: Session):
             if db.get(TeamSeason, (team_id, season_id)):
                 continue
 
-            ts_kwargs = {"season_id": season_id, "team_id": team_id}
-            for k, v in row.items():
-                if k in TEAM_SEASON_FIELDS:
-                    if "percentage" in k or "average" in k:
-                        ts_kwargs[k] = to_float(v)
-                    elif k.startswith(("fixtures_", "goals_", "clean_sheet", "failed_to_score", "penalty_", "cards_")):
-                        ts_kwargs[k] = to_int(v)
+            team_season_args = {"season_id": season_id, "team_id": team_id}
+            for key, val in row.items():
+                if key in TEAM_SEASON_FIELDS:
+                    if "percentage" in key or "average" in key:
+                        team_season_args[key] = to_float(val)
+                    elif key.startswith(("fixtures_", "goals_", "clean_sheet", "failed_to_score", "penalty_", "cards_")):
+                        team_season_args[key] = to_int(val)
                     else:
-                        ts_kwargs[k] = v if v not in ("", "None") else None
-            db.add(TeamSeason(**ts_kwargs))
+                        team_season_args[key] = val if val not in ("", "None") else None
+            db.add(TeamSeason(**team_season_args))
         db.commit()
 
 def load_players(players_csv: Path, db: Session):
-    # First pass: Players and Nations
     with players_csv.open(newline="", encoding="utf-8") as f:
         reader = csv.DictReader(f)
         nation_cache = {}
@@ -141,7 +138,6 @@ def load_players(players_csv: Path, db: Session):
                 existing_players.add(player_id)
         db.commit()
 
-    # Second pass: PlayerSeason
     with players_csv.open(newline="", encoding="utf-8") as f:
         reader = csv.DictReader(f)
         for row in reader:
@@ -153,16 +149,16 @@ def load_players(players_csv: Path, db: Session):
             if db.get(PlayerSeason, (player_id, season_id, team_id)):
                 continue
 
-            ps_kwargs = {"player_id": player_id, "season_id": season_id, "team_id": team_id}
-            for k, v in row.items():
-                if k in PLAYER_SEASON_FIELDS:
-                    if k == "games_rating":
-                        ps_kwargs[k] = to_float(v)
-                    elif k.startswith(("games_", "substitutes_", "shots_", "goals_", "passes_", "tackles_", "duels_", "dribbles_", "fouls_", "cards_", "penalty_")):
-                        ps_kwargs[k] = to_int(v)
+            player_season_args = {"player_id": player_id, "season_id": season_id, "team_id": team_id}
+            for key, val in row.items():
+                if key in PLAYER_SEASON_FIELDS:
+                    if key == "games_rating":
+                        player_season_args[key] = to_float(val)
+                    elif key.startswith(("games_", "substitutes_", "shots_", "goals_", "passes_", "tackles_", "duels_", "dribbles_", "fouls_", "cards_", "penalty_")):
+                        player_season_args[key] = to_int(val)
                     else:
-                        ps_kwargs[k] = v if v not in ("", "None") else None
-            db.add(PlayerSeason(**ps_kwargs))
+                        player_season_args[key] = val if val not in ("", "None") else None
+            db.add(PlayerSeason(**player_season_args))
         db.commit()
 
 def load_matches(matches_csv: Path, db: Session):
@@ -213,43 +209,43 @@ def load_matches(matches_csv: Path, db: Session):
                         referee_id = ref_obj.referee_id
                     ref_cache[ref_name] = referee_id
 
-            match_kwargs = {"fixture_id": fixture_id}
-            for k, v in row.items():
-                if k not in MATCH_FIELDS or k == "fixture_id":
+            match_args = {"fixture_id": fixture_id}
+            for key, val in row.items():
+                if key not in MATCH_FIELDS or key == "fixture_id":
                     continue
-                if k in ("fixture_timestamp", "fixture_periods_first", "fixture_periods_second",
+                if key in ("fixture_timestamp", "fixture_periods_first", "fixture_periods_second",
                          "fixture_venue_id", "fixture_status_elapsed", "fixture_status_extra",
                          "league_id", "score_halftime_home", "score_halftime_away",
                          "score_fulltime_home", "score_fulltime_away",
                          "score_extratime_home", "score_extratime_away",
                          "score_penalty_home", "score_penalty_away",
                          "goals_home", "goals_away"):
-                    match_kwargs[k] = to_int(v)
-                elif k in ("league_standings", "teams_home_winner", "teams_away_winner"):
-                    match_kwargs[k] = to_bool(v)
+                    match_args[key] = to_int(val)
+                elif key in ("league_standings", "teams_home_winner", "teams_away_winner"):
+                    match_args[key] = to_bool(val)
                 else:
-                    match_kwargs[k] = v if v not in ("", "None") else None
+                    match_args[key] = val if val not in ("", "None") else None
 
             if referee_id is not None:
-                match_kwargs["referee_id"] = referee_id
+                match_args["referee_id"] = referee_id
             if season_id:
-                match_kwargs["season_id"] = season_id
+                match_args["season_id"] = season_id
             if home_id:
-                match_kwargs["home_team_id"] = home_id
+                match_args["home_team_id"] = home_id
             if away_id:
-                match_kwargs["away_team_id"] = away_id
+                match_args["away_team_id"] = away_id
 
-            db.add(Match(**match_kwargs))
+            db.add(Match(**match_args))
             existing_matches.add(fixture_id)
         db.commit()
 
 def run_loader_once(db: Session):
-    base = Path(__file__).resolve().parent.parent  # backend/
+    base = Path(__file__).resolve().parent.parent
     teams_csv = base / "datasets" / "Teams_2010-2024.csv"
     players_csv = base / "datasets" / "Players_2010-2024.csv"
     matches_csv = base / "datasets" / "All_Matches_2010-2024_cleaned.csv"
 
-    Base.metadata.create_all(bind=engine)  # ensure tables exist
+    Base.metadata.create_all(bind=engine)
 
     load_teams_and_seasons(teams_csv, db)
     load_players(players_csv, db)

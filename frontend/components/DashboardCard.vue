@@ -1,6 +1,6 @@
 <script setup>
     import { ref, computed } from 'vue';
-import DataSelector from './DataSelector.vue';
+import DataSelector from './ForStats/DataSelector.vue';
 import BarChart from './Charts/BarChart.vue';
 import DonutChart from './Charts/DonutChart.vue';
 import LineChart from './Charts/LineChart.vue';

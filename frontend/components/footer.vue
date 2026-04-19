@@ -25,9 +25,9 @@ const localePath = useLocalePath()
           </ul>
         </div>
       </div>
-    <div>
-      <p>{{ $t('components.footer.copyright') }}</p>
-    </div>
+      <div>
+        <p>{{ $t('components.footer.copyright') }}</p>
+      </div>
     </div>
   </footer>
 </template>
@@ -41,14 +41,10 @@ const localePath = useLocalePath()
   color: #e5e7eb;  
   text-align: center;
   border-top: 1px solid #374151;
+  padding: 1.5rem 1rem;
   width: 100%;
 }
 .footer-layout {
-  max-width: 80rem;
-  width: 100%;
-  margin-left: auto;
-  margin-right: auto;
-  padding: 1.5rem 1rem;
   display: flex;
   flex-direction: column;
   gap: 1rem;
