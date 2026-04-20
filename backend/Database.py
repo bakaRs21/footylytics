@@ -3,9 +3,6 @@ from sqlalchemy.orm import sessionmaker, declarative_base
 from dotenv import find_dotenv, load_dotenv
 import os
 
-dotenvpath = find_dotenv()
-load_dotenv(dotenvpath)
-
 POSTGRES_USER = os.environ.get("DB_USER")
 POSTGRES_PASSWORD = os.environ.get("DB_PASSWORD")
 POSTGRES_HOST = os.environ.get("DB_HOST")
