@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 import { Icon } from '@iconify/vue';
 
+const route = useRoute()
 const localePath = useLocalePath()
 const menuOpen = ref(false)
 
@@ -26,12 +27,12 @@ const toggleMenu = () => {
                         <LanguageSwitcher />
                     </div> 
                     <ul class="menu" :class="{ 'menu-open': menuOpen }">
-                        <li><NuxtLink :to="localePath('/compare')" @click="menuOpen = false">{{ $t('navigation.compare') }}</NuxtLink></li>
-                        <li><NuxtLink :to="localePath('/seasons/')" @click="menuOpen = false">{{ $t('navigation.seasons') }}</NuxtLink></li>
-                        <li><NuxtLink :to="localePath('/teams/')" @click="menuOpen = false">{{ $t('navigation.teams') }}</NuxtLink></li>
-                        <li><NuxtLink :to="localePath('/players/')" @click="menuOpen = false">{{ $t('navigation.players') }}</NuxtLink></li>
-                        <li><NuxtLink :to="localePath('/documentation')" class="docs" @click="menuOpen = false">{{ $t('navigation.documentation') }}</NuxtLink></li>
-                        <li><NuxtLink :to="localePath('/manual')" class="manual" @click="menuOpen = false">{{ $t('navigation.manual') }}</NuxtLink></li>
+                        <li><NuxtLink :to="localePath('/compare')" @click="menuOpen = false" :class="{ 'nav-active': route.path.includes('/compare')}">{{ $t('navigation.compare') }}</NuxtLink></li>
+                        <li><NuxtLink :to="localePath('/seasons')" @click="menuOpen = false" :class="{ 'nav-active': route.path.includes('/seasons')}">{{ $t('navigation.seasons') }}</NuxtLink></li>
+                        <li><NuxtLink :to="localePath('/teams')" @click="menuOpen = false" :class="{ 'nav-active': route.path.includes('/teams')}">{{ $t('navigation.teams') }}</NuxtLink></li>
+                        <li><NuxtLink :to="localePath('/players')" @click="menuOpen = false" :class="{ 'nav-active': route.path.includes('/players')}">{{ $t('navigation.players') }}</NuxtLink></li>
+                        <li><NuxtLink :to="localePath('/documentation')" class="docs" @click="menuOpen = false" :class="{ 'nav-active': route.path.includes('/documentation')}">{{ $t('navigation.documentation') }}</NuxtLink></li>
+                        <li><NuxtLink :to="localePath('/manual')" class="manual" @click="menuOpen = false" :class="{ 'nav-active': route.path.includes('/manual')}">{{ $t('navigation.manual') }}</NuxtLink></li>
                     </ul>
                 </div>
             </div>
@@ -173,9 +174,8 @@ header nav ul.menu {
 }
 
 header nav ul.menu li a, header nav ul.menu li .nuxt-link {
-  color: #d1d5db;         
+  color: #e6e6e6;         
   padding: 0.75rem 0.75rem;
-  border-radius: 0.375rem; 
   font-size: 0.875rem;    
   font-weight: 500;       
   transition: color 150ms, background 150ms;
@@ -187,21 +187,8 @@ header nav ul.menu li a:hover, header nav ul.menu li .nuxt-link:hover {
   color: #ffc7c7;
 }
 
-header nav ul.menu li .docs,
-header nav ul.menu li .manual {
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
-}
 
 header nav ul.menu li .manual {
-  background: #dc2626;
   color: #fff;
-}
-header nav ul.menu li .manual:hover {
-  background: #7f1d1d;
-}
-
-.router-link-exact-active {
-    color: rgb(245, 241, 13);
 }
 </style>

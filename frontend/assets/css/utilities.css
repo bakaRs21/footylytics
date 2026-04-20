@@ -169,3 +169,10 @@
 }
 
 .fade-in { animation: fadeIn 0.3s ease; }
+
+
+header nav ul.menu li a.nav-active {
+  color: #ffaeae !important;
+  border-bottom: rgb(255, 89, 89) 2px solid;
+  background: none;
+}

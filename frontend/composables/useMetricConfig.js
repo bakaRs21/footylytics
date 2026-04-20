@@ -2,7 +2,7 @@
 export const PLAYER_METRIC_CONFIGS = {
   goals_per_match: {
     label: 'Goals per Match',
-    endpoint: '/player-metrics/goals-per-match',
+    endpoint: 'player-metrics/goals-per-match',
     metricValue: 'goals_per_match',
     allowedCharts: ['Bar Chart', 'Line Chart', 'Pie Chart', 'Donut Chart'],
     sharedGraph: {
@@ -24,7 +24,7 @@ export const PLAYER_METRIC_CONFIGS = {
   },
   assists_per_match: {
     label: 'Assists per Match',
-    endpoint: '/player-metrics/assists-per-match',
+    endpoint: 'player-metrics/assists-per-match',
     metricValue: 'assists_per_match',
     allowedCharts: ['Bar Chart', 'Line Chart', 'Pie Chart', 'Donut Chart'],
     sharedGraph: {
@@ -46,7 +46,7 @@ export const PLAYER_METRIC_CONFIGS = {
   },
   shots_per_match: {
     label: 'Shots per Match',
-    endpoint: '/player-metrics/shots-per-match',
+    endpoint: 'player-metrics/shots-per-match',
     metricValue: 'shots_per_match',
     allowedCharts: ['Bar Chart', 'Line Chart', 'Pie Chart', 'Donut Chart'],
     sharedGraph: {
@@ -68,7 +68,7 @@ export const PLAYER_METRIC_CONFIGS = {
   },
   minutes_per_match: {
     label: 'Minutes per Match',
-    endpoint: '/player-metrics/minutes-per-match',
+    endpoint: 'player-metrics/minutes-per-match',
     metricValue: 'minutes_per_match',
     allowedCharts: ['Bar Chart', 'Line Chart', 'Pie Chart', 'Donut Chart'],
     sharedGraph: null,
@@ -87,7 +87,7 @@ export const PLAYER_METRIC_CONFIGS = {
   },
   penalty_success_rate: {
     label: 'Penalty Success Rate',
-    endpoint: '/player-metrics/penalty-success-rate',
+    endpoint: 'player-metrics/penalty-success-rate',
     metricValue: 'penalty_success_rate',
     allowedCharts: ['Bar Chart', 'Donut Chart', 'Pie Chart'],
     sharedGraph: {
@@ -109,7 +109,7 @@ export const PLAYER_METRIC_CONFIGS = {
   },
   shots_accuracy: {
     label: 'Shot Accuracy',
-    endpoint: '/player-metrics/shots-accuracy',
+    endpoint: 'player-metrics/shots-accuracy',
     metricValue: 'accuracy_pct',
     allowedCharts: ['Bar Chart', 'Donut Chart', 'Pie Chart'],
     sharedGraph: {
@@ -136,7 +136,7 @@ export const PLAYER_METRIC_CONFIGS = {
 export const TEAM_METRIC_CONFIGS = {
   goals_scored_per_match: {
     label: 'Goals Scored/Match',
-    endpoint: '/team-metrics/goals-scored-per-match',
+    endpoint: 'team-metrics/goals-scored-per-match',
     metricValue: 'goals_scored_per_match',
     allowedCharts: ['Bar Chart', 'Line Chart', "Pie Chart"],
     sharedGraph: {
@@ -158,7 +158,7 @@ export const TEAM_METRIC_CONFIGS = {
   },
   goals_conceded_per_match: {
     label: 'Goals Conceded/Match',
-    endpoint: '/team-metrics/goals-conceded-per-match',
+    endpoint: 'team-metrics/goals-conceded-per-match',
     metricValue: 'goals_conceded_per_match',
     allowedCharts: ['Bar Chart', 'Line Chart', 'Pie Chart'],
     sharedGraph: {
@@ -180,7 +180,7 @@ export const TEAM_METRIC_CONFIGS = {
   },
   win_rate: {
     label: 'Win Rate (%)',
-    endpoint: '/team-metrics/win-rate',
+    endpoint: 'team-metrics/win-rate',
     metricValue: 'win_rate_pct',
     allowedCharts: ['Bar Chart', 'Donut Chart', 'Pie Chart'],
     sharedGraph: null,
@@ -199,7 +199,7 @@ export const TEAM_METRIC_CONFIGS = {
   },
   points_per_match: {
     label: 'Points per Match',
-    endpoint: '/team-metrics/points-per-match',
+    endpoint: 'team-metrics/points-per-match',
     metricValue: 'points_per_match',
     allowedCharts: ['Bar Chart', 'Line Chart', 'Pie Chart'],
     sharedGraph: {
@@ -221,7 +221,7 @@ export const TEAM_METRIC_CONFIGS = {
   },
   goal_difference_per_match: {
     label: 'Goal Difference/Match',
-    endpoint: '/team-metrics/goal-difference-per-match',
+    endpoint: 'team-metrics/goal-difference-per-match',
     metricValue: 'goal_diff_per_match',
     allowedCharts: ['Bar Chart', 'Line Chart'],
     sharedGraph: {
@@ -236,7 +236,7 @@ export const TEAM_METRIC_CONFIGS = {
   },
   attack_defense_balance: {
     label: 'Attack-Defense Balance (GF - GA)',
-    endpoint: '/team-metrics/attack-defense-balance',
+    endpoint: 'team-metrics/attack-defense-balance',
     metricValue: 'attack_defense_balance',
     allowedCharts: ['Bar Chart', 'Line Chart'],
     sharedGraph: null,
@@ -249,7 +249,7 @@ export const TEAM_METRIC_CONFIGS = {
   },
   points_per_goal_scored: {
     label: 'Points per Goal Scored',
-    endpoint: '/team-metrics/points-per-goal-scored',
+    endpoint: 'team-metrics/points-per-goal-scored',
     metricValue: 'points_per_goal_scored',
     allowedCharts: ['Bar Chart', 'Line Chart', 'Pie Chart'],
     sharedGraph: {
@@ -271,7 +271,7 @@ export const TEAM_METRIC_CONFIGS = {
   },
   season_consistency_index: {
     label: 'Season Consistency Index',
-    endpoint: '/team-metrics/season-consistency-index',
+    endpoint: 'team-metrics/season-consistency-index',
     metricValue: 'season_consistency_index',
     allowedCharts: ['Bar Chart', 'Line Chart', 'Pie Chart'],
     sharedGraph: {
@@ -293,7 +293,7 @@ export const TEAM_METRIC_CONFIGS = {
   },
   goals_scored_pct_by_minutes: {
     label: 'Goals Scored % by Minute Interval',
-    endpoint: '/team-metrics/goals-scored-percentage-by-minutes',
+    endpoint: 'team-metrics/goals-scored-percentage-by-minutes',
     allowedCharts: ['Bar Chart'],
     sharedGraph: null,
     toChartData(rows, _chartType) {
@@ -311,7 +311,7 @@ export const TEAM_METRIC_CONFIGS = {
   },
   goals_conceded_pct_by_minutes: {
     label: 'Goals Conceded % by Minute Interval',
-    endpoint: '/team-metrics/goals-conceded-percentage-by-minutes',
+    endpoint: 'team-metrics/goals-conceded-percentage-by-minutes',
     allowedCharts: ['Bar Chart'],
     sharedGraph: null,
     toChartData(rows, _chartType) {
