@@ -8,7 +8,6 @@ const stats = defineModel({
     default: {},
 })
 const showStats = ref(false);
-const dashboard = ref(null);
 
 const newStats = computed(() =>  {
     if (!stats.value) return {};
@@ -36,40 +35,35 @@ const toggleLineUp = (index) => {
     activeIndex.value = activeIndex.value === index ? null : index;
 }
 
-watch(() => stats.value, (newVal) => {
-    if (newVal) {
-        showStats.value = true;
-        scrollToDashboard();
-    } else {
-        showStats.value = false;
-    }
-})
-watch(() => showStats.value, async (newVal) => {
-    if (newVal) {
-        await scrollToDashboard();
-    }
-})
+
 async function scrollToDashboard() {
-    if (showStats.value) {
-        await nextTick();
-        const offset = 200
-        const top = dashboard.value.getBoundingClientRect().top + window.scrollY - offset
-        window.scrollTo({ top, behavior: 'smooth' })
-    }
+  await nextTick()
+  const el = document.getElementById('stats')
+  if (!el) return
+  el.scrollIntoView({ behavior: 'smooth', block: 'start' })
 }
-function clearStats() {
-    stats.value = null;
+watch(() => stats.value, async (newVal) => {
+    if (newVal) {
+        showStats.value = true
+        scrollToDashboard()
+    } else {
+        showStats.value = false
+    }
+})
+function toggleStats() {
+    showStats.value = !showStats.value
+    if (showStats.value) scrollToDashboard()
 }
 </script>
 
 <template>
-    <div @click="showStats = !showStats" class="title-with-arrows tooltip" :data-tooltip="$t('statistics.tooltips.showStats')" >
+    <div @click="toggleStats()" class="title-with-arrows tooltip" :data-tooltip="$t('statistics.tooltips.showStats')" >
         <Icon icon="mdi:chevron-down" />
         <h2 class="stats-h2" id="stats">{{ $t('components.teamStatsDashboard.title') }}</h2>
         <Icon icon="mdi:chevron-down" />
     </div>
     <div v-if="showStats" class="dashboard-wrapper">
-        <div class="dashboard-grid" ref="dashboard">
+        <div class="dashboard-grid">
             <div class="card-primary">
                 <h3 class="card-title">{{ $t('components.teamStatsDashboard.formations') }}</h3>
                 <div v-if="lineups" class="lineups-content flex-col-gap-sm">
@@ -198,7 +192,6 @@ function clearStats() {
                 </div>
             </div>
         </div>
-        <button class="eraseStatsButton" @click="clearStats">Clear Stats</button>
     </div>
 </template>
 

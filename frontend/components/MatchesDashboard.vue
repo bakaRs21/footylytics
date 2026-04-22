@@ -170,10 +170,21 @@ const teamStats = computed(() => {
 
     return { wins, losses }
 })
+watch(() => props.matches, async (newVal) => {
+    if (newVal.length > 0) {
+        scrollToDashboard()
+    }
+})
+async function scrollToDashboard() {
+  await nextTick()
+  const el = document.getElementById('matches')
+  if (!el) return
+  el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+}
 </script>
 
 <template>
-  <div class="card-dashboard wrapper">
+  <div v-if="matches" class="card-dashboard wrapper" id="matches">
     <div class="card-header">
         <div class="filter-group" v-if="page === 'team'">
           <span class="label-filter">Venue</span>

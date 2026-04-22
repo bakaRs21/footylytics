@@ -22,6 +22,10 @@ export default defineNuxtConfig({
   ],
   i18n: {
     defaultLocale: 'en',
+    detectBrowserLanguage: {
+      useCookie: false,
+      fallbackLocale: 'en',
+    },
     locales: [
       { code: 'en', name: 'English', language: 'en-US', file: 'en.json' },
       { code: 'cs', name: 'Čeština', language: 'cs-CZ', file: 'cs.json' },

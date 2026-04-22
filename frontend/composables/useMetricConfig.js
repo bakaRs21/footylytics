@@ -4,7 +4,7 @@ export const PLAYER_METRIC_CONFIGS = {
     label: 'Goals per Match',
     endpoint: 'player-metrics/goals-per-match',
     metricValue: 'goals_per_match',
-    allowedCharts: ['Bar Chart', 'Chart', 'Pie Chart', 'Donut Chart'],
+    allowedCharts: ['Bar Chart', 'Pie Chart', 'Donut Chart'],
     sharedGraph: {
       bar: { name: 'player_per_match_bar', type: 'bar' },
       pie: { name: 'player_per_match_pie', type: 'pie' }

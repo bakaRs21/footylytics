@@ -3,7 +3,9 @@
   import ColorThief from 'colorthief'
   import { TEAM_METRIC_CONFIGS } from '~/composables/useMetricConfig.js';
   import { Icon } from '@iconify/vue';
+  import { useTranslatedMetricOptions } from '~/composables/useTranslatedMetricOptions.js';
   const { t } = useI18n()
+  const { translateOptions } = useTranslatedMetricOptions()
 const config = useRuntimeConfig()
 const route = useRoute()
 const router = useRouter()
@@ -17,6 +19,7 @@ const stats = ref({})
 const statsStatus = ref("")
 const statsError = ref("")
 const matches = ref([])
+const matchesError = ref("")
 const referees = ref([])
 const showMatches = ref(false)
 const showMetrics = ref(false)
@@ -95,14 +98,8 @@ watch(() => selectedSeason.value, async (newSeason) => {
   }
   await Inspection()
 })
-watch(() => matchesSeasonParam.value, async (newMatchesSeason) => {
-  if (newMatchesSeason) {
-    await router.replace({ query: { ...route.query, matchesSeason: newMatchesSeason} })
-    await Inspection()
-  }
-})
 async function Inspection() {
-  if (!route.query.season || !route.query.matchesSeason) {
+  if (!route.query.season) {
     onMountedMsg.value = t("pages.players.errorMessages.selectSeason")
   }
   if (route.query.season) {
@@ -115,12 +112,6 @@ async function Inspection() {
   statsStatus.value = "pending"
   statsError.value = ""
   try {
-    if (route.query.matchesSeason) {
-      const matchData = await $fetch(`${config.public.apiBase}teams/${id.value}/matches/${route.query.matchesSeason}`)
-      const refereesData = await $fetch(`${config.public.apiBase}referees`)
-      matches.value = matchData
-      referees.value = refereesData
-    }
     if (route.query.season) {
       const data = await $fetch(`${config.public.apiBase}team-metrics/basic-stats?team_id=${id.value}${seasonParam.value}`)
       stats.value = data
@@ -131,10 +122,44 @@ async function Inspection() {
     statsStatus.value = "error"
   }
 }
+watch(() => matchesSeasonParam.value, async (newMatchesSeason) => {
+  if (newMatchesSeason) {
+    await router.replace({ query: { ...route.query, matchesSeason: newMatchesSeason} })
+    await MatchInspection()
+  }
+})
+async function MatchInspection() {
+  if (!route.query.matchesSeason) return
+  matchesError.value = ""
+  try {
+    if (route.query.matchesSeason) {
+      const matchData = await $fetch(`${config.public.apiBase}teams/${id.value}/matches/${route.query.matchesSeason}`)
+      const refereesData = await $fetch(`${config.public.apiBase}referees`)
+      matches.value = matchData
+      referees.value = refereesData
+      scrollToDashboard()
+    }
+  } catch (error) {
+    matchesError.value = error.message
+  }
+}
+
+function toggleMatches() {
+    showMatches.value = !showMatches.value
+    if (showMatches.value) scrollToDashboard()
+}
+async function scrollToDashboard() {
+  if (!showMatches.value) return
+  await nextTick()
+  const el = document.getElementById('matches')
+  if (!el) return
+  el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+}
 
 onMounted(() => {
   extractColors()
   Inspection()
+  MatchInspection()
 })
 </script>
 <template>
@@ -154,13 +179,13 @@ onMounted(() => {
     <div class="seasons">
       <div class="season-selection-heading">
         <h3 id="seasons">{{ $t('common.selectSeason') }}: </h3>
-        <div class="all-seasons">
+        <div v-if="teamSeasons && teamSeasons.length > 1" class="all-seasons">
           <h3 id="allS">{{ $t('common.orDataFrom') }}</h3  >
           <button class="all-seasons-button" @click="seasonSelected(0)">{{ $t('common.allSeasons') }}</button>
         </div>
       </div>
       <div class="team-seasons">
-        <Card v-if="!teamSeasonsError" v-for="season in teamSeasons" :key="season" @click="() => seasonSelected(season)">{{ season.season }}</Card>
+        <Card v-if="!teamSeasonsError" v-for="season in teamSeasons" :key="season" @click="() => seasonSelected(season.season)">{{ season.season }}</Card>
         <p v-else-if="teamSeasonsError" class="error-message">{{ teamSeasonsError.message }}</p>
       </div>
       <div v-if="onMountedMsg" class="error-message">{{ onMountedMsg }}</div>
@@ -178,18 +203,21 @@ onMounted(() => {
       </div>
     </div>
     <div class="matches">
-      <div @click="showMatches = !showMatches" class="title-with-arrows" style="cursor: pointer;">
+      <div @click="toggleMatches()" class="title-with-arrows" style="cursor: pointer;">
         <Icon icon="mdi:chevron-down" />
         <h2 id="matches">{{ $t('pages.teams.sections.matches') }}</h2>
         <Icon icon="mdi:chevron-down" />
       </div>
       <div class="seasons" v-if="showMatches" style="margin-bottom: 50px;">
         <div class="team-seasons">
-          <Card v-for="season in teamSeasons" :key="season" @click="() => matchesSeasonParam = season">{{ season }}</Card>
+          <Card v-for="season in teamSeasons" :key="season" @click="() => matchesSeasonParam = season.season">{{ season.season }}</Card>
         </div>
       </div>
-      <div v-if="showMatches && matches.length > 0">
+      <div v-if="showMatches && matches">
         <MatchesDashboard :matches="matches" :referees="referees" :page="'team'" />
+      </div>
+      <div v-if="matchesError" class="error-message">
+        Error loading matches: {{ matchesError.message }}
       </div>
     </div>
     <div class="metrics">
@@ -198,7 +226,7 @@ onMounted(() => {
         </div>
         <MetricDashboard v-if="teamMetricOptions" title="metricOptions"
         :item-id="id" :item-param-name="pageParam" :seasons="teamSeasons"
-        :metric-options="teamMetricOptions" :metric-config-map="TEAM_METRIC_CONFIGS"
+        :metric-options="translateOptions(teamMetricOptions)" :metric-config-map="TEAM_METRIC_CONFIGS"
         />
     </div>
   </div>

@@ -2,7 +2,9 @@
   import { Icon } from '@iconify/vue';
   import { ref, onMounted, watch } from 'vue';
   import { PLAYER_METRIC_CONFIGS } from '~/composables/useMetricConfig.js';
+  import { useTranslatedMetricOptions } from '~/composables/useTranslatedMetricOptions.js';
   const { t } = useI18n()
+  const { translateOptions } = useTranslatedMetricOptions()
 const config = useRuntimeConfig()
 const route = useRoute()
 const router = useRouter()
@@ -119,7 +121,7 @@ onMounted(() => {
   <div class="seasons">
     <div class="season-selection-heading">
       <h3 id="seasons">{{ $t('common.selectSeason') }} : </h3>
-      <div class="all-seasons">
+      <div v-if="playerSeasons && playerSeasons.length > 1" class="all-seasons">
         <h3 id="allS">{{ $t('common.orDataFrom') }}</h3  >
         <button class="all-seasons-button" @click="selectSeason(0)">{{ $t('common.allSeasons') }}</button>
       </div>
@@ -151,7 +153,7 @@ onMounted(() => {
       </div>
       <MetricDashboard v-if="playerMetricOptions" title="metricOptions"
       :item-id="id" :item-param-name="pageParam" :seasons="playerSeasons" 
-      :metric-options="playerMetricOptions" :metric-config-map="PLAYER_METRIC_CONFIGS"
+      :metric-options="translateOptions(playerMetricOptions)" :metric-config-map="PLAYER_METRIC_CONFIGS"
       />
   </div>
 

@@ -61,6 +61,17 @@ async function fetchData() {
     statsStatus.value = "error"
   }
 }
+function toggleMatches() {
+    showMatches.value = !showMatches.value
+    if (showMatches.value) scrollToDashboard()
+}
+async function scrollToDashboard() {
+  if (!showMatches.value) return
+  await nextTick()
+  const el = document.getElementById('matches')
+  if (!el) return
+  el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+}
 
 onMounted(() => {
   Inspection()
@@ -85,7 +96,7 @@ onMounted(() => {
     <SeasonRankingTable :teams="rankings" />
   </div>
   <div class="matches">
-      <div @click="showMatches = !showMatches" class="title-with-arrows" style="cursor: pointer;">
+      <div @click="toggleMatches()" class="title-with-arrows" style="cursor: pointer;">
         <Icon icon="mdi:chevron-down" />
         <h2 id="matches">{{ $t('pages.seasons.sections.matches') }}</h2>
         <Icon icon="mdi:chevron-down" />

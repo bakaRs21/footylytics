@@ -316,8 +316,8 @@ def player_shots_accuracy(
             "player_id": r.player_id,
             "name": r.name,
             "total_shots": r.total_shots,
-            "shots_on_target": r.shots_on_target,
-            "accuracy_pct": round(((r.shots_on_target or 0) / (r.total_shots or 1)) * 100, 2
+            "shots_on_target": r.shots_on_goal,
+            "accuracy_pct": round(((r.shots_on_goal or 0) / (r.total_shots or 1)) * 100, 2
             ) if (r.total_shots and r.total_shots > 0) else 0
         }
         for r in rows

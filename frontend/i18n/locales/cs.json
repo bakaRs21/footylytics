@@ -15,8 +15,10 @@
     "noData": "Nejsou dostupná data",
     "clearStats": "Vymazat statistiky",
     "clearFilters": "Vymazat filtry",
+    "clear": "Vymazat",
     "cancel": "Zrušit",
     "close": "Zavřít",
+    "confirm": "Potvrdit",
     "select": "Vybrat",
     "filters": "Filtry",
     "sort": "Řadit",
@@ -316,7 +318,30 @@
     },
     "metricDashboard": {
       "title": " ",
-      "selectMetrics": "Vybrat metriky…"
+      "selectMetrics": "Vybrat metriky…",
+      "eachMetricSeparate": "Každá Metrika Zvlášt",
+      "metricOptions": {
+        "goals_scored_per_match": "Vstřelené Góly Za Zápas",
+        "goals_conceded_per_match": "Obdržené Góly Za Zápas",
+        "win_rate": "Procento Výher",
+        "points_per_match": "Body Za Zápas",
+        "goal_difference_per_match": "Rozdíl Gólů Za Zápas",
+        "attack_defensebalance": "Útočno-obranná Bilance (VG - OG)",
+        "points_per_goals_scored": "Body Za Vstřelený Gól",
+        "season_consistency_index": "Index Konzistence Sezony",
+        "goals_scored_pct_by_minutes": "Vstřelené Góly Podle Minutových Intervalů",
+        "goals_conceded_pct_by_minutes": "Obdržené Góly Podle Minutových Intervalů",
+        "goals_per_match": "Góly Za Zápas",
+        "assists_per_match": "Asistence Za Zápas",
+        "shots_per_match": "Střely Za Zápas",
+        "minutes_per_match": "Minuty Za Zápas",
+        "penalty_success_rate": "Úspěšnost Penalt",
+        "shots_accuracy": "Přesnost Střelby",
+        "player_per_match_bar": "Hráč Za Zápas",
+        "team_per_match_bar": "Tým Za Zápas",
+        "player_accuracy_bar": "Přesnost Hráče",
+        "team_efficiency_bar": "Efektivita Týmu"
+      }
     },
     "seasonRankingTable": {
       "matchesPlayed": "Odehrané zápasy",

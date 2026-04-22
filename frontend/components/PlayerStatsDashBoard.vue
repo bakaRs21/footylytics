@@ -15,6 +15,13 @@ const newStats = computed(() =>
     Object.fromEntries(Object.entries(stats.value).filter(([_, v]) => v != null))
 );
 
+
+async function scrollToDashboard() {
+  await nextTick()
+  const el = document.getElementById('stats')
+  if (!el) return
+  el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+}
 watch(() => stats.value, (newVal) => {
     if (newVal) {
         showStats.value = true;
@@ -23,28 +30,16 @@ watch(() => stats.value, (newVal) => {
         showStats.value = false;
     }
 })
-watch(() => showStats.value, async (newVal) => {
-    if (newVal) {
-        await scrollToDashboard();
-    }
-})
-async function scrollToDashboard() {
-    if (showStats.value) {
-        await nextTick();
-        const offset = 200
-        const top = dashboard.value.getBoundingClientRect().top + window.scrollY - offset
-        window.scrollTo({ top, behavior: 'smooth' })
-    }
-}
-function eraseStats() {
-    stats.value = null
+function toggleStats() {
+    showStats.value = !showStats.value
+    if (showStats.value) scrollToDashboard()
 }
 </script>
 
 <template>
-<div @click="showStats = !showStats" class="title-with-arrows tooltip" :data-tooltip="$t('statistics.tooltips.showStats')" >
+<div @click="toggleStats()" class="title-with-arrows tooltip" :data-tooltip="$t('statistics.tooltips.showStats')" >
     <Icon icon="mdi:chevron-down"/>
-    <h2 class="stats-h2">{{ $t('components.playerStatsDashboard.title') }}</h2> 
+    <h2 class="stats-h2" id="stats">{{ $t('components.playerStatsDashboard.title') }}</h2> 
     <Icon icon="mdi:chevron-down"/>
 </div>
 <div v-if="showStats" class="dashboard-wrapper">
@@ -217,7 +212,6 @@ function eraseStats() {
             </div>
         </div>
     </div>
-    <button class="eraseStatsButton" @click="eraseStats()">{{ $t('common.clearStats') }}</button>
 </div>
 </template>
 

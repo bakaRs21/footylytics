@@ -3,11 +3,13 @@ import { computed, ref, watch } from 'vue'
 import MultiSelect from './ForStats/MultiSelect.vue'
 import { Icon } from '@iconify/vue'
 
+
 const { t } = useI18n()
 const config = useRuntimeConfig()
 const apiBase = config.public.apiBase
 const showMetrics = ref(false)
 const dashboard = ref(null)
+
 
 const props = defineProps({
   title: { type: String },
@@ -30,9 +32,11 @@ const props = defineProps({
   refetchOnSeasonChange: { type: Boolean, default: true },
 })
 
+
 const title = computed(() => props.title ?? t('components.metricDashboard.selectMetrics'))
 const selectedSeason = ref(props.initialSeason)
 const selectedMetricKeys = ref([...(props.initialMetricKeys ?? [])])
+
 
 watch(() => props.initialSeason, (newVal) => { 
   selectedSeason.value = newVal 
@@ -41,37 +45,45 @@ watch(() => props.initialMetricKeys, (newVal) => {
   selectedMetricKeys.value = [...(newVal ?? [])] 
 }, { deep: true })
 
+
 const normalizedMetricOptions = computed(() => {
   return (props.metricOptions ?? [])
     .filter(m => !!props.metricConfigMap?.[m.key])
     .map(m => ({ key: m.key, label: m.label ?? m.key }))
 })
 
+
 function seasonQueryParam() {
   if (!selectedSeason.value || selectedSeason.value === 'all-seasons') return ''
   return `&season_id=${encodeURIComponent(String(selectedSeason.value))}`
 }
+
 
 function endpointForMetricKey(metricKey) {
   const cfg = props.metricConfigMap?.[metricKey]
   return cfg?.endpoint ?? null
 }
 
+
 function allowedChartsForMetricKey(metricKey) {
   const cfg = props.metricConfigMap?.[metricKey]
   return cfg?.allowedCharts ?? ['Bar Chart', 'Line Chart', 'Pie Chart', 'Donut Chart']
 }
+
 
 function flattenResultToChartData(result) {
   const obj = Array.isArray(result) ? (result[0] ?? {}) : (result ?? {})
   const out = {}
   const ignoreKeys = ['player_id', 'team_id', 'season_id', 'id']
 
+
   for (const [key, value] of Object.entries(obj)) {
     if (ignoreKeys.includes(key.toLowerCase())) continue
 
+
     if (typeof value === "number" && Number.isFinite(value)) {
       out[key] = value
+
 
     } else if (value !== null && typeof value === "object" && !Array.isArray(value)) {
       for (const [subKey, subValue] of Object.entries(value)) {
@@ -83,12 +95,15 @@ function flattenResultToChartData(result) {
     }
   }
 
+
   return out;
 }
+
 
 function extractMetricValue(raw, metricKey) {
   const conf = props.metricConfigMap?.[metricKey]
   const flat = flattenResultToChartData(raw)
+
 
   if (conf?.metricValue) {
     return flat[conf?.metricValue] ?? 0
@@ -96,9 +111,11 @@ function extractMetricValue(raw, metricKey) {
   return flat
 }
 
+
 const fetched = ref({})
 const loading = ref(false)
 const error = ref('')
+
 
 
 async function fetchSelectedMetrics() {
@@ -113,15 +130,18 @@ async function fetchSelectedMetrics() {
         const url = new URL(fullUrl)
         url.searchParams.set(props.itemParamName, String(props.itemId))
 
+
         if (selectedSeason.value && selectedSeason.value !== 'all-seasons') {
           url.searchParams.set('season_id', String(selectedSeason.value))
         }
+
 
         const data = await $fetch(url.toString())
         console.log('fetched data from: ', url.toString())
         return [metricKey, data]
       })
     )
+
 
     const next = {}
     for (const [key, value] of results) next[key] = value
@@ -134,10 +154,12 @@ async function fetchSelectedMetrics() {
 }
 
 
+
 async function onConfirm(keys) {
   selectedMetricKeys.value = [...(keys ?? [])]
   await fetchSelectedMetrics()
 }
+
 
 watch(selectedSeason, async () => {
   if (!props.refetchOnSeasonChange) return
@@ -145,30 +167,34 @@ watch(selectedSeason, async () => {
   await fetchSelectedMetrics()
 })
 
-// Metric Card Control
-const metricCardsControl = computed (() => {
+
+const metricCardsControl = computed(() => {
   const standAloneCards = []
   const sharedCards = {}
+
   for (const key of (selectedMetricKeys.value ?? [])) {
     const conf = props.metricConfigMap?.[key]
     const raw = fetched.value[key]
     const dataForChart = flattenResultToChartData(raw)
     if (!conf) continue
-    standAloneCards.push({
-      key,
-      title: normalizedMetricOptions.value.find(o => o.key === key)?.label ?? key,
-      allowedCharts: allowedChartsForMetricKey(key),
-      dataForChart,
-      hasData: Object.keys(dataForChart).length > 0,
-      isPct: key.toLowerCase().includes('pct'),
-      isShared: false,
-    })
-    
-    if (!conf.sharedGraph) continue
 
+    if (Object.keys(dataForChart).length > 1) {
+      standAloneCards.push({
+        key,
+        title: normalizedMetricOptions.value.find(o => o.key === key)?.label ?? key,
+        allowedCharts: allowedChartsForMetricKey(key),
+        dataForChart,
+        hasData: Object.keys(dataForChart).length > 0,
+        isPct: key.toLowerCase().includes('pct'),
+        isShared: false,
+      })
+    }
+
+    if (!conf.sharedGraph) continue
     const groupSharedGraph = conf.sharedGraph.bar
     if (!groupSharedGraph) continue
     const sharedGraphId = groupSharedGraph.name
+
     if (!sharedCards[sharedGraphId]) {
       sharedCards[sharedGraphId] = {
         key: sharedGraphId,
@@ -182,21 +208,28 @@ const metricCardsControl = computed (() => {
     }
 
     if (raw && Object.keys(dataForChart).length > 0) {
-      sharedCards[sharedGraphId].dataForChart[key] = (extractMetricValue(raw, key))
+      sharedCards[sharedGraphId].dataForChart[key] = extractMetricValue(raw, key)
       sharedCards[sharedGraphId].hasData = true
-
     }
   }
+  const filteredShared = Object.values(sharedCards).filter(
+    card => Object.keys(card.dataForChart).length > 1
+  )
 
-  return [...standAloneCards, ...Object.values(sharedCards)]
+  return {
+    shared: filteredShared,
+    standalone: standAloneCards,
+  }
 })
-// Row Control
+
+
 const rows = computed(() => {
-  const cards = metricCardsControl.value
+  const cards = metricCardsControl.value.standalone
   const result = []
   let currentRow = []
   let pctCount = 0
   const maxPerRow = 3
+
 
   for (const card of cards) {
     if (card.isPct && pctCount >= 2) {
@@ -208,6 +241,7 @@ const rows = computed(() => {
       if (card.isPct) pctCount++
     }
 
+
     if (currentRow.length >= maxPerRow) {
       result.push(currentRow)
       currentRow = []
@@ -215,33 +249,39 @@ const rows = computed(() => {
     }
   }
 
+
   if (currentRow.length > 0) result.push(currentRow)
   return result
 })
 
+const sharedCards = computed(() => metricCardsControl.value.shared)
 
-watch(() => showMetrics.value, async (newVal) => {
-  if (!newVal) return;
-  await scrollToDashboard()
-})
+const hasAnyCards = computed(() =>
+  sharedCards.value.length > 0 || rows.value.length > 0
+)
+
+
 async function scrollToDashboard() {
-  if (showMetrics.value) {
-        await nextTick();
-        const offset = 200
-        const top = dashboard.value.getBoundingClientRect().top + window.scrollY - offset
-        window.scrollTo({ top, behavior: 'smooth' })
-    }
+  await nextTick()
+  const el = document.getElementById('metrics')
+  if (!el) return
+  el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+}
+function toggleMetrics() {
+    showMetrics.value = !showMetrics.value
+    if (showMetrics.value) scrollToDashboard()
 }
 </script>
 
+
 <template>
-  <div @click="showMetrics = !showMetrics" class="title-with-arrows tooltip" :data-tooltip="$t('statistics.tooltips.showMetricOptions')" >
+  <div @click="toggleMetrics()" class="title-with-arrows tooltip" :data-tooltip="$t('statistics.tooltips.showMetricOptions')" >
     <Icon icon="mdi:chevron-down" />
       <h2 class="stats-h2" id="metrics"> {{ $t('components.metricDashboard.selectMetrics') }} </h2>
     <Icon icon="mdi:chevron-down" />
   </div>
   <div v-if="showMetrics">
-    <section class="md" ref="dashboard">
+    <section class="md">
       <div class="md__top">
         <div class="md__left">
           <MultiSelect
@@ -256,35 +296,58 @@ async function scrollToDashboard() {
           <div class="md__seasonLabel">{{ $t('pages.teams.sections.seasonSelection') }}</div>
           <select v-model="selectedSeason" class="md__seasonSelect">
             <option value="all-seasons">{{ $t('common.allSeasons') }}</option>
-            <option v-for="s in seasons" :key="s" :value="s">{{ s }}</option>
+            <option v-for="season in seasons" :key="season" :value="season.season">{{ season.season }}</option>
           </select>
         </div>
       </div>
+
 
       <div class="md__body">
         <p v-if="error" class="md__error">{{ error }}</p>
         <p v-else-if="loading" class="md__loading">{{ $t('common.loading') }}</p>
 
-        <div v-else-if="!rows.length" class="md__empty">
-          {{ $t('components.metricDashboard.selectMetrics') }} {{ $t('common.select') }} <strong>{{ $t('common.select') }}</strong>.
+        <div v-else-if="!hasAnyCards" class="md__empty">
+          {{ $t('components.metricDashboard.selectMetrics') }} <strong>{{ $t('common.confirm') }}</strong>.
         </div>
 
         <div v-else class="md__grid">
-          <div v-for="(row, rowIndex) in rows" :key="rowIndex" class="md__row">
-            <div v-for="card in row" 
-            :key="card.key" class="md__cardWrap" 
-            :class="{ 'md__cardWrap--pct' : card.isPct}"
-            >
-              <h4 class="md__cardTitle">{{ card.title }}</h4>
-              <div v-if="!card.hasData" class="md__noData">
-                {{ $t('common.noData') }}
+
+          <div v-if="sharedCards.length" class="md__sharedSection">
+            <div class="md__row">
+              <div v-for="card in sharedCards" :key="card.key" class="md__cardWrap">
+                <h4 class="md__cardTitle">{{ $t('components.metricDashboard.metricOptions.' + card.key) }}</h4>
+                <div v-if="!card.hasData" class="md__noData">
+                  {{ $t('common.noData') }}
+                </div>
+                <DashboardCard v-else
+                  :chartOptions="card.allowedCharts"
+                  :dataForChart="card.dataForChart"
+                />
               </div>
-              <DashboardCard v-else
-                :chartOptions="card.allowedCharts"
-                :dataForChart="card.dataForChart"
-              />
             </div>
-            <div>
+          </div>
+
+          <div v-if="rows.length" class="md__standaloneSection">
+            <h3 v-if="sharedCards.length" class="md__separatorTitle">
+              {{ $t('components.metricDashboard.eachMetricSeparate') }}
+            </h3>
+            <div v-for="(row, rowIndex) in rows" :key="rowIndex" class="md__row">
+              <div
+                v-for="card in row"
+                :key="card.key"
+                class="md__cardWrap"
+                :class="{ 'md__cardWrap--pct': card.isPct }"
+              >
+                <h4 class="md__cardTitle">{{ card.title }}</h4>
+                <div v-if="!card.hasData" class="md__noData">
+                  {{ $t('common.noData') }}
+                </div>
+                <DashboardCard v-else
+                  :chartOptions="card.allowedCharts"
+                  :dataForChart="card.dataForChart"
+                />
+              </div>
+              <div></div>
             </div>
           </div>
         </div>
@@ -293,12 +356,14 @@ async function scrollToDashboard() {
   </div>
 </template>
 
+
 <style scoped>
 .md {
   display: flex;
   flex-direction: column;
   gap: 14px;
 }
+
 
 .md__top {
   display: flex;
@@ -308,10 +373,12 @@ async function scrollToDashboard() {
   width: 100%;
 }
 
+
 .md__left {
   display: flex;
   align-items: flex-start;
 }
+
 
 .md__right {
   display: flex;
@@ -319,12 +386,14 @@ async function scrollToDashboard() {
   gap: 10px;
 }
 
+
 .md__seasonLabel {
   font-size: 12px;
   color: #a0aec0;
   text-transform: uppercase;
   letter-spacing: 0.06em;
 }
+
 
 .md__seasonSelect {
   padding: 10px 12px;
@@ -334,18 +403,22 @@ async function scrollToDashboard() {
   color: white;
 }
 
+
 .md__body {
   min-height: 120px;
 }
+
 
 .md__error {
   color: #f87171;
 }
 
+
 .md__loading,
 .md__empty {
   color: #a0aec0;
 }
+
 
 .md__grid {
   display: grid;
@@ -353,11 +426,13 @@ async function scrollToDashboard() {
   gap: 14px;
 }
 
+
 .md__row {
   display: flex;
   gap: 14px;
   flex-wrap: wrap;
 }
+
 
 .md__cardWrap {
   display: flex;
@@ -366,9 +441,11 @@ async function scrollToDashboard() {
   flex: 1 1 360px;
 }
 
+
 .md__cardWrap--pct {
   flex: 2 1 360px;
 }
+
 
 .md__cardTitle {
   margin: 0;
@@ -376,11 +453,35 @@ async function scrollToDashboard() {
   color: #cbd5e1;
 }
 
+
 .md__noData {
   color: #a0aec0;
   border: 1px solid #374153;
   border-radius: 10px;
   background: #111822;
   padding: 14px;
+}
+
+.md__sharedSection {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.md__standaloneSection {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.md__separatorTitle {
+  margin: 6px 0 2px;
+  font-size: 17px;
+  font-weight: 600;
+  color: #98abc5;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding-bottom: 6px;
+  border-bottom: 1px solid #1e2d3d;
 }
 </style>

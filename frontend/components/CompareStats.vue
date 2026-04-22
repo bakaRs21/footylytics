@@ -225,17 +225,15 @@ const overallWinner = computed(() => {
 });
 
 onMounted(() => {
-    if (comparing.value) {
-        const offset = 80;
-        const top = comparing.value.getBoundingClientRect().top + window.scrollY - offset;
-        window.scrollTo({ top, behavior: 'smooth' });
-    }
+    const el = document.getElementById('stats')
+    if (!el) return
+    el.scrollIntoView({ behavior: 'smooth', block: 'start' })
 })
 </script>
 
 <template>
-<div v-if="competitors.length === 2" class="comparison-wrapper" >
-    <div class="comparison-header" ref="comparing">
+<div v-if="competitors.length === 2" class="comparison-wrapper" id="stats">
+    <div class="comparison-header">
         <div class="header-item first">
             <h2 class="entity-name">{{ firstName }}</h2>
         </div>

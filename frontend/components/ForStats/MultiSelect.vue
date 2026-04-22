@@ -85,8 +85,8 @@ function clear() {
       </div>
 
       <div class="msc_actions">
-        <button class="msc_btn secondary btn-secondary" type="button" @click="clear">Clear</button>
-        <button class="msc_btn primary btn-primary" type="button" @click="confirm">Confirm</button>
+        <button class="msc_btn secondary btn-secondary" type="button" @click="clear">{{$t('common.clear')}}</button>
+        <button class="msc_btn primary btn-primary" type="button" @click="confirm">{{$t('common.confirm')}}</button>
       </div>
     </div>
   </div>

@@ -15,8 +15,10 @@
     "noData": "No data available",
     "clearStats": "Clear statistics",
     "clearFilters": "Clear Filters",
+    "clear": "Clear",
     "cancel": "Cancel",
     "close": "Close",
+    "confirm": "Confirm",
     "select": "Select",
     "filters": "Filters",
     "sort": "Sort",
@@ -315,7 +317,30 @@
       "teams": "Teams"
     },
     "metricDashboard": {
-      "selectMetrics": "Select metrics…"
+      "selectMetrics": "Select metrics…",
+      "eachMetricSeparate": "Each Metric Separately",
+      "metricOptions": {
+        "goals_scored_per_match": "Goals Scored Per Match",
+        "goals_conceded_per_match": "Goals Conceded Per Match",
+        "win_rate": "Win Rate",
+        "points_per_match": "Points Per Match",
+        "goal_difference_per_match": "Goal Difference Per Match",
+        "attack_defensebalance": "Attack-Defense Balance (GF - GA)",
+        "points_per_goals_scored": "Points Per Goal Scored",
+        "season_consistency_index": "Season Consistency Index",
+        "goals_scored_pct_by_minutes": "Goals Scored by Minute Interval",
+        "goals_conceded_pct_by_minutes": "Goals Conceded by Minute Interval",
+        "goals_per_match": "Goals Per Match",
+        "assists_per_match": "Assists Per Match",
+        "shots_per_match": "Shots Per Match",
+        "minutes_per_match": "Minutes Per Match",
+        "penalty_success_rate": "Penalty Success Rate",
+        "shots_accuracy": "Shot Accuracy",
+        "player_per_match_bar": "Player Per Match",
+        "team_per_match_bar": "Team Per Match",
+        "player_accuracy_bar": "Player Accuracy",
+        "team_efficiency_bar": "Team Efficiency"
+      }
     },
     "seasonRankingTable": {
       "matchesPlayed": "Matches Played",

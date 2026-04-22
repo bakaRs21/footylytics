@@ -267,6 +267,7 @@ def goals_conceded_per_match(
             "team_id": r.team_id,
             "team_name": r.team_name,
             "goals_conceded_per_match": round((r.ga or 0) / (r.matches or 1), 3),
+            "team_goals_conceded": r.ga,
             "matches": r.matches,
         })
     
