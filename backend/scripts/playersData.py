@@ -25,7 +25,8 @@ def player_seasons(player_id: int, session: Session):
                   .join(Team, PlayerSeason.team_id == Team.team_id)
                   .filter(PlayerSeason.player_id == player_id)
                   .order_by(Season.season)
-                  .all())
+                  .all()
+                  )
         if not seasons:
             raise ValueError(f"Player with id {player_id} not found")
 

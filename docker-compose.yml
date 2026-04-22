@@ -3,7 +3,7 @@ services:
     postgres:
         image: postgres:16
         container_name: postgres_db
-        restart: always
+        restart: unless-stopped
         environment:
             POSTGRES_DB: ${DB_NAME}
             POSTGRES_USER: ${DB_USER}
@@ -19,7 +19,7 @@ services:
     backend:
         build: ./backend
         container_name: fastapi_api
-        restart: always
+        restart: unless-stopped
         depends_on:
             postgres:
                 condition: service_healthy
@@ -35,7 +35,7 @@ services:
     frontend:
         build: ./frontend
         container_name: nuxt_app
-        restart: always
+        restart: unless-stopped
         depends_on:
             - backend
         env_file:

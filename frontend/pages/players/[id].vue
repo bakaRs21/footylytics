@@ -73,10 +73,11 @@ async function Inspection() {
   if (!route.query.season) {
     return onMountedMsg.value = t("pages.players.errorMessages.selectSeason")
   }
+  if (route.query.season) {
+    seasonParam.value = `&season_id=${route.query.season}`
+  }
   if (route.query.season === "all-seasons") {
     seasonParam.value = ""
-  } else if (route.query.season) {
-    seasonParam.value = `&season_id=${route.query.season}`
   }
   onMountedMsg.value = ""
   statsStatus.value = "pending"

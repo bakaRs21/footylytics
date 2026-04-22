@@ -4,7 +4,7 @@ export const PLAYER_METRIC_CONFIGS = {
     label: 'Goals per Match',
     endpoint: 'player-metrics/goals-per-match',
     metricValue: 'goals_per_match',
-    allowedCharts: ['Bar Chart', 'Line Chart', 'Pie Chart', 'Donut Chart'],
+    allowedCharts: ['Bar Chart', 'Chart', 'Pie Chart', 'Donut Chart'],
     sharedGraph: {
       bar: { name: 'player_per_match_bar', type: 'bar' },
       pie: { name: 'player_per_match_pie', type: 'pie' }
@@ -26,7 +26,7 @@ export const PLAYER_METRIC_CONFIGS = {
     label: 'Assists per Match',
     endpoint: 'player-metrics/assists-per-match',
     metricValue: 'assists_per_match',
-    allowedCharts: ['Bar Chart', 'Line Chart', 'Pie Chart', 'Donut Chart'],
+    allowedCharts: ['Bar Chart', 'Pie Chart', 'Donut Chart'],
     sharedGraph: {
       bar: { name: 'player_per_match_bar', type: 'bar' },
       pie: { name: 'player_per_match_pie', type: 'pie' }
@@ -48,7 +48,7 @@ export const PLAYER_METRIC_CONFIGS = {
     label: 'Shots per Match',
     endpoint: 'player-metrics/shots-per-match',
     metricValue: 'shots_per_match',
-    allowedCharts: ['Bar Chart', 'Line Chart', 'Pie Chart', 'Donut Chart'],
+    allowedCharts: ['Bar Chart', 'Pie Chart', 'Donut Chart'],
     sharedGraph: {
       bar: { name: 'player_per_match_bar', type: 'bar' },
       pie: { name: 'player_per_match_pie', type: 'pie' }
@@ -70,7 +70,7 @@ export const PLAYER_METRIC_CONFIGS = {
     label: 'Minutes per Match',
     endpoint: 'player-metrics/minutes-per-match',
     metricValue: 'minutes_per_match',
-    allowedCharts: ['Bar Chart', 'Line Chart', 'Pie Chart', 'Donut Chart'],
+    allowedCharts: ['Bar Chart', 'Pie Chart', 'Donut Chart'],
     sharedGraph: null,
     toChartData(rows, chartType) {
       if (chartType === 'Pie Chart' || chartType === 'Donut Chart') {
@@ -138,7 +138,7 @@ export const TEAM_METRIC_CONFIGS = {
     label: 'Goals Scored/Match',
     endpoint: 'team-metrics/goals-scored-per-match',
     metricValue: 'goals_scored_per_match',
-    allowedCharts: ['Bar Chart', 'Line Chart', "Pie Chart"],
+    allowedCharts: ['Bar Chart', "Pie Chart"],
     sharedGraph: {
       bar: {name : 'team_per_match_bar', type: 'bar'},
       pie: {name: 'team_per_match_pie', type: 'pie'}
@@ -160,7 +160,7 @@ export const TEAM_METRIC_CONFIGS = {
     label: 'Goals Conceded/Match',
     endpoint: 'team-metrics/goals-conceded-per-match',
     metricValue: 'goals_conceded_per_match',
-    allowedCharts: ['Bar Chart', 'Line Chart', 'Pie Chart'],
+    allowedCharts: ['Bar Chart', 'Pie Chart'],
     sharedGraph: {
       bar: {name : 'team_per_match_bar', type: 'bar'},
       pie: {name: 'team_per_match_pie', type: 'pie'}
@@ -182,7 +182,7 @@ export const TEAM_METRIC_CONFIGS = {
     label: 'Win Rate (%)',
     endpoint: 'team-metrics/win-rate',
     metricValue: 'win_rate_pct',
-    allowedCharts: ['Bar Chart', 'Donut Chart', 'Pie Chart'],
+    allowedCharts: ['Bar Chart', 'Pie Chart'],
     sharedGraph: null,
     toChartData(rows, chartType) {
       if (chartType === 'Donut Chart' || chartType === 'Pie Chart') {
@@ -201,7 +201,7 @@ export const TEAM_METRIC_CONFIGS = {
     label: 'Points per Match',
     endpoint: 'team-metrics/points-per-match',
     metricValue: 'points_per_match',
-    allowedCharts: ['Bar Chart', 'Line Chart', 'Pie Chart'],
+    allowedCharts: ['Bar Chart', 'Pie Chart'],
     sharedGraph: {
       bar: {name : 'team_per_match_bar', type: 'bar'},
       pie: {name: 'team_per_match_pie', type: 'pie'}
@@ -223,7 +223,7 @@ export const TEAM_METRIC_CONFIGS = {
     label: 'Goal Difference/Match',
     endpoint: 'team-metrics/goal-difference-per-match',
     metricValue: 'goal_diff_per_match',
-    allowedCharts: ['Bar Chart', 'Line Chart'],
+    allowedCharts: ['Bar Chart'],
     sharedGraph: {
       bar: {name : 'team_per_match_bar', type: 'bar'}
     },
@@ -238,7 +238,7 @@ export const TEAM_METRIC_CONFIGS = {
     label: 'Attack-Defense Balance (GF - GA)',
     endpoint: 'team-metrics/attack-defense-balance',
     metricValue: 'attack_defense_balance',
-    allowedCharts: ['Bar Chart', 'Line Chart'],
+    allowedCharts: ['Bar Chart'],
     sharedGraph: null,
     toChartData(rows, _chartType) {
       return {
@@ -251,7 +251,7 @@ export const TEAM_METRIC_CONFIGS = {
     label: 'Points per Goal Scored',
     endpoint: 'team-metrics/points-per-goal-scored',
     metricValue: 'points_per_goal_scored',
-    allowedCharts: ['Bar Chart', 'Line Chart', 'Pie Chart'],
+    allowedCharts: ['Bar Chart', 'Pie Chart'],
     sharedGraph: {
       bar: { name: 'team_efficiency_bar', type: 'bar' },
       pie: { name: 'team_efficiency_pie', type: 'pie' },
@@ -273,7 +273,7 @@ export const TEAM_METRIC_CONFIGS = {
     label: 'Season Consistency Index',
     endpoint: 'team-metrics/season-consistency-index',
     metricValue: 'season_consistency_index',
-    allowedCharts: ['Bar Chart', 'Line Chart', 'Pie Chart'],
+    allowedCharts: ['Bar Chart', 'Pie Chart'],
     sharedGraph: {
       bar: { name: 'team_efficiency_bar', type: 'bar' },
       pie: { name: 'team_efficiency_pie', type: 'pie' },
@@ -294,9 +294,9 @@ export const TEAM_METRIC_CONFIGS = {
   goals_scored_pct_by_minutes: {
     label: 'Goals Scored % by Minute Interval',
     endpoint: 'team-metrics/goals-scored-percentage-by-minutes',
-    allowedCharts: ['Bar Chart'],
+    allowedCharts: ['Bar Chart', 'Line Chart'],
     sharedGraph: null,
-    toChartData(rows, _chartType) {
+    toChartData(rows, chartType) {
       const intervals = ['0–15', '16–30', '31–45', '46–60', '61–75', '76–90', '91–105', '106–120']
       const keys = [
         'minutes_0_15', 'minutes_16_30', 'minutes_31_45', 'minutes_46_60',
@@ -312,7 +312,7 @@ export const TEAM_METRIC_CONFIGS = {
   goals_conceded_pct_by_minutes: {
     label: 'Goals Conceded % by Minute Interval',
     endpoint: 'team-metrics/goals-conceded-percentage-by-minutes',
-    allowedCharts: ['Bar Chart'],
+    allowedCharts: ['Bar Chart', 'Line Chart'],
     sharedGraph: null,
     toChartData(rows, _chartType) {
       const intervals = ['0–15', '16–30', '31–45', '46–60', '61–75', '76–90', '91–105', '106–120']

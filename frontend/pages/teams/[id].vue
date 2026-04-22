@@ -105,11 +105,11 @@ async function Inspection() {
   if (!route.query.season || !route.query.matchesSeason) {
     onMountedMsg.value = t("pages.players.errorMessages.selectSeason")
   }
-  if (route.query.season === "all-seasons") {
-    seasonParam.value = ""
-  }
   if (route.query.season) {
     seasonParam.value = `&season_id=${route.query.season}`
+  }
+  if (route.query.season === "all-seasons") {
+    seasonParam.value = ""
   }
   onMountedMsg.value = ""
   statsStatus.value = "pending"
@@ -160,7 +160,7 @@ onMounted(() => {
         </div>
       </div>
       <div class="team-seasons">
-        <Card v-if="!teamSeasonsError" v-for="season in teamSeasons" :key="season" @click="() => seasonSelected(season)">{{ season }}</Card>
+        <Card v-if="!teamSeasonsError" v-for="season in teamSeasons" :key="season" @click="() => seasonSelected(season)">{{ season.season }}</Card>
         <p v-else-if="teamSeasonsError" class="error-message">{{ teamSeasonsError.message }}</p>
       </div>
       <div v-if="onMountedMsg" class="error-message">{{ onMountedMsg }}</div>

@@ -100,14 +100,11 @@ async function Inspection() {
     }
     return; 
   }
+
   if (!firstId.value || !secondId.value) {
     compareErrorMsg.value = t(`pages.compare.compareErrorMessages.selectBoth${errorMsgId.charAt(0).toUpperCase() + errorMsgId.slice(1)}`);
     firstSeasons.value = "";
     secondSeasons.value = "";
-    return;
-  }
-  if (firstId.value === secondId.value) {
-    compareErrorMsg.value = t(`pages.compare.compareErrorMessages.same${errorMsgId.charAt(0).toUpperCase() + errorMsgId.slice(1)}`);
     return;
   }
   if (!firstSeasons.value || !secondSeasons.value) {
@@ -127,6 +124,18 @@ async function Inspection() {
     if (!firstSeasonSelected.value || !secondSeasonSelected.value) {
       return;
     }
+  }
+  if (!firstSeasonSelected.value || !secondSeasonSelected.value) {
+    compareErrorMsg.value = t(`pages.compare.compareErrorMessages.selectBothSeasons`)
+    return;
+  }
+  if (
+    firstId.value && secondId.value 
+    && firstId.value === secondId.value
+    && firstSeasonSelected.value === secondSeasonSelected.value
+  ) {
+    compareErrorMsg.value = t(`pages.compare.compareErrorMessages.same${errorMsgId.charAt(0).toUpperCase() + errorMsgId.slice(1)}Season`);
+    return;
   }
   if (!route.query.first || !route.query.second || !route.query.firstSeason || !route.query.secondSeason) {
     compareErrorMsg.value = t(`pages.compare.compareErrorMessages.selectBoth${errorMsgId.charAt(0).toUpperCase() + errorMsgId.slice(1)}AndSeason`);
@@ -150,8 +159,7 @@ async function Inspection() {
 }
 
 onMounted(async () => {
-  const hasParams = firstId.value || secondId.value || firstSeasonSelected.value || secondSeasonSelected.value;
-  if (hasParams) await Inspection();
+  await Inspection();
 })
 </script>
 
@@ -188,12 +196,12 @@ onMounted(async () => {
             <select v-model="firstSeasonSelected">
               <option disabled value="">{{  $t(`common.selectSeason`)  }}</option>
               <option value="all-seasons">{{ $t(`common.allSeasons`) }}</option>
-              <option v-for="value in firstSeasons" :key="value">{{ value }}</option>
+              <option v-for="(value, i) in firstSeasons" :key="i">{{ value.season }}</option>
             </select>
             <select v-model="secondSeasonSelected">
               <option disabled value="">{{ $t(`common.selectSeason`) }}</option>
               <option value="all-seasons">{{ $t(`common.allSeasons`) }}</option>
-              <option v-for="value in secondSeasons" :key="value">{{ value }}</option>
+              <option v-for="(value, i) in secondSeasons" :key="i">{{ value.season }}</option>
              </select>
           </div>
         </div>

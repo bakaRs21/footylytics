@@ -82,13 +82,13 @@ async def delete_user(user_id: int, db: Session = Depends(get_session)):
 # from compare page
 
 @compare.get("/Teams")
-async def get_team_names(team_id: str | None = None, season_id: str | None = None, db: Session = Depends(get_session)):
+def get_team_names(team_id: str | None = None, season_id: str | None = None, db: Session = Depends(get_session)):
     if team_id and season_id:
         return "Team stats for specific season coming soon!"
     elif season_id:
         return team_data.teams_from_season(season_id, db)
     elif team_id:
-        return await team_data.seasons_for_team(team_id, db)
+        return team_data.seasons_for_team(team_id, db)
     return team_data.teams(db)
 
 @compare.get("/Seasons")
@@ -110,7 +110,7 @@ async def get_players(player_id: int | None = None, season_id: int | None = None
 
 @common.get("/Teams")
 async def get_teams(db: Session = Depends(get_session)):
-    return await team_data.teams(db)
+    return team_data.teams(db)
 
 
 
@@ -123,8 +123,8 @@ async def get_team_info(team_id: int, db: Session = Depends(get_session)):
     return team_data.team_info(team_id, db)
 
 @teams.get("/{team_id}/seasons")
-async def get_team_seasons(team_id: int, db: Session = Depends(get_session)):
-    return await team_data.seasons_for_team(team_id, db)
+def get_team_seasons(team_id: int, db: Session = Depends(get_session)):
+    return team_data.seasons_for_team(team_id, db)
 
 @teams.get("/{team_id}/season/")
 async def get_team_stats(team_id: int, season_id: int | None = None, db: Session = Depends(get_session)):
@@ -133,6 +133,7 @@ async def get_team_stats(team_id: int, season_id: int | None = None, db: Session
 @teams.get("/{team_id}/matches/{season_id}")
 async def get_team_matches(team_id: int, season_id: int, db: Session = Depends(get_session)):
     return await team_data.team_matches(team_id, season_id, db)
+
 
 # from players page
 @players.get("/with-seasons-teams")

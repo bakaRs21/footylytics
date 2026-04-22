@@ -92,7 +92,6 @@ watch(keys, (newKeys) => {
 <style scoped>
 .component {
   position: relative;
-  width: 180px;
 }
 .input-wrapper {
   position: relative;

@@ -38,17 +38,26 @@ async def teams_from_season(season_id: int, session: Session):
         session.close()
 
     # get seasons for a specific team
-async def seasons_for_team(team_id: int, session: Session):
+def seasons_for_team(team_id: int, session: Session):
     try:
-        seasons = (session.query(Season.season)
+        seasons = (session.query(Season.season, Team.name, Team.team_id)
                 .join(TeamSeason, TeamSeason.season_id == Season.season_id)
+                .join(Team, TeamSeason.team_id == Team.team_id)
                 .filter(TeamSeason.team_id == team_id)
+                .order_by(Season.season)
                 .all()
                 )
         if not seasons:
             raise ValueError(f"Seasons for team with id {team_id} not found")
-        flat_seasons = [s[0] for s in seasons]
-        return flat_seasons
+        
+        return [
+            {
+                'season': season,
+                'team_name': team_name,
+                'team_id': team_id,
+            }
+            for season, team_name, team_id in seasons
+        ]
     finally:
         session.close()
 

@@ -73,8 +73,8 @@
         "selectBothTeams": "Please select both teams first.",
         "selectBothPlayers": "Please select both players first.",
         "sameSeason": "Cannot compare the same season.",
-        "sameTeam": "Cannot compare the same team.",
-        "samePlayer": "Cannot compare the same player.",
+        "sameTeamsSeason": "Cannot compare the same team from same season.",
+        "samePlayersSeason": "Cannot compare the same player from same season.",
         "selectBothTeamsAndSeason": "Please select both teams and their seasons.",
         "selectBothPlayersAndSeason": "Please select both players and their seasons."
       }

@@ -73,8 +73,8 @@
         "selectBothTeams": "Nejprve vyberte oba týmy pro porovnání",
         "selectBothPlayers": "Nejprve vyberte oba hráče pro porovnání",
         "sameSeason": "Nelze porovnat stejnou sezonu",
-        "sameTeam": "Nelze porovnat stejný tým",
-        "samePlayer": "Nelze porovnat stejného hráče",
+        "sameTeamsSeason": "Nelze porovnat stejný tým ze stejné sezóny",
+        "samePlayersSeason": "Nelze porovnat stejného hráče ze stejné sezóny",
         "selectBothTeamsAndSeason": "Nejprve vyberte oba týmy a sezony pro porovnání",
         "selectBothPlayersAndSeason": "Nejprve vyberte oba hráče a sezony pro porovnání"
       }
