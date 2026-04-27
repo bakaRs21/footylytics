@@ -20,7 +20,6 @@ const localePath = useLocalePath()
         <div>
           <h3 class="h3-footer">{{ $t('components.footer.resources') }}</h3>
           <ul class="padding-fix">
-            <li ><NuxtLink :to="localePath('/documentation')">{{ $t('components.footer.documentation') }}</NuxtLink></li>
             <li ><NuxtLink :to="localePath('/manual')">{{ $t('components.footer.manual') }}</NuxtLink></li>
           </ul>
         </div>

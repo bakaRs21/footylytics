@@ -31,7 +31,6 @@ const toggleMenu = () => {
                         <li><NuxtLink :to="localePath('/seasons')" @click="menuOpen = false" :class="{ 'nav-active': route.path.includes('/seasons')}">{{ $t('navigation.seasons') }}</NuxtLink></li>
                         <li><NuxtLink :to="localePath('/teams')" @click="menuOpen = false" :class="{ 'nav-active': route.path.includes('/teams')}">{{ $t('navigation.teams') }}</NuxtLink></li>
                         <li><NuxtLink :to="localePath('/players')" @click="menuOpen = false" :class="{ 'nav-active': route.path.includes('/players')}">{{ $t('navigation.players') }}</NuxtLink></li>
-                        <li><NuxtLink :to="localePath('/documentation')" class="docs" @click="menuOpen = false" :class="{ 'nav-active': route.path.includes('/documentation')}">{{ $t('navigation.documentation') }}</NuxtLink></li>
                         <li><NuxtLink :to="localePath('/manual')" class="manual" @click="menuOpen = false" :class="{ 'nav-active': route.path.includes('/manual')}">{{ $t('navigation.manual') }}</NuxtLink></li>
                     </ul>
                 </div>

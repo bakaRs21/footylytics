@@ -3,6 +3,6 @@
 Run project with
 
 ```
-docker compose -f 'premier-league/docker-compose.yml' up -d --build 
+docker compose -f 'docker-compose.yml' up -d --build 
 
 ```
